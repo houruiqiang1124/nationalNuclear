@@ -1,0 +1,96 @@
+body,html {
+    background: #FFF;
+}
+
+
+/* 主题颜色 */
+.theme_color {
+	color: #007AFF;
+}
+
+/* 副标题颜色 */
+.subColor {
+	color: #B4B4B4;
+}
+
+/* 红色 */
+.color_red {
+	color: #FF0000;
+}
+
+.flex {
+  display: box;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+/*主轴竖直*/
+.flex_column {
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  -o-flex-direction: column;
+  flex-direction: column;
+}
+
+/* 原生换行 */
+.flex_wrap {
+  -webkit-box-lines: multiple;
+  -webkit-flex-direction: wrap;
+  -moz-flex-direction: wrap;
+  -ms-flex-direction: wrap;
+  -o-flex-direction: wrap;
+  flex-direction: wrap;
+}
+
+/*元素两端排列*/
+.flex_jus_between {
+  -webkit-box-pack: space-between;
+  -webkit-justify-content: space-between;
+  -moz-justify-content: space-between;
+  -ms-justify-content: space-between;
+  -o-justify-content: space-between;
+  justify-content: space-between;
+}
+
+/*元素两端间距排列*/
+.flex_jus_around {
+  -webkit-box-pack: space-around;
+  -webkit-justify-content: space-around;
+  -moz-justify-content: space-around;
+  -ms-justify-content: space-around;
+  -o-justify-content: space-around;
+  justify-content: space-around;
+}
+/*元素居中*/
+.flex_jus_center {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  -o-justify-content: center;
+  justify-content: center;
+}
+
+/*元素竖直方向居中*/
+.flex-ali_i_center {
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -o-align-items: center;
+  align-items: center;
+}
+
+/*多行元素竖直方向居中*/
+.flex-ali_c_center {
+  -webkit-box-align: center;
+  -webkit-align-content: center;
+  -moz-align-content: center;
+  -ms-align-content: center;
+  -o-align-content: center;
+  align-content: center;
+}

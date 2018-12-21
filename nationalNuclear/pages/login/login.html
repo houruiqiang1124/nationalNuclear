@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+        <link rel="stylesheet" type="text/css" href="./login.css"/>
+        <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+	</head>
+
+	<body>
+        <div class="login" id="app">
+            <img src="../../static/loginImg/1-0-logo.png" class="logo" >
+        	<div class="login-content mui-text-center">
+        		<div class="login-content-row">
+                    <img src="../../static/loginImg/1-0-user.png" class="login_userImg" />
+                    <input type="text" name="" value="" class="input" placeholder="请输入VPN账号"/>
+        		</div>
+                <div class="login-content-row">
+                	<img src="../../static/loginImg/1-0-password.png" class="login_userImg" />
+                	<input :type="typePwd" name="" class="input" value="" placeholder="请输入密码"/>
+                    <img :src="eyeImg" :change="showEye" class="eye" @click="eye" />
+                </div>
+                <div class="login-content-row">
+                	<input :type="typePwd" name="" class="input" value="" placeholder="请输入验证码"/>
+                	<input type="button" class="getCode" value="获取验证码" />
+                </div>
+                <div class="login-content-row login-content-row_noBorder flex flex_jus_between">
+                	<a href="javascipt:;">记住账号</a>
+                    <div class="mui-switch mui-switch-mini mui-active mui-switch-blue">
+                        <div class="mui-switch-handle"></div>
+                    </div>
+                </div>
+                <div class="login-content-row login-content-row_noBorder">
+                	<button type="button" class="loginBtn">登录</button>
+                </div>
+        	</div>
+        </div>
+		<script src="../../js/mui.js"></script>
+        <script src="../../js/vue.js"></script>
+        <script src="login.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>
