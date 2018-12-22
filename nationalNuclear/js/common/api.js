@@ -11,7 +11,11 @@
 	app.vpnPassword="1!qQ1111";
 	app.vpnRsa="";
     
-    var INTERFACE = {
+    app.INTERFACE = {
+		//适配接口
+		checkCodeUrl:'/snpec_portal/command/dispatcher/org.loushang.bsp.security.web.RandomCodeCommand?_dc=',
+		companyNewUrl:'/snpec_portal/jsp/com/snpit/top/portal/snpecportal/qiyeMore.jsp?systype=6',
+		//hse接口
         findToDo: 'processStatus/findToDo',  // hse列表
         hseBadge: 'processStatus/findProcessStatusCount', // 角标
         insertCheck: 'checkList/insertCheck',   // 新建检查的提交和保存
