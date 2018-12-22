@@ -1,0 +1,55 @@
+.mui-collapse-content input {
+				margin-bottom: 0;
+				font-size: 12px;
+			}
+			
+			font.choose {
+				color: #999999;
+			}
+			
+			p.tips {
+				color: #FF3D3D;
+				font-size: 9px;
+				margin-bottom: 0!important;
+				margin-top: 10px
+			}
+			
+			.list-btns .mui-btn {
+				width: 45%;
+			}
+			
+			label.chooseinfo {
+				width: 70%;
+				text-align: right;
+				color: #333333;
+			}
+			.mui-table-view-cell.text .voice{
+				right: 15px;
+			}
+			.hse-sub1 .mui-table-view-cell{
+				font-size: 12px;
+			}
+			.mui-table-view-cell.text:after{
+				height: 0;
+			}
+			.mui-table-view-cell:after{
+				right: 15px;
+			}
+			.mui-table-view-cell.date .mui-navigate-right:after{
+				right: 15px;
+			}
+			textarea{
+				height: 140px;
+			}
+			input[type=text]{
+				margin-bottom: 0;
+				width: 60%;
+				text-align: right;
+				font-size: 12px;
+				padding: 0;
+				height: auto;
+				border: none;
+			}
+			.list-btns .mui-btn{
+				width: 100%;
+			}

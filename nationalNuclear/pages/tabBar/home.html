@@ -18,7 +18,7 @@
             <div class="content">
             	<!-- 我的模块 -->
             	<div class="mui-card module">
-            		<div class="module-item" v-for="(item, index) in modular" :key="index">
+            		<div class="module-item" v-for="(item, index) in modular" :key="index" @click="goPage(item.url)">
             			<img :src="item.icon" class="module-img" />
             			<span>{{item.title}}</span>
             		</div>
@@ -30,7 +30,7 @@
                 		<img src="../../static/gonggao.png" class="notice-img" />
                         <span>公告</span>
                 	</div>
-                    <span>关于张冰同事任职公示的通知</span>
+                    <span class="mui-ellipsis notice_width">{{noticeTitle}}</span>
                     <span class="notice_borderLeft sub_color">&nbsp;&nbsp;更多</span>
                 </div>
                 
@@ -95,6 +95,7 @@
 		<script src="../../js/mui.mkey.js"></script>
 		<script src="../../js/jquery-3.1.1.js"></script>
 		<script src="../../js/common/api.js"></script>
+        <script src="../../js/common/config.js"></script>
         <script src="./js/home.js"></script>
 	</body>
 </html>

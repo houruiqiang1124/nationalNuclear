@@ -1,0 +1,57 @@
+.mui-pull-top-pocket {
+					top: 100px!important;
+					}
+			header span.mui-pull-right img{
+				height:1rem;
+				margin-left:15px ;
+				position: relative;
+				top:.2rem;
+				margin-right: 5px;
+				
+			}
+			.mui-segmented-control.mui-scroll-wrapper{
+				background: #FFFFFF;
+				height: 45px;
+			}
+			.mui-segmented-control.mui-scroll-wrapper .mui-scroll{
+				height: 45px;
+			}
+			.mui-segmented-control .mui-control-item{
+				line-height: 43px;
+			}
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item span{
+				display: inline-block;
+				padding:0 5px;
+			}
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item{
+				/*padding-right: 20px;*/
+				display: inline;
+				border-right: 1px solid #DBDBDB;
+				color: #909090;
+			}
+			.mui-segmented-control.mui-scroll-wrapper .mui-control-item{
+				padding: 0 10px;
+			}
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
+				border-bottom: none;
+				color: #1468CD;
+			}
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active span{
+				border-bottom: 2px solid #1468CD;
+			}
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item font{
+				display: inline-block;
+				width: 15px;
+				line-height: 15px;
+				height: 15px;
+				background: #BDBDBD;
+				border-radius: 100%;
+				color: #FFFFFF;
+				font-size: 10px;
+				margin-left: 5px;
+				position: relative;
+				top:-.1rem
+			}
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active font{
+				background: #FF454B;
+			}

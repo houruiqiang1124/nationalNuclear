@@ -14,11 +14,11 @@
 				<span class="mui-tab-label">首页</span>
 			</a>
 			<a class="mui-tab-item" href="application.html">
-				<img src="../../static/tab/tab3_.png" alt="" class="mui-icon" />
+				<img src="../../static/tab/tab2_.png" alt="" class="mui-icon" />
 				<span class="mui-tab-label">应用</span>
 			</a>
 			<a class="mui-tab-item" href="mail.html">
-				<img src="../../static/tab/tab2_.png" alt="" class="mui-icon" />
+				<img src="../../static/tab/tab3_.png" alt="" class="mui-icon" />
 				<span class="mui-tab-label">通讯录</span>
 			</a>
 		</nav>
@@ -34,7 +34,7 @@
         			},
         			self = plus.webview.currentWebview(),
         			temp = {};
-        			for(var i = 0, len = subpages.length; i < 1; i++) {
+        			for(var i = 0; i < subpages.length; i++) {
         				var sub = plus.webview.create(subpages[i], subpages[i], subpage_style)
         				if(i > 0) {
         					sub.hide()
@@ -54,10 +54,12 @@
         					$(".mui-tab-item").eq(activeIndex).children("img").attr("src", '../../static/tab/tab' + (activeIndex + 1) + '_.png')
         					$(this).children("img").attr("src", imgs);
         				}
-        				var sub = plus.webview.create(targetTab, targetTab, subpage_style);
-        				self.append(sub);
+                        console.log(targetTab)
+        				plus.webview.show(targetTab);
+        				// self.append(sub);
         				//隐藏当前;
-        				plus.webview.close(activeTab);
+                        console.log(activeTab) 
+        				plus.webview.hide(activeTab);
         				//更改当前活跃的选项卡
         				activeTab = targetTab;
         			});

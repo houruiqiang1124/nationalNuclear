@@ -2,8 +2,8 @@
 
 
 (function(m, app) {
-    // const host = "http://192.168.43.107:8888/";  // 测试服务器
-    var host = "http://192.168.199.7:8888/";
+    const host = "http://10.4.210.110:8888/";  // 测试服务器
+    // var host = "http://192.168.199.5:8888/";
     // const host = "http://39.105.204.84:8888/";  // 正式
 	app.portalUrl = "http://10.4.200.77";
 	app.vpnUrl = "https://vpn.snpec.com.cn";
@@ -13,8 +13,9 @@
     
     app.INTERFACE = {
 		//适配接口
-		checkCodeUrl:'/snpec_portal/command/dispatcher/org.loushang.bsp.security.web.RandomCodeCommand?_dc=',
-		companyNewUrl:'/snpec_portal/jsp/com/snpit/top/portal/snpecportal/qiyeMore.jsp?systype=6',
+		checkCodeUrl:'/snpec_portal/command/dispatcher/org.loushang.bsp.security.web.RandomCodeCommand?_dc=', // 获取验证码
+		companyNewUrl:'/snpec_portal/jsp/com/snpit/top/portal/snpecportal/qiyeMore.jsp?systype=6',  // 公司要闻
+        noticeUrl: app.portalUrl+'/snpec_portal/jsp/com/snpit/top/portal/snpecportal/qiyeMore.jsp?systype=5',   // 公告列表
 		//hse接口
         findToDo: 'processStatus/findToDo',  // hse列表
         hseBadge: 'processStatus/findProcessStatusCount', // 角标
@@ -48,21 +49,29 @@
      * option.success成功回调函数 
      */
     app.ajax = function(option) {
+        console.log(typeof option.data)
         console.log('【参数】' + JSON.stringify(option));
         mui.ajax(host + option.url,{
-        	data: option.data || {},
+        	data:  option.data || {},
         	dataType:'json',//服务器返回json格式数据
         	type:option.method || 'POST',//HTTP请求类型
         	timeout:10000,//超时时间设置为10秒；
+            headers: {
+            	'Content-Type': 'application/json'
+            },
         	success:function(res){
-        		if(res.data.object.resultCode == 0 || res.data.object.rtnCode == 0) {
+                console.log('【请求地址】'+ host + option.url)
+                console.log("【请求成功】" + JSON.stringify(res))
+        		if(res.object.resultCode == 0 || res.object.rtnCode == 0) {
                     option.success(res);
                 } else {
                     option.success(res);
                 }
         	},
         	error:function(xhr,type,errorThrown){
-        		
+                
+                console.error('【请求错误地址】'+ host + option.url)
+        		console.error('【请求错误】' + JSON.stringify(type))
         	}
         });
     }

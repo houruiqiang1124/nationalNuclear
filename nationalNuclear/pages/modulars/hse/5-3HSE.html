@@ -1,0 +1,331 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<link rel="stylesheet" type="text/css" href="css/5-11HSE-sub1.css" />
+		<style type="text/css">
+			.mui-collapse-content input {
+				margin-bottom: 0;
+				font-size: 12px;
+
+			}
+
+			font.choose {
+				color: #999999;
+			}
+
+			p.tips {
+				color: #FF3D3D;
+				font-size: 9px;
+				margin-bottom: 0 !important;
+				margin-top: 10px
+			}
+
+			.list-btns .mui-btn {
+				width: 45%;
+			}
+
+			label.chooseinfo {
+				width: 70%;
+				text-align: right;
+				color: #333333;
+			}
+
+			.mui-content .mui-table-view:first-child {
+				margin-top: 0
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">新建检查</h1>
+			</header>
+			<div class="mui-content">
+				<ul class="mui-table-view hse-sub1">
+					<li class="mui-table-view-cell mui-collapse">
+						<a class="mui-navigate-right" href="#"><span>SNG-HSE-WS-2018-0235</span></a>
+						<div class="mui-collapse-content">
+							<p><span>项目：</span><span>SNG 国核示范</span></p>
+							<p><span>检查日期：</span><span> <input type="text" name="" id="" value="2018-05-21" readonly="readonly" class="pickDateBtn" /></span></p>
+							<p><span>检查人：</span><span><input type="text" name="" id="" value="安徽" /></span></p>
+							<p><span>编制单位：</span><span>SPDP-SNG-SQ 示范电站/石岛湾 - 示范电站</span></p>
+							<p><span>编制部门：</span><span>SPDP-SNG-SQ 示范电站/石岛湾 - 示范电站安
+									全制保部</span></p>
+							<p><span>编制人：</span><span>ANHUIO 安辉</span></p>
+							<p><span>编制日期：</span><span>2018-09-10</span></p>
+
+						</div>
+					</li>
+
+				</ul>
+				<ul class="mui-table-view hse-sub1 write-list">
+					<li class="mui-table-view-cell mui-collapse">
+						<a class="mui-navigate-right" href="#"><span>隐患录入</span> </a>
+						<div class="mui-collapse-content">
+							<ul class="mui-table-view">
+								<li class="mui-table-view-cell">
+									<i>*</i>适用机组：<label class="mui-pull-right chooseinfo">
+										<font class="choose">请选择</font>
+									</label>
+								</li>
+								<li class="mui-table-view-cell">
+									<i>*</i>区域：<label class="mui-pull-right ">
+										<font>1.1核岛-11厂房</font>
+									</label>
+								</li>
+								<li class="mui-table-view-cell">
+									<i>*</i>被检查单位：<label class="mui-pull-right">
+										<font>示范电站/石岛湾-华兴运维</font>
+									</label>
+								</li>
+								<li class="mui-table-view-cell">
+									<i>*</i>隐患类型：<label class="mui-pull-right chooseinfo">
+										<font class="choose">请选择</font>
+									</label>
+								</li>
+								<li class="mui-table-view-cell">
+									<i>*</i>隐患属性：<label class="mui-pull-right chooseinfo">
+										<font class="choose">请选择</font>
+									</label>
+								</li>
+								<li class="mui-table-view-cell date">
+									<span class="mui-navigate-right">
+										<i>*</i> 要求完成时间: <span class="mui-pull-right pickDateBtn" id="pickDateBtn">2018-09-15 </span>
+									</span>
+
+								</li>
+								<li class="mui-table-view-cell radio-choose">
+									<i>*</i>隐患级别:
+									<span class="mui-pull-right">
+										<input type="radio" name="choose" id="" value="" />
+										<label for="">重大</label>
+									</span>
+									<span class="mui-pull-right">
+										<input type="radio" name="choose" id="" value="" checked="checked" />
+										<label for="">一般</label>
+									</span>
+
+								</li>
+								<li class="mui-table-view-cell text">
+									<i>*</i>隐患描述 :
+									<textarea name="" rows="" cols="" placeholder="请输入"></textarea>
+									<div class="voice">
+										<img src="images/5-3-Voice@2x.png" />
+									</div>
+								</li>
+								<li class="mui-table-view-cell text">
+									<i>*</i>整改措施要求 :
+									<textarea name="" rows="" cols="" placeholder="请输入"></textarea>
+									<div class="voice">
+										<img src="images/5-3-Voice@2x.png" />
+									</div>
+								</li>
+								<li class="mui-table-view-cell">
+									<i>*</i>责任整改人:<label class="mui-pull-right addmore">
+										<font>黄霞</font><img src="images/5-3-add@2x.png" class="add-more" />
+									</label>
+								</li>
+								<li class="mui-table-view-cell">
+									<i>*</i>抄送:<label class="mui-pull-right addmore">
+										<font>黄霞</font><img src="images/5-3-add@2x.png" class="add-more" />
+									</label>
+									<p class="tips">隐患级别为“重大”时：请抄送联队项目部负责人、安全总监、HSE部负责人、公司总经理、分管安全副总经理及安全质量部主任。</p>
+								</li>
+								<li class="mui-table-view-cell">
+									<font class="mui-icon mui-icon-paperclip"></font>附件上传:<label class="mui-pull-right addmore add-fj"><img src="images/5-3-add@2x.png"
+										 class="add-more" /> 添加</label>
+									<div class="fj-content fj-content-choose">
+
+										<div class="fj-img">
+											<div>
+												<img src="images/5-3-picture@2x.png" />
+												<b class='mui-icon mui-icon-closeempty'></b>
+											</div>
+											<div>
+												<img src="images/5-3-picture@2x.png" />
+												<b class='mui-icon mui-icon-closeempty'></b>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="mui-table-view-cell list-btns">
+									<button type="button" class="mui-btn mui-btn-blue">提交</button>
+									<button type="button" class="mui-btn mui-btn-blue mui-btn-outlined">保存</button>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+		<script src="../../../js/mui.picker.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui(".add-fj")[0].addEventListener("tap", function(e) {
+				var btns = [{
+					title: "拍摄"
+				}, {
+					title: "系统相册"
+				}];
+				plus.nativeUI.actionSheet({
+					cancel: "取消",
+					buttons: btns
+				}, function(e) {
+					var i = e.index;
+					//拍照
+					switch (i) {
+						case 1:
+							getImage();
+							break;
+						case 2:
+							galleryImg();
+							break;
+					}
+				});
+			}, false)
+
+			//拍照
+			function getImage(self) {
+				var cmr = plus.camera.getCamera();
+				cmr.captureImage(function(p) {
+					plus.gallery.save(p); //保存照片
+					plus.io.resolveLocalFileSystemURL(p, function(entry) {
+						alert(entry.toLocalURL())
+
+					}, function(e) {
+						//				console.log("读取拍照文件错误：" + e.message);
+					});
+				}, function(e) {
+					//			console.log("失败：" + e.message);
+				});
+
+			}
+
+			// 从相册中选择图片
+			function galleryImg(self) {
+				//	console.log("从相册中选择图片:");
+				plus.gallery.pick(function(path) {
+					alert(path)
+				}, function(e) {
+					//		console.log("取消选择图片");
+				}, {
+					filter: "image"
+				});
+			}
+			//			删除图片
+			mui(".fj-img").on("tap", "b", function() {
+				var elem = this;
+				var li = elem.parentNode;
+				li.parentNode.removeChild(li);
+			})
+			//		语音识别
+			mui(".text").on("tap", ".voice", function() {
+				startRecognize();
+			})
+			var text = null;
+
+			function startRecognize() {
+				var options = {};
+				options.engine = 'iFly';
+				text = "";
+				alert("开始语音识别：");
+				plus.speech.startRecognize(options, function(s) {
+					text += s;
+					console.log(text);
+				}, function(e) {
+					alert("语音识别失败：" + e.message);
+				});
+			}
+			//		选择日期
+			var pickbtn = mui(".pickDateBtn");
+			for (var i = 0; i < pickbtn.length; i++) {
+				pickbtn[i].addEventListener("tap", function() {
+					var self = this;
+					var dDate = new Date();
+					plus.nativeUI.pickDate(function(e) {
+						var d = e.date;
+						if (self.type) {
+							self.value = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+						} else {
+							self.innerHTML = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+						}
+
+					}, function(e) {
+						//					info.innerText = "您没有选择日期";
+					}, {
+						title: "请选择日期",
+						date: dDate
+					});
+				}, false)
+			}
+			//		 选择器
+			(function($, doc) {
+				$.ready(function() {
+					plus.navigator.setStatusBarBackground("#1D6BCA");
+					var _getParam = function(obj, param) {
+						return obj[param] || '';
+					};
+					//普通示例
+					var userPicker = new $.PopPicker();
+					var btns = $('.chooseinfo');
+
+					userPicker.setData([{
+						value: 'ywj',
+						text: '董事长 叶文洁'
+					}, {
+						value: 'aaa',
+						text: '总经理 艾AA'
+					}, {
+						value: 'lj',
+						text: '罗辑'
+					}, {
+						value: 'ymt',
+						text: '云天明'
+					}, {
+						value: 'shq',
+						text: '史强'
+					}, {
+						value: 'zhbh',
+						text: '章北海'
+					}, {
+						value: 'zhy',
+						text: '庄颜'
+					}, {
+						value: 'gyf',
+						text: '关一帆'
+					}, {
+						value: 'zhz',
+						text: '智子'
+					}, {
+						value: 'gezh',
+						text: '歌者'
+					}]);
+					btns.each(function(i, btn) {
+						btn.addEventListener('tap', function() {
+							var _self = this;
+							userPicker.show(function(items) {
+								_self.innerText = items[0].text;
+								//							//返回 false 可以阻止选择框的关闭
+								//							//return false;
+							});
+
+						}, false);
+					});
+				});
+			})(mui, document);
+		</script>
+	</body>
+
+</html>

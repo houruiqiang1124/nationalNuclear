@@ -1,0 +1,32 @@
+.mui-slider-handle p.title{
+				font-size: 14px;
+				color: #323232;
+				margin-bottom: 15px;
+			}
+			.mui-slider-handle p{
+				color: #666666;
+				font-size: 12px;
+				margin-bottom:3px;
+			}
+			.mui-table-view-cell{
+				padding: 15px;
+			}
+			.mui-slider-handle p span{
+				background: #268BE4;
+				color: #FFFFFF;
+				padding: 0px 8px;
+				border-radius: 2px;
+				float: right;
+				font-size: 10px;
+				height: 15px;
+				line-height: 15px;
+				position: relative;
+				top:.2rem
+			}
+			.mui-table-view:before,.mui-table-view:after{
+				height: 0;
+			}
+			.mui-table-view{
+				margin-top:10px
+			}
+			

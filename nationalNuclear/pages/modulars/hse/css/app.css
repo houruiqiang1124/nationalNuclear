@@ -1,0 +1,54 @@
+.mui-bar-nav{
+				box-shadow: none;
+			}
+			header.mui-bar{
+				background:#1D6BCA ;
+			}
+			.mui-title{
+				color: #FFFFFF;
+			}
+			.mui-bar .mui-icon{
+				color: #FFFFFF;
+			}
+			.mui-bar .mui-icon.text{
+				font-size: 12px;
+				top:8px
+			}
+			.mui-bar span.mui-btn-link{
+				color: #FFFFFF;
+				font-size: 14px;
+			}
+			/*ul横线*/
+			.mui-table-view:before,.mui-table-view:after{
+				height: 0;
+			}
+			.mui-navigate-right:after, .mui-push-left:after, .mui-push-right:after{
+				color: #1D6BCA;
+				font-weight: bold;
+			}
+			font.mui-icon-paperclip{
+				color: #1D6BCA;
+				vertical-align: middle;
+			}
+input[type=radio]{
+				-webkit-appearance : none ;
+				height: 14px;
+				width:14px;
+				background: url(../images/5-3-Choice@2x.png) no-repeat center;
+				background-size:14px ;
+				vertical-align: middle;
+				margin:0 5px;
+				border: none;
+			}
+			input[type=radio]:checked{
+				background: url(../images/5-3-Selection@2x.png) no-repeat center;
+				background-size:14px ;
+			}
+			.mui-btn-blue{
+				background: #1169CF;
+				border-color: #1169CF ;
+			}
+			.mui-btn-outlined{
+				background: transparent;
+				color:#1169CF ;
+			}

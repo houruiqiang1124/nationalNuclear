@@ -40,6 +40,7 @@ var vm = new Vue({
 				return;
 			} else {
 				plus.nativeUI.showWaiting();
+                // 临时跳过vpn登录
 				// _this.sxfVpnInit();
 				_this.tologin();
 			}
@@ -80,9 +81,6 @@ var vm = new Vue({
 				var json = JSON.parse(jsonStr);
 				code = eval('(' + json.data + ')').code;
 				JSESSIONID = json.JSESSIONID;
-				//console.log(eval('(' + json.data + ')').code);
-				// 						console.log(jsonStr);
-				// 						console.log(json.data);
 				var loginInfo = {
 					"username": _this.username,
 					"password": "213b3fc702ab8a643f67c2a27c556bb1",
@@ -95,10 +93,8 @@ var vm = new Vue({
 				console.log(JSON.stringify(loginInfo))
 				mui.mkey.login(loginInfo, function loginCallBack(data, msg) {
 					if (data == true) {
-						console.log(msg)
 						plus.nativeUI.closeWaiting();
-						sne.navigateTo({url:"../tabBar/home.html",id:"home.html"})
-						// mui.openWindow("test.html", "index");
+						sne.navigateTo({url:"../tabBar/index.html",id:"index.html"})
 					} else {
 						plus.nativeUI.closeWaiting();
 						mui.alert("用户名或密码错误！");

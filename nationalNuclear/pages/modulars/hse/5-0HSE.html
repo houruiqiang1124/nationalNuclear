@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<link rel="stylesheet" type="text/css" href="css/5-0HSE.css" />
+		<style type="text/css">
+			.mui-pull-top-pocket {
+				top: 90px !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">流程办理</h1>
+				<span class="mui-pull-right mui-btn-link">
+					<img src="images/5-0-set up@2x.png" @click="hseSet" />
+					<img src="images/5-0-add@2x.png" @click="newCheck" />
+				</span>
+			</header>
+			<div class="mui-content">
+				<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll">
+						<a class="mui-control-item mui-active" data-i="5-0HSE-sub1.html">
+							<span> 待办<font>4</font></span>
+
+						</a>
+						<a class="mui-control-item " data-i="5-0HSE-sub2.html">
+							<span> 已办<font>4</font></span>
+
+						</a>
+						<a class="mui-control-item " data-i="5-0HSE-sub3.html">
+							<span> 流转<font>4</font></span>
+
+						</a>
+						<a class="mui-control-item " data-i="5-0HSE-sub4.html">
+							<span> 草稿<font>4</font></span>
+
+						</a>
+						<a class="mui-control-item " data-i="5-0HSE-sub5.html">
+							<span> 待阅<font>4</font></span>
+
+						</a>
+						<a class="mui-control-item " data-i="5-0HSE-sub6.html">
+							<span> 已阅<font>0</font></span>
+
+						</a>
+					</div>
+				</div>
+
+				<!--下拉刷新容器-->
+				<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<!--数据列表-->
+						<ul id="OA_task_1" class="mui-table-view">
+							<li class="mui-table-view-cell" @click="goDetail">
+								<div class="mui-slider-right mui-disabled">
+									<a class="mui-btn mui-btn-red">删除</a>
+								</div>
+								<div class="mui-slider-handle">
+									<p class="title">项目:SNG;检查单编号:SNG-HSE-WS-2018-0233</p>
+									<p>业务名称：HSE监督检查-业主</p>
+									<p>当前流程节点：承包商整改</p>
+									<p>发送人：安辉 2018-11-21 15:01:36 <span>正常</span></p>
+								</div>
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-slider-right mui-disabled">
+									<a class="mui-btn mui-btn-red">删除</a>
+								</div>
+								<div class="mui-slider-handle">
+									<p class="title">项目:SNG;检查单编号:SNG-HSE-WS-2018-0233</p>
+									<p>业务名称：HSE监督检查-业主</p>
+									<p>当前流程节点：承包商整改</p>
+									<p>发送人：安辉 2018-11-21 15:01:36 <span>正常</span></p>
+								</div>
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-slider-right mui-disabled">
+									<a class="mui-btn mui-btn-red">删除</a>
+								</div>
+								<div class="mui-slider-handle">
+									<p class="title">项目:SNG;检查单编号:SNG-HSE-WS-2018-0233</p>
+									<p>业务名称：HSE监督检查-业主</p>
+									<p>当前流程节点：承包商整改</p>
+									<p>发送人：安辉 2018-11-21 15:01:36 <span>正常</span></p>
+								</div>
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-slider-right mui-disabled">
+									<a class="mui-btn mui-btn-red">删除</a>
+								</div>
+								<div class="mui-slider-handle">
+									<p class="title">项目:SNG;检查单编号:SNG-HSE-WS-2018-0233</p>
+									<p>业务名称：HSE监督检查-业主</p>
+									<p>当前流程节点：承包商整改</p>
+									<p>发送人：安辉 2018-11-21 15:01:36 <span>正常</span></p>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+		<script src="../../../js/common/api.js"></script>
+		<script src="../../../js/common/config.js"></script>
+        <script src="../../../js/vue.js"></script>
+		<script src="js/5-0HSE.js"></script>
+	</body>
+</html>

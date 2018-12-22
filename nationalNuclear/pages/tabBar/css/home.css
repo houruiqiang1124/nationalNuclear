@@ -51,6 +51,10 @@
     border-left: 1px solid #BEBEBE;
 }
 
+.notice_width {
+    width: 60%;
+} 
+
 /* 待办 */
 .daiBan {
     margin-top: 2rem;
@@ -83,7 +87,7 @@
 
 
 .left_width {
-	width: 80%;
+	width: 75%;
 }
 
 .date {

@@ -1,0 +1,44 @@
+
+			/*tab*/
+			.mui-segmented-control{
+				background: #FFFFFF;
+				border-radius: 0;
+				border: none;
+				padding: 15px 0;
+				
+			}
+			.mui-segmented-control .mui-control-item.mui-active{
+				background: transparent;
+				color: #1468CD;
+			}
+			.mui-segmented-control .mui-control-item{
+				border-color:#DBDBDB ;
+				color: #909090;
+				line-height: 20px;
+				overflow: initial;
+			}
+			.mui-segmented-control .mui-control-item.mui-active label{
+				border-bottom: 2px solid #1468CD;
+				padding-bottom: 14px;
+				
+			}
+			
+/*sub1*/
+.hse-sub2{
+	margin-top:10px;
+}
+.hse-sub2 .mui-table-view-cell span.title {
+				color: #1D6BCA;
+				font-size: 14px;
+				display: block;
+				padding-bottom: 20px;
+			}
+			
+		.hse-sub2	.mui-table-view-cell p {
+				font-size: 12px;
+				color: #666666;
+			}
+			
+			.hse-sub2 .mui-table-view-cell:after {
+				right: 15px;
+			}

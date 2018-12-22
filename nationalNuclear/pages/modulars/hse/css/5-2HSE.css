@@ -1,0 +1,35 @@
+.info{
+				display: inline-block;
+			}
+			.mui-table-view-cell img{
+				height: 40px;
+				position: relative;
+				top:.3rem;
+				margin-right: 10px;
+			}
+			.mui-table-view-cell div p{
+				color: #999999;
+				font-size: 12px;
+				
+			}
+			.mui-table-view-cell div p:first-child{
+				font-size: 14px;
+				color: #333333;
+				margin-bottom: 5px;
+			}
+			.mui-table-view-cell{
+				padding: 15px;
+			}
+			.mui-table-view-cell>a:not(.mui-btn){
+				margin: -15px;
+			}
+			.mui-navigate-right:after, .mui-push-left:after, .mui-push-right:after{
+				color: #CBCBCB;
+				font-weight: normal;
+			}
+			.mui-content .mui-table-view:first-child{
+				margin-top:0;
+			}
+			.mui-table-view-cell:after{
+				right: 15px;
+			}
