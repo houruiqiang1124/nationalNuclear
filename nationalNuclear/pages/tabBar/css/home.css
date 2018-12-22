@@ -1,0 +1,82 @@
+.banner {
+	width: 100%;
+}
+
+.content {
+    padding: 1rem;
+}
+
+/* 模块 */
+.module {
+    background: #FFF;
+	display: flex;
+	flex-wrap: wrap;
+    margin: 0 auto;
+    margin-top: -4rem;
+    padding-bottom: 1rem;
+}
+
+.module .module-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 1rem;
+	width: 25%;
+}
+
+.module .module-item>span {
+    margin-top: 0.5rem;
+}
+
+.module .module-img {
+	width: 2rem;
+	height: 2rem;
+}
+
+/* 公告 */
+.notice {
+    height: 2rem;
+    margin: 0;
+    margin-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.notice-img {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+.notice .notice_borderLeft {
+    border-left: 1px solid #BEBEBE;
+}
+
+/* 待办 */
+.daiBan {
+    margin-top: 2rem;
+}
+
+.daiBan .daiBan-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+}
+
+.daiBan_size {
+    font-size: 0.8rem;
+}
+
+.red-round{
+    width: 0.5rem;
+    height: 0.5rem;
+}
+    
+    
+.type {
+    padding: 0 5px;
+    background: #007AFF;
+    color: #FFF;
+    border-radius: 3px;
+    font-size: 0.5rem;
+}

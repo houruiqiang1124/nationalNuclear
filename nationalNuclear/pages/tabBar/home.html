@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title></title>
+        <link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+        <link rel="stylesheet" type="text/css" href="./css/home.css"/>
+	</head>
+	<body>
+		<div class="home" id="app">
+			<div class="">
+                <img src="../../static/top-picture.png" class="banner" />
+            </div>
+            <div class="content">
+            	<!-- 我的模块 -->
+            	<div class="mui-card module">
+            		<div class="module-item" v-for="(item, index) in modular" :key="index">
+            			<img :src="item.icon" class="module-img" />
+            			<span>{{item.title}}</span>
+            		</div>
+            	</div>
+                
+                <!-- 公告 -->
+                <div class="mui-card notice flex flex-ali_i_center flex_jus_between">
+                	<div class="">
+                		<img src="../../static/gonggao.png" class="notice-img" />
+                        <span>公告</span>
+                	</div>
+                    <span>关于张冰同事任职公示的通知</span>
+                    <span class="notice_borderLeft sub_color">&nbsp;&nbsp;更多</span>
+                </div>
+                
+                <!-- 待办事项 -->
+                <div class="daiBan">
+                	<div class="daiBan-header">
+                		<div class="">
+                			<span class="theme_color">待办事项</span>
+                		</div>
+                        <span class="sub_color daiBan_size">更多></span>
+                	</div>
+                    
+                    <ul class="mui-table-view">
+                    		<li class="mui-table-view-cell">
+                    			<div class="flex flex_jus_between">
+                    				<div class="">
+                    					<img src="../../static/red-round.png" class="red-round">
+                                        <span class="font-size1">发文流程需要审批</span>
+                    				</div>
+                                    <span class="type">文档</span>
+                    			</div>
+                                <div class="flex flex_jus_between">
+                                	<span class="sub_color font-size_sub">发起人：王小明</span>
+                                    <span class="sub_color font-size_sub">2018-12-25</span>
+                                </div>
+                    		</li>
+                    		<li class="mui-table-view-cell">
+                    			<div class="flex flex_jus_between">
+                    				<div class="">
+                    					<img src="../../static/red-round.png" class="red-round">
+                    					<span class="font-size1">发文流程需要审批</span>
+                    				</div>
+                    				<span class="type">文档</span>
+                    			</div>
+                    			<div class="flex flex_jus_between">
+                    				<span class="sub_color font-size_sub">发起人：王小明</span>
+                    				<span class="sub_color font-size_sub">2018-12-25</span>
+                    			</div>
+                    		</li>
+                            <li class="mui-table-view-cell">
+                            	<div class="flex flex_jus_between">
+                            		<div class="">
+                            			<img src="../../static/red-round.png" class="red-round">
+                            			<span class="font-size1">发文流程需要审批</span>
+                            		</div>
+                            		<span class="type">文档</span>
+                            	</div>
+                            	<div class="flex flex_jus_between">
+                            		<span class="sub_color font-size_sub">发起人：王小明</span>
+                            		<span class="sub_color font-size_sub">2018-12-25</span>
+                            	</div>
+                            </li>
+                    	</ul>
+                </div>
+            </div>
+            
+		</div>
+        
+        <script src="../../js/mui.js"></script>
+        <script src="../../js/vue.js"></script>
+        <script src="./js/home.js"></script>
+	</body>
+</html>
