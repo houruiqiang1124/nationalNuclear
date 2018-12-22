@@ -44,20 +44,21 @@
                 	</div>
                     
                     <ul class="mui-table-view">
-                    		<li class="mui-table-view-cell">
+                    		<li class="mui-table-view-cell" v-for="(item, index) in daiBanList" :key="index">
                     			<div class="flex flex_jus_between">
-                    				<div class="">
+                    				<div class="left_width mui-ellipsis">
                     					<img src="../../static/red-round.png" class="red-round">
-                                        <span class="font-size1">发文流程需要审批</span>
+                                        <span class="font-size1">{{item.title}}</span>
                     				</div>
-                                    <span class="type">文档</span>
+                                    <!-- <span class="type">文档</span> -->
+									<span class="sub_color date">{{item.date}}</span>
                     			</div>
-                                <div class="flex flex_jus_between">
+                                <!-- <div class="flex flex_jus_between">
                                 	<span class="sub_color font-size_sub">发起人：王小明</span>
                                     <span class="sub_color font-size_sub">2018-12-25</span>
-                                </div>
+                                </div> -->
                     		</li>
-                    		<li class="mui-table-view-cell">
+                    		<!-- <li class="mui-table-view-cell">
                     			<div class="flex flex_jus_between">
                     				<div class="">
                     					<img src="../../static/red-round.png" class="red-round">
@@ -82,7 +83,7 @@
                             		<span class="sub_color font-size_sub">发起人：王小明</span>
                             		<span class="sub_color font-size_sub">2018-12-25</span>
                             	</div>
-                            </li>
+                            </li> -->
                     	</ul>
                 </div>
             </div>
@@ -91,6 +92,9 @@
         
         <script src="../../js/mui.js"></script>
         <script src="../../js/vue.js"></script>
+		<script src="../../js/mui.mkey.js"></script>
+		<script src="../../js/jquery-3.1.1.js"></script>
+		<script src="../../js/common/api.js"></script>
         <script src="./js/home.js"></script>
 	</body>
 </html>

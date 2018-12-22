@@ -40,7 +40,8 @@ var vm = new Vue({
 				return;
 			} else {
 				plus.nativeUI.showWaiting();
-				_this.sxfVpnInit();
+				// _this.sxfVpnInit();
+				_this.tologin();
 			}
 		},
 		//初始化vpn地址
@@ -71,7 +72,7 @@ var vm = new Vue({
 			var code = "";
 			var JSESSIONID = "";
 			mui.mkey.get({
-				url: app.portalUrl+'/snpec_portal/command/dispatcher/org.loushang.bsp.security.web.RandomCodeCommand?_dc=' +
+				url: app.portalUrl+app.INTERFACE.checkCodeUrl +
 					new Date().getTime(),
 				"nologin": true
 			}, function(data) {
@@ -96,6 +97,7 @@ var vm = new Vue({
 					if (data == true) {
 						console.log(msg)
 						plus.nativeUI.closeWaiting();
+						sne.navigateTo({url:"../tabBar/home.html",id:"home.html"})
 						// mui.openWindow("test.html", "index");
 					} else {
 						plus.nativeUI.closeWaiting();
