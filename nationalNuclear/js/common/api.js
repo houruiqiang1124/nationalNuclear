@@ -5,6 +5,11 @@
     // const host = "http://192.168.43.107:8888/";  // 测试服务器
     var host = "http://192.168.199.7:8888/";
     // const host = "http://39.105.204.84:8888/";  // 正式
+	app.portalUrl = "http://10.4.200.77";
+	app.vpnUrl = "https://vpn.snpec.com.cn";
+	app.vpnUsername="appuser";
+	app.vpnPassword="1!qQ1111";
+	app.vpnRsa="";
     
     var INTERFACE = {
         findToDo: 'processStatus/findToDo',  // hse列表
@@ -43,7 +48,7 @@
         mui.ajax(host + option.url,{
         	data: option.data || {},
         	dataType:'json',//服务器返回json格式数据
-        	type:option.method || 'POST',,//HTTP请求类型
+        	type:option.method || 'POST',//HTTP请求类型
         	timeout:10000,//超时时间设置为10秒；
         	success:function(res){
         		if(res.data.object.resultCode == 0 || res.data.object.rtnCode == 0) {
