@@ -27,6 +27,13 @@ var vm = new Vue({
                 this.typePwd = 'password';
             }
             console.log(true)
+        },
+        // 登录
+        login() {
+           sne.navigateTo({
+               url: "../tabBar/index.html",
+               id: "index.html"
+           })
         }
 	}
 })

@@ -9,7 +9,7 @@ body,html {
 }
 
 /* 副标题颜色 */
-.subColor {
+.sub_color {
 	color: #B4B4B4;
 }
 
@@ -93,4 +93,16 @@ body,html {
   -ms-align-content: center;
   -o-align-content: center;
   align-content: center;
+}
+
+.font-size1 {
+    font-size: 1rem;
+}
+
+.font-size2{
+    font-size: 2rem;
+}
+
+.font-size_sub {
+    font-size: 0.5rem;
 }
