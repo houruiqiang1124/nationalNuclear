@@ -51,6 +51,7 @@
      * option.success成功回调函数 
      */
     app.ajax = function(option) {
+        plus.nativeUI.showWaiting();
         console.log('【参数】' + JSON.stringify(option));
         mui.ajax(host + option.url,{
         	data:  option.data || {},
@@ -68,9 +69,10 @@
                 } else {
                     option.success(res);
                 }
+                plus.nativeUI.closeWaiting();
         	},
         	error:function(xhr,type,errorThrown){
-                
+                plus.nativeUI.closeWaiting();
                 console.error('【请求错误地址】'+ host + option.url)
         		console.error('【请求错误】' + JSON.stringify(type))
         	}

@@ -133,21 +133,34 @@ new Vue({
 		},
 		// 新建检查单
 		newCheck: function() {
+            var  param = {
+            	type: "new"
+            }
 			sne.navigateTo({
 				url: "./5-3HSE.html",
-				id: "5-3HSE.html"
+				id: "5-3HSE.html",
+                data:{
+                	params: param
+                }
 			})
 		},
 		// 去详情
 		goDetail: function(e) {
             if(_this.currentCode == 3) {
                 var  param = {
-                    type: "list"
+                    type: "list",
+                    checkId: e.id,
+                    dangerId: e.dangerId,
+                    checkDate: sne.getNowFormatDate(e.checkDate.time),
+                    checkPerson: e.checkPerson,
+                    draftDate: sne.getNowFormatDate(e.draftDate.time),
                 }
                 sne.navigateTo({
                 	url: "5-3HSE.html",
                 	id: "5-3HSE.html",
-                	data:param
+                	data:{
+                        params: param
+                    }
                 })
             } else {
                 var param = {
