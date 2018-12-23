@@ -173,6 +173,8 @@ new Vue({
     methods: {
         // 初始化
         init: function() {
+            _this.saveParam.userId = app.loginInfo.userId;
+            _this.saveParam.userName = app.loginInfo.userName;
             if(_this.prevParam.type == "new") {
                 var date = sne.getNowFormatDate();
                 console.log(date)
@@ -284,7 +286,7 @@ new Vue({
             
         },
         // 提交或保存
-        submit: function(e) {
+        submit: function(e) {   // 0保存 1提交
             this.saveParam.state = e;
             var method = "";
             if(this.prevParam.type == "list") { // 从草稿过来，调取不同接口；
@@ -302,7 +304,10 @@ new Vue({
                 url: method,
                 data: _this.saveParam,
                 success: function(res) {
-                    
+                    if(res.object.resultCode == 0) {
+                        mui.toast(e == 0 ? "保存成功" : "提交成功");
+                        mui.back();
+                    }
                 }
             })
         }

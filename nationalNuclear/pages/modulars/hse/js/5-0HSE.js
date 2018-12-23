@@ -139,12 +139,27 @@ new Vue({
 			})
 		},
 		// 去详情
-		goDetail: function(param) {
-			sne.navigateTo({
-				url: "5-10HSE.html",
-				id: "5-10HSE.html",
-				data:param
-			})
+		goDetail: function(e) {
+            if(_this.currentCode == 3) {
+                var  param = {
+                    type: "list"
+                }
+                sne.navigateTo({
+                	url: "5-3HSE.html",
+                	id: "5-3HSE.html",
+                	data:param
+                })
+            } else {
+                var param = {
+                    params: e
+                }
+                sne.navigateTo({
+                	url: "5-10HSE.html",
+                	id: "5-10HSE.html",
+                	data: param
+                })
+            }
+			
 		},
 		// 上拉
 		pullupRefresh: function() {
@@ -153,6 +168,7 @@ new Vue({
 		//下拉
 		pulldownRefresh: function() {
 			_this.pageNo = "0";
+            _this.getNumber();
 			_this.requestData();
 		}
 
