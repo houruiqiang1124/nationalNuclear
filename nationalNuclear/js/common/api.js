@@ -3,8 +3,9 @@
 
 (function(m, app) {
     // const host = "http://10.4.210.110:8888/";  // 测试服务器
-    // var host = "http://192.168.199.5:8888/";
-    const host = "http://39.105.204.84:8888/";  // 正式
+    var host = "http://192.168.199.7:8888/";
+    // const host = "http://39.105.204.84:8888/";  // 正式
+    
 	app.portalUrl = "http://10.4.200.77";
 	app.vpnUrl = "https://vpn.snpec.com.cn";
 	app.vpnUsername="appuser";
@@ -53,7 +54,6 @@
      * option.success成功回调函数 
      */
     app.ajax = function(option) {
-        console.log(typeof option.data)
         console.log('【参数】' + JSON.stringify(option));
         mui.ajax(host + option.url,{
         	data:  option.data || {},
