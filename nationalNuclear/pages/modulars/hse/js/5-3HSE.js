@@ -2,7 +2,10 @@ var _this = this;
 new Vue({
     el: "#app",
     data: {
-        prevParam: {},  // 上个页面过来的参数
+        imgList: [],    // 附件
+        prevParam: {
+            type: "new"
+        },  // 上个页面过来的参数
         saveParam: {    // 新建保存和提交传的参数
         	"projNo": "", // 项目
         	"checkDate": "", // 检查日期
@@ -15,7 +18,7 @@ new Vue({
         	"recordType":"0",   // 业主联队检查单类型(后期更改)
         	"userId":"", //用户ID
         	"userName":"",    // 用户名称
-        	"unit": "",  // 使用机组
+        	"unit": "",  // 机组
         	"area": "",    // 区域
         	"unitID": "",   // 被检查单位
         	"hseHiddenLevel": "0",   // 隐患级别 一般0 重大1
@@ -31,12 +34,135 @@ new Vue({
         	"state":"",    // 保存0或提交1
         	"hiddenDoc": ""
         },
+        responsiblePersonList: [{
+        	text: "潘金鑫",
+        	value: "PJX",
+        },{
+        	text: "徐童",
+        	value: "XT",
+        },{
+        	text: "易邦金",
+        	value: "YBJ",
+        },{
+        	text: "侯瑞强",
+        	value: "HRQ",
+        }],
+        unitList: [{
+        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 1",
+        	"unitDesc": "国核示范1号机组",
+        	"projectsByArea": "SNG",
+        	"text": "国核示范1号机组",
+        	"value": "SN1"
+        }, {
+        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 2",
+        	"unitDesc": "国核示范2号机组",
+        	"projectsByArea": "SNG",
+        	"text": "国核示范2号机组",
+        	"value": "SN2"
+        }, {
+        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Phase I and Units 1&amp;2",
+        	"unitDesc": "国核示范1/2号机组共用",
+        	"projectsByArea": "SNG",
+        	"text": "国核示范1/2号机组共用",
+        	"value": "SNG"
+        }],
+        areaList: [{
+        	"value": "1",
+        	"text": "核岛"
+        }, {
+        	"value": "1.1",
+        	"text": "核岛-1厂房"
+        }, {
+        	"value": "1.2",
+        	"text": "核岛-2厂房"
+        }, {
+        	"value": "1.3",
+        	"text": "核岛-3厂房"
+        }],
+        unitIDList: [{
+        	"organizeCode": "SNG",
+        	"projectsByArea": "SNG",
+        	"value": "SNG",
+        	"text": "示范电站/石岛湾项目部"
+        }, {
+        	"organizeCode": "NNICA-SNG",
+        	"projectsByArea": "SNG",
+        	"value": "NNICA-SNG",
+        	"text": "示范电站/石岛湾-华兴"
+        }, {
+        	"organizeCode": "NNEC-SNG",
+        	"projectsByArea": "SNG",
+        	"value": "NNEC-SNG",
+        	"text": "示范电站/石岛湾-中核二三"
+        }, {
+        	"organizeCode": "NZHD-SNG",
+        	"projectsByArea": "SNG",
+        	"value": "NZHD-SNG",
+        	"text": "示范电站/石岛湾-浙江火电"
+        }],
+        nonconformityList: [{
+        	"hazardTypeSeriar": "1",
+        	"hazardTypeDesc": "32",
+        	"value": "1",
+        	"text": "23"
+        }, {
+        	"hazardTypeSeriar": "2",
+        	"hazardTypeDesc": "3232",
+        	"value": "2",
+        	"text": "13"
+        }, {
+        	"hazardTypeSeriar": "1",
+        	"hazardTypeDesc": "32",
+        	"value": "3",
+        	"text": "15"
+        }],
+        hiddenCategoryList: [{
+        	value: "1",
+        	text: "管理缺陷"
+        },{
+        	value: "2",
+        	text: "人的不安全行为"
+        },{
+        	value: "3",
+        	text: "物的不安全状态"
+        },{
+        	value: "4",
+        	text: "环境的不安全因素"
+        }],
+        copyPersonList: [{
+        	"value": "ZHANGDESHENG",
+        	"text": "张德生"
+        }, {
+        	"value": "ZHANGYONG8",
+        	"text": "张勇2"
+        }, {
+        	"value": "ZHANGQIMING",
+        	"text": "张奇明"
+        }, {
+        	"value": "ZHANGBAOLIANG",
+        	"text": "张保良"
+        }, {
+        	"value": "ZHANGSHAOWEI",
+        	"text": "张韶伟"
+        }, {
+        	"value": "ZHANGXINKE", 
+        	"text": "张新科"
+        }, {
+        	"value": "ZHANGYAN1",
+        	"text": "张衍"
+        }, {
+        	"value": "ZHANGXIAOFEI1",
+        	"text": "张晓斐"
+        }, {
+        	"value": "ZHANGXIAOFEI",
+        	"text": "张晓斐"
+        }]
     },
     mounted: function() {
         _this = this;
 		function plusReady() {
-			_this.prevParam = plus.webview.currentWebview().param;
-			
+            _this.init();
+			// _this.prevParam = plus.webview.currentWebview().param;
 		}
 		if(window.plus) {
 			plusReady()
@@ -45,9 +171,140 @@ new Vue({
 		}
     },
     methods: {
-        // 新建检查的提交或保存
-        submit: function(e) {   // 0保存 1提交
+        // 初始化
+        init: function() {
+            if(_this.prevParam.type == "new") {
+                var date = sne.getNowFormatDate();
+                console.log(date)
+                _this.saveParam.projNo = app.loginInfo.projNo;
+                _this.saveParam.checkDate = date.substr(0,10);
+                _this.saveParam.checkPerson = app.loginInfo.userName;
+                _this.saveParam.draftUnit = app.loginInfo.draftUnit;
+                _this.saveParam.draftDept = app.loginInfo.draftDept;
+                _this.saveParam.draftPerson = app.loginInfo.userName;
+                _this.saveParam.draftDate = app.loginInfo.draftDate;
+                _this.saveParam.reqCompleteDate = date.substr(0,10);
+            } else {
+                
+            }
+        },
+        // 日期选择
+        checkDate: function(e) {
+            console.log(e)
+            var options = {"type":"date","beginYear":2014,"endYear":2025};
+            var picker = new mui.DtPicker(options);
+            picker.show(function(rs) {
+            	_this.saveParam[e] = rs.text;
+            });
+        },
+        // 选择器
+        showPicker: function(e) {
+            var userPicker = new mui.PopPicker(); 
+            var list = e+"List";
+            userPicker.setData(_this[e+"List"]);
+            userPicker.show(function(items) {
+                if(e == "copyPerson") {
+                    _this.saveParam[e].push({
+                        id: items[0].value,
+                        name: items[0].text
+                    })
+                } else {
+                    _this.saveParam[e] = items[0].text;
+                }
+            });
+        },
+        // 附件上传
+        fileUpLoad: function() {
+            var btns = [{
+            	title: "拍摄"
+            }, {
+            	title: "系统相册"
+            }];
+            plus.nativeUI.actionSheet({
+            	cancel: "取消",
+            	buttons: btns
+            }, function(e) {
+            	var i = e.index;
+            	//拍照
+            	switch (i) {
+            		case 1:
+            			_this.getImage();
+            			break;
+            		case 2:
+            			_this.galleryImg();
+            			break;
+            	}
+            });
+        },
+        // 系统相册
+        galleryImg: function() {
+            plus.gallery.pick(function(path) {
+            	_this.appendFile(path); //处理图片的地方
+            });
+        },
+        // 拍摄
+        getImage: function() {
+            var cmr = plus.camera.getCamera();
+            cmr.captureImage(function(p) {
+            	plus.io.resolveLocalFileSystemURL(p, function(entry) {
+            		var localurl = entry.toLocalURL(); //把拍照的目录路径，变成本地url路径，例如file:///........之类的。
+            		_this.appendFile(localurl);
+            	});
+            }, function(error) {
+            	console.log("Capture image failed: " + error.message);
+            });
+        },
+        // 转换base64
+        appendFile: function(path) {
+            var img = new Image();
+            img.src = path; // 传过来的图片路径在这里用。
+            img.onload = function() {
+            	var that = this;
+            	//生成比例
+            	var w = that.width,
+            		h = that.height,
+            		scale = w / h;
+            	w = 480 || w; //480  你想压缩到多大，改这里
+            	h = w / scale;
+            	//生成canvas
+            	var canvas = document.createElement('canvas');
+            	var ctx = canvas.getContext('2d');
+            	$(canvas).attr({
+            		width: w,
+            		height: h
+            	});
+            	ctx.drawImage(that, 0, 0, w, h);
+            	var base64 = canvas.toDataURL('image/jpeg', 1 || 0.8); //1最清晰，越低越模糊。
+                _this.imgList.push(base64);
+            	_this.upload(base64);
+            }
+        },
+        // 上传服务器
+        upload: function(base64) {
             
+        },
+        // 提交或保存
+        submit: function(e) {
+            this.saveParam.state = e;
+            var method = "";
+            if(this.prevParam.type == "list") { // 从草稿过来，调取不同接口；
+            	this.saveParam.dangerId = this.listParam.dangerId || "";
+            	this.saveParam.checkId = this.listParam.id || "";
+            	if(e == 0) {
+            		method = app.INTERFACE.draftsSave
+            	} else {
+            		method = app.INTERFACE.draftsSubmit
+            	}
+            } else {
+            	method = app.INTERFACE.insertCheck
+            };
+            app.ajax({
+                url: method,
+                data: _this.saveParam,
+                success: function(res) {
+                    
+                }
+            })
         }
     }
 })

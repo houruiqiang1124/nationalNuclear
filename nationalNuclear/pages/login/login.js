@@ -10,7 +10,7 @@ var vm = new Vue({
 	},
 	mounted: function() {
 		_this = this;
-        var loginInfo = localStorage.getItem("loginInfo");
+        var loginInfo = JSON.parse(localStorage.getItem("loginInfo")) ;
         _this.username = loginInfo.userId || "";
         _this.password = loginInfo.userName || "";
 		function plusReady() {
@@ -55,7 +55,8 @@ var vm = new Vue({
                 	draftDate: "2018-12-23"   //编制日期
                 }
                 localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
-                sne.navigateTo({url:"../tabBar/index.html",id:"index.html"})
+                sne.navigateTo({url:"../tabBar/index.html",id:"index.html"}),
+                plus.nativeUI.closeWaiting();
 			}
 		},
 		//初始化vpn地址

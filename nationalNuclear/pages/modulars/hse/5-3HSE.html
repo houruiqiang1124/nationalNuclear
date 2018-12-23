@@ -6,7 +6,8 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../../css/mui.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/mui.picker.min.css" />
+        
 		<link rel="stylesheet" type="text/css" href="../../../css/mui.poppicker.css" />
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
 		<link rel="stylesheet" type="text/css" href="css/5-11HSE-sub1.css" />
@@ -55,14 +56,13 @@
 					<li class="mui-table-view-cell mui-collapse">
 						<a class="mui-navigate-right" href="#"><span>SNG-HSE-WS-2018-0235</span></a>
 						<div class="mui-collapse-content">
-							<p><span>项目：</span><span>SNG 国核示范</span></p>
-							<p><span>检查日期：</span><span> <input type="text" name="" id="" value="2018-05-21" readonly="readonly" class="pickDateBtn" /></span></p>
-							<p><span>检查人：</span><span><input type="text" name="" id="" value="安徽" /></span></p>
-							<p><span>编制单位：</span><span>SPDP-SNG-SQ 示范电站/石岛湾 - 示范电站</span></p>
-							<p><span>编制部门：</span><span>SPDP-SNG-SQ 示范电站/石岛湾 - 示范电站安
-									全制保部</span></p>
-							<p><span>编制人：</span><span>ANHUIO 安辉</span></p>
-							<p><span>编制日期：</span><span>2018-09-10</span></p>
+							<p><span>项目：</span><span>{{saveParam.projNo}}</span></p>
+							<p><span>检查日期：</span><span @click="checkDate('checkDate')"> <input type="text"  name="" id="" :value="saveParam.checkDate" readonly="readonly" class="pickDateBtn" /></span></p>
+							<p><span>检查人：</span><span><input type="text" name="" id="" :value="saveParam.checkPerson" /></span></p>
+							<p><span>编制单位：</span><span>{{saveParam.draftUnit}}</span></p>
+							<p><span>编制部门：</span><span>{{saveParam.draftDept}}</span></p>
+							<p><span>编制人：</span><span>{{saveParam.checkPerson}}</span></p>
+							<p><span>编制日期：</span><span>{{saveParam.draftDate}}</span></p>
 
 						</div>
 					</li>
@@ -75,92 +75,92 @@
 							<ul class="mui-table-view">
 								<li class="mui-table-view-cell">
 									<i>*</i>适用机组：<label class="mui-pull-right chooseinfo">
-										<font class="choose">请选择</font>
+										<font class="choose" @click="showPicker('unit')">{{saveParam.unit || '请选择'}}</font>
 									</label>
 								</li>
 								<li class="mui-table-view-cell">
 									<i>*</i>区域：<label class="mui-pull-right ">
-										<font>1.1核岛-11厂房</font>
+										<font @click="showPicker('area')">{{saveParam.area || '请选择'}}</font>
 									</label>
 								</li>
 								<li class="mui-table-view-cell">
 									<i>*</i>被检查单位：<label class="mui-pull-right">
-										<font>示范电站/石岛湾-华兴运维</font>
+										<font @click="showPicker('unitID')">{{saveParam.unitID || '请选择'}}</font>
 									</label>
 								</li>
 								<li class="mui-table-view-cell">
 									<i>*</i>隐患类型：<label class="mui-pull-right chooseinfo">
-										<font class="choose">请选择</font>
+										<font class="choose" @click="showPicker('nonconformity')">{{saveParam.nonconformity || '请选择'}}</font>
 									</label>
 								</li>
 								<li class="mui-table-view-cell">
 									<i>*</i>隐患属性：<label class="mui-pull-right chooseinfo">
-										<font class="choose">请选择</font>
+										<font class="choose" @click="showPicker('hiddenCategory')">{{saveParam.hiddenCategory || '请选择'}}</font>
 									</label>
 								</li>
 								<li class="mui-table-view-cell date">
 									<span class="mui-navigate-right">
-										<i>*</i> 要求完成时间: <span class="mui-pull-right pickDateBtn" id="pickDateBtn">2018-09-15 </span>
+										<i>*</i> 要求完成时间: <span class="mui-pull-right pickDateBtn" id="pickDateBtn" @click="checkDate('reqCompleteDate')">{{saveParam.reqCompleteDate}}</span>
 									</span>
 
 								</li>
 								<li class="mui-table-view-cell radio-choose">
 									<i>*</i>隐患级别:
 									<span class="mui-pull-right">
-										<input type="radio" name="choose" id="" value="" />
+										<input type="radio" name="choose" id="" value="0" />
 										<label for="">重大</label>
 									</span>
 									<span class="mui-pull-right">
-										<input type="radio" name="choose" id="" value="" checked="checked" />
+										<input type="radio" name="choose" id="" value="1" checked="checked" />
 										<label for="">一般</label>
 									</span>
 
 								</li>
 								<li class="mui-table-view-cell text">
 									<i>*</i>隐患描述 :
-									<textarea name="" rows="" cols="" placeholder="请输入"></textarea>
+									<textarea v-model="saveParam.hiddenDescription" name="" rows="" cols="" placeholder="请输入"></textarea>
 									<div class="voice">
 										<img src="images/5-3-Voice@2x.png" />
 									</div>
 								</li>
 								<li class="mui-table-view-cell text">
 									<i>*</i>整改措施要求 :
-									<textarea name="" rows="" cols="" placeholder="请输入"></textarea>
+									<textarea v-model="saveParam.correctiveRequest" name="" rows="" cols="" placeholder="请输入"></textarea>
 									<div class="voice">
 										<img src="images/5-3-Voice@2x.png" />
 									</div>
 								</li>
 								<li class="mui-table-view-cell">
 									<i>*</i>责任整改人:<label class="mui-pull-right addmore">
-										<font>黄霞</font><img src="images/5-3-add@2x.png" class="add-more" />
+										<font @click="showPicker('responsiblePerson')">{{saveParam.responsiblePerson || '请选择'}}</font><img src="images/5-3-add@2x.png" class="add-more" />
 									</label>
 								</li>
 								<li class="mui-table-view-cell">
 									<i>*</i>抄送:<label class="mui-pull-right addmore">
-										<font>黄霞</font><img src="images/5-3-add@2x.png" class="add-more" />
+										<font v-for="(item, index) in saveParam.copyPerson" :key="index">{{item.name}}&nbsp;</font>
+                                        <img @click="showPicker('copyPerson')" src="images/5-3-add@2x.png" class="add-more" />
 									</label>
 									<p class="tips">隐患级别为“重大”时：请抄送联队项目部负责人、安全总监、HSE部负责人、公司总经理、分管安全副总经理及安全质量部主任。</p>
 								</li>
 								<li class="mui-table-view-cell">
-									<font class="mui-icon mui-icon-paperclip"></font>附件上传:<label class="mui-pull-right addmore add-fj"><img src="images/5-3-add@2x.png"
+									<font class="mui-icon mui-icon-paperclip"></font>附件上传:<label class="mui-pull-right addmore add-fj" @tap="fileUpLoad"><img src="images/5-3-add@2x.png"
 										 class="add-more" /> 添加</label>
 									<div class="fj-content fj-content-choose">
-
 										<div class="fj-img">
-											<div>
-												<img src="images/5-3-picture@2x.png" />
+											<div v-for="(item, index) in imgList" :key="index">
+												<img :src="item" />
 												<b class='mui-icon mui-icon-closeempty'></b>
 											</div>
-											<div>
+											<!-- <div>
 												<img src="images/5-3-picture@2x.png" />
 												<b class='mui-icon mui-icon-closeempty'></b>
-											</div>
+											</div> -->
 										</div>
 									</div>
 								</li>
 								<li class="mui-table-view-cell list-btns">
-									<button type="button" class="mui-btn mui-btn-blue">提交</button>
-									<button type="button" class="mui-btn mui-btn-blue mui-btn-outlined">保存</button>
+									<button type="button" class="mui-btn mui-btn-blue" @click="submit(1)">提交</button>
+									<button type="button" class="mui-btn mui-btn-blue mui-btn-outlined" @click="submit(0)">保存</button>
 								</li>
 							</ul>
 						</div>
@@ -169,13 +169,14 @@
 			</div>
 		</div>
 		<script src="../../../js/mui.min.js"></script>
-		<script src="../../../js/mui.picker.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../js/mui.picker.js"></script>
 		<script src="../../../js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>
         <script src="../../../js/vue.js"></script>
         <script src="../../../js/common/api.js"></script>
         <script src="../../../js/common/config.js"></script>
         <script src="js/5-3HSE.js"></script>
-		<script type="text/javascript">
+		<!-- <script type="text/javascript">
 			mui.init();
 			mui(".add-fj")[0].addEventListener("tap", function(e) {
 				var btns = [{
@@ -329,7 +330,7 @@
 					});
 				});
 			})(mui, document);
-		</script>
+		</script> -->
 	</body>
 
 </html>
