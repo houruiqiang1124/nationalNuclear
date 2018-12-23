@@ -28,39 +28,50 @@
 			<div class="mui-content">
 				<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 					<div class="mui-scroll">
-						<a class="mui-control-item mui-active" data-i="5-0HSE-sub1.html">
-							<span> 待办<font>4</font></span>
+						<a class="mui-control-item mui-active" data-i="5-0HSE-sub1.html" @tap="changeList(0)">
+							<span> 待办<font id="toDoNum"></font></span>
 
 						</a>
-						<a class="mui-control-item " data-i="5-0HSE-sub2.html">
-							<span> 已办<font>4</font></span>
+						<a class="mui-control-item " data-i="5-0HSE-sub2.html" @tap="changeList(1)">
+							<span> 已办<font id="haveToDoNum"></font></span>
 
 						</a>
-						<a class="mui-control-item " data-i="5-0HSE-sub3.html">
-							<span> 流转<font>4</font></span>
+						<a class="mui-control-item " data-i="5-0HSE-sub3.html" @tap="changeList(2)">
+							<span> 流转<font id="circulationNum"></font></span>
 
 						</a>
-						<a class="mui-control-item " data-i="5-0HSE-sub4.html">
-							<span> 草稿<font>4</font></span>
+						<a class="mui-control-item " data-i="5-0HSE-sub4.html" @tap="changeList(3)">
+							<span> 草稿<font id="draftNum"></font></span>
 
 						</a>
-						<a class="mui-control-item " data-i="5-0HSE-sub5.html">
-							<span> 待阅<font>4</font></span>
+						<a class="mui-control-item " data-i="5-0HSE-sub5.html" @tap="changeList(4)">
+							<span> 待阅<font id="waitingReadNum"></font></span>
 
 						</a>
-						<a class="mui-control-item " data-i="5-0HSE-sub6.html">
-							<span> 已阅<font>0</font></span>
+						<a class="mui-control-item " data-i="5-0HSE-sub6.html" @tap="changeList(5)">
+							<span> 已阅<font id="haveRead"></font></span>
 
 						</a>
 					</div>
 				</div>
 
 				<!--下拉刷新容器-->
-				<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+				<div id="refreshContainer" class="mui-content mui-scroll-wrapper" style="top: 88px;">
 					<div class="mui-scroll">
 						<!--数据列表-->
 						<ul id="OA_task_1" class="mui-table-view">
-							<li class="mui-table-view-cell" @click="goDetail">
+							<li class="mui-table-view-cell" v-for="(item,index) in data" :key="index" @click="goDetail(item)">
+								<div class="mui-slider-right mui-disabled">
+									<a class="mui-btn mui-btn-red">删除</a>
+								</div>
+								<div class="mui-slider-handle">
+									<p class="title">项目:{{item.projNo}};检查单编号:{{item.recordNo}}</p>
+									<p>业务名称：{{item.checkForm}}</p>
+									<p>当前流程节点：{{item.stepName}}</p>
+									<p>发送人：{{item.draftPerson}}&emsp;{{item.draftDate.time}} <span>正常</span></p>
+								</div>
+							</li>
+							<!-- <li class="mui-table-view-cell">
 								<div class="mui-slider-right mui-disabled">
 									<a class="mui-btn mui-btn-red">删除</a>
 								</div>
@@ -92,24 +103,14 @@
 									<p>当前流程节点：承包商整改</p>
 									<p>发送人：安辉 2018-11-21 15:01:36 <span>正常</span></p>
 								</div>
-							</li>
-							<li class="mui-table-view-cell">
-								<div class="mui-slider-right mui-disabled">
-									<a class="mui-btn mui-btn-red">删除</a>
-								</div>
-								<div class="mui-slider-handle">
-									<p class="title">项目:SNG;检查单编号:SNG-HSE-WS-2018-0233</p>
-									<p>业务名称：HSE监督检查-业主</p>
-									<p>当前流程节点：承包商整改</p>
-									<p>发送人：安辉 2018-11-21 15:01:36 <span>正常</span></p>
-								</div>
-							</li>
+							</li> -->
 						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
 		<script src="../../../js/mui.min.js"></script>
+		<script src="../../../js/jquery-3.2.1.min.js"></script>
 		<script src="../../../js/common/api.js"></script>
 		<script src="../../../js/common/config.js"></script>
         <script src="../../../js/vue.js"></script>

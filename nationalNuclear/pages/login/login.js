@@ -5,8 +5,8 @@ var vm = new Vue({
 		eyeImg: "../../static/browse.png",
         showEye: false,
         typePwd: 'password' ,
-		username:"",
-		password:""
+		username:"HRQ",
+		password:"houruiqiang"
 	},
 	mounted: function() {
 		_this = this;
