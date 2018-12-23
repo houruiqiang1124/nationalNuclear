@@ -33,19 +33,7 @@ new Vue({
             "copyPerson": []  // 抄送
             
         },
-        responsiblePersonList: [{
-        	text: "潘金鑫",
-        	value: "PJX",
-        },{
-        	text: "徐童",
-        	value: "XT",
-        },{
-        	text: "易邦金",
-        	value: "YBJ",
-        },{
-        	text: "侯瑞强",
-        	value: "HRQ",
-        }],
+        responsiblePersonList: [],
     },
     mounted: function() {
 		_this = this;
@@ -58,6 +46,7 @@ new Vue({
             _this.init();
 			_this.flowData();
 			_this.requestData();
+            _this.getCopyPerson();
 		}
 		if (window.plus) {
 			plusReady()
@@ -130,6 +119,26 @@ new Vue({
             		_this.disabled = true;
             		break;
             }
+        },
+        //获取抄送人列表
+        getCopyPerson: function() {
+        	var param = {
+        		"projNo": app.loginInfo.projNo,
+        		// "userName": app.loginInfo.userName
+        		"userName": ""
+        	}
+        	app.ajax({
+        		url: app.INTERFACE.getCopyPerson,
+        		data: param,
+        		success: function(res) {
+        			var List = res.beans.map((val, index) => {
+        				val.text = val.memberName;
+        				val.value = val.memberId;
+        				return val;
+        			})
+        			_this.responsiblePersonList = List; //整改验证人
+        		}
+        	})
         },
 		//详情
 		requestData: function() {

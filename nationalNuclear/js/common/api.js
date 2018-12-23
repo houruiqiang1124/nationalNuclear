@@ -1,7 +1,7 @@
 (function(m, app) {
-    // const host = "http://10.4.210.110:8888/";  // 测试服务器
+    const host = "http://10.4.210.110:8888/";  // 测试服务器
     // var host = "http://192.168.199.7:8888/";
-    const host = "http://39.105.204.84:8888/";  // 正式
+    // const host = "http://39.105.204.84:8888/";  // 正式
 
 	app.portalUrl = "http://10.4.200.77";
 	app.vpnUrl = "https://vpn.snpec.com.cn";
@@ -34,12 +34,12 @@
         findDelayToApplyFor: "delayToApplyFor/findDelayToApplyFor",  // 延期申请
         verification: "sumbit/verification" ,// 整改验证通过与不通过
         checkPass: "drafts/checkPass",  // 延期申请的通过与不通过
-        getArea: "webServise/getAreaList",  // 获取区域
-        getUnit: "webServise/getUnit",  // 获取机组
-        getInspectedUnit: "webServise/getInspectedUnit",    // 获取被检查单位
-        getHazardTypeList: "webServise/getHazardTypeList",    // 获取隐患类型
-        getCopyPerson: "webServise/getCopyPerson",    // 获取抄送人列表
-        getDraftUnitList: "webServise/getDraftUnitList",    // 获取责任单位列表
+        getArea: "webService/getAreaList",  // 获取区域
+        getUnit: "webService/getUnit",  // 获取机组
+        getInspectedUnit: "webService/getInspectedUnit",    // 获取被检查单位
+        getHazardTypeList: "webService/getHazardTypeList",    // 获取隐患类型
+        getCopyPerson: "webService/getCopyPerson",    // 获取抄送人列表
+        getDraftUnitList: "webService/getDraftUnitList",    // 获取责任单位列表
         updateHaveRead: "processStatus/updateHaveRead", // 点击已阅
     }
     
@@ -57,7 +57,7 @@
         	data:  option.data || {},
         	dataType:'json',//服务器返回json格式数据
         	type:option.method || 'POST',//HTTP请求类型
-        	timeout:10000,//超时时间设置为10秒；
+        	timeout:50000,//超时时间设置为10秒；
             headers: {
             	'Content-Type': 'application/json'
             },

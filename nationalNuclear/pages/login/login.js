@@ -47,7 +47,7 @@ var vm = new Vue({
 				// _this.sxfVpnInit();
 				// _this.tologin();
                 var loginInfo = {
-                	projNo: "项目2018-12-23测试",  // 项目
+                	projNo: "SNG",  // 项目
                     userId: this.username,
                     userName: this.password,    // 登录人
                 	draftUnit: "编制单位",    // 编制单位
