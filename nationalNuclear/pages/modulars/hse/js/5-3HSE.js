@@ -292,8 +292,8 @@ new Vue({
 									val.value = val.memberId;
 									return val;
 								})
-								_this.copyPersonList = List;
-								_this.responsiblePersonList = List;
+								_this.copyPersonList = List;//抄送人
+								_this.responsiblePersonList = List;//整改人
 							}
 					})
 				},
