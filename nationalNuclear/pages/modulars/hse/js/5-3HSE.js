@@ -194,7 +194,7 @@ new Vue({
             _this.saveParam.draftUnit = app.loginInfo.draftUnit;
             _this.saveParam.draftDept = app.loginInfo.draftDept;
             _this.saveParam.draftPerson = app.loginInfo.userName;
-            _this.saveParam.draftDate = app.loginInfo.draftDate;
+            _this.saveParam.draftDate = sne.getNowFormatDate().substr(0,10);
             if(_this.prevParam.type == "new") {
                 var date = sne.getNowFormatDate();
                 _this.saveParam.checkDate = date.substr(0,10);

@@ -193,7 +193,7 @@ new Vue({
                     dangerId: e
                 },
                 success: function() {
-                    this.data.splice(index, 1);
+                    _this.data.splice(index, 1);
                 }
             })
         }
