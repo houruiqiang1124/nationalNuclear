@@ -150,13 +150,13 @@ new Vue({
                 	data:param
                 })
             } else {
-                var param = {
-                    params: e
-                }
                 sne.navigateTo({
                 	url: "5-10HSE.html",
                 	id: "5-10HSE.html",
-                	data: param
+                	data: {
+						params:e,
+						tabCode:_this.currentCode
+					}
                 })
             }
 			
