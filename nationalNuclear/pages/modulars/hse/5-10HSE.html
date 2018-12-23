@@ -23,8 +23,8 @@
 			</header>
 			<div class="mui-content">
 				<div class="mui-segmented-control">
-					<a class="mui-control-item mui-active" @click="showTab=true"><label>业务表单</label></a>
-					<a class="mui-control-item" @click="showTab=false"><label>流转信息</label></a>
+					<a class="mui-control-item mui-active" @tap="showTab=true"><label>业务表单</label></a>
+					<a class="mui-control-item" @tap="showTab=false"><label>流转信息</label></a>
 				</div>
 				<div class="detail">
 					<div class="mui-content">
@@ -201,7 +201,13 @@
                         
                         <div class="information" v-else>
                         	<ul class="mui-table-view hse-sub2">
-                                <li class="mui-table-view-cell">
+                                <li class="mui-table-view-cell" v-for="(item, index) in data" :key="index">
+                                    <span class="title">{{item.stepName}}</span>
+                                    <p>处理人：<span>{{item.ownerUserName}}</span></p>
+                                    <p>处理时间：<span>{{item.arriveTime.time}}</span></p>
+                                    <p>意见：<span>{{item.actionName}}</span></p>
+                                </li>
+                                <!-- <li class="mui-table-view-cell">
                                     <span class="title">联队各部门接口人</span>
                                     <p>处理人：<span>安辉</span></p>
                                     <p>处理时间：<span>2018-11-27  15:28:44</span></p>
@@ -218,13 +224,7 @@
                                     <p>处理人：<span>安辉</span></p>
                                     <p>处理时间：<span>2018-11-27  15:28:44</span></p>
                                     <p>意见：<span>测试</span></p>
-                                </li>
-                                <li class="mui-table-view-cell">
-                                    <span class="title">联队各部门接口人</span>
-                                    <p>处理人：<span>安辉</span></p>
-                                    <p>处理时间：<span>2018-11-27  15:28:44</span></p>
-                                    <p>意见：<span>测试</span></p>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
 					</div>
@@ -237,38 +237,6 @@
         <script src="../../../js/common/config.js"></script>
         <script src="../../../js/vue.js"></script>
         <script src="js/5-10HSE.js"></script>
-		<script type="text/javascript">
-			mui.init()
-			if (window.plus) {
-				plusReady();
-			} else {
-				document.addEventListener("plusready", plusReady, false);
-			}
-
-			function plusReady() {
-				plus.navigator.setStatusBarBackground("#1D6BCA")
-				var subpage = ["5-10HSE-sub1.html", "5-11HSE-sub2.html"];
-				var sub;
-				for (var i = 0; i < subpage.length; i++) {
-					sub = plus.webview.create(subpage[i], subpage[i], {
-						top: "90px",
-						bottom: "0"
-					})
-					if (i !== 0) {
-						sub.hide()
-					}
-					plus.webview.currentWebview().append(sub);
-				}
-				mui(".mui-segmented-control").on('tap', 'a', function() {
-					if (this.getAttribute('data-i') == subpage[0]) {
-						return
-					}
-					plus.webview.show(this.getAttribute('data-i'));
-					plus.webview.hide(subpage[0]);
-					subpage[0] = this.getAttribute('data-i');
-				})
-			}
-		</script>
 	</body>
 
 </html>
