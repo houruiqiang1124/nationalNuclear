@@ -34,20 +34,17 @@
                                 <li class="mui-table-view-cell mui-collapse">
                                     <a class="mui-navigate-right" href="#"><span>SNG-HSE-WS-2018-0235</span></a>
                                     <div class="mui-collapse-content">
-                                        <p><span>项目名称：</span><span>SNG 国核示范</span></p>
-                                        <p><span>检查日期：</span><span>2018-09-10</span></p>
-                                        <p><span>检查形式：</span><span>日常检查</span></p>
-                                        <p><span>检查名称：</span><span>国核示范</span></p>
-                                        <p><span>检查人：</span><span>测试人</span></p>
-                                        <p><span>编制单位：</span><span>SPDP-SNG-SQ 示范电站/石岛湾 - 示范电站</span></p>
-                                        <p><span>编制部门：</span><span>SPDP-SNG-SQ 示范电站/石岛湾 - 示范电站安
-                                                全制保部</span></p>
-                                        <p><span>编制人：</span><span>ANHUIO 安辉</span></p>
-                                        <p><span>编制日期：</span><span>2018-09-10</span></p>
-                                        <p><span>检查形式：</span><span>日常检查</span></p>
-                                        <p><span>批准人：</span><span>SPDP-SNG-SQ 示范电站/石岛湾 - 示范电站安
-                                                全制保部</span></p>
-                                        <p><span>批准日期：</span><span>2018-11-27</span></p>
+                                        <p><span>项目名称：</span><span>{{listParam.projNo}}</span></p>
+                                        <p><span>检查日期：</span><span>{{listParam.checkDate}}</span></p>
+                                        <p><span>检查形式：</span><span>{{listParam.checkForm}}</span></p>
+                                        <p><span>检查名称：</span><span>{{listParam.checkContent}}</span></p>
+                                        <p><span>检查人：</span><span>{{listParam.checkPerson}}</span></p>
+                                        <p><span>编制单位：</span><span>{{listParam.draftUnit}}</span></p>
+                                        <p><span>编制部门：</span><span>{{listParam.draftDept}}</span></p>
+                                        <p><span>编制人：</span><span>{{listParam.draftPerson}}</span></p>
+                                        <p><span>编制日期：</span><span>{{listParam.draftDate}}</span></p>
+                                        <p><span>批准人：</span><span>{{listParam.approvePerson}}</span></p>
+                                        <p><span>批准日期：</span><span>{{listParam.approveDate}}</span></p>
                                         <div class="fj-content">
                                             <span>
                                                 <font class="mui-icon mui-icon-paperclip"></font>附件:
@@ -68,22 +65,21 @@
                                 <li class="mui-table-view-cell mui-collapse">
                                     <a class="mui-navigate-right" href="#"><span>隐患明细</span> <button type="button" class="mui-btn mui-btn-blue list-btn" @click="delay">延期申请</button></a>
                                     <div class="mui-collapse-content">
-                                        <p><span>整改单编号：</span><span>SNG-HSE-WS-2018-0235-01</span></p>
-                                        <p><span>分发日期：</span><span>2018-09-10</span></p>
-                                        <p><span>适用机组：</span><span>SN1 国核示范1号机组</span></p>
-                                        <p><span>区域：</span><span>1 核岛</span></p>
-                                        <p><span>被检查单位：</span><span>NNICA-SNG 示范电站/</span></p>
+                                        <p><span>整改单编号：</span><span>{{dangerData.noticeno}}</span></p>
+                                        <p><span>分发日期：</span><span>{{dangerData.distributdate}}</span></p>
+                                        <p><span>适用机组：</span><span>{{dangerData.unit}}</span></p>
+                                        <p><span>区域：</span><span>{{dangerData.area}}</span></p>
+                                        <p><span>被检查单位：</span><span>{{dangerData.unitid}}</span></p>
                                         <p><span>责任部门：</span><span>SNG-PM 示范电站/石岛湾项目控制组</span></p>
-                                        <p><span>隐患级别：</span><span>一般</span></p>
-                                        <p><span>隐患属性：</span><span>人的不安全行为</span></p>
-                                        <p><span>隐患类型：</span><span>1 文明施工</span></p>
-                                        <p><span>限患描述：</span><span>测试</span></p>
-                                        <p><span>检查形式：</span><span>日常检查</span></p>
-                                        <p><span>编制部门：</span><span>SPDP-SNG-SQ 示范电站/石岛湾 - 示范电站安
-                                                全制保部</span></p>
-                                        <p><span>要求完成时间：</span><span>2018-11-27</span></p>
-                                        <p><span>是否当场已改：</span><span>是</span></p>
-                                        <p><span>整改措施要求：</span><span>测试</span></p>
+                                        <p><span>隐患级别：</span><span>{{dangerData.hsehiddenlevel}}</span></p>
+                                        <p><span>隐患属性：</span><span>{{dangerData.hiddencategory}}</span></p>
+                                        <p><span>隐患类型：</span><span>{{dangerData.nonconformity}}</span></p>
+                                        <p><span>限患描述：</span><span>{{dangerData.hiddendescription}}</span></p>
+                                        <p><span>检查形式：</span><span>{{dangerData.reqcompletedate}}</span></p>
+                                        <p><span>编制部门：</span><span>{{listParam.draftDept}}</span></p>
+                                        <p><span>要求完成时间：</span><span>{{dangerData.reqcompletedate}}</span></p>
+                                        <p><span>是否当场已改：</span><span>{{dangerData.ifsitecorrection}}</span></p>
+                                        <p><span>整改措施要求：</span><span>{{dangerData.correctiverequest}}</span></p>
                                         <div class="fj-content">
                                             <span>
                                                 <font class="mui-icon mui-icon-paperclip"></font>附件:
@@ -196,6 +192,7 @@
                             
                             						<button type="button" class="mui-btn mui-btn-blue">提交</button>
                             						<button type="button" class="mui-btn mui-btn-blue mui-btn-outlined">退回</button>
+													
                             					</nav>
                         </div>
                         
