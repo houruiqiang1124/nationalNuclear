@@ -28,7 +28,7 @@
 			}
 			
 			.hse-sub1 .mui-collapse-content span {
-				display: table-cell;
+				/* display: table-cell; */
 				width: 1%;
 				color: #999999;
 			}

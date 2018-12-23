@@ -7,6 +7,8 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
+        <link rel="stylesheet" type="text/css" href="../../../css/mui.picker.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../../css/mui.poppicker.css" />
 		<link rel="stylesheet" type="text/css" href="css/5-11HSE.css" />
 		<link rel="stylesheet" type="text/css" href="css/5-11HSE-sub1.css" />
 		<style type="text/css">
@@ -45,7 +47,7 @@
                                         <p><span>编制日期：</span><span>{{listParam.draftDate}}</span></p>
                                         <p><span>批准人：</span><span>{{listParam.approvePerson}}</span></p>
                                         <p><span>批准日期：</span><span>{{listParam.approveDate}}</span></p>
-                                        <div class="fj-content">
+                                        <!-- <div class="fj-content">
                                             <span>
                                                 <font class="mui-icon mui-icon-paperclip"></font>附件:
                                             </span>
@@ -55,7 +57,7 @@
 
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </li>
 
@@ -75,11 +77,11 @@
                                         <p><span>隐患属性：</span><span>{{dangerData.hiddencategory}}</span></p>
                                         <p><span>隐患类型：</span><span>{{dangerData.nonconformity}}</span></p>
                                         <p><span>限患描述：</span><span>{{dangerData.hiddendescription}}</span></p>
-                                        <p><span>检查形式：</span><span>{{dangerData.reqcompletedate}}</span></p>
                                         <p><span>编制部门：</span><span>{{listParam.draftDept}}</span></p>
                                         <p><span>要求完成时间：</span><span>{{dangerData.reqcompletedate}}</span></p>
                                         <p><span>是否当场已改：</span><span>{{dangerData.ifsitecorrection}}</span></p>
                                         <p><span>整改措施要求：</span><span>{{dangerData.correctiverequest}}</span></p>
+                                        <p><span>抄送：</span><span v-for="(item,index) in copyPersonList">{{item.name}}&nbsp;</span></p>
                                         <div class="fj-content">
                                             <span>
                                                 <font class="mui-icon mui-icon-paperclip"></font>附件:
@@ -99,23 +101,27 @@
                                     <div class="mui-collapse-content">
                                         <ul class="mui-table-view">
                                             <li class="mui-table-view-cell">
-                                                整改责任人：
-                                                <span>安辉</span>
+                                                <span>整改验证人：</span>
+                                                
+                                                <span @tap="showPicker">{{submitParam.responsiblePerson || '请选择'}}</span>
                                             </li>
-                                            <li class="mui-table-view-cell">
+                                            <li class="mui-table-view-cell text">
                                                 整改情况 :
-                                                <p class="info-p">请完善申请材料的提交。</p>
+                                                <textarea v-model="submitParam.rectificationSituation" name="" rows="" cols="" placeholder="请输入" class="text-infos"></textarea>
+                                                <div class="voice">
+                                                    <img src="images/5-3-Voice@2x.png" />
+                                                </div>
                                             </li>
                                             <li class="mui-table-view-cell date">
-                                                完成日期: <span class="mui-pull-right">2018-09-15 </span>
+                                                完成日期: <span class="mui-pull-right" @tap="showDate">{{submitParam.completeDate}}</span>
 
                                             </li>
-                                            <li class="mui-table-view-cell">
+                                            <!-- <li class="mui-table-view-cell">
                                                 抄送:<label class="mui-pull-right addmore">
                                                     <font>黄霞、小米</font>
                                                 </label>
-                                            </li>
-                                            <li class="mui-table-view-cell">
+                                            </li> -->
+                                            <!-- <li class="mui-table-view-cell">
                                                 <font class="mui-icon mui-icon-paperclip"></font>附件:
                                                 <div class="fj-content fj-content-choose">
 
@@ -127,7 +133,7 @@
 
                                                     </div>
                                                 </div>
-                                            </li>
+                                            </li> -->
                                         </ul>
 
                                     </div>
@@ -135,12 +141,12 @@
 
                             </ul>
                             <!--整改验证-->
-                            <ul class="mui-table-view hse-sub1 write-list">
+                            <ul class="mui-table-view hse-sub1 write-list" v-show="showVerify">
                                 <li class="mui-table-view-cell mui-collapse">
                                     <a class="mui-navigate-right" href="#"><span>整改验证</span> </a>
                                     <div class="mui-collapse-content">
                                         <ul class="mui-table-view">
-                                            <li class="mui-table-view-cell radio-choose">
+                                            <!-- <li class="mui-table-view-cell radio-choose">
                                                 <i>*</i>是否验证通过:
                                                 <span class="mui-pull-right">
                                                     <input type="radio" name="choose" id="" value="" />
@@ -151,49 +157,51 @@
                                                     <label for="">是</label>
                                                 </span>
 
-                                            </li>
+                                            </li> -->
                                             <li class="mui-table-view-cell text">
                                                 <i>*</i>验证情况 :
-                                                <textarea name="" rows="" cols="" placeholder="请输入" class="text-infos"></textarea>
+                                                <textarea v-model="confirmation" name="" rows="" cols="" placeholder="请输入" class="text-infos"></textarea>
                                                 <div class="voice">
                                                     <img src="images/5-3-Voice@2x.png" />
                                                 </div>
                                             </li>
-                                            <li class="mui-table-view-cell">
+                                            <!-- <li class="mui-table-view-cell">
                                                 整改单编制人：<label class="mui-pull-right addmore">
                                                     <font>黄霞</font>
                                                 </label>
-                                            </li>
+                                            </li> -->
                                             <li class="mui-table-view-cell">
                                                 关闭人：<label class="mui-pull-right addmore">
-                                                    <font>黄霞</font>
+                                                    <font>{{closePerson}}</font>
                                                 </label>
                                             </li>
                                             <li class="mui-table-view-cell">
                                                 关闭日期：<label class="mui-pull-right addmore">
-                                                    <font>2018-09-15</font>
+                                                    <font>{{closeDate}}</font>
                                                 </label>
                                             </li>
                                             <li class="mui-table-view-cell">
                                                 批准人：<label class="mui-pull-right addmore">
-                                                    <font>王小明</font>
+                                                    <font>{{closePerson}}</font>
                                                 </label>
                                             </li>
                                             <li class="mui-table-view-cell">
                                                 批准日期：<label class="mui-pull-right addmore">
-                                                    <font>2018-09-15</font>
+                                                    <font>{{closeDate}}</font>
                                                 </label>
                                             </li>
                                         </ul>
                                     </div>
                                 </li>
                             </ul>
-                            <nav class="mui-bar mui-bar-tab list-btns">
-                            
-                            						<button type="button" class="mui-btn mui-btn-blue">提交</button>
-                            						<button type="button" class="mui-btn mui-btn-blue mui-btn-outlined">退回</button>
-													
-                            					</nav>
+                            <nav class="mui-bar mui-bar-tab list-btns" v-show="showButton">
+                                <button type="button" class="mui-btn mui-btn-blue" @tap="submit">提交</button>
+                                <button type="button" class="mui-btn mui-btn-blue mui-btn-outlined" @tap="back">退回</button>
+                            </nav>
+                            <nav class="mui-bar mui-bar-tab list-btns" v-show="showYanBtn">
+                            	<button type="button" class="mui-btn mui-btn-blue" @tap="isYanBtn(0)">通过</button>
+                            	<button type="button" class="mui-btn mui-btn-blue mui-btn-outlined" @tap="isYanBtn(1)">不通过</button>
+                            </nav>
                         </div>
                         
                         <div class="information" v-else>
@@ -231,6 +239,9 @@
 		</div>
 		<script src="../../../js/mui.min.js"></script>
         <script src="../../../js/common/api.js"></script>
+        <script src="../../../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../js/mui.picker.js"></script>
+        <script src="../../../js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>
         <script src="../../../js/common/config.js"></script>
         <script src="../../../js/vue.js"></script>
         <script src="js/5-10HSE.js"></script>

@@ -181,6 +181,7 @@ new Vue({
 		//下拉
 		pulldownRefresh: function() {
 			_this.pageNo = "0";
+            _this.data = [];
             _this.getNumber();
 			_this.requestData();
 		}

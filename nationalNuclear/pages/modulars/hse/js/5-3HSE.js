@@ -211,6 +211,9 @@ new Vue({
                 } else {
                     _this.saveParam[e] = items[0].text;
                 }
+                if(e == "responsiblePerson") {
+                    _this.saveParam.responsiblePersonId = items[0].value;
+                }
             });
         },
         // 附件上传
