@@ -13,6 +13,7 @@ new Vue({
 		showBack: false, // 是否显示撤回按钮
 		showTongBtn: false,  // 是否显示通过与不通过按钮
 		showYanBtn: false,  // 是否显示整改验证按钮
+        showDelay: false,
         copyPersonList: [], // 抄送人员
         confirmation: "",   // 确认情况
         closePerson: "",//关闭人
@@ -53,7 +54,7 @@ new Vue({
 			_this.listParam.approveDate = _this.listParam.approveDate.time;
 			_this.listParam.checkDate = _this.listParam.checkDate.time;
 			_this.listParam.draftDate = _this.listParam.draftDate.time;
-			_this.tabCode = plus.webview.currentWebview().tabCode;
+			_this.tabCode = plus.webview.currentWebview().tabCode.toString();
             _this.init();
 			_this.flowData();
 			_this.requestData();
@@ -80,6 +81,7 @@ new Vue({
             	case '0':
             		if(_this.listParam.stepId == "200") {
                         var date = sne.getNowFormatDate();
+                        _this.showDelay = true;
             			_this.submitParam.completeDate =date.substr(0,10)
             		} else if(this.listParam.stepId == "300") {   // 100发起   200整改回复  300整改验证  400延期申请  500延期申请审批
             			_this.showVerify = true;
@@ -100,7 +102,13 @@ new Vue({
             		_this.disabled = true;
             		break;
             	case '2':
-            		console.log(_this.listParam.stepId)
+                    _this.submitParam.rectificationSituation = this.listParam.rectificationSituation;
+                    _this.submitParam.responsiblePerson = this.listParam.responsiblePerson;
+                    if(this.listParam.completeDate) {
+                        _this.submitParam.completeDate = sne.getNowFormatDate(this.listParam.completeDate.time); 
+                    } else {
+                        _this.submitParam.completeDate = ""
+                    }
             		if(_this.listParam.stepId == "500") {
             			_this.showBack = false;
             		} else {
@@ -214,7 +222,7 @@ new Vue({
                 }
             })
         },
-        // 待办
+        // 待办退回
         back: function() {
             var param = {
                 "userId": app.loginInfo.userId,
@@ -273,6 +281,24 @@ new Vue({
                 id: "5-6HSEcs.html",
                 data:{
                     params: param
+                }
+            })
+        },
+        // 流转撤回
+        findWithdrawTerminate: function() {
+            app.ajax({
+                url: app.INTERFACE.findWithdrawTerminate,
+                data: {
+                    "userId": app.loginInfo.userId,
+                    "checkId": this.listParam.id
+                },
+                success: function(res) {
+                    if(res.object.resultCode == 0) {
+                        mui.back();
+                        mui.toast(res.object.resultMsg)
+                    } else {
+                        mui.toast(res.object.resultMsg)
+                    } 
                 }
             })
         }
