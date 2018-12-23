@@ -21,7 +21,9 @@
         		</div>
                 <div class="login-content-row">
                 	<img src="../../static/loginImg/1-0-password.png" class="login_userImg" />
-                	<input :type="typePwd" name="" class="input" v-model="password" value="" placeholder="请输入密码"/>
+                    <input type="text" name="" class="input" v-model="password" value="" placeholder="请输入密码"/>
+
+                	<!-- <input :type="typePwd" name="" class="input" v-model="password" value="" placeholder="请输入密码"/> -->
                     <img :src="eyeImg" :change="showEye" class="eye" @click="eye" />
                 </div>
                 <div class="login-content-row">

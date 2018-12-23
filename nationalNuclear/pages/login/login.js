@@ -5,14 +5,17 @@ var vm = new Vue({
 		eyeImg: "../../static/browse.png",
         showEye: false,
         typePwd: 'password' ,
-		username:"hujingyun",
-		password:"12345678"
+		username:"",
+		password:""
 	},
 	mounted: function() {
 		_this = this;
+        var loginInfo = localStorage.getItem("loginInfo");
+        _this.username = loginInfo.userId || "";
+        _this.password = loginInfo.userName || "";
 		function plusReady() {
 			mui.init();
-			console.log("初始化plusReady");
+			console.log("初始化plusReady"); 
 		}
 		if (window.plus) {
 			plusReady()
@@ -21,6 +24,7 @@ var vm = new Vue({
 		}
 	},
 	methods: {
+        // 切换密码框
 		eye: function() {
             this.showEye = !this.showEye
             if(this.showEye) {
@@ -33,8 +37,7 @@ var vm = new Vue({
             console.log(true)
         },
 		login: function(){
-			console.log(this.username);
-			console.log(this.password);
+			
 			if (this.username == '' || this.password == '') {
 				mui.alert('用户名或密码不能为空！');
 				return;
@@ -42,7 +45,17 @@ var vm = new Vue({
 				plus.nativeUI.showWaiting();
                 // 临时跳过vpn登录
 				// _this.sxfVpnInit();
-				_this.tologin();
+				// _this.tologin();
+                var loginInfo = {
+                	projNo: "项目2018-12-23测试",  // 项目
+                    userId: this.username,
+                    userName: this.password,    // 登录人
+                	draftUnit: "编制单位",    // 编制单位
+                	draftDept: "编制部门",  // 编制部门
+                	draftDate: "2018-12-23"   //编制日期
+                }
+                localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
+                sne.navigateTo({url:"../tabBar/index.html",id:"index.html"})
 			}
 		},
 		//初始化vpn地址

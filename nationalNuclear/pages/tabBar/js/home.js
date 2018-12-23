@@ -48,11 +48,9 @@ new Vue({
 	},
 	mounted: function() {
 		_this = this;
-
 		function plusReady() {
 			mui.init();
 			// _this.companyNew();
-			_this.search();
 			// _this.notice();
 		}
 		if (window.plus) { 
