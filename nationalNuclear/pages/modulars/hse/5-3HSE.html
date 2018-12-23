@@ -61,7 +61,7 @@
 							<p><span>检查人：</span><span><input type="text" name="" id="" :value="saveParam.checkPerson" /></span></p>
 							<p><span>编制单位：</span><span>{{saveParam.draftUnit}}</span></p>
 							<p><span>编制部门：</span><span>{{saveParam.draftDept}}</span></p>
-							<p><span>编制人：</span><span>{{saveParam.checkPerson}}</span></p>
+							<p><span>编制人：</span><span>{{saveParam.draftPerson}}</span></p>
 							<p><span>编制日期：</span><span>{{saveParam.draftDate}}</span></p>
 
 						</div>
@@ -147,8 +147,8 @@
 										 class="add-more" /> 添加</label>
 									<div class="fj-content fj-content-choose">
 										<div class="fj-img">
-											<div v-for="(item, index) in imgList" :key="index">
-												<img :src="item" />
+											<div v-show="showImg">
+												<img :src="imgList" />
 												<b class='mui-icon mui-icon-closeempty'></b>
 											</div>
 											<!-- <div>
@@ -171,6 +171,7 @@
 		<script src="../../../js/mui.min.js"></script>
 		<script src="../../../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../../../js/mui.picker.js"></script>
+        <script src="../../../js/jquery-3.1.1.js"></script>
 		<script src="../../../js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>
         <script src="../../../js/vue.js"></script>
         <script src="../../../js/common/api.js"></script>

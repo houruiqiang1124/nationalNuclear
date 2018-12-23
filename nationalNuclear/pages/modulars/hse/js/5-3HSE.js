@@ -2,10 +2,9 @@ var _this = this;
 new Vue({
     el: "#app",
     data: {
-        imgList: [],    // 附件
-        prevParam: {
-            type: "new"
-        },  // 上个页面过来的参数
+        imgList: "",    // 附件
+        showImg: false,
+        prevParam: {},  // 上个页面过来的参数
         saveParam: {    // 新建保存和提交传的参数
         	"projNo": "", // 项目
         	"checkDate": "", // 检查日期
@@ -161,8 +160,8 @@ new Vue({
     mounted: function() {
         _this = this;
 		function plusReady() {
+            _this.prevParam = plus.webview.currentWebview().params;
             _this.init();
-			// _this.prevParam = plus.webview.currentWebview().param;
 		}
 		if(window.plus) {
 			plusReady()
@@ -175,19 +174,18 @@ new Vue({
         init: function() {
             _this.saveParam.userId = app.loginInfo.userId;
             _this.saveParam.userName = app.loginInfo.userName;
+            _this.saveParam.projNo = app.loginInfo.projNo;
+            _this.saveParam.draftUnit = app.loginInfo.draftUnit;
+            _this.saveParam.draftDept = app.loginInfo.draftDept;
+            _this.saveParam.draftPerson = app.loginInfo.userName;
+            _this.saveParam.draftDate = app.loginInfo.draftDate;
             if(_this.prevParam.type == "new") {
                 var date = sne.getNowFormatDate();
-                console.log(date)
-                _this.saveParam.projNo = app.loginInfo.projNo;
                 _this.saveParam.checkDate = date.substr(0,10);
                 _this.saveParam.checkPerson = app.loginInfo.userName;
-                _this.saveParam.draftUnit = app.loginInfo.draftUnit;
-                _this.saveParam.draftDept = app.loginInfo.draftDept;
-                _this.saveParam.draftPerson = app.loginInfo.userName;
-                _this.saveParam.draftDate = app.loginInfo.draftDate;
                 _this.saveParam.reqCompleteDate = date.substr(0,10);
             } else {
-                
+                _this.getDetail();
             }
         },
         // 日期选择
@@ -217,6 +215,10 @@ new Vue({
         },
         // 附件上传
         fileUpLoad: function() {
+            if(_this.imgList.length > 1) {
+                mui.toast("暂时只能上传一张")
+                return;
+            }
             var btns = [{
             	title: "拍摄"
             }, {
@@ -277,7 +279,8 @@ new Vue({
             	});
             	ctx.drawImage(that, 0, 0, w, h);
             	var base64 = canvas.toDataURL('image/jpeg', 1 || 0.8); //1最清晰，越低越模糊。
-                _this.imgList.push(base64);
+                _this.showImg = true;
+                _this.imgList = base64;
             	_this.upload(base64);
             }
         },
@@ -288,10 +291,12 @@ new Vue({
         // 提交或保存
         submit: function(e) {   // 0保存 1提交
             this.saveParam.state = e;
+            _this.saveParam.hiddenDoc = _this.imgList;
             var method = "";
             if(this.prevParam.type == "list") { // 从草稿过来，调取不同接口；
-            	this.saveParam.dangerId = this.listParam.dangerId || "";
-            	this.saveParam.checkId = this.listParam.id || "";
+            	this.saveParam.dangerId = this.prevParam.dangerId;
+            	this.saveParam.checkId = this.prevParam.checkId;
+                
             	if(e == 0) {
             		method = app.INTERFACE.draftsSave
             	} else {
@@ -308,6 +313,31 @@ new Vue({
                         mui.toast(e == 0 ? "保存成功" : "提交成功");
                         mui.back();
                     }
+                }
+            })
+        },
+        getDetail: function() {
+            _this.saveParam.checkDate = _this.prevParam.checkDate;
+            _this.saveParam.checkPerson = _this.prevParam.checkPerson;
+           
+            app.ajax({
+                url: app.INTERFACE.selectDanger,
+                data: {
+                    checkId: _this.prevParam.checkId
+                },
+                success: function(res) {
+                    var dangerList = res.object.dangerList;
+                    _this.saveParam.unit = dangerList.unit;
+                    _this.saveParam.area = dangerList.area;
+                    _this.saveParam.unitID = dangerList.unitid;
+                    _this.saveParam.nonconformity = dangerList.nonconformity;
+                    _this.saveParam.hiddenCategory = dangerList.hiddencategory;
+                    _this.saveParam.reqCompleteDate = dangerList.reqcompletedate.substr(0,10);
+                    _this.saveParam.hseHiddenLevel = dangerList.hsehiddenlevel;
+                    _this.saveParam.hiddenDescription = dangerList.hiddendescription;
+                    _this.saveParam.correctiveRequest = dangerList.correctiverequest;
+                    _this.saveParam.responsiblePerson = dangerList.responsibleperson;
+                    _this.saveParam.copyPerson = JSON.parse(dangerList.copyPerson);
                 }
             })
         }
