@@ -207,7 +207,7 @@ new Vue({
 				//获取机组
 				getUnit:function(){
 					var param ={
-						"projNo":"SNG"
+						"projNo": app.loginInfo.projNo,
 					}
 					app.ajax({
 							url: app.INTERFACE.getUnit,
@@ -225,7 +225,7 @@ new Vue({
 				//获取区域
 				getArea:function(){
 					var param ={
-						"projNo":"SNG"
+						"projNo":app.loginInfo.projNo,
 					}
 					app.ajax({
 							url: app.INTERFACE.getArea,
@@ -243,7 +243,7 @@ new Vue({
 				//获取被检查单位
 				getInspectedUnit:function(){
 					var param ={
-						"projNo":"SNG"
+						"projNo": app.loginInfo.projNo,
 					}
 					app.ajax({
 							url: app.INTERFACE.getInspectedUnit,
@@ -261,7 +261,7 @@ new Vue({
 				//获取隐患类型
 				getHazardTypeList:function(){
 					var param ={
-						"projNo":"SNG"
+						"projNo": app.loginInfo.projNo,
 					}
 					app.ajax({
 							url: app.INTERFACE.getHazardTypeList,
@@ -279,7 +279,7 @@ new Vue({
 				//获取抄送人列表
 				getCopyPerson:function(){
 					var param ={
-						"projNo":"SNG",
+						"projNo": app.loginInfo.projNo,
 						// "userName": app.loginInfo.userName
 						"userName": ""
 					}

@@ -184,7 +184,18 @@ new Vue({
             _this.data = [];
             _this.getNumber();
 			_this.requestData();
-		}
-
+		},
+        // 草稿删除
+        del: function(e, index) {
+            app.ajax({
+                url: app.INTERFACE.delCheckAndDanger,
+                data: {
+                    dangerId: e
+                },
+                success: function() {
+                    this.data.splice(index, 1);
+                }
+            })
+        }
 	}
 })

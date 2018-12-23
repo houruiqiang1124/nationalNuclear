@@ -60,11 +60,11 @@
 					<div class="mui-scroll">
 						<!--数据列表-->
 						<ul id="OA_task_1" class="mui-table-view">
-							<li class="mui-table-view-cell" v-for="(item,index) in data" :key="index" @click="goDetail(item)">
-								<div class="mui-slider-right mui-disabled">
+							<li class="mui-table-view-cell" v-for="(item,index) in data" :key="index">
+								<div class="mui-slider-right mui-disabled" @tap="del(item.dangerId, index)" v-show="currentCode == 3">
 									<a class="mui-btn mui-btn-red">删除</a>
 								</div>
-								<div class="mui-slider-handle">
+								<div class="mui-slider-handle" @click="goDetail(item)">
 									<p class="title">项目:{{item.projNo}};检查单编号:{{item.recordNo}}</p>
 									<p>业务名称：{{item.checkForm}}</p>
 									<p>当前流程节点：{{item.stepName}}</p>
