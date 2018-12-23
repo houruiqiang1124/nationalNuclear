@@ -41,6 +41,7 @@
         getCopyPerson: "webService/getCopyPerson",    // 获取抄送人列表
         getDraftUnitList: "webService/getDraftUnitList",    // 获取责任单位列表
         updateHaveRead: "processStatus/updateHaveRead", // 点击已阅
+		webServiceLogin:"webService/getUserMsg",
     }
     
     /**
@@ -64,7 +65,11 @@
         	success:function(res){
                 console.log('【请求地址】'+ host + option.url)
                 console.log("【请求成功】" + JSON.stringify(res))
-        		if(res.object.resultCode == 0 || res.object.rtnCode == 0) {
+				if(!res.object && option.url == "webService/getUserMsg"){
+					option.success(res);
+					return;
+				}
+        		if(res.object.resultCode == 0 || res.object.rtnCode == 0 ) {
                     option.success(res);
                 } else {
                     option.success(res);

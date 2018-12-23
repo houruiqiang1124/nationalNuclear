@@ -12,7 +12,7 @@ var vm = new Vue({
 		_this = this;
         var loginInfo = JSON.parse(localStorage.getItem("loginInfo")) ;
         _this.username = loginInfo.userId || "";
-        _this.password = loginInfo.userName || "";
+        // _this.password = loginInfo.userName || "";
 		function plusReady() {
 			mui.init();
 			console.log("初始化plusReady"); 
@@ -45,18 +45,18 @@ var vm = new Vue({
 				plus.nativeUI.showWaiting();
                 // 临时跳过vpn登录
 				// _this.sxfVpnInit();
-				// _this.tologin();
-                var loginInfo = {
-                	projNo: "项目2018-12-23测试",  // 项目
-                    userId: this.username,
-                    userName: this.password,    // 登录人
-                	draftUnit: "编制单位",    // 编制单位
-                	draftDept: "编制部门",  // 编制部门
-                	draftDate: "2018-12-23"   //编制日期
-                }
-                localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
-                sne.navigateTo({url:"../tabBar/index.html",id:"index.html"}),
-                plus.nativeUI.closeWaiting();
+				_this.tologin();
+//                 var loginInfo = {
+//                 	projNo: "项目2018-12-23测试",  // 项目
+//                     userId: this.username,
+//                     userName: this.password,    // 登录人
+//                 	draftUnit: "编制单位",    // 编制单位
+//                 	draftDept: "编制部门",  // 编制部门
+//                 	draftDate: "2018-12-23"   //编制日期
+//                 }
+//                 localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
+//                 sne.navigateTo({url:"../tabBar/index.html",id:"index.html"}),
+//                 plus.nativeUI.closeWaiting();
 			}
 		},
 		//初始化vpn地址
@@ -107,6 +107,24 @@ var vm = new Vue({
 				console.log(JSON.stringify(loginInfo))
 				mui.mkey.login(loginInfo, function loginCallBack(data, msg) {
 					if (data == true) {
+						var param ={
+							"userId":_this.username,
+						}
+						app.ajax({
+								url: app.INTERFACE.webServiceLogin,
+								data: param,
+								success: function(res) {
+									var loginInfo = {
+										projNo: "项目2018-12-23测试",  // 项目
+										userId: res.userId,
+										userName: res.userName,    // 登录人
+										draftUnit: "编制单位",    // 编制单位
+										draftDept: res.department,  // 编制部门
+										userType:res.userType
+									}
+									localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
+								}
+						})
 						plus.nativeUI.closeWaiting();
 						sne.navigateTo({url:"../tabBar/index.html",id:"index.html"})
 					} else {
