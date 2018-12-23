@@ -147,7 +147,16 @@ new Vue({
         delay: function() {
             sne.navigateTo({
             	url: "./5-5HSE.html",
-            	id: "5-5HSE.html"
+            	id: "5-5HSE.html",
+				data:{
+					params: {
+						"actionTraceId": _this.listParam.actionTraceId,
+						"instanceId": _this.listParam.instanceId,
+						"dangerId": _this.listParam.dangerId,
+						"checkId": _this.listParam.id,
+						"reqCompleteDate": _this.dangerData.reqcompletedate,
+					}
+				}
             })
         },
         // 流转信息
