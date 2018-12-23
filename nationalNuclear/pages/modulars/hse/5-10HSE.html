@@ -15,6 +15,11 @@
 			.mui-pull-top-pocket {
 				top: 90px !important;
 			}
+            
+            .size {
+                margin: 15px 2px 0 5px !important;
+                width: 30% !important;
+            }
 		</style>
 	</head>
 
@@ -65,7 +70,7 @@
 
                             <ul class="mui-table-view hse-sub1">
                                 <li class="mui-table-view-cell mui-collapse">
-                                    <a class="mui-navigate-right" href="#"><span>隐患明细</span> <button type="button" class="mui-btn mui-btn-blue list-btn" @click="delay">延期申请</button></a>
+                                    <a class="mui-navigate-right" href="#"><span>隐患明细</span> <button v-show="showDelay" type="button" class="mui-btn mui-btn-blue list-btn" @click="delay">延期申请</button></a>
                                     <div class="mui-collapse-content">
                                         <p><span>整改单编号：</span><span>{{dangerData.noticeno}}</span></p>
                                         <p><span>分发日期：</span><span>{{dangerData.distributdate}}</span></p>
@@ -195,13 +200,16 @@
                                 </li>
                             </ul>
                             <nav class="mui-bar mui-bar-tab list-btns" v-show="showButton">
-                                <button type="button" class="mui-btn mui-btn-blue" @tap="submit">提交</button>
-                                <button type="button" class="mui-btn mui-btn-blue" @tap="findForwarding">转发</button>
-                                <button type="button" class="mui-btn mui-btn-blue mui-btn-outlined" @tap="back">退回</button>
+                                <button type="button" class="mui-btn mui-btn-blue size" @tap="submit">提交</button>
+                                <button type="button" class="mui-btn mui-btn-blue size" @tap="findForwarding">转发</button>
+                                <button type="button" class="mui-btn mui-btn-blue mui-btn-outlined size" @tap="back">退回</button>
                             </nav>
                             <nav class="mui-bar mui-bar-tab list-btns" v-show="showYanBtn">
                             	<button type="button" class="mui-btn mui-btn-blue" @tap="isYanBtn(0)">通过</button>
                             	<button type="button" class="mui-btn mui-btn-blue mui-btn-outlined" @tap="isYanBtn(1)">不通过</button>
+                            </nav>
+                            <nav class="mui-bar mui-bar-tab list-btns" v-show="showBack">
+                            	<button type="button" class="mui-btn mui-btn-blue" @tap="findWithdrawTerminate">撤回</button>
                             </nav>
                         </div>
                         
