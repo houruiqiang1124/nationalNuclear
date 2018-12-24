@@ -123,6 +123,10 @@ new Vue({
 			_this.currentCode = param;
 			_this.pageNo = 0;
 			_this.requestData();
+            for(var i = 0; i < 6; i++) {
+                $(".nav-content").eq(i).removeClass("actives");
+            }
+            $(".nav-content").eq(param).addClass("actives")
             mui('#refreshContainer').pullRefresh().refresh(true);
 		},
 		// hse设置跳转

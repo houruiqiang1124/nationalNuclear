@@ -1,0 +1,60 @@
+ .wrap {
+            position: fixed;
+            top: 46px;
+            width: 100%;
+            z-index: 111;
+            background: #FFF; 
+            overflow-x: hidden;
+        }
+        .scroll {
+            width: 100%;
+            overflow-x: scroll;
+        }
+    .nav {
+        width: 120%;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .nav-item {
+        width: 20%;
+        text-align: center;
+        position: relative;
+        /* border-right: 1px solid #DBDBDB; */
+        
+    }
+    
+    .nav-item::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 10px;
+        width: 1px;
+        height: 20px;
+        background: #DBDBDB;
+    }
+    
+    .actives {
+        color: #007AFF;
+        border-bottom: 2px solid #007AFF;
+    }
+    
+    ::-webkit-scrollbar {
+    width: 0px;
+    height: 1px;
+}
+
+    
+    .nav-content {
+        display: flex;
+        height: 40px;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        
+        /* box-sizing: border-box; */
+    }

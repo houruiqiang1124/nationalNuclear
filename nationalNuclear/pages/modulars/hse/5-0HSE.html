@@ -8,6 +8,7 @@
 		<link href="../../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
 		<link rel="stylesheet" type="text/css" href="css/5-0HSE.css" />
+        <link rel="stylesheet" type="text/css" href="css/tab.css"/>
 		<style type="text/css">
 			.mui-pull-top-pocket {
 				top: 90px !important;
@@ -26,7 +27,7 @@
 				</span>
 			</header>
 			<div class="mui-content">
-				<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<!-- <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 					<div class="mui-scroll">
 						<a class="mui-control-item mui-active" data-i="5-0HSE-sub1.html" @tap="changeList(0)">
 							<span> 待办<font id="toDoNum"></font></span>
@@ -53,10 +54,58 @@
 
 						</a>
 					</div>
-				</div>
+				</div> -->
+                <div class="wrap">
+                	<div class="scroll">
+                	<ul class="nav">
+                		<li class="nav-item" @tap="changeList(0)">
+                			<div class="nav-content actives">
+                				<span class="">待办</span>
+                				<span class="mui-badge mui-badge-danger" id="toDoNum">0</span>
+                			</div>
+                			
+                		</li>
+                		<li class="nav-item"  @tap="changeList(1)">
+                			<div class="nav-content">
+                				<span class="">已办</span>
+                				<span class="mui-badge mui-badge-danger" id="haveToDoNum">0</span>
+                			</div>
+                			
+                		</li>
+                		<li class="nav-item"  @tap="changeList(2)">
+                			<div class="nav-content">
+                				<span class="">流转</span>
+                				<span class="mui-badge mui-badge-danger" id="circulationNum">0</span>
+                			</div>
+                			
+                		</li>
+                		<li class="nav-item"  @tap="changeList(3)">
+                			<div class="nav-content">
+                				<span class="">草稿</span>
+                				<span class="mui-badge mui-badge-danger" id="draftNum">0</span>
+                			</div>
+                			
+                		</li>
+                		<li class="nav-item"  @tap="changeList(4)">
+                			<div class="nav-content">
+                				<span class="">待阅</span>
+                				<span class="mui-badge mui-badge-danger" id="waitingReadNum">0</span>
+                			</div>
+                			
+                		</li>
+                		<li class="nav-item"  @tap="changeList(5)">
+                			<div class="nav-content">
+                				<span class="">已阅</span>
+                				<span class="mui-badge mui-badge-danger" id="haveRead">0</span>
+                			</div>
+                			
+                		</li>
+                	</ul>
+                </div>
+                </div>
 
 				<!--下拉刷新容器-->
-				<div id="refreshContainer" class="mui-scroll-wrapper" style="top: 88px;">
+				<div id="refreshContainer" class="mui-scroll-wrapper" style="margin-top: 44px;">
 					<div class="mui-scroll">
 						<!--数据列表-->
 						<ul id="OA_task_1" class="mui-table-view">
