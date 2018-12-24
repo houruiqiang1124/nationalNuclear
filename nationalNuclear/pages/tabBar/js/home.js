@@ -7,42 +7,50 @@ new Vue({
 		modular: [{
 				title: "员工去向",
 				url: "whereabouts",
-				icon: "../../static/yuangongquxiang.png"
+				icon: "../../static/yuangongquxiang.png",
+				id:""
 			},
 			{
 				title: "HES监督检查",
-				url: "5-0HSE",
-				icon: "../../static/hse.png"
+				url: "../modulars/hse/5-0HSE.html",
+				icon: "../../static/hse.png",
+				id:"5-0HSE.html"
 			},
 			{
 				title: "用餐管理",
 				url: "departementSearch",
-				icon: "../../static/Have_meals.png"
+				icon: "../../static/Have_meals.png",
+				id:""
 			},
 			{
 				title: "绩效管理",
 				url: "",
-				icon: "../../static/jixiao.png"
+				icon: "../../static/jixiao.png",
+				id:""
 			},
 			{
 				title: "公司要闻",
 				url: "news",
-				icon: "../../static/news.png"
+				icon: "../../static/news.png",
+				id:""
 			},
 			{
 				title: "车输管理",
 				url: "",
-				icon: "../../static/car.png"
+				icon: "../../static/car.png",
+				id:""
 			},
 			{
 				title: "公司公告",
-				url: "noticeAnnouncement",
-				icon: "../../static/Notice.png"
+				url: "../modulars/company/2-1.html",
+				icon: "../../static/Notice.png",
+				id:"2-1.html"
 			},
 			{
 				title: "考勤管理",
 				url: "",
-				icon: "../../static/kaoqin.png"
+				icon: "../../static/kaoqin.png",
+				id:""
 			}
 		]
 	},
@@ -103,10 +111,10 @@ new Vue({
 			})
 		},
         // 跳转模块
-        goPage(e) {
+        goPage(url,id) {
             sne.navigateTo({
-                url: "../modulars/hse/" + e + ".html",
-                id: e + ".html"
+                url: url,
+                id: id
             })
         }
 	}

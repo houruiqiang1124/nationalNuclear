@@ -18,7 +18,7 @@
             <div class="content">
             	<!-- 我的模块 -->
             	<div class="mui-card module">
-            		<div class="module-item" v-for="(item, index) in modular" :key="index" @click="goPage(item.url)">
+            		<div class="module-item" v-for="(item, index) in modular" :key="index" @click="goPage(item.url,item.id)">
             			<img :src="item.icon" class="module-img" />
             			<span>{{item.title}}</span>
             		</div>
