@@ -17,19 +17,19 @@
         	<div class="login-content mui-text-center">
         		<div class="login-content-row"> 
                     <img src="../../static/loginImg/1-0-user.png" class="login_userImg" />
-                    <input type="text" name="" value="" v-model="username" class="input" placeholder="请输入VPN账号"/>
+                    <input type="text" name="" value="" v-model="username" class="input" placeholder="请输入账号"/>
         		</div>
                 <div class="login-content-row">
                 	<img src="../../static/loginImg/1-0-password.png" class="login_userImg" />
-                    <input type="text" name="" class="input" v-model="password" value="" placeholder="请输入密码"/>
+                    <input :type="typePwd" name="" class="input" v-model="password" value="" placeholder="请输入密码"/>
 
                 	<!-- <input :type="typePwd" name="" class="input" v-model="password" value="" placeholder="请输入密码"/> -->
                     <img :src="eyeImg" :change="showEye" class="eye" @click="eye" />
                 </div>
-                <div class="login-content-row">
+                <!-- <div class="login-content-row">
                 	<input :type="typePwd" name="" class="input" value="" placeholder="请输入验证码"/>
                 	<input type="button" class="getCode" value="获取验证码" />
-                </div>
+                </div> -->
                 <div class="login-content-row login-content-row_noBorder flex flex_jus_between">
                 	<a href="javascipt:;">记住账号</a> 
                     <div class="mui-switch mui-switch-mini mui-active mui-switch-blue">
