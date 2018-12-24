@@ -48,7 +48,7 @@ new Vue({
             var searchValue = _this.searchVal;
             var page = 1;
             var searchType = 1;
-            params.url = app.noticeSearch + 'type=1&value=' +
+            params.url = app.companyNewUrlSearch + 'type=1&value=' +
 					encodeURI(encodeURI(searchValue)) + '&systype=00&page=' + page + '&search=' + searchType + '&_dc=' + new Date().getTime();
             mui.mkey.get(params, function(data) {
                 var jsonStr = data.getElementsByTagName("span")[0].textContent;
