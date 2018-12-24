@@ -45,18 +45,18 @@ var vm = new Vue({
 				plus.nativeUI.showWaiting();
                 // 临时跳过vpn登录
 				// _this.sxfVpnInit();
-				// _this.tologin();
-                var loginInfo = {
-                	projNo: "SNG",  // 项目
-                    userId: this.username,
-                    userName: this.password,    // 登录人
-                	draftUnit: "编制单位",    // 编制单位
-                	draftDept: "编制部门",  // 编制部门
-                	draftDate: "2018-12-23"   //编制日期
-                }
-                localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
-                sne.navigateTo({url:"../tabBar/index.html",id:"index.html"}),
-                plus.nativeUI.closeWaiting();
+				_this.tologin();
+//                 var loginInfo = {
+//                 	projNo: "SNG",  // 项目
+//                     userId: this.username,
+//                     userName: this.password,    // 登录人
+//                 	draftUnit: "编制单位",    // 编制单位
+//                 	draftDept: "编制部门",  // 编制部门
+//                 	draftDate: "2018-12-23"   //编制日期
+//                 }
+//                 localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
+//                 sne.navigateTo({url:"../tabBar/index.html",id:"index.html"}),
+//                 plus.nativeUI.closeWaiting();
 			}
 		},
 		//初始化vpn地址
