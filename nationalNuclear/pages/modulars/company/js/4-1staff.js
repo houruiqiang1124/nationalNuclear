@@ -2,7 +2,6 @@ var _this = null;
 new Vue({
 	el: "#app",
 	data: {
-		userid:"",
 		data:[],
 		page:"1",
 		searchType:"0",//0:没有搜索 1 搜索过
@@ -39,7 +38,7 @@ new Vue({
 	methods: {
 		requestData:function (){
 			var params = {};
-			params.url = app.INTERFACE.noticeUrl
+			params.url = app.INTERFACE.employeesGoUrl
 			mui.mkey.get(params, function(data) {
 				var jsonStr = data.getElementsByTagName("span")[0].textContent;
 				var json = JSON.parse(jsonStr);
@@ -66,7 +65,7 @@ new Vue({
 		},
 		searchData: function(){
 			var params = {};
-			params.url = app.INTERFACE.noticeSearchUrl+'?type=1&value=' + encodeURI(encodeURI(_this.searchValue)) + '&systype=5&page=' + _this.page + '&search=' + _this.searchType + '&_dc=' + new Date().getTime();
+			params.url = app.INTERFACE.employeesGoSearchUrl+'?type=' + encodeURI(encodeURI(_this.searchValue)) + '&value=&systype=5&page=' + _this.page + '&search=' + _this.searchType + '&_dc=' + new Date().getTime();
 					console.log(JSON.stringify(params))
 					mui.mkey.get(params, function(data) {
 						var jsonStr = data.getElementsByTagName("span")[0].textContent;

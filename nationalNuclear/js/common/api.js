@@ -18,8 +18,10 @@
 		checkCodeUrl:'/snpec_portal/command/dispatcher/org.loushang.bsp.security.web.RandomCodeCommand?_dc=', // 获取验证码
 		companyNewUrl:'/snpec_portal/jsp/com/snpit/top/portal/snpecportal/qiyeMore.jsp?systype=6',  // 公司要闻
         noticeUrl: app.portalUrl+'/snpec_portal/jsp/com/snpit/top/portal/snpecportal/qiyeMore.jsp?systype=5',   // 公告列表
+		employeesGoUrl: app.portalUrl+'/snpec_portal/jsp/com/snpit/top/portal/snpecportal/yggoMore.jsp?systype=5',//员工去向
         companyNewUrlSearch:app.portalUrl+ "/snpec_portal/command/dispatcher/com.snpit.top.portal.snpecportal.cmd.HomePageQueryCommand/queryGroupForMore",  // 要闻搜索
 		noticeSearchUrl: app.portalUrl+'/snpec_portal/command/dispatcher/com.snpit.top.portal.snpecportal.cmd.HomePageQueryCommand/queryGroupForMore',//公告搜索和上下拉
+		employeesGoSearchUrl: app.portalUrl+'/snpec_portal/command/dispatcher/com.snpit.top.portal.snpecportal.cmd.HomePageQueryCommand/queryYgGOForMore',//公告搜索和上下拉
 		//hse接口
         findToDo: 'processStatus/findToDo',  // hse列表
         hseBadge: 'processStatus/findProcessStatusCount', // 角标
