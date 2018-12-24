@@ -4,7 +4,7 @@ new Vue({
 	data: {
 		userid: app.loginInfo.userId, // 当前登录人的id
 		data: [],
-		pageNo: "0",
+		pageNo: 0,
 		limit: "10",
 		currentCode: "0",
 	},
@@ -74,7 +74,7 @@ new Vue({
 				success: function(res) {
 					if (res.object.resultCode == "0") {
 						plus.nativeUI.closeWaiting();
-						_this.pageNo++;
+						_this.pageNo+=10;
 						if (!res.beans) {
 							return;
 						}
@@ -101,13 +101,14 @@ new Vue({
 								}
 								return item
 							})
-							_this.data = list;
+							_this.data = _this.data.concat(list);
 						}
 						if (res.beans.length < 10) {
 							mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
 							mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
 						} else {
 							mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+                            mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
 						}
 					} else {
 						mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
@@ -120,8 +121,9 @@ new Vue({
 		changeList: function(param) {
 			_this.data=[];
 			_this.currentCode = param;
-			_this.pageNo = "0";
+			_this.pageNo = 0;
 			_this.requestData();
+            mui('#refreshContainer').pullRefresh().refresh(true);
 		},
 		// hse设置跳转
 		hseSet: function() {
@@ -180,10 +182,11 @@ new Vue({
 		},
 		//下拉
 		pulldownRefresh: function() {
-			_this.pageNo = "0";
+			_this.pageNo = 0;
             _this.data = [];
             _this.getNumber();
 			_this.requestData();
+            mui('#refreshContainer').pullRefresh().refresh(true);
 		},
         // 草稿删除
         del: function(e, index) {
@@ -193,7 +196,7 @@ new Vue({
                     dangerId: e
                 },
                 success: function() {
-                    _this.data.splice(index, 1);
+                    _this.pulldownRefresh();
                 }
             })
         }

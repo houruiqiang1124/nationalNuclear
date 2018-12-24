@@ -125,16 +125,16 @@ new Vue({
 //         },
 				],
         hiddenCategoryList: [{
-        	value: "1",
+        	value: "0",
         	text: "管理缺陷"
         },{
-        	value: "2",
+        	value: "1",
         	text: "人的不安全行为"
         },{
-        	value: "3",
+        	value: "2",
         	text: "物的不安全状态"
         },{
-        	value: "4",
+        	value: "3",
         	text: "环境的不安全因素"
         }],
         copyPersonList: [
@@ -281,7 +281,7 @@ new Vue({
 					var param ={
 						"projNo": app.loginInfo.projNo,
 						// "userName": app.loginInfo.userName
-						"userName": "胡"
+						"userName": ""
 					}
 					app.ajax({
 							url: app.INTERFACE.getCopyPerson,
@@ -404,6 +404,20 @@ new Vue({
         submit: function(e) {   // 0保存 1提交
             this.saveParam.state = e;
             _this.saveParam.hiddenDoc = _this.imgList;
+          
+            
+            if(_this.saveParam.hiddenCategory == "管理缺陷") {
+                _this.saveParam.hiddenCategory = 0
+            } else if(_this.saveParam.hiddenCategory == "人的不安全行为") {
+                _this.saveParam.hiddenCategory = 1
+
+            } else if(_this.saveParam.hiddenCategory == "物的不安全状态") {
+                _this.saveParam.hiddenCategory = 2
+
+            } else if(_this.saveParam.hiddenCategory == "环境的不安全因素") {
+                _this.saveParam.hiddenCategory = 3
+
+            }
             var method = "";
             if(this.prevParam.type == "list") { // 从草稿过来，调取不同接口；
             	this.saveParam.dangerId = this.prevParam.dangerId;
@@ -449,6 +463,7 @@ new Vue({
                     _this.saveParam.hiddenDescription = dangerList.hiddendescription;
                     _this.saveParam.correctiveRequest = dangerList.correctiverequest;
                     _this.saveParam.responsiblePerson = dangerList.responsibleperson;
+                    _this.saveParam.responsiblePersonId = dangerList.responsiblepersonid;
                     _this.saveParam.copyPerson = JSON.parse(dangerList.copyPerson);
                 }
             })

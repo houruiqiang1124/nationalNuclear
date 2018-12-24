@@ -14,10 +14,14 @@ new Vue({
 		showTongBtn: false,  // 是否显示通过与不通过按钮
 		showYanBtn: false,  // 是否显示整改验证按钮
         showDelay: false,
+        showDelayBtn: false,    //  是否显示底部延期申请通按钮
+        showLuRu: true,
         copyPersonList: [], // 抄送人员
         confirmation: "",   // 确认情况
         closePerson: "",//关闭人
         closeDate: "",  //关闭日期
+        disabled1: false,    // 是否可以输入
+        disabled2: false,    // 是否可以输入
         submitParam: {  // 录入提交
             "traceId": "", // 流转表单id
             "instanceId": "",  // 实例id
@@ -57,8 +61,7 @@ new Vue({
     methods: {
         // 初始化信息
         init: function() {
-            _this.closePerson = app.loginInfo.userName;
-            _this.closeDate = sne.getNowFormatDate().substr(0,10);
+            
             _this.submitParam.userId = app.loginInfo.userId;
             _this.submitParam.userName = app.loginInfo.userName;
             _this.submitParam.traceId = _this.listParam.actionTraceId;
@@ -66,17 +69,22 @@ new Vue({
             _this.submitParam.checkId = _this.listParam.id;
             _this.submitParam.dangerId = _this.listParam.dangerId;
             _this.submitParam.copyPerson = _this.copyPersonList;
+            var date = sne.getNowFormatDate();
             switch(_this.tabCode) {
             	case '0':
-            		if(_this.listParam.stepId == "200") {
-                        var date = sne.getNowFormatDate();
+                    if(_this.listParam.stepId == "100") {
+                        _this.submitParam.completeDate =date.substr(0,10);
+                        _this.showButton =false;
+                    } else if(_this.listParam.stepId == "200") {
                         _this.showDelay = true;
             			_this.submitParam.completeDate =date.substr(0,10)
             		} else if(this.listParam.stepId == "300") {   // 100发起   200整改回复  300整改验证  400延期申请  500延期申请审批
             			_this.showVerify = true;
             			_this.showYanBtn = true;
             			_this.showButton =false;
-            			_this.disabled = true;
+            			_this.disabled1 = true;
+                        _this.closePerson = app.loginInfo.userName;
+                        _this.closeDate = sne.getNowFormatDate().substr(0,10);
             			_this.submitParam.rectificationSituation = this.listParam.rectificationSituation;
             			_this.submitParam.responsiblePerson = this.listParam.responsiblePerson;
             			_this.submitParam.completeDate = sne.getNowFormatDate(this.listParam.completeDate.time); 
@@ -84,11 +92,28 @@ new Vue({
             		} else if(_this.listParam.stepId == "500") {
             			_this.showTongBtn = true;
             			_this.showButton =false;
+                        _this.showDelayBtn = true;
+                        _this.showLuRu = false;
             		}
             		break;
             	case '1':
+                    _this.submitParam.rectificationSituation = this.listParam.rectificationSituation;
+                    _this.submitParam.responsiblePerson = this.listParam.responsiblePerson;
+                    if(this.listParam.completeDate) {
+                    	_this.submitParam.completeDate = sne.getNowFormatDate(this.listParam.completeDate.time); 
+                    } else {
+                    	_this.submitParam.completeDate = ""
+                    }
+                    if(_this.listParam.stepId == "100") {
+                        _this.showLuRu = false;
+                    } else if(_this.listParam.stepId == "300") {
+                        _this.showVerify = true;
+                        _this.closePerson = app.loginInfo.userName;
+                        _this.closeDate = sne.getNowFormatDate().substr(0,10);
+                    }
             		_this.showButton = false;    // 隐藏底部按钮，只读
             		_this.disabled = true;
+                    
             		break;
             	case '2':
                     _this.submitParam.rectificationSituation = this.listParam.rectificationSituation;
@@ -125,7 +150,7 @@ new Vue({
         	var param = {
         		"projNo": app.loginInfo.projNo,
         		// "userName": app.loginInfo.userName
-        		"userName": ""
+        		"userName": "胡"
         	}
         	app.ajax({
         		url: app.INTERFACE.getCopyPerson,
@@ -310,6 +335,25 @@ new Vue({
                     } 
                 }
             })
+        },
+        // 延期申请通过与不通过
+        delayBtn: function(e) {
+            var param = {
+                    pass: e, //0通过 1不通过
+                    delayToApplyForDate: this.listParam.delayToApplyForDate, //延期日期
+                    dangerId: this.listParam.dangerId, //隐患id
+                    traceId: this.listParam.actionTraceId, //流转id
+                    userId: app.loginInfo.userId, //用户id
+                    userName: app.loginInfo.userName //用户名称
+                }
+                app.ajax({
+                    url: app.INTERFACE.checkPass,
+                    data: param,
+                    success: function(res) {
+                        mui.back();
+                        mui.toast("提交成功");
+                    }
+                })
         }
     }
 })

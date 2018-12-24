@@ -2,34 +2,7 @@ var _this = null;
 new Vue({
     el: "#app",
     data: {
-        users: [{
-            "value": "ZHANGDESHENG",
-            "label": "张德生",
-        }, {
-            "value": "ZHANGYONG8",
-            "label": "张勇2"
-        }, {
-            "value": "ZHANGQIMING",
-            "label": "张奇明"
-        }, {
-            "value": "ZHANGBAOLIANG",
-            "label": "张保良"
-        }, {
-            "value": "ZHANGSHAOWEI",
-            "label": "张韶伟"
-        }, {
-            "value": "ZHANGXINKE",
-            "label": "张新科"
-        }, {
-            "value": "ZHANGYAN1",
-            "label": "张衍"
-        }, {
-            "value": "ZHANGXIAOFEI1",
-            "label": "张晓斐"
-        }, {
-            "value": "ZHANGXIAOFEI",
-            "label": "张晓斐"
-        }],
+        users: [],
         forwardParam: {},
         checkedUser: {}    // 选中人员
     },
@@ -38,6 +11,7 @@ new Vue({
         function plusReady() {
             console.log(JSON.stringify(plus.webview.currentWebview().params))
         	_this.forwardParam = plus.webview.currentWebview().params;
+            _this.getCopyPerson();
         }
         if (window.plus) {
         	plusReady()
@@ -50,8 +24,8 @@ new Vue({
         ok: function() {
             this.forwardParam.userId = app.loginInfo.userId;
             this.forwardParam.userName = app.loginInfo.userName;
-            this.forwardParam.ownerUserId = this.checkedUser.label;
-            this.forwardParam.ownerUserName = this.checkedUser.value;
+            this.forwardParam.ownerUserId = this.checkedUser.value;
+            this.forwardParam.ownerUserName = this.checkedUser.text;
             app.ajax({
                 url: app.INTERFACE.findForwarding,
                 data: this.forwardParam,
@@ -69,6 +43,26 @@ new Vue({
             $('input[type=radio]').attr("checked", false);
             $('input[type=radio][name='+e.value+']').attr("checked", true);
             _this.checkedUser = e;
-        }
+        },
+        //获取抄送人列表
+        getCopyPerson:function(){
+        	var param ={
+        		"projNo": app.loginInfo.projNo,
+        		// "userName": app.loginInfo.userName
+        		"userName": ""
+        	}
+        	app.ajax({
+        			url: app.INTERFACE.getCopyPerson,
+        			data: param,
+        			success: function(res) {
+        				var List = res.beans.map((val, index) => {
+        					val.text = val.memberName;
+        					val.value = val.memberId;
+        					return val;
+        				})
+        				_this.users = List;
+        			}
+        	})
+        },
     }
 })

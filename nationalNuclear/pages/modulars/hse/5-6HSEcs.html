@@ -24,7 +24,7 @@
                 <ul class="mui-table-view">
                     <li class="mui-table-view-cell" v-for="(item, index) in users" :key="index" @tap="radioChange(item)">
                         <input type="radio" :name="item.value" id="" value="" :checked="item.checked"/>
-                        <label for="#bgs">{{item.label}}</label>
+                        <label for="#bgs">{{item.text}}</label>
                     </li>
                     <!-- <li class="mui-table-view-cell">
                         <input type="radio" name="bgs" id="" value="" />

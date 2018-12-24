@@ -11,8 +11,8 @@ var vm = new Vue({
 	mounted: function() {
 		_this = this;
         var loginInfo = JSON.parse(localStorage.getItem("loginInfo")) ;
-        _this.username = loginInfo.userId || "";
-        _this.password = loginInfo.userName || "";
+        // _this.username = loginInfo.userId || "";
+        // _this.password = loginInfo.userName || "";
 		function plusReady() {
 			mui.init();
 			console.log("初始化plusReady"); 
@@ -39,13 +39,13 @@ var vm = new Vue({
 		login: function(){
 			
 			if (this.username == '' || this.password == '') {
-				mui.alert('用户名或密码不能为空！');
+				mui.toast('用户名或密码不能为空！');
 				return;
 			} else {
 				plus.nativeUI.showWaiting();
                 // 临时跳过vpn登录
-				// _this.sxfVpnInit();
-				_this.tologin();
+				_this.sxfVpnInit();
+				// _this.tologin();
 //                 var loginInfo = {
 //                 	projNo: "SNG",  // 项目
 //                     userId: this.username,
@@ -65,7 +65,6 @@ var vm = new Vue({
 				_this.sxfVpnLoginUser();
 			}, function(e){
 				plus.nativeUI.closeWaiting();
-				alert("初始化失败"+e);
 			});
 		},
 		//vpn登录
@@ -80,7 +79,7 @@ var vm = new Vue({
 				}else{
 					vpnMessage = e;
 				}
-				mui.alert(vpnMessage);
+				// mui.alert(vpnMessage);
 			});
 		},
 		tologin:function(){
@@ -125,13 +124,14 @@ var vm = new Vue({
 										userType:res.userType
 									}
 									localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
+                                    plus.nativeUI.closeWaiting();
+                                    sne.navigateTo({url:"../tabBar/index.html",id:"index.html"})
 								}
 						})
-						plus.nativeUI.closeWaiting();
-						sne.navigateTo({url:"../tabBar/index.html",id:"index.html"})
+						
 					} else {
 						plus.nativeUI.closeWaiting();
-						mui.alert("用户名或密码错误！");
+						mui.toast("用户名或密码错误！");
 					}
 				}, false);
 			})

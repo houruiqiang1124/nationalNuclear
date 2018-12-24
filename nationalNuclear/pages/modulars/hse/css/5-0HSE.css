@@ -28,6 +28,7 @@
 				display: inline;
 				border-right: 1px solid #DBDBDB;
 				color: #909090;
+                padding: 0 10px;
 			}
 			.mui-segmented-control.mui-scroll-wrapper .mui-control-item{
 				padding: 0 10px;

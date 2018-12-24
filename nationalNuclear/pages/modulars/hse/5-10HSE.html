@@ -100,7 +100,9 @@
                                 </li>
 
                             </ul>
-                            <ul class="mui-table-view hse-sub1 write-list">
+                            
+                            <!-- 整改录入 -->
+                            <ul class="mui-table-view hse-sub1 write-list" v-show="showLuRu">
                                 <li class="mui-table-view-cell mui-collapse">
                                     <a class="mui-navigate-right" href="#"><span>整改录入</span> </a>
                                     <div class="mui-collapse-content">
@@ -112,7 +114,7 @@
                                             </li>
                                             <li class="mui-table-view-cell text">
                                                 整改情况 :
-                                                <textarea v-model="submitParam.rectificationSituation" name="" rows="" cols="" placeholder="请输入" class="text-infos"></textarea>
+                                                <textarea :disabled="disabled1" v-model="submitParam.rectificationSituation" name="" rows="" cols="" placeholder="请输入" class="text-infos"></textarea>
                                                 <div class="voice">
                                                     <img src="images/5-3-Voice@2x.png" />
                                                 </div>
@@ -165,7 +167,7 @@
                                             </li> -->
                                             <li class="mui-table-view-cell text">
                                                 <i>*</i>验证情况 :
-                                                <textarea v-model="confirmation" name="" rows="" cols="" placeholder="请输入" class="text-infos"></textarea>
+                                                <textarea :disabled="disabled2" v-model="confirmation" name="" rows="" cols="" placeholder="请输入" class="text-infos"></textarea>
                                                 <div class="voice">
                                                     <img src="images/5-3-Voice@2x.png" />
                                                 </div>
@@ -210,6 +212,11 @@
                             </nav>
                             <nav class="mui-bar mui-bar-tab list-btns" v-show="showBack">
                             	<button type="button" class="mui-btn mui-btn-blue" @tap="findWithdrawTerminate">撤回</button>
+                            </nav>
+                            <!-- 延期申请通过与不通过 -->
+                            <nav class="mui-bar mui-bar-tab list-btns" v-show="showDelayBtn">
+                            	<button type="button" class="mui-btn mui-btn-blue" @tap="delayBtn(0)">通过</button>
+                            	<button type="button" class="mui-btn mui-btn-blue mui-btn-outlined" @tap="delayBtn(1)">不通过</button>
                             </nav>
                         </div>
                         

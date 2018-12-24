@@ -57,6 +57,9 @@ new Vue({
 					console.log(res)
 					if (res.object.resultCode == "0") {
 						mui.toast("延期申请成功");
+                        plus.webview.getWebviewById("5-10HSE.html").hide();
+                        plus.webview.getWebviewById("5-10HSE.html").close();
+                        mui.back();
 					}else{
 						mui.toast("延期申请失败");
 					}
