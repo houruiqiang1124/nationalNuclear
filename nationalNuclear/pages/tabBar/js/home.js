@@ -6,9 +6,9 @@ new Vue({
 		noticeTitle: '',
 		modular: [{
 				title: "员工去向",
-				url: "whereabouts",
+				url: "../modulars/company/4-1staff.html",
 				icon: "../../static/yuangongquxiang.png",
-				id:""
+				id:"4-1staff.html"
 			},
 			{
 				title: "HES监督检查",
