@@ -1,0 +1,33 @@
+	body{
+				background: #FFFFFF;
+			}
+			.mui-content{
+				background: #FFFFFF;
+				padding: 20px;
+			}
+			h4{
+				text-align: center;
+				font-size: 19px;
+				padding: 20px 0;
+				font-weight: 400;
+				line-height: 25px;
+			}
+			p.label span{
+				color: #B4B4B4;
+				font-size: 12px;
+				margin-right:25px ;
+			}
+			p.label span:last-child{
+				margin-right: 0;
+			}
+			p.label span img{
+				height: 8px;
+				margin-right: 5px;
+			}
+			.content{
+				font-size: 12px;
+				color: #323232;
+				line-height: 24px;
+				border-top:1px solid #E1E1E1 ;
+				padding-top:10px
+			}

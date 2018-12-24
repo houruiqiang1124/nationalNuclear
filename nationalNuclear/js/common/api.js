@@ -1,6 +1,6 @@
 (function(m, app) {
-    const host = "http://10.4.210.110:8888/";  // 测试服务器
-    // var host = "http://192.168.199.7:8888/";
+    // const host = "http://10.4.210.110:8888/";  // 测试服务器
+    var host = "http://192.168.199.6:8888/";
     // const host = "http://39.105.204.84:8888/";  // 正式
 
 	app.portalUrl = "http://10.4.200.77";
