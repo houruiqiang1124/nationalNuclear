@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="./css/3-1.css"/>
+	</head>
+
+	<body>
+		<!--下拉刷新容器-->
+		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+		  <div class="mui-scroll">
+		    <!--数据列表-->
+		    <ul class="mui-table-view">
+		            <li class="mui-table-view-cell">
+		               <span class="title">AP1000创始人到公司访问</span>
+		               <p><span><label>人力资源部</label></span> <span>作者：王小明</span> <span class="mui-pull-right">03-08 15:20</span></p>
+		            </li>
+		           <li class="mui-table-view-cell">
+		               <span class="title">AP1000创始人到公司访问</span>
+		               <p><span><label>办公厅</label></span> <span>作者：王小明</span> <span class="mui-pull-right">03-08 15:20</span></p>
+		            </li>
+		               <li class="mui-table-view-cell">
+		               <span class="title">AP1000创始人到公司访问</span>
+		               <p><span><label>人力资源部</label></span> <span>作者：王小明</span> <span class="mui-pull-right">03-08 15:20</span></p>
+		            </li>
+		           <li class="mui-table-view-cell">
+		               <span class="title">AP1000创始人到公司访问</span>
+		               <p><span><label>办公厅</label></span> <span>作者：王小明</span> <span class="mui-pull-right">03-08 15:20</span></p>
+		            </li>
+		              <li class="mui-table-view-cell">
+		               <span class="title">AP1000创始人到公司访问</span>
+		               <p><span><label>人力资源部</label></span> <span>作者：王小明</span> <span class="mui-pull-right">03-08 15:20</span></p>
+		            </li>
+		           <li class="mui-table-view-cell">
+		               <span class="title">AP1000创始人到公司访问</span>
+		               <p><span><label>办公厅</label></span> <span>作者：王小明</span> <span class="mui-pull-right">03-08 15:20</span></p>
+		            </li>
+		            <li class="mui-table-view-cell">
+		               <span class="title">AP1000创始人到公司访问</span>
+		               <p><span><label>办公厅</label></span> <span>作者：王小明</span> <span class="mui-pull-right">03-08 15:20</span></p>
+		            </li>
+		        </ul>
+		  </div>
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.init({
+				pullRefresh: {
+					container: '#refreshContainer',
+					down: {
+						callback: pullDownfresh
+					},
+					up: {
+						callback: pullUpfresh
+					}
+				}
+			});
+
+			function pullDownfresh() {
+				setTimeout(
+					function() {
+						alert("下拉刷新");
+						mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
+					}, 1000);
+			}
+
+			function pullUpfresh() {
+				var self = this;
+				setTimeout(
+					function() {
+						alert("上拉加载");
+						self.endPullupToRefresh(false);
+					}, 1000);
+			}
+		</script>
+	</body>
+
+</html>

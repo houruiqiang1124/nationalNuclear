@@ -1,0 +1,54 @@
+html,
+			body {
+				height: 100%;
+				overflow: hidden;
+			}
+			.mui-bar {
+				-webkit-box-shadow: none;
+				box-shadow: none;
+			}
+			.mui-input-row.mui-search{
+				background: transparent;
+				width: 95%;
+				margin: 10px auto;
+				border: none;
+			}
+			.mui-input-row.mui-search input{
+				background: #FFFFFF;
+				border-radius: 5px;
+			}
+			.mui-search .mui-placeholder{
+				font-size: 14px;
+			}
+			/*通讯录列表*/
+			.info-book{
+				display: inline-block;
+			}
+			.mui-table-view-cell>img{
+				height: 45px;
+				margin-right: 10px;
+			}
+			div.info-book p{
+				color: #000000;
+				font-size: 12px;
+				margin-bottom: 0;
+				line-height: 16.5px;
+			}
+			div.info-book p:first-child{
+				font-size: 14px;
+				margin-bottom: 5px;
+			}
+			div.info-book p:last-child{
+				color: #A5A5A5;
+			}
+			.mui-table-view-cell{
+				padding: 15px 55px 15px 15px;
+			}
+			.mui-table-view-cell span.mui-pull-right{
+				position: relative;
+				top:20px
+			}
+			.mui-table-view-cell span.mui-pull-right img{
+				height: 15.5px;
+				margin-left: 28px;
+			}

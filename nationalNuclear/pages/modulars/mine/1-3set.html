@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../hse/css/app.css"/>
+		<link rel="stylesheet" type="text/css" href="../hse/css/5-2HSE.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">个人信息</h1>
+		</header>
+		<div class="mui-content">
+		    <ul class="mui-table-view set">
+		            <li class="mui-table-view-cell">
+		                <a class="mui-navigate-right">
+		                   头像
+		                   	 <img src="../images/5-2-icon1@2x.png" class="mui-pull-right"/>
+		                </a>
+		            </li>
+		            <li class="mui-table-view-cell">
+		                <a class="mui-navigate-right">
+		                    手机
+		                    <span class="mui-pull-right">13806356688</span>
+		                     
+		                </a>
+		            </li>
+		             <li class="mui-table-view-cell">
+		                <a class="mui-navigate-right">
+		                    分机
+		                    <span class="mui-pull-right">321</span>
+		                     
+		                </a>
+		            </li>
+		             <li class="mui-table-view-cell">
+		                <a class="mui-navigate-right">
+		                    邮箱
+		                    <span class="mui-pull-right">wang@163.com</span>
+		                     
+		                </a>
+		            </li>
+		        </ul>
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+				if(window.plus) {
+						plusReady();
+					} else {
+						document.addEventListener("plusready", plusReady, false);
+					}
+					function plusReady(){
+						plus.navigator.setStatusBarBackground("#1D6BCA")
+					}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="./css/3-1.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../css/mui.picker.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../css/mui.poppicker.css"/>
+		<style type="text/css">
+			.staff-list.mui-table-view{
+				background: transparent;
+			}
+			.staff-list .mui-table-view-cell:after{
+				height: 0;
+			}
+			.staff-list li{
+				font-size: 14px;
+				color: #000000;
+				margin-top:10px;
+				background: #FFFFFF;
+			}
+			.staff-list li span:first-child{
+				padding-right: 15px;
+			}
+			.staff-list li span.mui-pull-right{
+				font-size: 13px;
+				color: #424242;
+			}
+			.staff-list li span.type{
+				font-size:11px ;
+				margin-left: 15px;
+				background: #FF6468;
+				color: #FFFFFF;
+				border-radius: 15px;
+				padding: 0 10px;
+			}
+			.staff-list li span.blue{
+				background: #649AFF;
+			}
+			.staff-list li span.green{
+				background: #7CCE84;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--下拉刷新容器-->
+		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+		  <div class="mui-scroll">
+		    <!--数据列表-->
+		    <ul class="mui-table-view company-sub staff-list">
+		            <li class="mui-table-view-cell">
+		              <span>
+		              	王小明
+		              </span>
+		              <span>
+		              	技术部部长
+		              </span>
+		               <span class="mui-pull-right type">请假</span>
+		              <span class="mui-pull-right ">2018-09-28</span>	             
+		            </li>
+		           <li class="mui-table-view-cell">
+		              <span>
+		              	王小明
+		              </span>
+		              <span>
+		              	技术部部长
+		              </span>
+		               <span class="mui-pull-right type">请假</span>
+		              <span class="mui-pull-right ">2018-09-28</span>	             
+		            </li>
+		            <li class="mui-table-view-cell">
+		              <span>
+		              	王小明
+		              </span>
+		              <span>
+		              	技术部部长
+		              </span>
+		               <span class="mui-pull-right type blue">请假</span>
+		              <span class="mui-pull-right ">2018-09-28</span>	             
+		            </li>
+		            <li class="mui-table-view-cell">
+		              <span>
+		              	王小明
+		              </span>
+		              <span>
+		              	技术部部长
+		              </span>
+		               <span class="mui-pull-right type">请假</span>
+		              <span class="mui-pull-right ">2018-09-28</span>	             
+		            </li>
+		            <li class="mui-table-view-cell">
+		              <span>
+		              	王小明
+		              </span>
+		              <span>
+		              	技术部部长
+		              </span>
+		               <span class="mui-pull-right type green">请假</span>
+		              <span class="mui-pull-right ">2018-09-28</span>	             
+		            </li>
+		        </ul>
+		  </div>
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+		<script src="../../../js/mui.picker.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.init({
+				pullRefresh: {
+					container: '#refreshContainer',
+					down: {
+						callback: pullDownfresh
+					},
+					up: {
+						callback: pullUpfresh
+					}
+				}
+			});
+
+			function pullDownfresh() {
+				setTimeout(
+					function() {
+						alert("下拉刷新");
+						mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
+					}, 1000);
+			}
+
+			function pullUpfresh() {
+				var self = this;
+				setTimeout(
+					function() {
+						alert("上拉加载");
+						self.endPullupToRefresh(false);
+					}, 1000);
+			}
+			//		 选择器
+			var userPicker;
+			function pickShow(){
+				userPicker = new mui.PopPicker();
+				userPicker.setData([{
+						value: 'ywj',
+						text: '董事长 叶文洁'
+					}, {
+						value: 'aaa',
+						text: '总经理 艾AA'
+					}, {
+						value: 'lj',
+						text: '罗辑'
+					}, {
+						value: 'ymt',
+						text: '云天明'
+					}, {
+						value: 'shq',
+						text: '史强'
+					}, {
+						value: 'zhbh',
+						text: '章北海'
+					}, {
+						value: 'zhy',
+						text: '庄颜'
+					}, {
+						value: 'gyf',
+						text: '关一帆'
+					}, {
+						value: 'zhz',
+						text: '智子'
+					}, {
+						value: 'gezh', 
+						text: '歌者'
+					}]);
+				userPicker.show(function(items) {
+//							_self.innerText = items[0].text;
+							plus.webview.currentWebview().parent().evalJS("getPickInfo('"+items[0].text+"')")
+						});
+			}
+			function  hidePick(){
+				userPicker.hide()
+			}
+		</script>
+	</body>
+
+</html>

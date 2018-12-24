@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../hse/css/app.css" />
+		<link rel="stylesheet" type="text/css" href="./css/3-1.css" />
+		<style type="text/css">
+			.mui-pull-top-pocket {
+				top: 105px!important;
+			}
+			
+			
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">公司公告</h1>
+		</header>
+		<div class="mui-content">
+			<div class="search bmchoose">
+				<span class="chooseBm"><label>员工部门</label><img src="../images/drop-down@2x.png"/></span>
+				<input type="text" name="" id="" value="" placeholder="公告标题" />
+				<div class="mui-pull-right">
+					<button type="button" class="mui-btn mui-btn-blue mui-btn-outlined">按钮</button>
+					<button type="button" class="mui-btn  mui-btn-outlined reast">重置</button>
+				</div>
+			</div>
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				subpages: [{
+					url: '4-1staff-sub.html',
+					id: '4-1staff-sub.html',
+					styles: {
+						top: "105px",
+						bottom: 0
+					},
+					extras: {}
+				}]
+			})
+			if(window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener("plusready", plusReady, false);
+			}
+
+			function plusReady() {
+				plus.navigator.setStatusBarBackground("#1D6BCA")
+			}
+			mui(".chooseBm")[0].addEventListener('tap',function(){
+				plus.webview.currentWebview().children()[0].evalJS("pickShow()")
+			},false)
+			function getPickInfo(data){
+				console.log(data);
+//				获取到的值
+			}
+		</script>
+	</body>
+
+</html>
