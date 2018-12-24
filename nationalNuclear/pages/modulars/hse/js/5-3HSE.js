@@ -281,7 +281,7 @@ new Vue({
 					var param ={
 						"projNo": app.loginInfo.projNo,
 						// "userName": app.loginInfo.userName
-						"userName": ""
+						"userName": "胡"
 					}
 					app.ajax({
 							url: app.INTERFACE.getCopyPerson,

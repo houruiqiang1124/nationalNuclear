@@ -1,6 +1,6 @@
 (function(m, app) {
-    // const host = "http://10.4.210.110:8888/";  // 测试服务器
-    var host = "http://192.168.199.6:8888/";
+    const host = "http://10.4.210.110:8888/";  // 测试服务器
+    // var host = "http://192.168.199.6:8888/";
     // const host = "http://39.105.204.84:8888/";  // 正式
 
 	app.portalUrl = "http://10.4.200.77";
@@ -18,6 +18,7 @@
 		checkCodeUrl:'/snpec_portal/command/dispatcher/org.loushang.bsp.security.web.RandomCodeCommand?_dc=', // 获取验证码
 		companyNewUrl:'/snpec_portal/jsp/com/snpit/top/portal/snpecportal/qiyeMore.jsp?systype=6',  // 公司要闻
         noticeUrl: app.portalUrl+'/snpec_portal/jsp/com/snpit/top/portal/snpecportal/qiyeMore.jsp?systype=5',   // 公告列表
+        noticeSearch:app.portalUrl+ "/snpec_portal/command/dispatcher/com.snpit.top.portal.snpecportal.cmd.HomePageQueryCommand/queryGroupForMore",  // 要闻搜索
 		//hse接口
         findToDo: 'processStatus/findToDo',  // hse列表
         hseBadge: 'processStatus/findProcessStatusCount', // 角标

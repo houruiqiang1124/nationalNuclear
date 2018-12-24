@@ -561,6 +561,7 @@
 				//限制密码登录次数，超过上限，登录将被禁止5分钟
 				if(msgcontent.indexOf("错误的用户名密码")>-1){
 					if(errorLoginTime == 0){//第一次错误，初始化登录时间，错误次数+1
+                        plus.nativeUI.closeWaiting()
 						errorLoginTime = getTime();//获取登录时间
 						errorNumLogin ++;
 						localStorage.setItem("errorLoginTime",errorLoginTime);//获取登录时间

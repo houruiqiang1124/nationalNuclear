@@ -30,9 +30,9 @@ new Vue({
 			},
 			{
 				title: "公司要闻",
-				url: "news",
+				url: "../modulars/news/3-1.html",
 				icon: "../../static/news.png",
-				id:""
+				id:"3-1.html"
 			},
 			{
 				title: "车输管理",

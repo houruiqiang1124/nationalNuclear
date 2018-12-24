@@ -11,8 +11,8 @@ var vm = new Vue({
 	mounted: function() {
 		_this = this;
         var loginInfo = JSON.parse(localStorage.getItem("loginInfo")) ;
-        // _this.username = loginInfo.userId || "";
-        // _this.password = loginInfo.userName || "";
+        _this.username = loginInfo.userId || "";
+        _this.password = loginInfo.userName || "";
 		function plusReady() {
 			mui.init();
 			console.log("初始化plusReady"); 
@@ -45,18 +45,18 @@ var vm = new Vue({
 				plus.nativeUI.showWaiting();
                 // 临时跳过vpn登录
 				// _this.sxfVpnInit();
-				// _this.tologin();
-                var loginInfo = {
-                	projNo: "SNG",  // 项目
-                    userId: this.username,
-                    userName: this.password,    // 登录人
-                	draftUnit: "编制单位",    // 编制单位
-                	draftDept: "编制部门",  // 编制部门
-                	draftDate: "2018-12-23"   //编制日期
-                }
-                localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
-                sne.navigateTo({url:"../tabBar/index.html",id:"index.html"}),
-                plus.nativeUI.closeWaiting();
+				_this.tologin();
+//                 var loginInfo = {
+//                 	projNo: "SNG",  // 项目
+//                     userId: this.username,
+//                     userName: this.password,    // 登录人
+//                 	draftUnit: "编制单位",    // 编制单位
+//                 	draftDept: "编制部门",  // 编制部门
+//                 	draftDate: "2018-12-23"   //编制日期
+//                 }
+//                 localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
+//                 sne.navigateTo({url:"../tabBar/index.html",id:"index.html"}),
+//                 plus.nativeUI.closeWaiting();
 			}
 		},
 		//初始化vpn地址
@@ -86,6 +86,7 @@ var vm = new Vue({
 		tologin:function(){
 			var code = "";
 			var JSESSIONID = "";
+            var md5Pwd = hex_md5(_this.password + '{1#2$3%4(5)6@7!poeeww$3%4(5)djjkkldss}') ;
 			mui.mkey.get({
 				url: app.portalUrl+app.INTERFACE.checkCodeUrl +
 					new Date().getTime(),
@@ -97,7 +98,8 @@ var vm = new Vue({
 				JSESSIONID = json.JSESSIONID;
 				var loginInfo = {
 					"username": _this.username,
-					"password": "213b3fc702ab8a643f67c2a27c556bb1",
+					// "password": "213b3fc702ab8a643f67c2a27c556bb1",
+                    "password": md5Pwd,
 					"rdmCode": code,
 					"loginType": "normal",
 					"savePwdFlag": "0",

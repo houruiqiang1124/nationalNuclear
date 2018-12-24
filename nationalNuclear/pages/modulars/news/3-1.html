@@ -6,51 +6,74 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../../css/mui.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../hse/css/app.css"/>
-		<link rel="stylesheet" type="text/css" href="./css/3-1.css"/>
-		<style type="text/css">		
+		<link rel="stylesheet" type="text/css" href="../hse/css/app.css" />
+		<link rel="stylesheet" type="text/css" href="./css/3-1.css" />
+		<style type="text/css">
 			.mui-pull-top-pocket {
-					top: 105px!important;
-					}
+				top: 105px !important;
+			}
 		</style>
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
-		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">公司要闻</h1>
-		</header>
-		<div class="mui-content">
-		    <div class="search">
-		    	<input type="text" name="" id="" value="" placeholder="要闻标题"/>
-		    	<div class="mui-pull-right">
-		    		<button type="button" class="mui-btn mui-btn-blue mui-btn-outlined">按钮</button>
-		    		<button type="button" class="mui-btn  mui-btn-outlined reast">重置</button>
-		    	</div>
-		    </div>
-		</div>
-		<script src="../../../js/mui.min.js"></script>
-		<script type="text/javascript">
-			mui.init({
-				subpages:[{
-				  url:'3-1-sub.html',
-			      id:'3-1-sub.html',
-			      styles:{
-			        top:"105px",
-			        bottom:0
-			      },
-			      extras:{}
-				}]
-			})
-			if(window.plus) {
-						plusReady();
-					} else {
-						document.addEventListener("plusready", plusReady, false);
-					}
-					function plusReady(){
-						plus.navigator.setStatusBarBackground("#1D6BCA")
-					}
-		</script>
+		<div id="app">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">公司要闻</h1>
+			</header>
+			<div class="mui-content">
+				<div class="search">
+					<input v-model="searchVal" type="text" name="" id="" value="" placeholder="要闻标题" />
+					<div class="mui-pull-right">
+						<button type="button" class="mui-btn mui-btn-blue mui-btn-outlined" @tap="search">搜索</button>
+						<button type="button" class="mui-btn  mui-btn-outlined reast">重置</button>
+					</div>
+				</div>
+				<div id="refreshContainer" class="mui-scroll-wrapper" style="top: 105px;">
+					<div class="mui-scroll">
+						<!--数据列表-->
+						<ul class="mui-table-view">
+							<li class="mui-table-view-cell" v-for="(item, index) in list" :key="index" @tap="goDetail(e)">
+								<span class="title">{{item.title}}</span>
+								<p><span class="mui-pull-left">{{item.date}}</span></p>
+
+								<!-- <p><span><label>人力资源部</label></span> <span>作者：王小明</span> <span class="mui-pull-right">03-08 15:20</span></p> -->
+							</li>
+							<!-- <li class="mui-table-view-cell">
+            		               <span class="title">AP1000创始人到公司访问</span>
+            		               <p><span><label>办公厅</label></span> <span>作者：王小明</span> <span class="mui-pull-right">03-08 15:20</span></p>
+            		            </li>
+            		               <li class="mui-table-view-cell">
+            		               <span class="title">AP1000创始人到公司访问</span>
+            		               <p><span><label>人力资源部</label></span> <span>作者：王小明</span> <span class="mui-pull-right">03-08 15:20</span></p>
+            		            </li>
+            		           <li class="mui-table-view-cell">
+            		               <span class="title">AP1000创始人到公司访问</span>
+            		               <p><span><label>办公厅</label></span> <span>作者：王小明</span> <span class="mui-pull-right">03-08 15:20</span></p>
+            		            </li>
+            		              <li class="mui-table-view-cell">
+            		               <span class="title">AP1000创始人到公司访问</span>
+            		               <p><span><label>人力资源部</label></span> <span>作者：王小明</span> <span class="mui-pull-right">03-08 15:20</span></p>
+            		            </li>
+            		           <li class="mui-table-view-cell">
+            		               <span class="title">AP1000创始人到公司访问</span>
+            		               <p><span><label>办公厅</label></span> <span>作者：王小明</span> <span class="mui-pull-right">03-08 15:20</span></p>
+            		            </li>
+            		            <li class="mui-table-view-cell">
+            		               <span class="title">AP1000创始人到公司访问</span>
+            		               <p><span><label>办公厅</label></span> <span>作者：王小明</span> <span class="mui-pull-right">03-08 15:20</span></p>
+            		            </li> -->
+						</ul>
+					</div>
+				</div>
+			</div>
+            </div>
+			<script src="../../../js/mui.min.js"></script>
+			<script src="../../../js/common/api.js"></script>
+			<script src="../../../js/common/config.js"></script>
+			<script src="../../../js/vue.js"></script>
+            <script src="../../../js/mui.mkey.js"></script>
+			<script src="js/3-1.js"></script>
 	</body>
 
 </html>
