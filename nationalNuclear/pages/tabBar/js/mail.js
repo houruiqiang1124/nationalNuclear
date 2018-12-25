@@ -5,16 +5,13 @@ new Vue({
         mailList: []
     },
     mounted: function() {
+        var header = document.querySelector('header.mui-bar');
+        var list = document.getElementById('list');
+        list.style.height = (window.screen.height - header.offsetHeight) + 'px';
+        //create
+        window.indexedList = new mui.IndexedList(list);
         _this = this;
-        function plusReady() {
-            
-        	_this.getMail();
-        }
-        if (window.plus) {
-        	plusReady()
-        } else {
-        	document.addEventListener('plusready', plusReady, false);
-        }
+        _this.getMail();
     },
     methods: {
         getMail: function() {
