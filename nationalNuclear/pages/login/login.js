@@ -37,7 +37,6 @@ var vm = new Vue({
             console.log(true)
         },
 		login: function(){
-			
 			if (this.username == '' || this.password == '') {
 				mui.toast('用户名或密码不能为空！');
 				return;
@@ -128,7 +127,6 @@ var vm = new Vue({
                                     sne.navigateTo({url:"../tabBar/index.html",id:"index.html"})
 								}
 						})
-						
 					} else {
 						plus.nativeUI.closeWaiting();
 						mui.toast("用户名或密码错误！");
