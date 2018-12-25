@@ -43,9 +43,10 @@ new Vue({
 		_this = this;
 		function plusReady() {
 			_this.listParam =plus.webview.currentWebview().params;
-			_this.listParam.approveDate = _this.listParam.approveDate.time;
-			_this.listParam.checkDate = _this.listParam.checkDate.time;
-			_this.listParam.draftDate = _this.listParam.draftDate.time;
+			console.log(_this.listParam.checkDate.time);
+			_this.listParam.approveDate = _this.listParam.approveDate.time.replace(/\-/g, "/");
+			_this.listParam.checkDate = _this.listParam.checkDate.time.replace(/\-/g, "/");
+			_this.listParam.draftDate = _this.listParam.draftDate.time.replace(/\-/g, "/");
 			_this.tabCode = plus.webview.currentWebview().tabCode.toString();
             _this.init();
 			_this.flowData();

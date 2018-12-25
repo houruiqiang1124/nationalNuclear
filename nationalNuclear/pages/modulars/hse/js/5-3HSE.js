@@ -467,16 +467,53 @@ new Vue({
 			} else {
 				method = app.INTERFACE.insertCheck
 			};
-			app.ajax({
-				url: method,
-				data: _this.saveParam,
-				success: function(res) {
-					if (res.object.resultCode == 0) {
-						mui.toast(e == 0 ? "保存成功" : "提交成功");
-						mui.back();
+			if(_this.checkParam()){
+				app.ajax({
+					url: method,
+					data: _this.saveParam,
+					success: function(res) {
+						if (res.object.resultCode == 0) {
+							mui.toast(e == 0 ? "保存成功" : "提交成功");
+							mui.back();
+						}
 					}
-				}
-			})
+				})
+			}
+		},
+		checkParam:function(){
+			console.log(JSON.stringify(_this.saveParam));
+			if(!_this.saveParam.unit){
+				mui.alert("请选择适用机组");
+				return false;
+			}else if(!_this.saveParam.area){
+				mui.alert("请选择区域");
+				return false;
+			}else if(!_this.saveParam.unitID){
+				mui.alert("请选择被检查单位");
+				return false;
+			}else if(!_this.saveParam.nonconformity){
+				mui.alert("请选择隐患类型");
+				return false;
+			}else if(!_this.saveParam.hiddenCategory){
+				mui.alert("请选择隐患属性");
+				return false;
+			}else if(!_this.saveParam.reqCompleteDate){
+				mui.alert("要求完成时间不能为空");
+				return false;
+			}else if(!_this.saveParam.hiddenDescription){
+				mui.alert("隐患描述不能为空");
+				return false;
+			}else if(!_this.saveParam.correctiveRequest){
+				mui.alert("整改措施要求不能为空");
+				return false;
+			}else if(!_this.saveParam.responsiblePerson){
+				mui.alert("责任整改人不能为空");
+				return false;
+			}else if(!_this.saveParam.copyPerson){
+				mui.alert("抄送人不能为空");
+				return false;
+			}
+			return true;
 		},
 		getDetail: function() {
 			_this.saveParam.checkDate = _this.prevParam.checkDate;
