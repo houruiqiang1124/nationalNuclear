@@ -115,7 +115,7 @@
                                             <li class="mui-table-view-cell text">
                                                 整改情况 :
                                                 <textarea :disabled="disabled1" v-model="submitParam.rectificationSituation" name="" rows="" cols="" placeholder="请输入" class="text-infos"></textarea>
-                                                <div class="voice">
+                                                <div class="voice" @tap="openVoice(0)">
                                                     <img src="images/5-3-Voice@2x.png" />
                                                 </div>
                                             </li>
@@ -168,7 +168,7 @@
                                             <li class="mui-table-view-cell text">
                                                 <i>*</i>验证情况 :
                                                 <textarea :disabled="disabled2" v-model="confirmation" name="" rows="" cols="" placeholder="请输入" class="text-infos"></textarea>
-                                                <div class="voice">
+                                                <div class="voice" @tap="openVoice(1)">
                                                     <img src="images/5-3-Voice@2x.png" />
                                                 </div>
                                             </li>

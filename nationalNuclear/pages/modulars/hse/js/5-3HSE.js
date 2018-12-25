@@ -298,6 +298,22 @@ new Vue({
 				}
 			})
 		},
+				//语音输入
+				openVoice:function(e){
+					console.log(e== 0)
+					var options = {};
+					options.engine = 'iFly';
+					// alert("开始语音识别：");
+					plus.speech.startRecognize(options, function(s) {
+						if(e == 0){
+							_this.saveParam.hiddenDescription += s.split("。")[0];
+						}else{
+							_this.saveParam.correctiveRequest += s.split("。")[0];
+						}
+					}, function(e) {
+						mui.toast("语音识别失败：" + e.message);
+					});
+				},
 		// 日期选择
 		checkDate: function(e) {
 			console.log(e)

@@ -235,6 +235,22 @@ new Vue({
             	_this.submitParam.completeDate = rs.text;
             });
         },
+		//语音输入
+		openVoice:function(e){
+			console.log(e== 0)
+			var options = {};
+			options.engine = 'iFly';
+			// alert("开始语音识别：");
+			plus.speech.startRecognize(options, function(s) {
+				if(e == 0){
+					_this.submitParam.rectificationSituation += s.split("。")[0];
+				}else{
+					_this.confirmation += s.split("。")[0];
+				}
+			}, function(e) {
+				mui.toast("语音识别失败：" + e.message);
+			});
+		},
         // 整改验证人选择
         showPicker: function() {
             var userPicker = new mui.PopPicker(); 
