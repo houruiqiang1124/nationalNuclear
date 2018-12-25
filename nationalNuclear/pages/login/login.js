@@ -16,6 +16,7 @@ var vm = new Vue({
 		function plusReady() {
 			mui.init();
 			console.log("初始化plusReady"); 
+			_this.username = localStorage.getItem("username") || "";
 		}
 		if (window.plus) {
 			plusReady()
@@ -34,7 +35,6 @@ var vm = new Vue({
                 this.eyeImg = "../../static/browse.png";
                 this.typePwd = 'password';
             }
-            console.log(true)
         },
 		login: function(){
 			if (this.username == '' || this.password == '') {
@@ -44,18 +44,19 @@ var vm = new Vue({
 				plus.nativeUI.showWaiting();
                 // 临时跳过vpn登录
 				// _this.sxfVpnInit();
-				_this.tologin();
-//                 var loginInfo = {
-//                 	projNo: "SNG",  // 项目
-//                     userId: this.username,
-//                     userName: this.password,    // 登录人
-//                 	draftUnit: "编制单位",    // 编制单位
-//                 	draftDept: "编制部门",  // 编制部门
-//                 	draftDate: "2018-12-23"   //编制日期
-//                 }
-//                 localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
-//                 sne.navigateTo({url:"../tabBar/index.html",id:"index.html"}),
-//                 plus.nativeUI.closeWaiting();
+				// _this.tologin();
+                var loginInfo = {
+                	projNo: "SNG",  // 项目
+                    userId: this.username,
+                    userName: this.password,    // 登录人
+                	draftUnit: "编制单位",    // 编制单位
+                	draftDept: "编制部门",  // 编制部门
+                	draftDate: "2018-12-23"   //编制日期
+                }
+				_this.remindAccount();
+                localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
+                sne.navigateTo({url:"../tabBar/index.html",id:"index.html"}),
+                plus.nativeUI.closeWaiting();
 			}
 		},
 		//初始化vpn地址
@@ -114,6 +115,7 @@ var vm = new Vue({
 								url: app.INTERFACE.webServiceLogin,
 								data: param,
 								success: function(res) {
+									_this.remindAccount();
 									var loginInfo = {
 										projNo: "SNG",  // 项目
 										userId: res.userId,
@@ -133,6 +135,14 @@ var vm = new Vue({
 					}
 				}, false);
 			})
+		},
+		//记住账号
+		remindAccount(){
+			if($(".mui-switch").hasClass("mui-active")){
+				localStorage.setItem("username",_this.username);
+			}else{
+				localStorage.removeItem("username");
+			}
 		}
 	}
 })
