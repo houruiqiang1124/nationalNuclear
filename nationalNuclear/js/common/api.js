@@ -1,7 +1,7 @@
 (function(m, app) {
-    const host = "http://10.4.210.110:8888/";  // 测试服务器
+    // const host = "http://10.4.210.110:8888/";  // 测试服务器
     // var host = "http://192.168.199.11:8888/";
-    // const host = "http://39.105.204.84:8888/";  // 正式
+    const host = "http://39.105.204.84:8888/";  // 正式
 
 	app.portalUrl = "http://10.4.200.77";
 	app.vpnUrl = "https://vpn.snpec.com.cn";
@@ -46,6 +46,7 @@
         getDraftUnitList: "webService/getDraftUnitList",    // 获取责任单位列表
         updateHaveRead: "processStatus/updateHaveRead", // 点击已阅
 		webServiceLogin:"webService/getUserMsg",
+        retResubmit: "sumbit/retResubmit"   // 代办退回后的提交
     }
     
     /**

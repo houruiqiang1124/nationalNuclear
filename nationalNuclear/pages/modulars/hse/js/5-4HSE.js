@@ -2,9 +2,11 @@ var _this = this;
 new Vue({
 	el: "#app",
 	data: {
+		showTab: true,
 		imgList: "", // 附件
 		showImg: false,
 		prevParam: {}, // 上个页面过来的参数
+		data: [], //流转信息
 		saveParam: { // 新建保存和提交传的参数
 			"projNo": "", // 项目
 			"checkDate": "", // 检查日期
@@ -189,6 +191,7 @@ new Vue({
 	methods: {
 		// 初始化
 		init: function() {
+            var date = sne.getNowFormatDate();
 			_this.saveParam.userId = app.loginInfo.userId;
 			_this.saveParam.userName = app.loginInfo.userName;
 			_this.saveParam.projNo = app.loginInfo.projNo;
@@ -196,15 +199,17 @@ new Vue({
 			_this.saveParam.draftDept = app.loginInfo.draftDept;
 			_this.saveParam.draftPerson = app.loginInfo.userName;
 			_this.saveParam.draftDate = sne.getNowFormatDate().substr(0, 10);
-			if (_this.prevParam.type == "new") {
-				var date = sne.getNowFormatDate();
-				_this.saveParam.checkDate = date.substr(0, 10);
-				_this.saveParam.checkPerson = app.loginInfo.userName;
-				_this.saveParam.reqCompleteDate = date.substr(0, 10);
-			} else {
-				_this.getDetail();
-			}
+            _this.saveParam.checkDate = date.substr(0, 10);
+            _this.saveParam.checkPerson = app.loginInfo.userName;
+            _this.saveParam.reqCompleteDate = date.substr(0, 10);
 		},
+        // 点击切换导航栏
+        changeNav: function(e) {
+            this.showTab = e;
+            if(this.data.length == 0) {
+                _this.flowData();
+            }
+        },
 		//获取机组
 		getUnit: function() {
 			var param = {
@@ -406,8 +411,7 @@ new Vue({
 
 		},
 		// 提交或保存
-		submit: function(e) { // 0保存 1提交
-			this.saveParam.state = e;
+		submit: function() {
 			_this.saveParam.hiddenDoc = _this.imgList;
 
 
@@ -423,55 +427,39 @@ new Vue({
 				_this.saveParam.hiddenCategory = 3
 
 			}
-			var method = "";
-			if (this.prevParam.type == "list") { // 从草稿过来，调取不同接口；
-				this.saveParam.dangerId = this.prevParam.dangerId;
-				this.saveParam.checkId = this.prevParam.checkId;
-
-				if (e == 0) {
-					method = app.INTERFACE.draftsSave
-				} else {
-					method = app.INTERFACE.draftsSubmit
-				}
-			} else {
-				method = app.INTERFACE.insertCheck
-			};
 			app.ajax({
-				url: method,
+				url: app.INTERFACE.insertCheck,
 				data: _this.saveParam,
 				success: function(res) {
 					if (res.object.resultCode == 0) {
-						mui.toast(e == 0 ? "保存成功" : "提交成功");
+						mui.toast("提交成功");
 						mui.back();
 					}
 				}
 			})
 		},
-		getDetail: function() {
-			_this.saveParam.checkDate = _this.prevParam.checkDate;
-			_this.saveParam.checkPerson = _this.prevParam.checkPerson;
-
-			app.ajax({
-				url: app.INTERFACE.selectDanger,
-				data: {
-					checkId: _this.prevParam.checkId
-				},
-				success: function(res) {
-					var dangerList = res.object.dangerList;
-					_this.saveParam.unit = dangerList.unit;
-					_this.saveParam.area = dangerList.area;
-					_this.saveParam.unitID = dangerList.unitid;
-					_this.saveParam.nonconformity = dangerList.nonconformity;
-					_this.saveParam.hiddenCategory = dangerList.hiddencategory;
-					_this.saveParam.reqCompleteDate = dangerList.reqcompletedate.substr(0, 10);
-					_this.saveParam.hseHiddenLevel = dangerList.hsehiddenlevel;
-					_this.saveParam.hiddenDescription = dangerList.hiddendescription;
-					_this.saveParam.correctiveRequest = dangerList.correctiverequest;
-					_this.saveParam.responsiblePerson = dangerList.responsibleperson;
-					_this.saveParam.responsiblePersonId = dangerList.responsiblepersonid;
-					_this.saveParam.copyPerson = JSON.parse(dangerList.copyPerson);
-				}
-			})
-		}
+        // 流转信息
+        flowData:function(){
+        	var param = {
+        		"recordNo": _this.listParam.recordNo,
+        	}
+        	app.ajax({
+        		url: app.INTERFACE.hseCirculation,
+        		data: param,
+        		success: function(res) {
+        			if (res.object.resultCode == "0") {
+        				if (!res.beans) {
+        					return;
+        				}
+        				let List = res.beans.map((val, index) => {
+        					val.arriveTime.time = sne.getNowFormatDate(val.arriveTime.time);
+        					val.actionName = val.actionName ? val.actionName : "";
+        					return val;
+        				})
+        				_this.data = List;
+        			}
+        		}
+        	})
+        }
 	}
 })

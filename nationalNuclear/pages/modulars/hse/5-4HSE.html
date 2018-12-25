@@ -1,0 +1,195 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+        <link rel="stylesheet" type="text/css" href="../../../css/mui.picker.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../../css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/5-11HSE.css" />
+		<link rel="stylesheet" type="text/css" href="css/5-11HSE-sub1.css" />
+		<style type="text/css">
+			.mui-pull-top-pocket {
+				top: 90px !important;
+			}
+            
+            .size {
+                margin: 15px 2px 0 5px !important;
+                width: 30% !important;
+            }
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			</header>
+			<div class="mui-content">
+				<div class="mui-segmented-control">
+					<a class="mui-control-item mui-active" @tap="changeNav(true)"><label>业务表单</label></a>
+					<a class="mui-control-item" @tap="changeNav(false)"><label>流转信息</label></a>
+				</div>
+				<div class="detail">
+					<div class="mui-content">
+                        <div class="form" v-if="showTab">
+                            <ul class="mui-table-view hse-sub1">
+                                <li class="mui-table-view-cell mui-collapse">
+                                    <a class="mui-navigate-right" href="#"><span>SNG-HSE-WS-2018-0235</span></a>
+                                    <div class="mui-collapse-content">
+                                        <p><span>项目：</span><span>{{saveParam.projNo}}</span></p>
+                                        <p><span>检查日期：</span><span @click="checkDate('checkDate')"> <input type="text"  name="" id="" :value="saveParam.checkDate" readonly="readonly" class="pickDateBtn" /></span></p>
+                                        <p><span>检查人：</span><span><input type="text" name="" id="" :value="saveParam.checkPerson" /></span></p>
+                                        <p><span>编制单位：</span><span>{{saveParam.draftUnit}}</span></p>
+                                        <p><span>编制部门：</span><span>{{saveParam.draftDept}}</span></p>
+                                        <p><span>编制人：</span><span>{{saveParam.draftPerson}}</span></p>
+                                        <p><span>编制日期：</span><span>{{saveParam.draftDate}}</span></p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="mui-table-view hse-sub1 write-list">
+                                <li class="mui-table-view-cell mui-collapse">
+                                    <a class="mui-navigate-right" href="#"><span>隐患录入</span> </a>
+                                    <div class="mui-collapse-content">
+                                        <ul class="mui-table-view">
+                                            <li class="mui-table-view-cell">
+                                                <i>*</i>适用机组：<label class="mui-pull-right chooseinfo">
+                                                    <font class="choose" @click="showPicker('unit')">{{saveParam.unit || '请选择'}}</font>
+                                                </label>
+                                            </li>
+                                            <li class="mui-table-view-cell">
+                                                <i>*</i>区域：<label class="mui-pull-right ">
+                                                    <font @click="showPicker('area')">{{saveParam.area || '请选择'}}</font>
+                                                </label>
+                                            </li>
+                                            <li class="mui-table-view-cell">
+                                                <i>*</i>被检查单位：<label class="mui-pull-right">
+                                                    <font @click="showPicker('unitID')">{{saveParam.unitID || '请选择'}}</font>
+                                                </label>
+                                            </li>
+                                            <li class="mui-table-view-cell">
+                                                <i>*</i>隐患类型：<label class="mui-pull-right chooseinfo">
+                                                    <font class="choose" @click="showPicker('nonconformity')">{{saveParam.nonconformity || '请选择'}}</font>
+                                                </label>
+                                            </li>
+                                            <li class="mui-table-view-cell">
+                                                <i>*</i>隐患属性：<label class="mui-pull-right chooseinfo">
+                                                    <font class="choose" @click="showPicker('hiddenCategory')">{{saveParam.hiddenCategory || '请选择'}}</font>
+                                                </label>
+                                            </li>
+                                            <li class="mui-table-view-cell date">
+                                                <span class="mui-navigate-right">
+                                                    <i>*</i> 要求完成时间: <span class="mui-pull-right pickDateBtn" id="pickDateBtn" @click="checkDate('reqCompleteDate')">{{saveParam.reqCompleteDate}}</span>
+                                                </span>
+            
+                                            </li>
+                                            <li class="mui-table-view-cell radio-choose">
+                                                <i>*</i>隐患级别:
+                                                <span class="mui-pull-right">
+                                                    <input type="radio" name="choose" id="" value="0" />
+                                                    <label for="">重大</label>
+                                                </span>
+                                                <span class="mui-pull-right">
+                                                    <input type="radio" name="choose" id="" value="1" checked="checked" />
+                                                    <label for="">一般</label>
+                                                </span>
+            
+                                            </li>
+                                            <li class="mui-table-view-cell text">
+                                                <i>*</i>隐患描述 :
+                                                <textarea v-model="saveParam.hiddenDescription" name="" rows="" cols="" placeholder="请输入"></textarea>
+                                                <div class="voice">
+                                                    <img src="images/5-3-Voice@2x.png" />
+                                                </div>
+                                            </li>
+                                            <li class="mui-table-view-cell text">
+                                                <i>*</i>整改措施要求 :
+                                                <textarea v-model="saveParam.correctiveRequest" name="" rows="" cols="" placeholder="请输入"></textarea>
+                                                <div class="voice">
+                                                    <img src="images/5-3-Voice@2x.png" />
+                                                </div>
+                                            </li>
+                                            <li class="mui-table-view-cell">
+                                                <i>*</i>责任整改人:<label class="mui-pull-right addmore">
+                                                    <font @click="showPicker('responsiblePerson')">{{saveParam.responsiblePerson || '请选择'}}</font><img src="images/5-3-add@2x.png" class="add-more" />
+                                                </label>
+                                            </li>
+                                            <li class="mui-table-view-cell">
+                                                <i>*</i>抄送:<label class="mui-pull-right addmore">
+                                                    <font v-for="(item, index) in saveParam.copyPerson" :key="index">{{item.name}}&nbsp;</font>
+                                                    <img @click="showPicker('copyPerson')" src="images/5-3-add@2x.png" class="add-more" />
+                                                </label>
+                                                <p class="tips">隐患级别为“重大”时：请抄送联队项目部负责人、安全总监、HSE部负责人、公司总经理、分管安全副总经理及安全质量部主任。</p>
+                                            </li>
+                                            <li class="mui-table-view-cell">
+                                                <font class="mui-icon mui-icon-paperclip"></font>附件上传:<label class="mui-pull-right addmore add-fj" @tap="fileUpLoad"><img src="images/5-3-add@2x.png"
+                                                     class="add-more" /> 添加</label>
+                                                <div class="fj-content fj-content-choose">
+                                                    <div class="fj-img">
+                                                        <div v-show="showImg">
+                                                            <img :src="imgList" />
+                                                            <b class='mui-icon mui-icon-closeempty'></b>
+                                                        </div>
+                                                        <!-- <div>
+                                                            <img src="images/5-3-picture@2x.png" />
+                                                            <b class='mui-icon mui-icon-closeempty'></b>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="mui-table-view-cell list-btns">
+                                                <button type="button" class="mui-btn mui-btn-blue" @click="submit">提交</button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="information" v-else>
+                        	<ul class="mui-table-view hse-sub2">
+                                <li class="mui-table-view-cell" v-for="(item, index) in data" :key="index">
+                                    <span class="title">{{item.stepName}}</span>
+                                    <p>处理人：<span>{{item.ownerUserName}}</span></p>
+                                    <p>处理时间：<span>{{item.arriveTime.time}}</span></p>
+                                    <p>意见：<span>{{item.actionName}}</span></p>
+                                </li>
+                                <!-- <li class="mui-table-view-cell">
+                                    <span class="title">联队各部门接口人</span>
+                                    <p>处理人：<span>安辉</span></p>
+                                    <p>处理时间：<span>2018-11-27  15:28:44</span></p>
+                                    <p>意见：<span>测试</span></p>
+                                </li>
+                                <li class="mui-table-view-cell">
+                                    <span class="title">联队各部门接口人</span>
+                                    <p>处理人：<span>安辉</span></p>
+                                    <p>处理时间：<span>2018-11-27  15:28:44</span></p>
+                                    <p>意见：<span>测试</span></p>
+                                </li>
+                                <li class="mui-table-view-cell">
+                                    <span class="title">联队各部门接口人</span>
+                                    <p>处理人：<span>安辉</span></p>
+                                    <p>处理时间：<span>2018-11-27  15:28:44</span></p>
+                                    <p>意见：<span>测试</span></p>
+                                </li> -->
+                            </ul>
+                        </div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+        <script src="../../../js/common/api.js"></script>
+        <script src="../../../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../js/mui.picker.js"></script>
+        <script src="../../../js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../js/common/config.js"></script>
+        <script src="../../../js/vue.js"></script>
+        <script src="js/5-4HSE.js"></script>
+	</body>
+
+</html>

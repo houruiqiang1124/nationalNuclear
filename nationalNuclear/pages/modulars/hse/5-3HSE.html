@@ -132,13 +132,13 @@
 								</li>
 								<li class="mui-table-view-cell">
 									<i>*</i>责任整改人:<label class="mui-pull-right addmore">
-										<font @click="showPicker('responsiblePerson')">{{saveParam.responsiblePerson || '请选择'}}</font><img src="images/5-3-add@2x.png" class="add-more" />
+										<font @click="goCc">{{saveParam.responsiblePerson || '请选择'}}</font><img src="images/5-3-add@2x.png" class="add-more" />
 									</label>
 								</li>
 								<li class="mui-table-view-cell">
 									<i>*</i>抄送:<label class="mui-pull-right addmore">
 										<font v-for="(item, index) in saveParam.copyPerson" :key="index">{{item.name}}&nbsp;</font>
-                                        <img @click="showPicker('copyPerson')" src="images/5-3-add@2x.png" class="add-more" />
+                                        <img @click="goCc" src="images/5-3-add@2x.png" class="add-more" />
 									</label>
 									<p class="tips">隐患级别为“重大”时：请抄送联队项目部负责人、安全总监、HSE部负责人、公司总经理、分管安全副总经理及安全质量部主任。</p>
 								</li>
