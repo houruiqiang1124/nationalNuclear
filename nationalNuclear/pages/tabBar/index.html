@@ -34,7 +34,7 @@
         			},
         			self = plus.webview.currentWebview(),
         			temp = {};
-        			for(var i = 0; i < subpages.length; i++) {
+        			for(var i = 0; i < 1; i++) {
         				var sub = plus.webview.create(subpages[i], subpages[i], subpage_style)
         				if(i > 0) {
         					sub.hide()
@@ -47,6 +47,11 @@
         			mui('.mui-bar-tab').on('tap', 'a', function(e) {
         				var activeIndex = subpages.indexOf(activeTab);
         				var targetTab = this.getAttribute('href');
+						if(plus.webview.getWebviewById(targetTab)){
+							// plus.webview.show(targetTab);
+						}else{
+							plus.webview.create(targetTab, targetTab, subpage_style);
+						}
         				if (targetTab == activeTab) {
         					return;
         				}else{
