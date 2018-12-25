@@ -10,6 +10,7 @@
         
 		<link rel="stylesheet" type="text/css" href="../../../css/mui.poppicker.css" />
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<link rel="stylesheet" type="text/css" href="css/imageviewer.css" />
 		<link rel="stylesheet" type="text/css" href="css/5-11HSE-sub1.css" />
 		<style type="text/css">
 			.mui-collapse-content input {
@@ -148,8 +149,8 @@
 									<div class="fj-content fj-content-choose">
 										<div class="fj-img">
 											<div v-show="showImg">
-												<img :src="imgList" />
-												<b class="mui-icon mui-icon-closeempty"></b>
+												<img :src="imgList" data-preview-src="" data-preview-group="1" />
+												<b class="mui-icon mui-icon-closeempty" @tap="closeImg"></b>
 											</div>
 											<!-- <div>
 												<img src="images/5-3-picture@2x.png" />
@@ -176,6 +177,8 @@
         <script src="../../../js/vue.js"></script>
         <script src="../../../js/common/api.js"></script>
         <script src="../../../js/common/config.js"></script>
+        <script src="../../../js/mui.previewimage.js"></script>
+        <script src="../../../js/mui.zoom.js"></script>
         <script src="js/5-3HSE.js"></script>
 		<!-- <script type="text/javascript">
 			mui.init();

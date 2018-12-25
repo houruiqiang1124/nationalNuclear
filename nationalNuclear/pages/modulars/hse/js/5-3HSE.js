@@ -173,6 +173,7 @@ new Vue({
 		_this = this;
 
 		function plusReady() {
+			mui.previewImage();
 			_this.prevParam = plus.webview.currentWebview().params;
 			_this.init();
 // 			_this.getUnit();
@@ -479,6 +480,10 @@ new Vue({
 					}
 				})
 			}
+		},
+		closeImg:function(){
+			_this.imgList="";
+			_this.showImg = false;
 		},
 		checkParam:function(){
 			console.log(JSON.stringify(_this.saveParam));
