@@ -5,6 +5,7 @@ new Vue({
 		imgList: "", // 附件
 		showImg: false,
 		prevParam: {}, // 上个页面过来的参数
+        personType: 0, // 判断是责任还是抄送 0责任  1抄送
 		saveParam: { // 新建保存和提交传的参数
 			"projNo": "", // 项目
 			"checkDate": "", // 检查日期
@@ -48,81 +49,81 @@ new Vue({
 			//         	value: "HRQ",
 			//         },
 		],
-		//         unitList: [{
-		//         	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 1",
-		//         	"unitDesc": "国核示范1号机组",
-		//         	"projectsByArea": "SNG",
-		//         	"text": "国核示范1号机组1",
-		//         	"value": "SN1"
-		//         }, {
-		//         	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 2",
-		//         	"unitDesc": "国核示范2号机组",
-		//         	"projectsByArea": "SNG",
-		//         	"text": "国核示范2号机组1",
-		//         	"value": "SN2"
-		//         }, {
-		//         	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Phase I and Units 1&amp;2",
-		//         	"unitDesc": "国核示范1/2号机组共用",
-		//         	"projectsByArea": "SNG",
-		//         	"text": "国核示范1/2号机组共用1",
-		//         	"value": "SNG"
-		//         }],
-		unitList: [],
+		        unitList: [{
+		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 1",
+		        	"unitDesc": "国核示范1号机组",
+		        	"projectsByArea": "SNG",
+		        	"text": "国核示范1号机组1",
+		        	"value": "SN1"
+		        }, {
+		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 2",
+		        	"unitDesc": "国核示范2号机组",
+		        	"projectsByArea": "SNG",
+		        	"text": "国核示范2号机组1",
+		        	"value": "SN2"
+		        }, {
+		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Phase I and Units 1&amp;2",
+		        	"unitDesc": "国核示范1/2号机组共用",
+		        	"projectsByArea": "SNG",
+		        	"text": "国核示范1/2号机组共用1",
+		        	"value": "SNG"
+		        }],
+		// unitList: [],
 		areaList: [
-			// 					{
-			//         	"value": "1",
-			//         	"text": "核岛"
-			//         }, {
-			//         	"value": "1.1",
-			//         	"text": "核岛-1厂房"
-			//         }, {
-			//         	"value": "1.2",
-			//         	"text": "核岛-2厂房"
-			//         }, {
-			//         	"value": "1.3",
-			//         	"text": "核岛-3厂房"
-			//         },
+								{
+			        	"value": "1",
+			        	"text": "核岛"
+			        }, {
+			        	"value": "1.1",
+			        	"text": "核岛-1厂房"
+			        }, {
+			        	"value": "1.2",
+			        	"text": "核岛-2厂房"
+			        }, {
+			        	"value": "1.3",
+			        	"text": "核岛-3厂房"
+			        },
 		],
 		unitIDList: [
-			// 					{
-			//         	"organizeCode": "SNG",
-			//         	"projectsByArea": "SNG",
-			//         	"value": "SNG",
-			//         	"text": "示范电站/石岛湾项目部"
-			//         }, {
-			//         	"organizeCode": "NNICA-SNG",
-			//         	"projectsByArea": "SNG",
-			//         	"value": "NNICA-SNG",
-			//         	"text": "示范电站/石岛湾-华兴"
-			//         }, {
-			//         	"organizeCode": "NNEC-SNG",
-			//         	"projectsByArea": "SNG",
-			//         	"value": "NNEC-SNG",
-			//         	"text": "示范电站/石岛湾-中核二三"
-			//         }, {
-			//         	"organizeCode": "NZHD-SNG",
-			//         	"projectsByArea": "SNG",
-			//         	"value": "NZHD-SNG",
-			//         	"text": "示范电站/石岛湾-浙江火电"
-			//         },
+								{
+			        	"organizeCode": "SNG",
+			        	"projectsByArea": "SNG",
+			        	"value": "SNG",
+			        	"text": "示范电站/石岛湾项目部"
+			        }, {
+			        	"organizeCode": "NNICA-SNG",
+			        	"projectsByArea": "SNG",
+			        	"value": "NNICA-SNG",
+			        	"text": "示范电站/石岛湾-华兴"
+			        }, {
+			        	"organizeCode": "NNEC-SNG",
+			        	"projectsByArea": "SNG",
+			        	"value": "NNEC-SNG",
+			        	"text": "示范电站/石岛湾-中核二三"
+			        }, {
+			        	"organizeCode": "NZHD-SNG",
+			        	"projectsByArea": "SNG",
+			        	"value": "NZHD-SNG",
+			        	"text": "示范电站/石岛湾-浙江火电"
+			        },
 		],
 		nonconformityList: [
-			// 					{
-			//         	"hazardTypeSeriar": "1",
-			//         	"hazardTypeDesc": "32",
-			//         	"value": "1",
-			//         	"text": "23"
-			//         }, {
-			//         	"hazardTypeSeriar": "2",
-			//         	"hazardTypeDesc": "3232",
-			//         	"value": "2",
-			//         	"text": "13"
-			//         }, {
-			//         	"hazardTypeSeriar": "1",
-			//         	"hazardTypeDesc": "32",
-			//         	"value": "3",
-			//         	"text": "15"
-			//         },
+								{
+			        	"hazardTypeSeriar": "1",
+			        	"hazardTypeDesc": "32",
+			        	"value": "1",
+			        	"text": "23"
+			        }, {
+			        	"hazardTypeSeriar": "2",
+			        	"hazardTypeDesc": "3232",
+			        	"value": "2",
+			        	"text": "13"
+			        }, {
+			        	"hazardTypeSeriar": "1",
+			        	"hazardTypeDesc": "32",
+			        	"value": "3",
+			        	"text": "15"
+			        },
 		],
 		hiddenCategoryList: [{
 			value: "0",
@@ -174,11 +175,25 @@ new Vue({
 		function plusReady() {
 			_this.prevParam = plus.webview.currentWebview().params;
 			_this.init();
-			_this.getUnit();
-			_this.getArea();
-			_this.getInspectedUnit();
-			_this.getHazardTypeList();
-			_this.getCopyPerson();
+// 			_this.getUnit();
+// 			_this.getArea();
+// 			_this.getInspectedUnit();
+// 			_this.getHazardTypeList();
+// 			_this.getCopyPerson();
+
+            window.addEventListener('custom', function(e) {
+                if(_this.personType == 0) {
+                    _this.saveParam.responsiblePerson = e.detail.name;
+                    _this.saveParam.responsiblePersonId = e.detail.id;
+                } else {
+                    var Operson = {
+                        id: e.detail.id,
+                        name: e.detail.name
+                    }
+                    _this.saveParam.copyPerson.push(Operson)
+                }
+                console.log(JSON.stringify(event.detail))
+            })
 		}
 		if (window.plus) {
 			plusReady()
@@ -488,6 +503,19 @@ new Vue({
 					_this.saveParam.copyPerson = JSON.parse(dangerList.copyPerson);
 				}
 			})
-		}
+		},
+        // 跳转抄送人员列表页面
+         goCc: function(e) {
+             _this.personType = e;
+            sne.navigateTo({
+                url: "./chaoSong.html",
+                id: "chaoSong.html",
+                data: {
+                    params: {
+                        pageType: "new"
+                    }
+                }
+            })
+        }
 	}
 })

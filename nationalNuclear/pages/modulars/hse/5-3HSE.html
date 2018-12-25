@@ -57,7 +57,7 @@
 						<a class="mui-navigate-right" href="#"><span>SNG-HSE-WS-2018-0235</span></a>
 						<div class="mui-collapse-content">
 							<p><span>项目：</span><span>{{saveParam.projNo}}</span></p>
-							<p><span>检查日期：</span><span @click="checkDate('checkDate')"> <input type="text"  name="" id="" :value="saveParam.checkDate" readonly="readonly" class="pickDateBtn" /></span></p>
+							<p><span>检查日期：</span><span @tap="checkDate('checkDate')"> <input type="text"  name="" id="" :value="saveParam.checkDate" readonly="readonly" class="pickDateBtn" /></span></p>
 							<p><span>检查人：</span><span><input type="text" name="" id="" :value="saveParam.checkPerson" /></span></p>
 							<p><span>编制单位：</span><span>{{saveParam.draftUnit}}</span></p>
 							<p><span>编制部门：</span><span>{{saveParam.draftDept}}</span></p>
@@ -75,27 +75,27 @@
 							<ul class="mui-table-view">
 								<li class="mui-table-view-cell">
 									<i>*</i>适用机组：<label class="mui-pull-right chooseinfo">
-										<font class="choose" @click="showPicker('unit')">{{saveParam.unit || '请选择'}}</font>
+										<font class="choose" @tap="showPicker('unit')">{{saveParam.unit || '请选择'}}</font>
 									</label>
 								</li>
 								<li class="mui-table-view-cell">
 									<i>*</i>区域：<label class="mui-pull-right ">
-										<font @click="showPicker('area')">{{saveParam.area || '请选择'}}</font>
+										<font @tap="showPicker('area')">{{saveParam.area || '请选择'}}</font>
 									</label>
 								</li>
 								<li class="mui-table-view-cell">
 									<i>*</i>被检查单位：<label class="mui-pull-right">
-										<font @click="showPicker('unitID')">{{saveParam.unitID || '请选择'}}</font>
+										<font @tap="showPicker('unitID')">{{saveParam.unitID || '请选择'}}</font>
 									</label>
 								</li>
 								<li class="mui-table-view-cell">
 									<i>*</i>隐患类型：<label class="mui-pull-right chooseinfo">
-										<font class="choose" @click="showPicker('nonconformity')">{{saveParam.nonconformity || '请选择'}}</font>
+										<font class="choose" @tap="showPicker('nonconformity')">{{saveParam.nonconformity || '请选择'}}</font>
 									</label>
 								</li>
 								<li class="mui-table-view-cell">
 									<i>*</i>隐患属性：<label class="mui-pull-right chooseinfo">
-										<font class="choose" @click="showPicker('hiddenCategory')">{{saveParam.hiddenCategory || '请选择'}}</font>
+										<font class="choose" @tap="showPicker('hiddenCategory')">{{saveParam.hiddenCategory || '请选择'}}</font>
 									</label>
 								</li>
 								<li class="mui-table-view-cell date">
@@ -132,13 +132,13 @@
 								</li>
 								<li class="mui-table-view-cell">
 									<i>*</i>责任整改人:<label class="mui-pull-right addmore">
-										<font @click="goCc">{{saveParam.responsiblePerson || '请选择'}}</font><img src="images/5-3-add@2x.png" class="add-more" />
+										<font @tap="goCc(0)">{{saveParam.responsiblePerson || '请选择'}}</font><img src="images/5-3-add@2x.png" class="add-more" />
 									</label>
 								</li>
 								<li class="mui-table-view-cell">
 									<i>*</i>抄送:<label class="mui-pull-right addmore">
 										<font v-for="(item, index) in saveParam.copyPerson" :key="index">{{item.name}}&nbsp;</font>
-                                        <img @click="goCc" src="images/5-3-add@2x.png" class="add-more" />
+                                        <img @tap="goCc(1)" src="images/5-3-add@2x.png" class="add-more" />
 									</label>
 									<p class="tips">隐患级别为“重大”时：请抄送联队项目部负责人、安全总监、HSE部负责人、公司总经理、分管安全副总经理及安全质量部主任。</p>
 								</li>
@@ -149,7 +149,7 @@
 										<div class="fj-img">
 											<div v-show="showImg">
 												<img :src="imgList" />
-												<b class='mui-icon mui-icon-closeempty'></b>
+												<b class="mui-icon mui-icon-closeempty"></b>
 											</div>
 											<!-- <div>
 												<img src="images/5-3-picture@2x.png" />
@@ -159,8 +159,8 @@
 									</div>
 								</li>
 								<li class="mui-table-view-cell list-btns">
-									<button type="button" class="mui-btn mui-btn-blue" @click="submit(1)">提交</button>
-									<button type="button" class="mui-btn mui-btn-blue mui-btn-outlined" @click="submit(0)">保存</button>
+									<button type="button" class="mui-btn mui-btn-blue" @tap="submit(1)">提交</button>
+									<button type="button" class="mui-btn mui-btn-blue mui-btn-outlined" @tap="submit(0)">保存</button>
 								</li>
 							</ul>
 						</div>

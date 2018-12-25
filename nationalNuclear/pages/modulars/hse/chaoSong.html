@@ -17,6 +17,13 @@
 				<span class="mui-pull-right mui-btn-link" @tap="ok">确定</span>
 			</header>
 			<div class="mui-content">
+                <div class="search">
+                	<input type="text" name="" id="" value="" v-model="serchVal" placeholder="公告标题" />
+                	<div class="mui-pull-right">
+                		<button type="button" class="mui-btn mui-btn-blue mui-btn-outlined" @tap="searchBtn">搜索</button>
+                		<button type="button" class="mui-btn  mui-btn-outlined reast" @tap="getCopyPerson">重置</button>
+                	</div>
+                </div>
 				<!-- <ul class="mui-table-view">
 					<li class="mui-table-view-cell titles">
 						国核工程
@@ -82,7 +89,7 @@
                 <ul class="mui-table-view">
                 	<li class="mui-table-view-cell" v-for="(item, index) in users" :key="index" @tap="checkedChange(item, index)">
                 		<input type="radio" name="bgs" id="" value="" :checked="item.checked"/>
-                		<label for="#bgs">{{item.text}}</label>
+                		<label for="#bgs">{{item.memberName}}</label>
                 	</li>
                 	
                 </ul>
