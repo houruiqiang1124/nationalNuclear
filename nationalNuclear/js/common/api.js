@@ -1,7 +1,7 @@
 (function(m, app) {
     // const host = "http://10.4.210.110:8888/";  // 测试服务器
-    // var host = "http://192.168.199.11:8888/";
-    const host = "http://39.105.204.84:8888/";  // 正式
+    var host = "http://192.168.199.4:8888/";
+    // const host = "http://39.105.204.84:8888/";  // 正式
 
 	app.portalUrl = "http://10.4.200.77";
 	app.vpnUrl = "https://vpn.snpec.com.cn";
@@ -46,7 +46,8 @@
         getDraftUnitList: "webService/getDraftUnitList",    // 获取责任单位列表
         updateHaveRead: "processStatus/updateHaveRead", // 点击已阅
 		webServiceLogin:"webService/getUserMsg",
-        retResubmit: "sumbit/retResubmit"   // 代办退回后的提交
+        retResubmit: "sumbit/retResubmit",   // 代办退回后的提交
+        findDelayNum: "delayToApplyFor/findDelayNum"    // 延期申请次数
     }
     
     /**
@@ -63,7 +64,7 @@
         	data:  option.data || {},
         	dataType:'json',//服务器返回json格式数据
         	type:option.method || 'POST',//HTTP请求类型
-        	timeout:50000,//超时时间设置为10秒；
+        	timeout:10000,//超时时间设置为10秒；
             headers: {
             	'Content-Type': 'application/json'
             },

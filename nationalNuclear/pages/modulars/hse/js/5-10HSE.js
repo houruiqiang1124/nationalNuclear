@@ -52,6 +52,11 @@ new Vue({
 			_this.flowData();
 			_this.requestData();
             _this.getCopyPerson();
+            window.addEventListener('custom', function(e) {
+                _this.submitParam.responsiblePerson = e.detail.name;
+                _this.submitParam.responsiblePersonId = e.detail.id;
+            	console.log(JSON.stringify(event.detail))
+            })
 		}
 		if (window.plus) {
 			plusReady()
@@ -371,6 +376,18 @@ new Vue({
                         mui.toast("提交成功");
                     }
                 })
+        },
+        // 跳转抄送人员列表
+        goCc: function() {
+            sne.navigateTo({
+            	url: "./chaoSong.html",
+            	id: "chaoSong.html",
+            	data: {
+            		params: {
+            			pageType: "detail"
+            		}
+            	}
+            })
         }
     }
 })

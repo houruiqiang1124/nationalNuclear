@@ -514,7 +514,6 @@ new Vue({
 			_this.saveParam.copyPerson.splice(e,1);
 		},
 		checkParam:function(){
-			// console.log(JSON.stringify(_this.saveParam));
 			if(!_this.saveParam.unit){
 				mui.alert("请选择适用机组");
 				return false;

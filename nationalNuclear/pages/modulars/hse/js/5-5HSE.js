@@ -5,12 +5,14 @@ new Vue({
         voiceVal: "",
 		delayDate: "",
 		delayParam: {},
+        delayNum: null
     },
     mounted: function() {
 		_this = this;
 		function plusReady() {
 			_this.delayParam = plus.webview.currentWebview().params;
 			_this.delayDate = sne.getNowFormatDate();
+            _this.findDelayNum();
 		}
 		if (window.plus) {
 			plusReady()
@@ -48,7 +50,8 @@ new Vue({
 				"checkId": _this.delayParam.checkId,
 				"reqCompleteDate": _this.delayParam.reqCompleteDate,
 				"delayToApplyForDec": _this.voiceVal,
-				"delayToApplyForDate": _this.delayDate
+				"delayToApplyForDate": _this.delayDate,
+                "delayNum": _this.delayNum
 			}
 			app.ajax({
 				url: app.INTERFACE.findDelayToApplyFor,
@@ -66,5 +69,20 @@ new Vue({
 				}
 			})
 		},
+        // 获取延期申请
+        findDelayNum: function() {
+            app.ajax({
+                url: app.INTERFACE.findDelayNum,
+                data: {
+                   "dangerId" : _this.delayParam.dangerId,
+                   "checkId" : _this.delayParam.checkId
+                },
+                success: function(res) {
+                    if(res.object.resultCode == 0) {
+                        _this.delayNum = res.object.num
+                    }
+                }
+            })
+        }
     }
 })

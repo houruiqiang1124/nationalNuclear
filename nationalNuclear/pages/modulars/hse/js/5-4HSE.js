@@ -7,6 +7,7 @@ new Vue({
 		showImg: false,
 		prevParam: {}, // 上个页面过来的参数
 		data: [], //流转信息
+        personType: "0",    //判断是责任还是抄送 0责任  1抄送
 		saveParam: { // 新建保存和提交传的参数
 			"projNo": "", // 项目
 			"checkDate": "", // 检查日期
@@ -32,99 +33,87 @@ new Vue({
 			"responsiblePerson": "", // 责任整改人
 			"responsiblePersonId": "", // 责任整改人ID  
 			"copyPerson": [], // 抄送
-			"state": "", // 保存0或提交1
-			"hiddenDoc": ""
+			"state": "1", // 保存0或提交1
+			"hiddenDoc": "",    
+            "traceId":"",    // 流转表ID
+            "instanceId": "",    // 实例id
+            "dangerId": ""
 		},
-		responsiblePersonList: [
-			// 					{
-			//         	text: "潘金鑫",
-			//         	value: "PJX",
-			//         },{
-			//         	text: "徐童",
-			//         	value: "XT",
-			//         },{
-			//         	text: "易邦金",
-			//         	value: "YBJ",
-			//         },{
-			//         	text: "侯瑞强",
-			//         	value: "HRQ",
-			//         },
-		],
-		//         unitList: [{
-		//         	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 1",
-		//         	"unitDesc": "国核示范1号机组",
-		//         	"projectsByArea": "SNG",
-		//         	"text": "国核示范1号机组1",
-		//         	"value": "SN1"
-		//         }, {
-		//         	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 2",
-		//         	"unitDesc": "国核示范2号机组",
-		//         	"projectsByArea": "SNG",
-		//         	"text": "国核示范2号机组1",
-		//         	"value": "SN2"
-		//         }, {
-		//         	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Phase I and Units 1&amp;2",
-		//         	"unitDesc": "国核示范1/2号机组共用",
-		//         	"projectsByArea": "SNG",
-		//         	"text": "国核示范1/2号机组共用1",
-		//         	"value": "SNG"
-		//         }],
-		unitList: [],
+		        unitList: [{
+		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 1",
+		        	"unitDesc": "国核示范1号机组",
+		        	"projectsByArea": "SNG",
+		        	"text": "国核示范1号机组1",
+		        	"value": "SN1"
+		        }, {
+		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 2",
+		        	"unitDesc": "国核示范2号机组",
+		        	"projectsByArea": "SNG",
+		        	"text": "国核示范2号机组1",
+		        	"value": "SN2"
+		        }, {
+		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Phase I and Units 1&amp;2",
+		        	"unitDesc": "国核示范1/2号机组共用",
+		        	"projectsByArea": "SNG",
+		        	"text": "国核示范1/2号机组共用1",
+		        	"value": "SNG"
+		        }],
+		// unitList: [],
 		areaList: [
-			// 					{
-			//         	"value": "1",
-			//         	"text": "核岛"
-			//         }, {
-			//         	"value": "1.1",
-			//         	"text": "核岛-1厂房"
-			//         }, {
-			//         	"value": "1.2",
-			//         	"text": "核岛-2厂房"
-			//         }, {
-			//         	"value": "1.3",
-			//         	"text": "核岛-3厂房"
-			//         },
+								{
+			        	"value": "1",
+			        	"text": "核岛"
+			        }, {
+			        	"value": "1.1",
+			        	"text": "核岛-1厂房"
+			        }, {
+			        	"value": "1.2",
+			        	"text": "核岛-2厂房"
+			        }, {
+			        	"value": "1.3",
+			        	"text": "核岛-3厂房"
+			        },
 		],
 		unitIDList: [
-			// 					{
-			//         	"organizeCode": "SNG",
-			//         	"projectsByArea": "SNG",
-			//         	"value": "SNG",
-			//         	"text": "示范电站/石岛湾项目部"
-			//         }, {
-			//         	"organizeCode": "NNICA-SNG",
-			//         	"projectsByArea": "SNG",
-			//         	"value": "NNICA-SNG",
-			//         	"text": "示范电站/石岛湾-华兴"
-			//         }, {
-			//         	"organizeCode": "NNEC-SNG",
-			//         	"projectsByArea": "SNG",
-			//         	"value": "NNEC-SNG",
-			//         	"text": "示范电站/石岛湾-中核二三"
-			//         }, {
-			//         	"organizeCode": "NZHD-SNG",
-			//         	"projectsByArea": "SNG",
-			//         	"value": "NZHD-SNG",
-			//         	"text": "示范电站/石岛湾-浙江火电"
-			//         },
+								{
+			        	"organizeCode": "SNG",
+			        	"projectsByArea": "SNG",
+			        	"value": "SNG",
+			        	"text": "示范电站/石岛湾项目部"
+			        }, {
+			        	"organizeCode": "NNICA-SNG",
+			        	"projectsByArea": "SNG",
+			        	"value": "NNICA-SNG",
+			        	"text": "示范电站/石岛湾-华兴"
+			        }, {
+			        	"organizeCode": "NNEC-SNG",
+			        	"projectsByArea": "SNG",
+			        	"value": "NNEC-SNG",
+			        	"text": "示范电站/石岛湾-中核二三"
+			        }, {
+			        	"organizeCode": "NZHD-SNG",
+			        	"projectsByArea": "SNG",
+			        	"value": "NZHD-SNG",
+			        	"text": "示范电站/石岛湾-浙江火电"
+			        },
 		],
 		nonconformityList: [
-			// 					{
-			//         	"hazardTypeSeriar": "1",
-			//         	"hazardTypeDesc": "32",
-			//         	"value": "1",
-			//         	"text": "23"
-			//         }, {
-			//         	"hazardTypeSeriar": "2",
-			//         	"hazardTypeDesc": "3232",
-			//         	"value": "2",
-			//         	"text": "13"
-			//         }, {
-			//         	"hazardTypeSeriar": "1",
-			//         	"hazardTypeDesc": "32",
-			//         	"value": "3",
-			//         	"text": "15"
-			//         },
+								{
+			        	"hazardTypeSeriar": "1",
+			        	"hazardTypeDesc": "32",
+			        	"value": "1",
+			        	"text": "23"
+			        }, {
+			        	"hazardTypeSeriar": "2",
+			        	"hazardTypeDesc": "3232",
+			        	"value": "2",
+			        	"text": "13"
+			        }, {
+			        	"hazardTypeSeriar": "1",
+			        	"hazardTypeDesc": "32",
+			        	"value": "3",
+			        	"text": "15"
+			        },
 		],
 		hiddenCategoryList: [{
 			value: "0",
@@ -138,49 +127,34 @@ new Vue({
 		}, {
 			value: "3",
 			text: "环境的不安全因素"
-		}],
-		copyPersonList: [
-			// 					{
-			//         	"value": "ZHANGDESHENG",
-			//         	"text": "张德生"
-			//         }, {
-			//         	"value": "ZHANGYONG8",
-			//         	"text": "张勇2"
-			//         }, {
-			//         	"value": "ZHANGQIMING",
-			//         	"text": "张奇明"
-			//         }, {
-			//         	"value": "ZHANGBAOLIANG",
-			//         	"text": "张保良"
-			//         }, {
-			//         	"value": "ZHANGSHAOWEI",
-			//         	"text": "张韶伟"
-			//         }, {
-			//         	"value": "ZHANGXINKE", 
-			//         	"text": "张新科"
-			//         }, {
-			//         	"value": "ZHANGYAN1",
-			//         	"text": "张衍"
-			//         }, {
-			//         	"value": "ZHANGXIAOFEI1",
-			//         	"text": "张晓斐"
-			//         }, {
-			//         	"value": "ZHANGXIAOFEI",
-			//         	"text": "张晓斐"
-			//         },
-		]
+		}]
 	},
 	mounted: function() {
 		_this = this;
-
+        console.log("进入待办退回")
 		function plusReady() {
 			_this.prevParam = plus.webview.currentWebview().params;
+            console.log(JSON.stringify(_this.prevParam))
 			_this.init();
-			_this.getUnit();
-			_this.getArea();
-			_this.getInspectedUnit();
-			_this.getHazardTypeList();
-			_this.getCopyPerson();
+// 			_this.getUnit();
+// 			_this.getArea();
+// 			_this.getInspectedUnit();
+// 			_this.getHazardTypeList();
+// 			_this.getCopyPerson();
+            window.addEventListener('custom', function(e) {
+                if(_this.personType == 0) {
+                    _this.saveParam.responsiblePerson = e.detail.name;
+                    _this.saveParam.responsiblePersonId = e.detail.id;
+                } else {
+                    console.log(JSON.stringify(e.detail))
+                    var Operson = {
+                        id: e.detail.id,
+                        name: e.detail.name
+                    }
+                    _this.saveParam.copyPerson.push(Operson)
+                }
+                console.log(JSON.stringify(event.detail))
+            })
 		}
 		if (window.plus) {
 			plusReady()
@@ -198,10 +172,14 @@ new Vue({
 			_this.saveParam.draftUnit = app.loginInfo.draftUnit;
 			_this.saveParam.draftDept = app.loginInfo.draftDept;
 			_this.saveParam.draftPerson = app.loginInfo.userName;
-			_this.saveParam.draftDate = sne.getNowFormatDate().substr(0, 10);
-            _this.saveParam.checkDate = date.substr(0, 10);
+			_this.saveParam.draftDate = sne.getNowFormatDate();
+            _this.saveParam.checkDate = date;
             _this.saveParam.checkPerson = app.loginInfo.userName;
-            _this.saveParam.reqCompleteDate = date.substr(0, 10);
+            _this.saveParam.reqCompleteDate = date;
+            _this.saveParam.traceId = _this.prevParam.traceId
+            _this.saveParam.instanceId = _this.prevParam.instanceId
+            _this.saveParam.dangerId = _this.prevParam.dangerId
+            
 		},
         // 点击切换导航栏
         changeNav: function(e) {
@@ -413,8 +391,6 @@ new Vue({
 		// 提交或保存
 		submit: function() {
 			_this.saveParam.hiddenDoc = _this.imgList;
-
-
 			if (_this.saveParam.hiddenCategory == "管理缺陷") {
 				_this.saveParam.hiddenCategory = 0
 			} else if (_this.saveParam.hiddenCategory == "人的不安全行为") {
@@ -425,10 +401,9 @@ new Vue({
 
 			} else if (_this.saveParam.hiddenCategory == "环境的不安全因素") {
 				_this.saveParam.hiddenCategory = 3
-
 			}
 			app.ajax({
-				url: app.INTERFACE.insertCheck,
+				url: app.INTERFACE.retResubmit,
 				data: _this.saveParam,
 				success: function(res) {
 					if (res.object.resultCode == 0) {
@@ -441,7 +416,7 @@ new Vue({
         // 流转信息
         flowData:function(){
         	var param = {
-        		"recordNo": _this.listParam.recordNo,
+        		"recordNo": _this.prevParam.recordNo,
         	}
         	app.ajax({
         		url: app.INTERFACE.hseCirculation,
@@ -457,6 +432,19 @@ new Vue({
         					return val;
         				})
         				_this.data = List;
+        			}
+        		}
+        	})
+        },
+        // 跳转抄送人员列表页面
+        goCc: function(e) {
+        	_this.personType = e;
+        	sne.navigateTo({
+        		url: "./chaoSong.html",
+        		id: "chaoSong.html",
+        		data: {
+        			params: {
+        				pageType: "back"
         			}
         		}
         	})
