@@ -68,6 +68,57 @@ new Vue({
 		}
 	},
 	methods: {
+		toDoList: function(){
+			var param = {
+				"id": app.loginInfo.userId,
+				"logo": 0, //0-5
+				"start": 0,
+				"limit": "10"
+			}
+			app.ajax({
+				url: app.INTERFACE.findToDo,
+				data: param,
+				success: function(res) {
+					if (res.object.resultCode == "0") {
+						plus.nativeUI.closeWaiting();
+						_this.pageNo+=10;
+						if (!res.beans) {
+							return;
+						}
+						if (res.beans.length >= 1) {
+							var list = res.beans.map((item, index) => {
+								if (item.checkForm == '0') {
+									item.checkForm = '日常检查'
+								} else if (item.checkForm == '1') {
+									item.checkForm = '专项检查'
+								} else if (item.checkForm == '2') {
+									item.checkForm = '综合检查'
+								}
+								if (item.stepId == "500" || item.stepId == "400") {
+									item.recordNo = item.delayToApplyForNo;
+								}
+								item.draftDate.time = sne.getNowFormatDate(item.draftDate.time);
+								item.checkDate.time = sne.getNowFormatDate(item.checkDate.time);
+								if (item.approveDate) {
+									item.approveDate.time = sne.getNowFormatDate(item.approveDate.time);
+								} else {
+									item.approveDate = {
+										time: ""
+									};
+								}
+								return item
+							})
+							if(list.length>3){
+								_this.data = list.slice(0, 3);
+							}else{
+								_this.data = list;
+							}
+						}
+					} else {
+					}
+				}
+			})
+		},
         // 公司要闻
 	 	companyNew: function() {
 			var params = {};

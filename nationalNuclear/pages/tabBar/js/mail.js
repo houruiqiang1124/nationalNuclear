@@ -12,6 +12,7 @@ new Vue({
         window.indexedList = new mui.IndexedList(list);
         _this = this;
         _this.getMail();
+		sne.quit();
     },
     methods: {
         getMail: function() {

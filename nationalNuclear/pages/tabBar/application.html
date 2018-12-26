@@ -76,6 +76,7 @@
 		</div>
 		<script src="../../js/mui.min.js"></script>
 		<script src="../../js/jquery-3.1.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/common/config.js"></script>
 		<script type="text/javascript">
 			mui.init({
 				gestureConfig: {
@@ -88,7 +89,8 @@
 						document.addEventListener("plusready", plusReady, false);
 					}
 					function plusReady(){
-						plus.navigator.setStatusBarBackground("#1D6BCA")
+						plus.navigator.setStatusBarBackground("#1D6BCA");
+						sne.quit();
 					}
 			mui(".edit")[0].addEventListener("tap", function() {
 				if(this.innerHTML == "编辑") {

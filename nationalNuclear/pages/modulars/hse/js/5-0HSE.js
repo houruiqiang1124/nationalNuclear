@@ -13,6 +13,12 @@ new Vue({
 		function plusReady() {
 			_this.getNumber();
 			_this.requestData();
+			window.addEventListener('refresh', function(e) {
+				var num = e.detail.number;
+				console.log(num)
+				_this.changeList(num);
+				_this.getNumber();
+			})
 		}
 		if (window.plus) {
 			plusReady()

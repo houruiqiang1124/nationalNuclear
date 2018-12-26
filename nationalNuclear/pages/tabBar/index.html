@@ -24,6 +24,7 @@
 		</nav>
         	<script src="../../js/mui.min.js"></script>
         	<script type="text/javascript" src="../../js/jquery-3.2.1.min.js" ></script>
+			<script src="../../js/common/config.js"></script>
         	<script type="text/javascript" charset="utf-8">
         		mui.plusReady(function() {
         			var aniShow = {};
@@ -68,21 +69,7 @@
         				//更改当前活跃的选项卡
         				activeTab = targetTab;
         			});
-        			//监听返回键，退出APP
-        			var first = null;  
-        			mui.back=function(){
-        			if(!first){  
-        					first = new Date().getTime();  
-        					mui.toast('再按一次退出应用');  
-        					setTimeout(function(){  
-        						first = null;  
-        					},2000);  
-        				} else {  
-        					if(new Date().getTime() - first < 2000){  
-        						plus.runtime.quit();  
-        					}  
-        				}  
-        			};
+        			sne.quit();
         		});
         </script>
 	</body>

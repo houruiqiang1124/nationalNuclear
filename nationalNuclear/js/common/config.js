@@ -45,12 +45,29 @@
     	if (second >= 0 && second <= 9) {
     		second = "0" + second; 
     	}
-    	var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + hour + seperator2 + min;    
+    	var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + hour + seperator2 + min + seperator2 + second;    
     	return currentdate;
     }
-	f.getNowFormatDate2 = function getNowFormatDate2(time) {
+	f.getNowFormatDate2 = function (time) {
             var dateee = new Date(time).toJSON();
 			var date = new Date(+new Date(dateee)+8*3600*1000).toISOString().replace(/T/g,' ').replace(/\.[\d]{3}Z/,'')  
          return date;
+	}
+	f.quit = function (){
+		//监听返回键，退出APP
+		var first = null;  
+		mui.back=function(){
+		if(!first){  
+				first = new Date().getTime();  
+				mui.toast('再按一次退出应用');  
+				setTimeout(function(){  
+					first = null;  
+				},2000);  
+			} else {  
+				if(new Date().getTime() - first < 2000){  
+					plus.runtime.quit();  
+				}  
+			}  
+		};
 	}
 }(mui,window.sne={}))

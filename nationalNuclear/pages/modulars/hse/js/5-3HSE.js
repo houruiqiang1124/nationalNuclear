@@ -493,6 +493,14 @@ new Vue({
 						if (res.object.resultCode == 0) {
 							mui.toast(e == 0 ? "保存成功" : "提交成功");
 							mui.back();
+							var webview = plus.webview.getWebviewById("5-0HSE.html");
+							var number=0
+							if(e == 0){
+								number =3;
+							}
+							mui.fire(webview,'refresh',{
+								number:number
+							});
 						}
 					}
 				})
