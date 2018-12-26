@@ -6,8 +6,9 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../../css/mui.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../../../css/mui.picker.min.css" />
-        
+		<!-- <link rel="stylesheet" type="text/css" href="../../../css/mui.picker.min.css" /> -->
+        <link rel="stylesheet" type="text/css" href="../../../css/mui.picker.css" />
+        <link rel="stylesheet" type="text/css" href="../../../css/mui.dtpicker.css" />
 		<link rel="stylesheet" type="text/css" href="../../../css/mui.poppicker.css" />
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
 		<link rel="stylesheet" type="text/css" href="css/imageviewer.css" />
@@ -138,7 +139,7 @@
 								</li>
 								<li class="mui-table-view-cell">
 									<i>*</i>抄送:<label class="mui-pull-right addmore">
-										<font v-for="(item, index) in saveParam.copyPerson" :key="index">{{item.name}}&nbsp;</font>
+										<font v-for="(item, index) in saveParam.copyPerson" :key="index" @tap="delCcPersion(index)">{{item.name}}&nbsp;</font>
                                         <img @tap="goCc(1)" src="images/5-3-add@2x.png" class="add-more" />
 									</label>
 									<p class="tips">隐患级别为“重大”时：请抄送联队项目部负责人、安全总监、HSE部负责人、公司总经理、分管安全副总经理及安全质量部主任。</p>
@@ -170,8 +171,9 @@
 			</div>
 		</div>
 		<script src="../../../js/mui.min.js"></script>
-		<script src="../../../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+		<!-- <script src="../../../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script> -->
         <script src="../../../js/mui.picker.js"></script>
+        <script src="../../../js/mui.dtpicker.js"></script>
         <script src="../../../js/jquery-3.1.1.js"></script>
 		<script src="../../../js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>
         <script src="../../../js/vue.js"></script>
