@@ -45,7 +45,7 @@
     	if (second >= 0 && second <= 9) {
     		second = "0" + second; 
     	}
-    	var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + hour + seperator2 + min;    
+    	var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + hour + seperator2 + min + seperator2 + second;    
     	return currentdate;
     }
 	f.getNowFormatDate2 = function getNowFormatDate2(time) {
