@@ -65,7 +65,17 @@ new Vue({
                     name: _this.checkedUser.memberName
                 });
             } else if(_this.preaParam.pageType == "detail") {   // 从详情进来
-                
+                var webview = plus.webview.getWebviewById("5-10HSE.html");
+                mui.fire(webview,'custom', {
+                	id: _this.checkedUser.memberId,
+                	name: _this.checkedUser.memberName
+                });
+            } else if(_this.preaParam.pageType == "back") { // 从待办退回进来
+                var webview = plus.webview.getWebviewById("5-4HSE.html");
+                mui.fire(webview,'custom', {
+                	id: _this.checkedUser.memberId,
+                	name: _this.checkedUser.memberName
+                });
             }
             mui.back();
         },

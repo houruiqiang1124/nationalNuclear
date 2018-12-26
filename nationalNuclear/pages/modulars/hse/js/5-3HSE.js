@@ -486,7 +486,6 @@ new Vue({
 			_this.showImg = false;
 		},
 		checkParam:function(){
-			console.log(JSON.stringify(_this.saveParam));
 			if(!_this.saveParam.unit){
 				mui.alert("请选择适用机组");
 				return false;
@@ -499,7 +498,7 @@ new Vue({
 			}else if(!_this.saveParam.nonconformity){
 				mui.alert("请选择隐患类型");
 				return false;
-			}else if(!_this.saveParam.hiddenCategory){
+			}else if(_this.saveParam.hiddenCategory === ""){
 				mui.alert("请选择隐患属性");
 				return false;
 			}else if(!_this.saveParam.reqCompleteDate){
