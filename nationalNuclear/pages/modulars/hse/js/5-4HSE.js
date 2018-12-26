@@ -37,7 +37,8 @@ new Vue({
 			"hiddenDoc": "",    
             "traceId":"",    // 流转表ID
             "instanceId": "",    // 实例id
-            "dangerId": ""
+            "dangerId": "",
+            "checkId": ""
 		},
 		        unitList: [{
 		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 1",
@@ -179,7 +180,7 @@ new Vue({
             _this.saveParam.traceId = _this.prevParam.traceId
             _this.saveParam.instanceId = _this.prevParam.instanceId
             _this.saveParam.dangerId = _this.prevParam.dangerId
-            
+            _this.saveParam.checkId = _this.prevParam.checkId
 		},
         // 点击切换导航栏
         changeNav: function(e) {
@@ -285,7 +286,7 @@ new Vue({
 		checkDate: function(e) {
 			console.log(e)
 			var options = {
-				"type": "date",
+				// "type": "date",
 				"beginYear": 2014,
 				"endYear": 2025
 			};
@@ -448,6 +449,9 @@ new Vue({
         			}
         		}
         	})
-        }
+        },
+        delCcPersion:function(e){
+        	_this.saveParam.copyPerson.splice(e,1);
+        },
 	}
 })

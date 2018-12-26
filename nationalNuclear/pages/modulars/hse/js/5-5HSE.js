@@ -23,7 +23,7 @@ new Vue({
     methods: {
 		// 日期选择
 		checkDate: function() {
-				var options = {"type":"datetime","beginYear":2014,"endYear":2025};
+				var options = {"beginYear":2014,"endYear":2025};
 				var picker = new mui.DtPicker(options);
 				picker.show(function(rs) {
 					_this.delayDate = rs.text;

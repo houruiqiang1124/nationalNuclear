@@ -168,21 +168,22 @@ new Vue({
                         params: param
                     }
                 })
-            } else {
+            } else if(_this.currentCode == 0) {
                 if(e.stepId == "100") { // 代表待办退回
-                    var param = {
-                        recordNo: e.recordNo,
-                        traceId: e.actionTraceId,
-                        instanceId: e.instanceId,
-                        dangerId: e.dangerId
-                    };
-                    sne.navigateTo({
-                    	url: "5-4HSE.html",
-                    	id: "5-4HSE.html",
-                    	data: {
-                    		params: param
-                    	}
-                    })
+                	var param = {
+                		recordNo: e.recordNo,
+                		traceId: e.actionTraceId,
+                		instanceId: e.instanceId,
+                		dangerId: e.dangerId,
+                		checkId: e.id
+                	};
+                	sne.navigateTo({
+                		url: "5-4HSE.html",
+                		id: "5-4HSE.html",
+                		data: {
+                			params: param
+                		}
+                	})
                 } else {
                     sne.navigateTo({
                     	url: "5-10HSE.html",
@@ -193,6 +194,15 @@ new Vue({
                     	}
                     })
                 }
+            }  else {
+                sne.navigateTo({
+                    url: "5-10HSE.html",
+                    id: "5-10HSE.html",
+                    data: {
+                        params:e,
+                        tabCode:_this.currentCode
+                    }
+                })
             }
 			
 		},
