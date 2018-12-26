@@ -187,11 +187,29 @@ new Vue({
                     _this.saveParam.responsiblePerson = e.detail.name;
                     _this.saveParam.responsiblePersonId = e.detail.id;
                 } else {
-                    var Operson = {
-                        id: e.detail.id,
-                        name: e.detail.name
-                    }
-                    _this.saveParam.copyPerson.push(Operson)
+					if(_this.saveParam.copyPerson.length<1){
+						var Operson = {
+							id: e.detail.id,
+							name: e.detail.name
+						}
+						_this.saveParam.copyPerson.push(Operson)
+					}else{
+						var flag = true;
+						for(var i=0;i<_this.saveParam.copyPerson.length;i++){
+							if(_this.saveParam.copyPerson[i].id == e.detail.id){
+								mui.alert("不能选择相同的抄送人");
+								flag = false;
+								return flag;
+							}
+						}
+						if(flag){
+							var Operson = {
+								id: e.detail.id,
+								name: e.detail.name
+							}
+							_this.saveParam.copyPerson.push(Operson)
+						}
+					}
                 }
                 console.log(JSON.stringify(event.detail))
             })
@@ -211,12 +229,12 @@ new Vue({
 			_this.saveParam.draftUnit = app.loginInfo.draftUnit;
 			_this.saveParam.draftDept = app.loginInfo.draftDept;
 			_this.saveParam.draftPerson = app.loginInfo.userName;
-			_this.saveParam.draftDate = sne.getNowFormatDate().substr(0, 10);
+			_this.saveParam.draftDate = sne.getNowFormatDate();
 			if (_this.prevParam.type == "new") {
 				var date = sne.getNowFormatDate();
-				_this.saveParam.checkDate = date.substr(0, 10);
+				_this.saveParam.checkDate = date;
 				_this.saveParam.checkPerson = app.loginInfo.userName;
-				_this.saveParam.reqCompleteDate = date.substr(0, 10);
+				_this.saveParam.reqCompleteDate = date;
 			} else {
 				_this.getDetail();
 			}
@@ -316,7 +334,6 @@ new Vue({
 		},
 				//语音输入
 				openVoice:function(e){
-					console.log(e== 0)
 					var options = {};
 					options.engine = 'iFly';
 					// alert("开始语音识别：");
@@ -332,11 +349,11 @@ new Vue({
 				},
 		// 日期选择
 		checkDate: function(e) {
-			console.log(e)
 			var options = {
-				"type": "date",
+				// "type": "datatime",
 				"beginYear": 2014,
-				"endYear": 2025
+				"endYear": 2025,
+				"value":""
 			};
 			var picker = new mui.DtPicker(options);
 			picker.show(function(rs) {
@@ -485,8 +502,11 @@ new Vue({
 			_this.imgList="";
 			_this.showImg = false;
 		},
+		delCcPersion:function(e){
+			_this.saveParam.copyPerson.splice(e,1);
+		},
 		checkParam:function(){
-			console.log(JSON.stringify(_this.saveParam));
+			// console.log(JSON.stringify(_this.saveParam));
 			if(!_this.saveParam.unit){
 				mui.alert("请选择适用机组");
 				return false;
@@ -499,7 +519,7 @@ new Vue({
 			}else if(!_this.saveParam.nonconformity){
 				mui.alert("请选择隐患类型");
 				return false;
-			}else if(!_this.saveParam.hiddenCategory){
+			}else if(!_this.saveParam.hiddenCategory ===""){
 				mui.alert("请选择隐患属性");
 				return false;
 			}else if(!_this.saveParam.reqCompleteDate){
@@ -536,7 +556,7 @@ new Vue({
 					_this.saveParam.unitID = dangerList.unitid;
 					_this.saveParam.nonconformity = dangerList.nonconformity;
 					_this.saveParam.hiddenCategory = dangerList.hiddencategory;
-					_this.saveParam.reqCompleteDate = dangerList.reqcompletedate.substr(0, 10);
+					_this.saveParam.reqCompleteDate = sne.getNowFormatDate2(dangerList.reqcompletedate);
 					_this.saveParam.hseHiddenLevel = dangerList.hsehiddenlevel;
 					_this.saveParam.hiddenDescription = dangerList.hiddendescription;
 					_this.saveParam.correctiveRequest = dangerList.correctiverequest;
