@@ -3,6 +3,7 @@ new Vue({
     el: "#app",
     data: {
         showTab: true,
+        imgList: "",
 		// recordNo:"",
 		data:[],//流转信息
 		listParam:{},// 列表数据
@@ -186,6 +187,8 @@ new Vue({
                         } else if(res.object.resultCode == "3") {
                             res.object.dangerList.hiddencategory = "环境的不安全因素";
                         }
+                        _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g,"")
+                        // res.object.dangerList.hiddenDoc = JSON.stringify(res.object.dangerList.hiddenDoc).replace(/"/g,"")
 						res.object.dangerList.reqcompletedate = sne.getNowFormatDate2(res.object.dangerList.reqcompletedate);
 						res.object.dangerList.distributdate = sne.getNowFormatDate2(res.object.dangerList.distributdate);
 						_this.dangerData = res.object.dangerList;
@@ -193,6 +196,7 @@ new Vue({
                         _this.confirmation = res.object.dangerList.comfirmcontent;
                         _this.closePerson = res.object.dangerList.closeperson;
                         _this.closeDate = res.object.dangerList.closedate;
+                        
 					} else {
 					}
 				}

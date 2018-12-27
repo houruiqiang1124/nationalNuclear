@@ -17,42 +17,12 @@ new Vue({
 				icon: "../../static/hse.png",
 				id:"5-0HSE.html"
 			},
-			{
-				title: "用餐管理",
-				url: "departementSearch",
-				icon: "../../static/Have_meals.png",
-				id:""
-			},
-			{
-				title: "绩效管理",
-				url: "",
-				icon: "../../static/jixiao.png",
-				id:""
-			},
-			{
-				title: "公司要闻",
-				url: "../modulars/news/3-1.html",
-				icon: "../../static/news.png",
-				id:"3-1.html"
-			},
-			{
-				title: "车输管理",
-				url: "",
-				icon: "../../static/car.png",
-				id:""
-			},
-			{
-				title: "公司公告",
-				url: "../modulars/company/2-1.html",
-				icon: "../../static/Notice.png",
-				id:"2-1.html"
-			},
-			{
-				title: "考勤管理",
-				url: "",
-				icon: "../../static/kaoqin.png",
-				id:""
-			}
+            {
+            	title: "更多",
+            	url: "./modulars.html",
+            	icon: "../../static/addPng.png",
+            	id:"modulars.html"
+            }
 		]
 	},
 	mounted: function() {
