@@ -40,7 +40,9 @@ new Vue({
             "lineNo": "",
             "stepId": "",
             "stepName": "",
-            "stepCode": ""
+            "stepCode": "",
+			"checkForm":"",
+			"correctiveRequest":""
             
         },
         responsiblePersonList: [],
@@ -81,6 +83,7 @@ new Vue({
             _this.submitParam.instanceId = _this.listParam.instanceId;
             _this.submitParam.checkId = _this.listParam.id;
             _this.submitParam.dangerId = _this.listParam.dangerId;
+            _this.submitParam.checkForm = _this.listParam.checkForm;
             // _this.submitParam.copyPerson = _this.listParam.copyPerson;
             var date = sne.getNowFormatDate();
             switch(_this.tabCode) {
@@ -281,6 +284,7 @@ new Vue({
         },
         // 待办提交
         submit: function() {
+			console.log(_this.submitParam.checkForm)
 			if (_this.submitParam.checkForm == '日常检查') {
 				_this.submitParam.checkForm = '0'
 			} else if (_this.submitParam.checkForm == '专项检查') {
