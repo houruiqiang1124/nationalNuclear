@@ -5,7 +5,8 @@ new Vue({
         voiceVal: "",
 		delayDate: "",
 		delayParam: {},
-        delayNum: null
+        delayNum: null,
+        isDelay: ""
     },
     mounted: function() {
 		_this = this;
@@ -41,6 +42,10 @@ new Vue({
 		},
         // 延期申请
 		delay:function() {
+            if(_this.isDelay == "0") {
+                mui.alert("上次延期还未处理");
+                return;
+            }
 			var param = {
 				"userId" : app.loginInfo.userId,
 				"userName": app.loginInfo.userName,
@@ -62,6 +67,11 @@ new Vue({
 						mui.toast("延期申请成功");
                         plus.webview.getWebviewById("5-10HSE.html").hide();
                         plus.webview.getWebviewById("5-10HSE.html").close();
+                        var webview = plus.webview.getWebviewById("5-0HSE.html");
+                        var number=0;
+                        mui.fire(webview,'refresh',{
+                            number:number
+                        });
                         mui.back();
 					}else{
 						mui.toast("延期申请失败");
@@ -80,6 +90,7 @@ new Vue({
                 success: function(res) {
                     if(res.object.resultCode == 0) {
                         _this.delayNum = res.object.num
+                        _this.isDelay = res.object.isDelay;
                     }
                 }
             })

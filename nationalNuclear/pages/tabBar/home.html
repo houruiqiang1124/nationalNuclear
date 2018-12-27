@@ -9,6 +9,7 @@
         <link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
         <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
         <link rel="stylesheet" type="text/css" href="./css/home.css"/>
+        <link rel="stylesheet" type="text/css" href="../modulars/hse/css/5-0HSE-sub1.css"/>
 	</head>
 	<body>
 		<div class="home" id="app">
@@ -41,23 +42,17 @@
                 		<div class="">
                 			<span class="theme_color">待办事项</span>
                 		</div>
-                        <span class="sub_color daiBan_size">更多></span>
+                        <span class="sub_color daiBan_size">更多&gt;</span>
                 	</div>
                     
                     <ul class="mui-table-view">
-                    		<li class="mui-table-view-cell" v-for="(item, index) in daiBanList" :key="index">
-                    			<div class="flex flex_jus_between">
-                    				<div class="left_width mui-ellipsis">
-                    					<img src="../../static/red-round.png" class="red-round">
-                                        <span class="font-size1">{{item.title}}</span>
-                    				</div>
-                                    <!-- <span class="type">文档</span> -->
-									<span class="sub_color date">{{item.date}}</span>
+                    		<li class="mui-table-view-cell" v-for="(item,index) in daiBanList" :key="index">
+                    			<div class="mui-slider-handle" @tap="goDetail(item)">
+                    				<p class="title">项目:{{item.projNo}};检查单编号:{{item.recordNo}}</p>
+                    				<p>业务名称：{{item.checkForm}}</p>
+                    				<p>当前流程节点：{{item.stepName}}</p>
+                    				<p>发起人：{{item.draftPerson}}&emsp;{{item.draftDate.time}}</p>
                     			</div>
-                                <!-- <div class="flex flex_jus_between">
-                                	<span class="sub_color font-size_sub">发起人：王小明</span>
-                                    <span class="sub_color font-size_sub">2018-12-25</span>
-                                </div> -->
                     		</li>
                     		<!-- <li class="mui-table-view-cell">
                     			<div class="flex flex_jus_between">

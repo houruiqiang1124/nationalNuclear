@@ -4,7 +4,8 @@ new Vue({
     data: {
         users: [],
         forwardParam: {},
-        checkedUser: {}    // 选中人员
+        checkedUser: {},    // 选中人员
+        serchVal: ""
     },
     mounted: function() {
         _this = this;
@@ -24,13 +25,16 @@ new Vue({
         ok: function() {
             this.forwardParam.userId = app.loginInfo.userId;
             this.forwardParam.userName = app.loginInfo.userName;
-            this.forwardParam.ownerUserId = this.checkedUser.value;
-            this.forwardParam.ownerUserName = this.checkedUser.text;
+            this.forwardParam.ownerUserId = this.checkedUser.memberId;
+            this.forwardParam.ownerUserName = this.checkedUser.memberName;
             app.ajax({
                 url: app.INTERFACE.findForwarding,
                 data: this.forwardParam,
                 success: function(res) {
+                    plus.webview.getWebviewById("5-10HSE.html").hide();
+                    plus.webview.getWebviewById("5-10HSE.html").close();
                     mui.back();
+                    
                     mui.toast("转发成功");
                 }
             })
@@ -55,14 +59,28 @@ new Vue({
         			url: app.INTERFACE.getCopyPerson,
         			data: param,
         			success: function(res) {
-        				var List = res.beans.map((val, index) => {
-        					val.text = val.memberName;
-        					val.value = val.memberId;
-        					return val;
-        				})
-        				_this.users = List;
+        				_this.users = res.beans;
         			}
         	})
         },
+        // 搜索人员
+        searchBtn: function() {
+        	var param = {
+        		"projNo": app.loginInfo.projNo,
+        		// "userName": app.loginInfo.userName
+        		"userName": _this.serchVal
+        	}
+        	app.ajax({
+        		url: app.INTERFACE.getCopyPerson,
+        		data: param,
+        		success: function(res) {
+        			_this.users = res.beans;
+        		}
+        	})
+        },
+        // 重置
+        reset: function() {
+        	_this.serchVal = "";
+        }
     }
 })

@@ -43,20 +43,20 @@ var vm = new Vue({
 			} else {
 				plus.nativeUI.showWaiting();
                 // 临时跳过vpn登录
-				// _this.sxfVpnInit();
+				_this.sxfVpnInit();
 				// _this.tologin();
-                var loginInfo = {
-                	projNo: "SNG",  // 项目
-                    userId: this.username,
-                    userName: this.password,    // 登录人
-                	draftUnit: "编制单位",    // 编制单位
-                	draftDept: "编制部门",  // 编制部门
-                	draftDate: "2018-12-23"   //编制日期
-                }
-				_this.remindAccount();
-                localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
-                sne.navigateTo({url:"../tabBar/index.html",id:"index.html"}),
-                plus.nativeUI.closeWaiting();
+//                 var loginInfo = {
+//                 	projNo: "SNG",  // 项目
+//                     userId: this.username,
+//                     userName: this.password,    // 登录人
+//                 	draftUnit: "编制单位",    // 编制单位
+//                 	draftDept: "编制部门",  // 编制部门
+//                 	draftDate: "2018-12-23"   //编制日期
+//                 }
+// 				_this.remindAccount();
+//                 localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
+//                 sne.navigateTo({url:"../tabBar/index.html",id:"index.html"}),
+//                 plus.nativeUI.closeWaiting();
 			}
 		},
 		//初始化vpn地址
@@ -115,18 +115,9 @@ var vm = new Vue({
 								url: app.INTERFACE.webServiceLogin,
 								data: param,
 								success: function(res) {
-									_this.remindAccount();
-									var loginInfo = {
-										projNo: "SNG",  // 项目
-										userId: res.userId,
-										userName: res.userName,    // 登录人
-										draftUnit: "编制单位",    // 编制单位
-										draftDept: res.department,  // 编制部门
-										userType:res.userType
-									}
-									localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
-                                    plus.nativeUI.closeWaiting();
-                                    sne.navigateTo({url:"../tabBar/index.html",id:"index.html"})
+									
+                                    _this.getUserInfo(res.userId, res.userType)
+									
 								}
 						})
 					} else {
@@ -143,7 +134,41 @@ var vm = new Vue({
 			}else{
 				localStorage.removeItem("username");
 			}
-		}
+		},
+        // 获取信息
+        getUserInfo: function(userId, userType) {
+            app.ajax({
+                url: app.INTERFACE.getHesUserInif,
+                data: {
+                    userName: userId
+                },
+                success: function(res) {
+                    console.log(JSON.stringify(res));
+                    _this.remindAccount();
+                    var loginInfo = {
+                    	projNo: "SNG", 
+                    	userId: res.object[0].userId,
+                    	userName: res.object[0].userName,    // 登录人
+                    	// draftUnit: "编制单位",    // 编制单位
+                    	// draftDept: res.department,  // 编制部门
+                    	userType: userType,
+                        organizationId: res.object[0].organizationId,  // 单位id
+                        draftUnit: res.object[0].organizationName, // 编制单位
+                        
+                        draftDept: res.object[0].departmentName,   // 编制部门
+                        departmentId: res.object[0].departmentId,  //编制部门id
+                        projectName: res.object[0].projectName,    // 项目名称
+                        // projNo: res.object[0].projectId,    // 项目id
+                        name: res.object[0].name  // 真实姓名
+                        
+                    }
+                    console.log('缓存' + JSON.stringify(loginInfo))
+                    localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
+                    plus.nativeUI.closeWaiting();
+                    sne.navigateTo({url:"../tabBar/index.html",id:"index.html"})
+                }
+            })
+        }
 	}
 })
 

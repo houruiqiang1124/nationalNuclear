@@ -9,6 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
         <link rel="stylesheet" type="text/css" href="../../../css/mui.picker.min.css" />
         <link rel="stylesheet" type="text/css" href="../../../css/mui.poppicker.css" />
+        <link rel="stylesheet" type="text/css" href="../../../css/mui.dtpicker.css" />
 		<link rel="stylesheet" type="text/css" href="css/5-11HSE.css" />
 		<link rel="stylesheet" type="text/css" href="css/5-11HSE-sub1.css" />
 		<style type="text/css">
@@ -39,7 +40,7 @@
                             <!--数据列表-->
                             <ul class="mui-table-view hse-sub1">
                                 <li class="mui-table-view-cell mui-collapse">
-                                    <a class="mui-navigate-right" href="#"><span>SNG-HSE-WS-2018-0235</span></a>
+                                    <a class="mui-navigate-right" href="#"><span>{{listParam.recordNo}}</span></a>
                                     <div class="mui-collapse-content">
                                         <p><span>项目名称：</span><span>{{listParam.projNo}}</span></p>
                                         <p><span>检查日期：</span><span>{{listParam.checkDate}}</span></p>
@@ -86,7 +87,7 @@
                                         <p><span>要求完成时间：</span><span>{{dangerData.reqcompletedate}}</span></p>
                                         <p><span>是否当场已改：</span><span>{{dangerData.ifsitecorrection}}</span></p>
                                         <p><span>整改措施要求：</span><span>{{dangerData.correctiverequest}}</span></p>
-                                        <p><span>抄送：</span><span v-for="(item,index) in copyPersonList">{{item.name}}&nbsp;</span></p>
+                                        <p><span>抄送：</span><span v-for="(item,index) in submitParam.copyPerson">{{item.name}}&nbsp;</span></p>
                                         <div class="fj-content">
                                             <span>
                                                 <font class="mui-icon mui-icon-paperclip"></font>附件:
@@ -255,6 +256,7 @@
 		</div>
 		<script src="../../../js/mui.min.js"></script>
         <script src="../../../js/common/api.js"></script>
+        <script src="../../../js/mui.dtpicker.js"></script>
         <script src="../../../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../../../js/mui.picker.js"></script>
         <script src="../../../js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>

@@ -163,9 +163,10 @@ new Vue({
                     type: "list",
                     checkId: e.id,
                     dangerId: e.dangerId,
-                    checkDate: sne.getNowFormatDate(e.checkDate.time),
+                    checkDate: e.checkDate.time,
                     checkPerson: e.checkPerson,
-                    draftDate: sne.getNowFormatDate(e.draftDate.time),
+                    draftDate: e.draftDate.time,
+                    recordNo: e.recordNo
                 }
                 sne.navigateTo({
                 	url: "5-3HSE.html",
@@ -200,6 +201,16 @@ new Vue({
                     	}
                     })
                 }
+            } else if(_this.currentCode == 4) {
+                _this.isReaded(e.deliveryId);
+                sne.navigateTo({
+                	url: "5-10HSE.html",
+                	id: "5-10HSE.html",
+                	data: {
+                		params:e,
+                		tabCode:_this.currentCode
+                	}
+                })
             }  else {
                 sne.navigateTo({
                     url: "5-10HSE.html",
@@ -212,6 +223,18 @@ new Vue({
             }
 			
 		},
+        // 已阅
+        isReaded: function(id) {
+            app.ajax({
+                url: app.INTERFACE.updateHaveRead,
+                data: {
+                    deliveryId: id
+                },
+                success: function(res) {
+                    console.log("已阅");
+                }
+            })
+        },
 		// 上拉
 		pullupRefresh: function() {
 			_this.requestData();

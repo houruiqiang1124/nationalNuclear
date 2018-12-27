@@ -16,7 +16,6 @@ new Vue({
         showDelay: false,
         showDelayBtn: false,    //  是否显示底部延期申请通按钮
         showLuRu: true,
-        copyPersonList: [], // 抄送人员
         confirmation: "",   // 确认情况
         closePerson: "",//关闭人
         closeDate: "",  //关闭日期
@@ -33,7 +32,7 @@ new Vue({
             "responsiblePersonId":"", // 整改验证人ID
             "rectificationSituation": "",  // 整改情况
             "completeDate":"",    // 完成日期
-            "hiddenDoc":"",    // 附件base64
+            "returndoc":"",    // 附件base64
             "copyPerson": []  // 抄送
             
         },
@@ -51,7 +50,7 @@ new Vue({
             _this.init();
 			_this.flowData();
 			_this.requestData();
-            _this.getCopyPerson();
+            // _this.getCopyPerson();
             window.addEventListener('custom', function(e) {
                 _this.submitParam.responsiblePerson = e.detail.name;
                 _this.submitParam.responsiblePersonId = e.detail.id;
@@ -74,23 +73,23 @@ new Vue({
             _this.submitParam.instanceId = _this.listParam.instanceId;
             _this.submitParam.checkId = _this.listParam.id;
             _this.submitParam.dangerId = _this.listParam.dangerId;
-            _this.submitParam.copyPerson = _this.copyPersonList;
+            // _this.submitParam.copyPerson = _this.listParam.copyPerson;
             var date = sne.getNowFormatDate();
             switch(_this.tabCode) {
             	case '0':
                     if(_this.listParam.stepId == "100") {
-                        _this.submitParam.completeDate =date.substr(0,10);
+                        _this.submitParam.completeDate =date;
                         _this.showButton =false;
                     } else if(_this.listParam.stepId == "200") {
                         _this.showDelay = true;
-            			_this.submitParam.completeDate =date.substr(0,10)
+            			_this.submitParam.completeDate =date;
             		} else if(this.listParam.stepId == "300") {   // 100发起   200整改回复  300整改验证  400延期申请  500延期申请审批
             			_this.showVerify = true;
             			_this.showYanBtn = true;
             			_this.showButton =false;
             			_this.disabled1 = true;
                         _this.closePerson = app.loginInfo.userName;
-                        _this.closeDate = sne.getNowFormatDate().substr(0,10);
+                        _this.closeDate = sne.getNowFormatDate();
             			_this.submitParam.rectificationSituation = this.listParam.rectificationSituation;
             			_this.submitParam.responsiblePerson = this.listParam.responsiblePerson;
             			_this.submitParam.completeDate = sne.getNowFormatDate(this.listParam.completeDate.time); 
@@ -151,26 +150,6 @@ new Vue({
             		break;
             }
         },
-        //获取抄送人列表
-        getCopyPerson: function() {
-        	var param = {
-        		"projNo": app.loginInfo.projNo,
-        		// "userName": app.loginInfo.userName
-        		"userName": "胡"
-        	}
-        	app.ajax({
-        		url: app.INTERFACE.getCopyPerson,
-        		data: param,
-        		success: function(res) {
-        			var List = res.beans.map((val, index) => {
-        				val.text = val.memberName;
-        				val.value = val.memberId;
-        				return val;
-        			})
-        			_this.responsiblePersonList = List; //整改验证人
-        		}
-        	})
-        },
 		//详情
 		requestData: function() {
 			var param = {
@@ -184,8 +163,7 @@ new Vue({
 						res.object.dangerList.reqcompletedate = sne.getNowFormatDate2(res.object.dangerList.reqcompletedate);
 						res.object.dangerList.distributdate = sne.getNowFormatDate2(res.object.dangerList.distributdate);
 						_this.dangerData = res.object.dangerList;
-                        // console.log()
-                        _this.copyPersonList = JSON.parse(res.object.dangerList.copyPerson)
+                        _this.submitParam.copyPerson = JSON.parse(res.object.dangerList.copyPerson);
 					} else {
 					}
 				}
@@ -235,7 +213,7 @@ new Vue({
 		},
         // 时间选择
         showDate: function(e) {
-            var options = {"type":"date","beginYear":2014,"endYear":2025};
+            var options = {"beginYear":2014,"endYear":2025};
             var picker = new mui.DtPicker(options);
             picker.show(function(rs) {
             	_this.submitParam.completeDate = rs.text;
@@ -269,10 +247,23 @@ new Vue({
         },
         // 待办提交
         submit: function() {
+            if(_this.submitParam.responsiblePersonId == "" && _this.submitParam.responsiblePerson == "") {
+                mui.alert("请选取验证人");
+                return false;
+            }
+            if(_this.submitParam.rectificationSituation == "") {
+            	mui.alert("请填写验证情况");
+            	return false;
+            }
             app.ajax({
                 url: app.INTERFACE.changeSubmit,
                 data: _this.submitParam,
                 success: function(res) {
+                    var webview = plus.webview.getWebviewById("5-0HSE.html");
+                    var number=0;
+                    mui.fire(webview,'refresh',{
+                    	number:number
+                    });
                     mui.back();
                     mui.toast("提交成功");
                 }
@@ -290,6 +281,11 @@ new Vue({
                 url: app.INTERFACE.findFefund,
                 data: param,
                 success: function(res) {
+                    var webview = plus.webview.getWebviewById("5-0HSE.html");
+                    var number=0;
+                    mui.fire(webview,'refresh',{
+                    	number:number
+                    });
                     mui.back();
                     mui.toast("退回成功");
                 }
@@ -311,10 +307,19 @@ new Vue({
                 userId: app.loginInfo.userId,
                 userName: app.loginInfo.userName
             }
+            if(param.comfirmContent == "") {
+                mui.alert("请填写确认情况");
+                return;
+            }
             app.ajax({
                 url: app.INTERFACE.verification,
                 data: param,
                 success: function() {
+                    var webview = plus.webview.getWebviewById("5-0HSE.html");
+                    var number=0;
+                    mui.fire(webview,'refresh',{
+                    	number:number
+                    });
                     mui.back();
                     mui.toast("提交成功");
                 }
@@ -366,7 +371,8 @@ new Vue({
                     dangerId: this.listParam.dangerId, //隐患id
                     traceId: this.listParam.actionTraceId, //流转id
                     userId: app.loginInfo.userId, //用户id
-                    userName: app.loginInfo.userName //用户名称
+                    userName: app.loginInfo.userName, //用户名称
+                    delayToApplyId: this.listParam.delayToApplyId
                 }
                 app.ajax({
                     url: app.INTERFACE.checkPass,

@@ -55,11 +55,12 @@ new Vue({
 		]
 	},
 	mounted: function() {
-		_this = this;
+		_this = this; 
 		function plusReady() {
 			mui.init();
 			// _this.companyNew();
 			// _this.notice();
+            // _this.toDoList();
 		}
 		if (window.plus) { 
 			plusReady()
@@ -109,9 +110,9 @@ new Vue({
 								return item
 							})
 							if(list.length>3){
-								_this.data = list.slice(0, 3);
+								_this.daiBanList = list.slice(0, 3);
 							}else{
-								_this.data = list;
+								_this.daiBanList = list;
 							}
 						}
 					} else {

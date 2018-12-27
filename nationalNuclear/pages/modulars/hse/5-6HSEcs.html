@@ -17,23 +17,31 @@
                 <span class="mui-pull-right mui-btn-link" @tap="ok">确定</span>
             </header>
             <div class="mui-content">
+                <div class="search">
+                	<input type="text" name="" id="" value="" v-model="serchVal" placeholder="请输入姓名" />
+                	<div class="mui-pull-right">
+                		<button type="button" class="mui-btn mui-btn-blue mui-btn-outlined" @tap="searchBtn">搜索</button>
+                		<button type="button" class="mui-btn  mui-btn-outlined reast" @tap="reset">重置</button>
+                	</div>
+                </div>
                 <ul class="mui-table-view">
-                <li class="mui-table-view-cell titles">
-                    国核工程
-                </li>
-                <ul class="mui-table-view">
-                    <li class="mui-table-view-cell" v-for="(item, index) in users" :key="index" @tap="radioChange(item)">
-                        <input type="radio" :name="item.value" id="" value="" :checked="item.checked"/>
-                        <label for="#bgs">{{item.text}}</label>
+                    <li class="mui-table-view-cell titles">
+                        国核工程 
                     </li>
-                    <!-- <li class="mui-table-view-cell">
-                        <input type="radio" name="bgs" id="" value="" />
-                        <label for="#bgs">办公事务-白雪</label>
-                    </li>
-                    <li class="mui-table-view-cell">
-                        <input type="radio" name="bgs" id="" value="" />
-                        <label for="#bgs">办公事务-白雪</label>
-                    </li> -->
+                    <ul class="mui-table-view">
+                        <li class="mui-table-view-cell" v-for="(item, index) in users" :key="index" @tap="radioChange(item)">
+                            <input type="radio" :name="item.memberId" id="" value="" :checked="item.checked"/>
+                            <label for="#bgs">{{item.memberName}}</label>
+                        </li>
+                        <!-- <li class="mui-table-view-cell">
+                            <input type="radio" name="bgs" id="" value="" />
+                            <label for="#bgs">办公事务-白雪</label>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <input type="radio" name="bgs" id="" value="" />
+                            <label for="#bgs">办公事务-白雪</label>
+                        </li> -->
+                    </ul>
                 </ul>
             </div>
         </div>

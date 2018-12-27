@@ -56,7 +56,7 @@
 			<div class="mui-content">
 				<ul class="mui-table-view hse-sub1">
 					<li class="mui-table-view-cell mui-collapse">
-						<a class="mui-navigate-right" href="#"><span>SNG-HSE-WS-2018-0235</span></a>
+						<a class="mui-navigate-right" href="#"><span>{{prevParam.recordNo || "新建检查单" }}</span></a>
 						<div class="mui-collapse-content">
 							<p><span>项目：</span><span>{{saveParam.projNo}}</span></p>
 							<p><span>检查日期：</span><span @tap="checkDate('checkDate')"> <input type="text"  name="" id="" :value="saveParam.checkDate" readonly="readonly" class="pickDateBtn" /></span></p>

@@ -1,6 +1,6 @@
 (function(m, app) {
-    // const host = "http://10.4.210.110:8888/";  // 测试服务器
-    var host = "http://192.168.199.4:8888/";
+    const host = "http://10.4.210.110:8888/";  // 测试服务器
+    // var host = "http://192.168.199.4:8888/";
     // const host = "http://39.105.204.84:8888/";  // 正式
 
 	app.portalUrl = "http://10.4.200.77";
@@ -47,7 +47,8 @@
         updateHaveRead: "processStatus/updateHaveRead", // 点击已阅
 		webServiceLogin:"webService/getUserMsg",
         retResubmit: "sumbit/retResubmit",   // 代办退回后的提交
-        findDelayNum: "delayToApplyFor/findDelayNum"    // 延期申请次数
+        findDelayNum: "delayToApplyFor/findDelayNum",    // 延期申请次数
+        getHesUserInif: "webService/getHesUserInif"
     }
     
     /**

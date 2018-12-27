@@ -3,43 +3,45 @@ var _this = null;
 new Vue({
     el: "#app",
     data: {
-        users: [{
-            "memberId": "ZHANGDESHENG",
-            "memberName": "张德生",
-            "checked": false
-        }, {
-            "memberId": "ZHANGYONG8",
-            "memberName": "张勇2",
-            "checked": false
-        }, {
-            "memberId": "ZHANGQIMING",
-            "memberName": "张奇明",
-            "checked": false
-        }, {
-            "memberId": "ZHANGBAOLIANG",
-            "memberName": "张保良",
-            "checked": false
-        }, {
-            "memberId": "ZHANGSHAOWEI",
-            "memberName": "张韶伟",
-            "checked": false
-        }, {
-            "memberId": "ZHANGXINKE",
-            "memberName": "张新科",
-            "checked": false
-        }, {
-            "memberId": "ZHANGYAN1",
-            "memberName": "张衍",
-            "checked": false
-        }, {
-            "memberId": "ZHANGXIAOFEI1",
-            "memberName": "张晓斐",
-            "checked": false
-        }, {
-            "memberId": "ZHANGXIAOFEI",
-            "memberName": "张晓斐",
-            "checked": false
-        }],  
+        users: [
+//             {
+//             "memberId": "ZHANGDESHENG",
+//             "memberName": "张德生",
+//             "checked": false
+//         }, {
+//             "memberId": "ZHANGYONG8",
+//             "memberName": "张勇2",
+//             "checked": false
+//         }, {
+//             "memberId": "ZHANGQIMING",
+//             "memberName": "张奇明",
+//             "checked": false
+//         }, {
+//             "memberId": "ZHANGBAOLIANG",
+//             "memberName": "张保良",
+//             "checked": false
+//         }, {
+//             "memberId": "ZHANGSHAOWEI",
+//             "memberName": "张韶伟",
+//             "checked": false
+//         }, {
+//             "memberId": "ZHANGXINKE",
+//             "memberName": "张新科",
+//             "checked": false
+//         }, {
+//             "memberId": "ZHANGYAN1",
+//             "memberName": "张衍",
+//             "checked": false
+//         }, {
+//             "memberId": "ZHANGXIAOFEI1",
+//             "memberName": "张晓斐",
+//             "checked": false
+//         }, {
+//             "memberId": "ZHANGXIAOFEI",
+//             "memberName": "张晓斐",
+//             "checked": false
+//         },
+        ],  
         preaParam: {},  // 上个页面进来的参数
         checkedUser: {}, // 选中人员信息
         serchVal: ""
@@ -48,6 +50,7 @@ new Vue({
         _this = this;
         function plusReady(){
             _this.preaParam = plus.webview.currentWebview().params;
+            _this.getCopyPerson();
         }
         if (window.plus) {
             plusReady()
@@ -118,5 +121,9 @@ new Vue({
         		}
         	})
         },
+        // 重置
+        reset: function() {
+            _this.serchVal = "";
+        }
     }
 })
