@@ -4,6 +4,7 @@ new Vue({
 	data: {
 		daiBanList: [],
 		noticeTitle: '',
+        daiBanNum: "0",
 		modular: [{
 				title: "员工去向",
 				url: "../modulars/company/4-1staff.html",
@@ -60,7 +61,8 @@ new Vue({
 			mui.init();
 			// _this.companyNew();
 			// _this.notice();
-            // _this.toDoList();
+            _this.toDoList();
+            _this.getBadge();
 		}
 		if (window.plus) { 
 			plusReady()
@@ -69,12 +71,13 @@ new Vue({
 		}
 	},
 	methods: {
+        // 获取待办列表
 		toDoList: function(){
 			var param = {
 				"id": app.loginInfo.userId,
 				"logo": 0, //0-5
 				"start": 0,
-				"limit": "10"
+				"limit": "3"
 			}
 			app.ajax({
 				url: app.INTERFACE.findToDo,
@@ -120,6 +123,55 @@ new Vue({
 				}
 			})
 		},
+        // 获取待办角标
+        getBadge: function() {
+            app.ajax({
+               	url: app.INTERFACE.hseBadge,
+               	data: {
+                    "id": app.loginInfo.userId
+                },
+               	success: function(res) {
+               		if (res.rtnCode == 0) {
+               			_this.daiBanNum = res.object.toDoNum;
+               		} else {}
+               	}
+            })
+        },
+        // 跳转更多
+        openPage: function() {
+            sne.navigateTo({
+            	url: "../modulars/hse/5-0HSE.html",
+            	id: "5-0HSE.html"
+            })
+        },
+        // 待办跳转详情
+        goDetail: function(e) {
+            if(e.stepId == "100") { // 代表待办退回
+            	var param = {
+            		recordNo: e.recordNo,
+            		traceId: e.actionTraceId,
+            		instanceId: e.instanceId,
+            		dangerId: e.dangerId,
+            		checkId: e.id
+            	};
+            	sne.navigateTo({
+            		url: "../modulars/hse/5-10HSE.html",
+            		id: "5-10HSE.html",
+            		data: {
+            			params: param
+            		}
+            	})
+            } else {
+            	sne.navigateTo({
+            		url: "../modulars/hse/5-10HSE.html",
+            		id: "5-10HSE.html",
+            		data: {
+            			params:e,
+            			tabCode: 0
+            		}
+            	})
+            }
+        },
         // 公司要闻
 	 	companyNew: function() {
 			var params = {};
@@ -164,10 +216,24 @@ new Vue({
 		},
         // 跳转模块
         goPage(url,id) {
-            sne.navigateTo({
-                url: url,
-                id: id
-            })
+            var userType = app.loginInfo.userType;
+            if(userType == 0) { //0 临时用户  1内部用户
+                if(id == "5-0HSE.html") {
+                    sne.navigateTo({
+                    	url: url,
+                    	id: id
+                    })
+                } else {
+                    mui.toast("您无此权限！");
+                    return;
+                }
+            } else {
+                sne.navigateTo({
+                	url: url,
+                	id: id
+                })
+            }
+            
         }
 	}
 })

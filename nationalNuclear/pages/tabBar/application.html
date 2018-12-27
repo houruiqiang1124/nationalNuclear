@@ -7,131 +7,47 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../modulars/hse/css/app.css" />
-		<link rel="stylesheet" type="text/css" href="../modulars/mine/css/1-4App.css"/>
+		<!-- <link rel="stylesheet" type="text/css" href="../modulars/mine/css/1-4App.css"/> -->
+        <link rel="stylesheet" type="text/css" href="../modulars/company/css/3-1.css" />
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
-			<!-- <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a> -->
-			<h1 class="mui-title">应用</h1>
-		</header>
-		<div class="mui-content">
-			<div class="line"></div>
-			<div class="shoose-label myapp">
-				<p class="title">
-					我的应用
-					<span class="mui-pull-right edit">编辑</span>
-				</p>
-				<ul class="mui-table-view mui-grid-view mui-grid-9 myApps">
-					<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" data-img="../images/5-2-icon1@2x.png" data-info="员工去向">
-						<span class="mui-icon"><img src="../images/5-2-icon1@2x.png"/></span>
-						<div class="mui-media-body">员工去向</div>
-						<img src="../../static/yuangongquxiang.png" class="del"  />
-					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" data-img="../images/5-2-icon1@2x.png" data-info="HSE监督检查">
-						<span class="mui-icon"><img src="../images/5-2-icon1@2x.png"/></span>
-						<div class="mui-media-body">HSE监督检查</div>
-						<img src="../../static/hse.png" class="del"  />
-					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3"  data-img="../images/5-2-icon1@2x.png" data-info="用餐管理">
-						<span class="mui-icon"><img src="../images/5-2-icon1@2x.png"/></span>
-						<div class="mui-media-body">用餐管理</div>
-						<img src="../../static/Have_meals.png" class="del" />
-					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" data-img="../images/5-2-icon1@2x.png" data-info="绩效管理">
-						<span class="mui-icon"><img src="../images/5-2-icon1@2x.png"/></span>
-						<div class="mui-media-body">绩效管理</div>
-						<img src="../../static/jixiao.png" class="del"  />
-					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" data-img="../images/5-2-icon1@2x.png" data-info="公司要闻">
-						<span class="mui-icon"><img src="../images/5-2-icon1@2x.png"/></span>
-						<div class="mui-media-body">公司要闻</div>
-						<img src="../../static/news.png" class="del"  />
-					</li>
-				</ul>
-			</div>
-			<div class="line"></div>
-			<div class="shoose-label">
-				<p class="title">
-					协同应用
-					<span class="mui-pull-right tipcs">长按图标即可添加到我的应用</span>
-				</p>
-				<ul class="mui-table-view mui-grid-view mui-grid-9 allApp">
-					<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" data-img="../images/5-2-icon1@2x.png" data-info="车辆管理">
-						<span class="mui-icon"><img src="../../static/car.png"/></span>
-						<div class="mui-media-body">车辆管理</div>
-					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" data-img="../images/5-2-icon1@2x.png" data-info="通知公告">
-						<span class="mui-icon"><img src="../../static/Notice.png"/></span>
-						<div class="mui-media-body">通知公告</div>
-					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" data-img="../images/5-2-icon1@2x.png" data-info="考勤管理">
-						<span class="mui-icon"><img src="../../static/kaoqin.png"/></span>
-						<div class="mui-media-body">考勤管理</div>
-					</li>
-
-				</ul>
-			</div>
-
-		</div>
+        <div id="app">
+            <header class="mui-bar mui-bar-nav">
+                <!-- <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a> -->
+                <h1 class="mui-title">公告</h1>
+            </header>
+            <div class="mui-content">
+                <div style="padding: 10px 10px; background: #FFF;" class="nav_position">
+                    <div id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-primary">
+                        <a class="mui-control-item mui-active" @tap="navChange(0)">公司公告</a>
+                        <a class="mui-control-item" @tap="navChange(1)">公司要闻</a>
+                    </div>
+                </div>
+                <div id="refreshContainer" class="mui-scroll-wrapper" style="top: 105px;">
+                    <div class="mui-scroll">
+                        <!--数据列表-->
+                        <ul class="mui-table-view company-sub">
+                            <li class="mui-table-view-cell" v-for="(itme,index) in data" :key="index">
+                                <span class="title">{{itme.title}}</span>
+                                <p><span class="mui-pull-left">{{itme.date}}</span></p>
+                            </li>
+                            <!-- <li class="mui-table-view-cell">
+                                <span class="title">关于发布公司2018年10月份公文的处理情况的 通知</span>
+                                <p><span class="mui-pull-left">03-08 15:20</span></p>
+                            </li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
 		<script src="../../js/mui.min.js"></script>
 		<script src="../../js/jquery-3.1.1.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../js/common/api.js"></script>
 		<script src="../../js/common/config.js"></script>
-		<script type="text/javascript">
-			mui.init({
-				gestureConfig: {
-					longtap: true, //默认为false
-				}
-			});
-			if(window.plus) {
-						plusReady();
-					} else {
-						document.addEventListener("plusready", plusReady, false);
-					}
-					function plusReady(){
-						plus.navigator.setStatusBarBackground("#1D6BCA");
-						sne.quit();
-					}
-			mui(".edit")[0].addEventListener("tap", function() {
-				if(this.innerHTML == "编辑") {
-					this.innerHTML = "完成";
-					$(".myapp").addClass("add")
-				} else {
-					this.innerHTML = "编辑";
-					$(".myapp").removeClass("add")
-
-				}
-			}, false)
-			mui(".mui-table-view").on("tap", ".del", function() {
-				var elem = this;
-				var li = elem.parentNode;
-				mui.confirm('确认删除该应用？', '提示', ['确认', '取消'], function(e) {
-					if(e.index == 0) {
-						li.parentNode.removeChild(li);
-						var str = '<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" data-img="'+elem.parentNode.getAttribute("data-img")+'"  data-info="'+elem.parentNode.getAttribute("data-info")+'">' +
-							'<span class="mui-icon"><img src="' + elem.parentNode.getAttribute("data-img") + '"/></span>' +
-							'<div class="mui-media-body">' + elem.parentNode.getAttribute("data-info") + '</div></li>';
-						$(".allApp").append(str)
-					}
-				});
-
-			})
-
-			//			长按添加app
-			mui(".allApp").on("longtap", ".mui-table-view-cell", function() {
-				var elem = this;
-				mui.confirm('确认添加该应用？', '提示', ['确认', '取消'], function(e) {
-					if(e.index == 0) {
-						elem.parentNode.removeChild(elem);
-						var str = '<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" data-img="'+elem.getAttribute("data-img")+'"  data-info="'+elem.getAttribute("data-info")+'">' +
-							'<span class="mui-icon"><img src="' + elem.getAttribute("data-img") + '"/></span>' +
-							'<div class="mui-media-body">' + elem.getAttribute("data-info") + '</div>'
-							+'<img src="../images/1-5-del@2x.png" class="del" /></li>';
-						$(".myApps").append(str)
-					}
-				});
-			})
-		</script>
+        <script src="../../js/mui.mkey.js"></script>
+        <script src="../../js/vue.js"></script>
+        <script src="./js/notice.js"></script>
 	</body>
 
 </html>

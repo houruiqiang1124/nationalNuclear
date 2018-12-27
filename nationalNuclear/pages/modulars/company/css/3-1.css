@@ -96,3 +96,8 @@
 			.bmchoose .mui-btn {
 				padding: 4px 10px;
 			}
+            
+            .nav_position {
+                position: fixed;
+                top: 44px;
+            }
