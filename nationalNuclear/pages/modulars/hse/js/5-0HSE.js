@@ -253,6 +253,11 @@ new Vue({
                     deliveryId: id
                 },
                 success: function(res) {
+					var webview = plus.webview.getWebviewById("5-0HSE.html");
+					var number=4;
+					mui.fire(webview,'refresh',{
+						number:number
+					});
                     console.log("已阅");
                 }
             })

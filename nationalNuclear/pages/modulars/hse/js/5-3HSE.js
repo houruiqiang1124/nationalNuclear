@@ -321,7 +321,7 @@ new Vue({
 						name: items[0].text
 					})
 				} else if(e == 'area') {
-                    _this.saveParam[e] = items[0].text +'-' + items[1].text;
+                    _this.saveParam[e] = items[1].text;
 
                 } else {
 					_this.saveParam[e] = items[0].text;

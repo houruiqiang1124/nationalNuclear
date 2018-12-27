@@ -277,6 +277,14 @@ new Vue({
         },
         // 待办提交
         submit: function() {
+			if (_this.submitParam.checkForm == '日常检查') {
+				_this.submitParam.checkForm = '0'
+			} else if (_this.submitParam.checkForm == '专项检查') {
+				_this.submitParam.checkForm = '1'
+			} else if (_this.submitParam.checkForm == '综合检查') {
+				_this.submitParam.checkForm = '2'
+			}
+			_this.submitParam.correctiveRequest = _this.dangerData.correctiverequest;
             if(_this.submitParam.responsiblePersonId == "" && _this.submitParam.responsiblePerson == "") {
                 mui.alert("请选取验证人");
                 return false;
