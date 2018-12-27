@@ -102,6 +102,7 @@ new Vue({
             		}
             		break;
             	case '1':
+                    _this.disabled1 = true
                     _this.submitParam.rectificationSituation = this.listParam.rectificationSituation;
                     _this.submitParam.responsiblePerson = this.listParam.responsiblePerson;
                     if(this.listParam.completeDate) {
@@ -181,6 +182,7 @@ new Vue({
 						"dangerId": _this.listParam.dangerId,
 						"checkId": _this.listParam.id,
 						"reqCompleteDate": _this.dangerData.reqcompletedate,
+                        "recordNo": _this.listParam.recordNo
 					}
 				}
             })
@@ -378,6 +380,11 @@ new Vue({
                     url: app.INTERFACE.checkPass,
                     data: param,
                     success: function(res) {
+                        var webview = plus.webview.getWebviewById("5-0HSE.html");
+                        var number=0;
+                        mui.fire(webview,'refresh',{
+                            number:number
+                        });
                         mui.back();
                         mui.toast("提交成功");
                     }

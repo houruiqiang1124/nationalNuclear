@@ -58,6 +58,10 @@ new Vue({
 				"delayToApplyForDate": _this.delayDate,
                 "delayNum": _this.delayNum
 			}
+            if(param.reqCompleteDate == "") {
+                mui.alert("请填写延期原因");
+                return;
+            }
 			app.ajax({
 				url: app.INTERFACE.findDelayToApplyFor,
 				data: param,

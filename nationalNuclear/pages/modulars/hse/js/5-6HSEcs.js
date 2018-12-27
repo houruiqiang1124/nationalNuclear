@@ -4,7 +4,10 @@ new Vue({
     data: {
         users: [],
         forwardParam: {},
-        checkedUser: {},    // 选中人员
+        checkedUser: {
+            	memberId:"",
+            	memberName:""
+        },    // 选中人员
         serchVal: ""
     },
     mounted: function() {
@@ -27,12 +30,22 @@ new Vue({
             this.forwardParam.userName = app.loginInfo.userName;
             this.forwardParam.ownerUserId = this.checkedUser.memberId;
             this.forwardParam.ownerUserName = this.checkedUser.memberName;
+            console
+            if(_this.checkedUser.memberId == "" && _this.checkedUser.memberName =="") {
+            	mui.alert("请选取人员");
+            	return;
+            }
             app.ajax({
                 url: app.INTERFACE.findForwarding,
                 data: this.forwardParam,
                 success: function(res) {
                     plus.webview.getWebviewById("5-10HSE.html").hide();
                     plus.webview.getWebviewById("5-10HSE.html").close();
+                    var webview = plus.webview.getWebviewById("5-0HSE.html");
+                    var number=0;
+                    mui.fire(webview,'refresh',{
+                    	number:number
+                    });
                     mui.back();
                     
                     mui.toast("转发成功");
