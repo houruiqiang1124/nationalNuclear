@@ -100,4 +100,5 @@
             .nav_position {
                 position: fixed;
                 top: 44px;
+                z-index: 11;
             }

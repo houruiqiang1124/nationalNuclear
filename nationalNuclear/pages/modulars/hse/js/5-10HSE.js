@@ -344,7 +344,8 @@ new Vue({
                 lineNo: this.listParam.lineNo || "",
                 stepId: this.listParam.stepId || "",
                 stepName: this.listParam.stepName || "",
-                stepCode: this.listParam.stepCode || ""
+                stepCode: this.listParam.stepCode || "",
+                checkId: this.listParam.id
             }
             if(param.comfirmContent == "") {
                 mui.alert("请填写确认情况");

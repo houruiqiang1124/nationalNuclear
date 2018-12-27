@@ -41,11 +41,14 @@ new Vue({
         // 切换导航
         navChange: function(e) {    // 0 公司公告  1公司要闻
             console.log(e);
+            _this.data=[];
+            _this.page = 1;
             if(e == _this.tabCode) {
                 return;
             }
             _this.tabCode = e;
             _this.requestData();
+            mui('#refreshContainer').pullRefresh().refresh(true);
         },
 		requestData:function (){
 			var params = {};
