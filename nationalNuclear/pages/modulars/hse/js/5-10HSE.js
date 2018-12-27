@@ -101,7 +101,7 @@ new Vue({
             			_this.showVerify = true;
             			_this.showYanBtn = true;
             			_this.showButton =false;
-            			_this.disabled1 = true;
+            			// _this.disabled1 = true;
                         _this.closePerson = app.loginInfo.userName;
                         _this.closeDate = sne.getNowFormatDate();
             			_this.submitParam.rectificationSituation = this.listParam.rectificationSituation;
@@ -180,11 +180,11 @@ new Vue({
 					if (res.object.resultCode == "0") {
                         if(res.object.dangerList.hiddencategory == "0") {
                             res.object.dangerList.hiddencategory = "管理缺陷";
-                        } else if(res.object.resultCode == "1") {
+                        } else if(res.object.dangerList.hiddencategory == "1") {
                             res.object.dangerList.hiddencategory = "人的不安全行为";
-                        } else if(res.object.resultCode == "2") {
+                        } else if(res.object.dangerList.hiddencategory == "2") {
                             res.object.dangerList.hiddencategory = "物的不安全状态";
-                        } else if(res.object.resultCode == "3") {
+                        } else if(res.object.dangerList.hiddencategory == "3") {
                             res.object.dangerList.hiddencategory = "环境的不安全因素";
                         }
                         _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g,"")
@@ -194,8 +194,8 @@ new Vue({
 						_this.dangerData = res.object.dangerList;
                         _this.submitParam.copyPerson = JSON.parse(res.object.dangerList.copyPerson);
                         _this.confirmation = res.object.dangerList.comfirmcontent;
-                        _this.closePerson = res.object.dangerList.closeperson;
-                        _this.closeDate = res.object.dangerList.closedate;
+//                         _this.closePerson = res.object.dangerList.closeperson;
+//                         _this.closeDate = res.object.dangerList.closedate;
                         
 					} else {
 					}
