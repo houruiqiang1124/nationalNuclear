@@ -108,18 +108,45 @@ var vm = new Vue({
 				console.log(JSON.stringify(loginInfo))
 				mui.mkey.login(loginInfo, function loginCallBack(data, msg) {
 					if (data == true) {
-						var param ={
-							"userId":_this.username,
-						}
-						app.ajax({
-								url: app.INTERFACE.webServiceLogin,
-								data: param,
-								success: function(res) {
-									
-                                    _this.getUserInfo(res.userId, res.userType)
-									
-								}
-						})
+						mui.ajax(app.mkeyUrl+"app_update.json",{
+			            	data:{
+			            		
+			            	},
+			            	dataType:'json',//服务器返回json格式数据
+			            	type:'get',//HTTP请求类型
+			            	timeout:10000,//超时时间设置为10秒；
+			            	success:function(data){ 
+			            		plus.runtime.getProperty(plus.runtime.appid, function(wgtinfo) {
+			            			var app_ver = parseInt(wgtinfo.version.replace(/\./g, ''));
+									if(parseInt(data.appversion.replace(/\./g, '')) > app_ver){
+										downWgt(app.mkeyUrl+"H546DDF94.wgt");
+									}else{
+										var param ={
+											"userId":_this.username,
+										}
+										app.ajax({
+												url: app.INTERFACE.webServiceLogin,
+												data: param,
+												success: function(res) {													
+				                                    _this.getUserInfo(res.userId, res.userType)													
+												}
+										})
+									}
+			            	});
+			            	},
+			            	error:function(xhr,type,errorThrown){
+			            		var param ={
+											"userId":_this.username,
+										}
+								app.ajax({
+										url: app.INTERFACE.webServiceLogin,
+										data: param,
+										success: function(res) {													
+		                                    _this.getUserInfo(res.userId, res.userType)													
+										}
+								})
+			            	}
+			            });
 					} else {
 						plus.nativeUI.closeWaiting();
 						mui.toast("用户名或密码错误！");
@@ -171,4 +198,34 @@ var vm = new Vue({
         }
 	}
 })
+function downWgt(wgtUrl) {
+	plus.nativeUI.showWaiting("正在更新文件...");
+	plus.downloader.createDownload(wgtUrl, {
+		filename: "_doc/update/"
+	}, function(d, status) {
+		if(status == 200) {
+			//			alert("下载wgt成功：" + d.filename);
+			console.log("下载wgt成功：" + d.filename);
+			installWgt(d.filename); // 安装wgt包
+		} else {
+			console.log("下载wgt失败！");
+			plus.nativeUI.toast("下载失败！");
+			plus.nativeUI.closeWaiting();
+		}
+	}).start();
+}
+// 更新应用资源
+function installWgt(path) {
+	plus.runtime.install(path, {}, function() {
+		console.log("安装wgt文件成功！");
+		//plus.runtime.restart();
+		plus.nativeUI.alert("应用资源更新完成,请退出重启应用！", function() {
+			plus.nativeUI.closeWaiting();
+			plus.runtime.restart();
+		});
+	}, function(e) {
+		plus.nativeUI.closeWaiting();
+		plus.nativeUI.toast("安装文件失败[" + e.code + "]：" + e.message);
+	});
+}
 

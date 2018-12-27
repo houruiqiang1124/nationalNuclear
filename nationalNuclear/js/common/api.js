@@ -1,5 +1,5 @@
 (function(m, app) {
-    const host = "http://10.4.210.110:8081/";  // 测试服务器
+    const host = "http://10.4.210.110:8888/";  // 测试服务器
     // var host = "http://192.168.199.4:8888/";
     // const host = "http://39.105.204.84:8888/";  // 正式
 
@@ -8,6 +8,7 @@
 	app.vpnUsername="appuser";
 	app.vpnPassword="1!qQ1111";
 	app.vpnRsa="";
+	app.mkeyUrl = "http://10.4.210.112:8080/snpec/";
     
     // 登录信息
     var loginInfo = localStorage.getItem("loginInfo");
