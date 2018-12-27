@@ -33,7 +33,13 @@ new Vue({
             "rectificationSituation": "",  // 整改情况
             "completeDate":"",    // 完成日期
             "returndoc":"",    // 附件base64
-            "copyPerson": []  // 抄送
+            "copyPerson": [],  // 抄送
+            "projNo": '',   // 项目id
+            "recordNo": "", // 检查编号
+            "lineNo": "",
+            "stepId": "",
+            "stepName": "",
+            "stepCode": ""
             
         },
         responsiblePersonList: [],
@@ -77,6 +83,12 @@ new Vue({
             var date = sne.getNowFormatDate();
             switch(_this.tabCode) {
             	case '0':
+                    _this.submitParam.projNo =_this.listParam.projNo;
+                    _this.submitParam.recordNo = _this.listParam.recordNo;;
+                    _this.submitParam.lineNo = _this.listParam.lineNo;;
+                    _this.submitParam.stepId = _this.listParam.stepId;;
+                    _this.submitParam.stepName = _this.listParam.stepName;;
+                    _this.submitParam.stepCode = _this.listParam.stepCode;;
                     if(_this.listParam.stepId == "100") {
                         _this.submitParam.completeDate =date;
                         _this.showButton =false;
@@ -277,7 +289,10 @@ new Vue({
                 "userId": app.loginInfo.userId,
                 "userName": app.loginInfo.userName,
                 "actionTraceId": _this.listParam.actionTraceId,
-                "instanceId": _this.listParam.instanceId
+                "instanceId": _this.listParam.instanceId,
+                "projNo": this.listParam.projNo || "",
+                "recordNo": this.listParam.recordNo || "",
+                "lineNo": this.listParam.lineNo || ""
             }
             app.ajax({
                 url: app.INTERFACE.findFefund,
@@ -307,7 +322,13 @@ new Vue({
                 dangerId: this.listParam.dangerId,
                 instanceId: this.listParam.instanceId,
                 userId: app.loginInfo.userId,
-                userName: app.loginInfo.userName
+                userName: app.loginInfo.userName,
+                projNo: this.listParam.projNo || "",
+                recordNo: this.listParam.recordNo || "",
+                lineNo: this.listParam.lineNo || "",
+                stepId: this.listParam.stepId || "",
+                stepName: this.listParam.stepName || "",
+                stepCode: this.listParam.stepCode || ""
             }
             if(param.comfirmContent == "") {
                 mui.alert("请填写确认情况");
@@ -337,7 +358,10 @@ new Vue({
                 instanceId: this.listParam.instanceId,
                 stepCode: this.listParam.stepCode,
                 stepId: this.listParam.stepId,
-                stepName: this.listParam.stepName
+                stepName: this.listParam.stepName,
+                projNo: this.listParam.projNo || "",
+                recordNo: this.listParam.recordNo || "",
+                lineNo: this.listParam.lineNo || ""
             }
             sne.navigateTo({
                 url: "5-6HSEcs.html",

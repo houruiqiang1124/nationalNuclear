@@ -64,8 +64,21 @@
                 				<span class="">待办</span>
                 				<span class="mui-badge mui-badge-danger" id="toDoNum">0</span>
                 			</div>
-                			
                 		</li>
+                        <li class="nav-item"  @tap="changeList(4)">
+                        	<div class="nav-content">
+                        		<span class="">待阅</span>
+                        		<span class="mui-badge mui-badge-danger" id="waitingReadNum">0</span>
+                        	</div>
+                        	
+                        </li>
+                        <li class="nav-item"  @tap="changeList(2)">
+                        	<div class="nav-content">
+                        		<span class="">流转</span>
+                        		<span class="mui-badge mui-badge-danger" id="circulationNum">0</span>
+                        	</div>
+                        	
+                        </li>
                 		<li class="nav-item"  @tap="changeList(1)">
                 			<div class="nav-content">
                 				<span class="">已办</span>
@@ -73,13 +86,7 @@
                 			</div>
                 			
                 		</li>
-                		<li class="nav-item"  @tap="changeList(2)">
-                			<div class="nav-content">
-                				<span class="">流转</span>
-                				<span class="mui-badge mui-badge-danger" id="circulationNum">0</span>
-                			</div>
-                			
-                		</li>
+                		
                 		<li class="nav-item"  @tap="changeList(3)">
                 			<div class="nav-content">
                 				<span class="">草稿</span>
@@ -87,20 +94,13 @@
                 			</div>
                 			
                 		</li>
-                		<li class="nav-item"  @tap="changeList(4)">
-                			<div class="nav-content">
-                				<span class="">待阅</span>
-                				<span class="mui-badge mui-badge-danger" id="waitingReadNum">0</span>
-                			</div>
-                			
-                		</li>
-                		<li class="nav-item"  @tap="changeList(5)">
+                		<!-- <li class="nav-item"  @tap="changeList(5)">
                 			<div class="nav-content">
                 				<span class="">已阅</span>
                 				<span class="mui-badge mui-badge-danger" id="haveRead">0</span>
                 			</div>
                 			
-                		</li>
+                		</li> -->
                 	</ul>
                 </div>
                 </div>
