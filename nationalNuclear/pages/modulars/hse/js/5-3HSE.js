@@ -523,8 +523,9 @@ new Vue({
 					_this.saveParam.responsiblePerson = dangerList.responsibleperson;
 					_this.saveParam.responsiblePersonId = dangerList.responsiblepersonid;
 					_this.saveParam.copyPerson = JSON.parse(dangerList.copyPerson);
-                    console.log(dangerList.responsiblepersonid)
-                    _this.imgList =dangerList.hiddenDoc || "";
+                    _this.showImg = true;
+                    _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g,"") || "";
+                  
 				}
 			})
 		},

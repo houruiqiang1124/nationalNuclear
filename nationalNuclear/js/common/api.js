@@ -1,5 +1,5 @@
 (function(m, app) {
-    const host = "http://10.4.210.110:8888/";  // 测试服务器
+    const host = "http://10.4.210.110:8081/";  // 测试服务器
     // var host = "http://192.168.199.4:8888/";
     // const host = "http://39.105.204.84:8888/";  // 正式
 
@@ -16,12 +16,12 @@
     app.INTERFACE = {
 		//适配接口
 		checkCodeUrl:'/snpec_portal/command/dispatcher/org.loushang.bsp.security.web.RandomCodeCommand?_dc=', // 获取验证码
-		companyNewUrl:'/snpec_portal/jsp/com/snpit/top/portal/snpecportal/qiyeMore.jsp?systype=6',  // 公司要闻
+		companyNewUrl: app.portalUrl + '/snpec_portal/jsp/com/snpit/top/portal/snpecportal/qiyeMore.jsp?systype=6',  // 公司要闻
         noticeUrl: app.portalUrl+'/snpec_portal/jsp/com/snpit/top/portal/snpecportal/qiyeMore.jsp?systype=5',   // 公告列表
 		employeesGoUrl: app.portalUrl+'/snpec_portal/jsp/com/snpit/top/portal/snpecportal/yggoMore.jsp?systype=5',//员工去向
         companyNewUrlSearch:app.portalUrl+ "/snpec_portal/command/dispatcher/com.snpit.top.portal.snpecportal.cmd.HomePageQueryCommand/queryGroupForMore",  // 要闻搜索
 		noticeSearchUrl: app.portalUrl+'/snpec_portal/command/dispatcher/com.snpit.top.portal.snpecportal.cmd.HomePageQueryCommand/queryGroupForMore',//公告搜索和上下拉
-		employeesGoSearchUrl: app.portalUrl+'/snpec_portal/command/dispatcher/com.snpit.top.portal.snpecportal.cmd.HomePageQueryCommand/queryYgGOForMore',//公告搜索和上下拉
+		employeesGoSearchUrl: app.portalUrl+'/snpec_portal/command/dispatcher/com.snpit.top.portal.snpecportal.cmd.HomePageQueryCommand/queryYgGOForMore',//员工去向搜索和上下拉
 		//hse接口
         findToDo: 'processStatus/findToDo',  // hse列表
         hseBadge: 'processStatus/findProcessStatusCount', // 角标

@@ -17,6 +17,7 @@
 }
 
 .module .module-item {
+    position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -24,8 +25,14 @@
 	width: 25%;
 }
 
-.module .module-item>span {
+.module .module-item .module-title {
     margin-top: 0.5rem;
+}
+
+.module .module-item .module-badge {
+    position: absolute;
+    top: -6px;
+    right: 11px;
 }
 
 .module .module-img {

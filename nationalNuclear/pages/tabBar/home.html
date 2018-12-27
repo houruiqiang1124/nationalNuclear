@@ -10,6 +10,11 @@
         <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
         <link rel="stylesheet" type="text/css" href="./css/home.css"/>
         <link rel="stylesheet" type="text/css" href="../modulars/hse/css/5-0HSE-sub1.css"/>
+        <style type="text/css">
+        	.mui-table-view:before {
+                height: 1px;
+            }
+        </style>
 	</head>
 	<body>
 		<div class="home" id="app">
@@ -22,7 +27,8 @@
             	<div class="mui-card module">
             		<div class="module-item" v-for="(item, index) in modular" :key="index" @click="goPage(item.url,item.id)">
             			<img :src="item.icon" class="module-img" />
-            			<span>{{item.title}}</span>
+            			<span class="module-title">{{item.title}}</span>
+                        <span class="mui-badge mui-badge-danger module-badge" v-show="item.id == '5-0HSE.html'">{{daiBanNum}}</span>
             		</div>
             	</div>
                 
@@ -39,21 +45,46 @@
                 <!-- 待办事项 -->
                 <div class="daiBan">
                 	<div class="daiBan-header">
-                		<div class="">
-                			<span class="theme_color">待办事项</span>
+                		<div class="flex flex-ali_i_center">
+                			<span class="theme_color">待办事项&nbsp;</span>
+                            <span class="mui-badge mui-badge-danger">{{daiBanNum}}</span>
                 		</div>
-                        <span class="sub_color daiBan_size">更多&gt;</span>
+                        <span class="sub_color daiBan_size" @tap="openPage">更多&gt;</span>
                 	</div>
                     
                     <ul class="mui-table-view">
-                    		<li class="mui-table-view-cell" v-for="(item,index) in daiBanList" :key="index">
-                    			<div class="mui-slider-handle" @tap="goDetail(item)">
+                    		<li class="mui-table-view-cell" v-for="(item,index) in daiBanList" :key="index" @tap="goDetail(item)">
+                    			<div class="mui-slider-handle">
                     				<p class="title">项目:{{item.projNo}};检查单编号:{{item.recordNo}}</p>
                     				<p>业务名称：{{item.checkForm}}</p>
                     				<p>当前流程节点：{{item.stepName}}</p>
                     				<p>发起人：{{item.draftPerson}}&emsp;{{item.draftDate.time}}</p>
                     			</div>
                     		</li>
+                            <!-- <li class="mui-table-view-cell">
+                            	<div class="mui-slider-handle">
+                            		<p class="title">项目:sng;检查单编号: swgdsafsda</p>
+                            		<p>业务名称：业务名称</p>
+                            		<p>当前流程节点：当前流程节点</p>
+                            		<p>发起人：发起人&emsp; 201-515-5</p>
+                            	</div>
+                            </li>
+                            <li class="mui-table-view-cell">
+                            	<div class="mui-slider-handle">
+                            		<p class="title">项目:sng;检查单编号: swgdsafsda</p>
+                            		<p>业务名称：业务名称</p>
+                            		<p>当前流程节点：当前流程节点</p>
+                            		<p>发起人：发起人&emsp; 201-515-5</p>
+                            	</div>
+                            </li>
+                            <li class="mui-table-view-cell">
+                            	<div class="mui-slider-handle">
+                            		<p class="title">项目:sng;检查单编号: swgdsafsda</p>
+                            		<p>业务名称：业务名称</p>
+                            		<p>当前流程节点：当前流程节点</p>
+                            		<p>发起人：发起人&emsp; 201-515-5</p>
+                            	</div>
+                            </li> -->
                     		<!-- <li class="mui-table-view-cell">
                     			<div class="flex flex_jus_between">
                     				<div class="">
