@@ -53,9 +53,10 @@ new Vue({
 			_this.listParam.checkDate = _this.listParam.checkDate.time.replace(/\-/g, "/");
 			_this.listParam.draftDate = _this.listParam.draftDate.time.replace(/\-/g, "/");
 			_this.tabCode = plus.webview.currentWebview().tabCode.toString();
+            _this.requestData();
             _this.init();
 			_this.flowData();
-			_this.requestData();
+			
             // _this.getCopyPerson();
             window.addEventListener('custom', function(e) {
                 _this.submitParam.responsiblePerson = e.detail.name;
@@ -131,11 +132,9 @@ new Vue({
                     }
             		_this.showButton = false;    // 隐藏底部按钮，只读
             		_this.disabled = true;
-                    
             		break;
             	case '2':
-                    _this.submitParam.rectificationSituation = this.listParam.rectificationSituation;
-                    _this.submitParam.responsiblePerson = this.listParam.responsiblePerson;
+                    _this.getInfo();
                     if(this.listParam.completeDate) {
                         _this.submitParam.completeDate = sne.getNowFormatDate(this.listParam.completeDate.time); 
                     } else {
@@ -146,22 +145,27 @@ new Vue({
             		} else {
             			_this.showBack = true;
             		}
-            		_this.showButton = false;
-            		_this.disabled = true;
             		
             		break;
             	case '3':
-            		_this.showButton = false;
             		break;
             	case '4':
-            		_this.showButton = false;
-            		_this.disabled = true;
+                    _this.getInfo();
             		break;
             	case '5':
-            		_this.showButton = false;
-            		_this.disabled = true;
+            		_this.getInfo();
             		break;
             }
+        },
+        // 从已办，已阅，流转，待阅，初始化信息
+        getInfo: function() {   //
+            _this.disabled1 = true;
+            _this.showVerify = true;
+            _this.showButton = false;
+            _this.submitParam.responsiblePerson = this.listParam.responsiblePerson;
+            _this.submitParam.rectificationSituation = this.listParam.rectificationSituation;
+            _this.submitParam.completeDate = sne.getNowFormatDate(this.listParam.completeDate.time);
+            
         },
 		//详情
 		requestData: function() {
@@ -173,10 +177,22 @@ new Vue({
 				data: param,
 				success: function(res) {
 					if (res.object.resultCode == "0") {
+                        if(res.object.dangerList.hiddencategory == "0") {
+                            res.object.dangerList.hiddencategory = "管理缺陷";
+                        } else if(res.object.resultCode == "1") {
+                            res.object.dangerList.hiddencategory = "人的不安全行为";
+                        } else if(res.object.resultCode == "2") {
+                            res.object.dangerList.hiddencategory = "物的不安全状态";
+                        } else if(res.object.resultCode == "3") {
+                            res.object.dangerList.hiddencategory = "环境的不安全因素";
+                        }
 						res.object.dangerList.reqcompletedate = sne.getNowFormatDate2(res.object.dangerList.reqcompletedate);
 						res.object.dangerList.distributdate = sne.getNowFormatDate2(res.object.dangerList.distributdate);
 						_this.dangerData = res.object.dangerList;
                         _this.submitParam.copyPerson = JSON.parse(res.object.dangerList.copyPerson);
+                        _this.confirmation = res.object.dangerList.comfirmcontent;
+                        _this.closePerson = res.object.dangerList.closeperson;
+                        _this.closeDate = res.object.dangerList.closedate;
 					} else {
 					}
 				}

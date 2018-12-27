@@ -79,7 +79,7 @@
                                         <p><span>区域：</span><span>{{dangerData.area}}</span></p>
                                         <p><span>被检查单位：</span><span>{{dangerData.unitid}}</span></p>
                                         <p><span>责任部门：</span><span>SNG-PM 示范电站/石岛湾项目控制组</span></p>
-                                        <p><span>隐患级别：</span><span>{{dangerData.hsehiddenlevel}}</span></p>
+                                        <p><span>隐患级别：</span><span>{{dangerData.hsehiddenlevel==0?'一般':'重大'}}</span></p>
                                         <p><span>隐患属性：</span><span>{{dangerData.hiddencategory}}</span></p>
                                         <p><span>隐患类型：</span><span>{{dangerData.nonconformity}}</span></p>
                                         <p><span>隐患描述：</span><span>{{dangerData.hiddendescription}}</span></p>
@@ -112,6 +112,17 @@
                                                 <span>整改验证人：</span>
                                                 
                                                 <span @tap="goCc">{{submitParam.responsiblePerson || '请选择'}}</span>
+                                            </li>
+                                            <li class="mui-table-view-cell radio-choose">
+                                                是否当场已改:
+                                                <span class="mui-pull-right">
+                                                    <input type="radio" name="choose" id="" value="0" />
+                                                    <label for="">是</label>
+                                                </span>
+                                                <span class="mui-pull-right">
+                                                    <input type="radio" name="choose" id="" value="1" checked="checked" />
+                                                    <label for="">否</label>
+                                                </span>
                                             </li>
                                             <li class="mui-table-view-cell text">
                                                 整改情况描述 :
@@ -168,7 +179,7 @@
                                             </li> -->
                                             <li class="mui-table-view-cell text">
                                                 <i>*</i>验证情况 :
-                                                <textarea :disabled="disabled2" v-model="confirmation" name="" rows="" cols="" placeholder="请输入" class="text-infos"></textarea>
+                                                <textarea :disabled="disabled1" v-model="confirmation" value="confirmation" name="" rows="" cols="" placeholder="请输入" class="text-infos"></textarea>
                                                 <div class="voice" @tap="openVoice(1)">
                                                     <img src="images/5-3-Voice@2x.png" />
                                                 </div>

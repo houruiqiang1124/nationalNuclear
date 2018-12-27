@@ -224,9 +224,19 @@ new Vue({
 				data: param,
 				success: function(res) {
 					var List = res.beans.map((val, index) => {
-						val.text = val.childZonoName;
-						val.value = val.childZonoId;
-						return val;
+                    var childrenArr = []
+                        for(var i = 0; i<val.child[0].length; i++) {
+                            childrenArr.push({
+                                value: val.child[0][i].childZonoId,
+                                text: val.child[0][i].childZonoName
+                            })
+                        }
+                        var area = {
+                            value: val.zonoId,
+                            text: val.zonoName,
+                            children: childrenArr
+                        }
+						return area;
 					})
 					_this.areaList = List;
 				}
@@ -298,7 +308,10 @@ new Vue({
 		},
 		// 选择器
 		showPicker: function(e) {
-			var userPicker = new mui.PopPicker();
+            
+			var userPicker = new mui.PopPicker({
+                layer: e == 'area' ? 2 : 1
+            });
 			var list = e + "List";
 			userPicker.setData(_this[e + "List"]);
 			userPicker.show(function(items) {
@@ -307,7 +320,10 @@ new Vue({
 						id: items[0].value,
 						name: items[0].text
 					})
-				} else {
+				} else if(e == 'area') {
+                    _this.saveParam[e] = items[0].text +'-' + items[1].text;
+
+                } else {
 					_this.saveParam[e] = items[0].text;
 				}
 				if (e == "responsiblePerson") {
