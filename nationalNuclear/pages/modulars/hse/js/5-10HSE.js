@@ -56,6 +56,7 @@ new Vue({
     mounted: function() {
 		_this = this;
 		function plusReady() {
+            mui.previewImage();
 			_this.listParam =plus.webview.currentWebview().params;
 			console.log(_this.listParam.checkDate.time);
 			_this.listParam.approveDate = _this.listParam.approveDate.time.replace(/\-/g, "/");
@@ -571,6 +572,7 @@ new Vue({
         		var base64 = canvas.toDataURL('image/jpeg', 1 || 0.8); //1最清晰，越低越模糊。
         		_this.showImg = true;
         		_this.fileImg = base64;
+                _this.submitParam.returndoc = base64;
         		// _this.upload(base64);
         	}
         },
@@ -578,5 +580,9 @@ new Vue({
         upload: function() {
         
         },
+        // 删除图片
+        closeImg: function() {
+        	_this.fileImg = "";
+        }
     }
 })

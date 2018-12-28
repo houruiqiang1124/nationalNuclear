@@ -137,6 +137,7 @@ new Vue({
 		console.log("进入待办退回")
 
 		function plusReady() {
+            mui.previewImage();
 			_this.prevParam = plus.webview.currentWebview().params;
 			_this.init();
 			_this.getUnit();
@@ -170,14 +171,14 @@ new Vue({
 		init: function() {
 			var date = sne.getNowFormatDate();
 			_this.saveParam.userId = app.loginInfo.userId;
-			_this.saveParam.userName = app.loginInfo.userName;
+			_this.saveParam.userName = app.loginInfo.name;
 			_this.saveParam.projNo = app.loginInfo.projNo;
 			_this.saveParam.draftUnit = app.loginInfo.organizationId;
 			_this.saveParam.draftDept = app.loginInfo.departmentId;
 			_this.saveParam.draftPerson = app.loginInfo.userName;
 			_this.saveParam.draftDate = sne.getNowFormatDate();
 			_this.saveParam.checkDate = date;
-			_this.saveParam.checkPerson = app.loginInfo.userName;
+			_this.saveParam.checkPerson = app.loginInfo.name;
 			// _this.saveParam.reqCompleteDate = date;
 			_this.saveParam.traceId = _this.prevParam.traceId
 			_this.saveParam.instanceId = _this.prevParam.instanceId
@@ -528,6 +529,10 @@ new Vue({
 				return false;
 			}
 			return true;
-		}
+		},
+         // 删除图片
+        closeImg: function() {
+        	_this.imgList = "";
+        }
 	}
 })
