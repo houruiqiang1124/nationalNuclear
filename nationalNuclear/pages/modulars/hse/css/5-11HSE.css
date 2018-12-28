@@ -42,3 +42,8 @@
 			.hse-sub2 .mui-table-view-cell:after {
 				right: 15px;
 			}
+            
+            
+            .margin_botom {
+                margin-bottom: 3rem !important;
+            }
