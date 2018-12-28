@@ -18,10 +18,10 @@
 	height: 0px;
 	visibility: hidden;
 }
-.mui-indexed-list-empty-alert,
+/* .mui-indexed-list-empty-alert,
 .mui-indexed-list-inner.empty ul {
 	display: none;
-}
+} */
 .mui-indexed-list-inner.empty .mui-indexed-list-empty-alert {
 	display: block;
 }
