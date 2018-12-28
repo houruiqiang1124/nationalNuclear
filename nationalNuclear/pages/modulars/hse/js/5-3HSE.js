@@ -2,9 +2,10 @@ var _this = this;
 new Vue({
 	el: "#app",
 	data: {
-		imgList: "", // 附件
+		imgList: "", // 附件 base64
+		imageList:"",// 附件 文件
 		showImg: false,
-		prevParam: {}, // 上个页面过来的参数
+ 		prevParam: {}, // 上个页面过来的参数
 		personType: 0, // 判断是责任还是抄送 0责任  1抄送
 		saveParam: { // 新建保存和提交传的参数
 			"projNo": "", // 项目
@@ -383,8 +384,39 @@ new Vue({
 		},
 		// 系统相册
 		galleryImg: function() {
-			plus.gallery.pick(function(path) {
-				_this.appendFile(path); //处理图片的地方
+// 			plus.gallery.pick(function(path) {
+// 				_this.appendFile(path); //处理图片的地方
+// 			});
+			plus.gallery.pick(function(e) {
+				_this.imagesZip(e.files[0])
+				// $("#img").attr("src",e.target); 
+// 				console.log(e.files[0])
+// 				return;
+				_this.appendFile(e.files[0]); //处理图片的地方
+				// var files = document.getElementById('img');
+			}, function(e) {
+				console.log("取消选择图片");
+			}, {
+				filter: "image",
+				multiple: true,
+				maximum: 1,
+				system: false,
+				onmaxed: function() {
+					plus.nativeUI.alert('最多只能选择1张图片');
+				}
+			});
+		},
+		//压缩图片
+		imagesZip:function (path){
+			plus.zip.compressImage({  
+				src: path,  
+				dst: "_doc/chat/gallery/" + path,  
+				quality: 20,  
+				overwrite: true  
+			}, function(e) {
+				_this.imageList = e.target;
+			}, function(err) {  
+				console.error("压缩失败：" + err.message);  
 			});
 		},
 		// 拍摄
@@ -422,15 +454,33 @@ new Vue({
 				var base64 = canvas.toDataURL('image/jpeg', 1 || 0.8); //1最清晰，越低越模糊。
 				_this.showImg = true;
 				_this.imgList = base64;
-				_this.upload(base64);
 			}
 		},
 		// 上传服务器
-		upload: function(base64) {
-
+		upload: function(src) {
+			var task=plus.uploader.createUpload(app.INTERFACE.imgUplodNew,
+				{method:"POST",
+				blocksize: 204800,
+				priority: 100,
+				},
+				function(t,status){ //上传完成
+					if(status==200){
+						console.log("上传成功："+t.responseText);
+						var response = JSON.parse(t.responseText).object;
+						_this.saveParam.imgName = response.img;
+						_this.saveParam.imgAddress = "/"+response.url;
+					}else{
+						console.log("上传失败："+status);
+					}
+				}
+			);  
+			//添加其他参数
+			task.addFile(src,{key:"file"});
+			task.start();
 		},
 		// 提交或保存
 		submit: function(e) { // 0保存 1提交
+			_this.upload(_this.imageList);
 			this.saveParam.state = e;
 			_this.saveParam.hiddenDoc = _this.imgList;
 			//隐患属性
@@ -544,7 +594,25 @@ new Vue({
 					_this.saveParam.area = dangerList.area;
 					_this.saveParam.unitID = dangerList.unitid;
 					_this.saveParam.nonconformity = dangerList.nonconformity;
-					_this.saveParam.hiddenCategory = dangerList.hiddencategory;
+					if(res.object.dangerList.hiddencategory == "0") {
+						res.object.dangerList.hiddencategory = "管理缺陷";
+					} else if(res.object.dangerList.hiddencategory == "1") {
+						res.object.dangerList.hiddencategory = "人的不安全行为";
+					} else if(res.object.dangerList.hiddencategory == "2") {
+						res.object.dangerList.hiddencategory = "物的不安全状态";
+					} else if(res.object.dangerList.hiddencategory == "3") {
+						res.object.dangerList.hiddencategory = "环境的不安全因素";
+					}
+					_this.saveParam.keyHidden = dangerList.keyHidden;
+					//关键隐患
+					if (_this.saveParam.keyHidden == "0") {
+						_this.saveParam.keyHidden = "管理性关键隐患";
+					} else if (_this.saveParam.keyHidden == "1") {
+						_this.saveParam.keyHidden = "行为性关键隐患";
+					} else if (_this.saveParam.keyHidden == "2") {
+						_this.saveParam.keyHidden = "装置性关键隐患";
+					}
+					_this.saveParam.hiddenCategory = res.object.dangerList.hiddencategory;
 					_this.saveParam.reqCompleteDate = sne.getNowFormatDate2(dangerList.reqcompletedate);
 					_this.saveParam.hseHiddenLevel = dangerList.hsehiddenlevel;
 					_this.saveParam.hiddenDescription = dangerList.hiddendescription;
