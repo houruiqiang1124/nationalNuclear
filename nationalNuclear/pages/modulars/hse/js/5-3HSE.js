@@ -5,15 +5,19 @@ new Vue({
 		imgList: "", // 附件
 		showImg: false,
 		prevParam: {}, // 上个页面过来的参数
-        personType: 0, // 判断是责任还是抄送 0责任  1抄送
+        personType: 0, // 判断是责任还是抄送 0责任  1抄送  2检查人
 		saveParam: { // 新建保存和提交传的参数
 			"projNo": "", // 项目
 			"checkDate": "", // 检查日期
 			"checkPerson": "", // 检查人
+            "checkPersonId": "",
 			"checkForm": "0", // 检查形式
 			"draftUnit": "", // 编制单位
+            "draftUnitId": "",  // 编制单位id
 			"draftDept": "", // 编制部门
+            "draftDeptId": "",  //编制部门id
 			"draftPerson": "", //编制人
+            "draftPersonId": "",    // 编制人id
 			"draftDate": "", //编制日期
 			"recordType": "0", // 业主联队检查单类型(后期更改)
 			"userId": "", //用户ID
@@ -24,6 +28,7 @@ new Vue({
 			"hseHiddenLevel": "0", // 隐患级别 一般0 重大1
 			"hiddenCategory": "", // 隐患属性
 			"nonconformity": "", // 隐患类型
+            "keyHidden": "",    // 关键隐患
 			"reqCompleteDate": "", // 要求完成时间
 			"hiddenDescription": "", // 隐患描述
 			"correctiveRequest": "", // 整改措施要求
@@ -34,7 +39,7 @@ new Vue({
 			"state": "", // 保存0或提交1
 			"hiddenDoc": "",
             "imgName": "",
-            "imgAddress": ""
+            "imgAddress": "",
 		},
 // 		        unitList: [{
 // 		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 1",
@@ -124,7 +129,19 @@ new Vue({
 		}, {
 			value: "3",
 			text: "环境的不安全因素"
-		}]
+		}],
+        keyHiddenList: [
+            {
+                value: 0,
+                text: "管理性关键隐患"
+            },{
+                value: 1,
+                text: "行为性关键隐"
+            },{
+                value: 2,
+                text: "装置性关键隐患"
+            }
+        ]
 	},
 	mounted: function() {
 		_this = this;
@@ -143,7 +160,7 @@ new Vue({
                 if(_this.personType == 0) {
                     _this.saveParam.responsiblePerson = e.detail.name;
                     _this.saveParam.responsiblePersonId = e.detail.id;
-                } else {
+                } else if(_this.personType == 1) {
 					if(_this.saveParam.copyPerson.length<1){
 						var Operson = {
 							id: e.detail.id,
@@ -167,6 +184,9 @@ new Vue({
 							_this.saveParam.copyPerson.push(Operson)
 						}
 					}
+                } else if(_this.personType == 2) {
+                    _this.saveParam.checkPerson = e.detail.name;
+                    _this.saveParam.checkPersonId = e.detail.id;
                 }
                 console.log(JSON.stringify(event.detail))
             })
@@ -181,16 +201,20 @@ new Vue({
 		// 初始化
 		init: function() {
 			_this.saveParam.userId = app.loginInfo.userId;
-			_this.saveParam.userName = app.loginInfo.userName;
+			_this.saveParam.userName = app.loginInfo.name;
 			_this.saveParam.projNo = app.loginInfo.projNo;
-			_this.saveParam.draftUnit = app.loginInfo.organizationId;
-			_this.saveParam.draftDept = app.loginInfo.departmentId;
-			_this.saveParam.draftPerson = app.loginInfo.userName;
+			_this.saveParam.draftUnit = app.loginInfo.draftUnit;
+            _this.saveParam.draftUnitId = app.loginInfo.organizationId;
+			_this.saveParam.draftDeptId = app.loginInfo.departmentId;
+            _this.saveParam.draftDept = app.loginInfo.draftDept;
+			_this.saveParam.draftPerson = app.loginInfo.name;
+            _this.saveParam.draftPersonId = app.loginInfo.userId;
 			_this.saveParam.draftDate = sne.getNowFormatDate();
 			if (_this.prevParam.type == "new") {
 				var date = sne.getNowFormatDate();
 				_this.saveParam.checkDate = date;
-				_this.saveParam.checkPerson = app.loginInfo.userName;
+				_this.saveParam.checkPerson = app.loginInfo.name;
+                _this.saveParam.checkPersonId = app.loginInfo.userId;
 				_this.saveParam.reqCompleteDate = date;
 			} else {
 				_this.getDetail();
@@ -410,7 +434,7 @@ new Vue({
 		submit: function(e) { // 0保存 1提交
 			this.saveParam.state = e;
 			_this.saveParam.hiddenDoc = _this.imgList;
-
+            console.log(JSON.stringify(this.saveParam))
 
 			if (_this.saveParam.hiddenCategory == "管理缺陷") {
 				_this.saveParam.hiddenCategory = 0
