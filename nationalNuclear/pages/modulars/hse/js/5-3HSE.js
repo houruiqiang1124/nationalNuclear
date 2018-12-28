@@ -5,7 +5,7 @@ new Vue({
 		imgList: "", // 附件
 		showImg: false,
 		prevParam: {}, // 上个页面过来的参数
-        personType: 0, // 判断是责任还是抄送 0责任  1抄送
+		personType: 0, // 判断是责任还是抄送 0责任  1抄送
 		saveParam: { // 新建保存和提交传的参数
 			"projNo": "", // 项目
 			"checkDate": "", // 检查日期
@@ -33,84 +33,84 @@ new Vue({
 			"copyPerson": [], // 抄送
 			"state": "", // 保存0或提交1
 			"hiddenDoc": "",
-            "imgName": "",
-            "imgAddress": ""
+			"imgName": "",
+			"imgAddress": ""
 		},
-// 		        unitList: [{
-// 		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 1",
-// 		        	"unitDesc": "国核示范1号机组",
-// 		        	"projectsByArea": "SNG",
-// 		        	"text": "国核示范1号机组1",
-// 		        	"value": "SN1"
-// 		        }, {
-// 		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 2",
-// 		        	"unitDesc": "国核示范2号机组",
-// 		        	"projectsByArea": "SNG",
-// 		        	"text": "国核示范2号机组1",
-// 		        	"value": "SN2"
-// 		        }, {
-// 		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Phase I and Units 1&amp;2",
-// 		        	"unitDesc": "国核示范1/2号机组共用",
-// 		        	"projectsByArea": "SNG",
-// 		        	"text": "国核示范1/2号机组共用1",
-// 		        	"value": "SNG"
-// 		        }],
+		// 		        unitList: [{
+		// 		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 1",
+		// 		        	"unitDesc": "国核示范1号机组",
+		// 		        	"projectsByArea": "SNG",
+		// 		        	"text": "国核示范1号机组1",
+		// 		        	"value": "SN1"
+		// 		        }, {
+		// 		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 2",
+		// 		        	"unitDesc": "国核示范2号机组",
+		// 		        	"projectsByArea": "SNG",
+		// 		        	"text": "国核示范2号机组1",
+		// 		        	"value": "SN2"
+		// 		        }, {
+		// 		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Phase I and Units 1&amp;2",
+		// 		        	"unitDesc": "国核示范1/2号机组共用",
+		// 		        	"projectsByArea": "SNG",
+		// 		        	"text": "国核示范1/2号机组共用1",
+		// 		        	"value": "SNG"
+		// 		        }],
 		unitList: [],
 		areaList: [
-// 								{
-// 			        	"value": "1",
-// 			        	"text": "核岛"
-// 			        }, {
-// 			        	"value": "1.1",
-// 			        	"text": "核岛-1厂房"
-// 			        }, {
-// 			        	"value": "1.2",
-// 			        	"text": "核岛-2厂房"
-// 			        }, {
-// 			        	"value": "1.3",
-// 			        	"text": "核岛-3厂房"
-// 			        },
+			// 								{
+			// 			        	"value": "1",
+			// 			        	"text": "核岛"
+			// 			        }, {
+			// 			        	"value": "1.1",
+			// 			        	"text": "核岛-1厂房"
+			// 			        }, {
+			// 			        	"value": "1.2",
+			// 			        	"text": "核岛-2厂房"
+			// 			        }, {
+			// 			        	"value": "1.3",
+			// 			        	"text": "核岛-3厂房"
+			// 			        },
 		],
 		unitIDList: [
-								// {
-// 			        	"organizeCode": "SNG",
-// 			        	"projectsByArea": "SNG",
-// 			        	"value": "SNG",
-// 			        	"text": "示范电站/石岛湾项目部"
-// 			        }, {
-// 			        	"organizeCode": "NNICA-SNG",
-// 			        	"projectsByArea": "SNG",
-// 			        	"value": "NNICA-SNG",
-// 			        	"text": "示范电站/石岛湾-华兴"
-// 			        }, {
-// 			        	"organizeCode": "NNEC-SNG",
-// 			        	"projectsByArea": "SNG",
-// 			        	"value": "NNEC-SNG",
-// 			        	"text": "示范电站/石岛湾-中核二三"
-// 			        }, {
-// 			        	"organizeCode": "NZHD-SNG",
-// 			        	"projectsByArea": "SNG",
-// 			        	"value": "NZHD-SNG",
-// 			        	"text": "示范电站/石岛湾-浙江火电"
-// 			        },
+			// {
+			// 			        	"organizeCode": "SNG",
+			// 			        	"projectsByArea": "SNG",
+			// 			        	"value": "SNG",
+			// 			        	"text": "示范电站/石岛湾项目部"
+			// 			        }, {
+			// 			        	"organizeCode": "NNICA-SNG",
+			// 			        	"projectsByArea": "SNG",
+			// 			        	"value": "NNICA-SNG",
+			// 			        	"text": "示范电站/石岛湾-华兴"
+			// 			        }, {
+			// 			        	"organizeCode": "NNEC-SNG",
+			// 			        	"projectsByArea": "SNG",
+			// 			        	"value": "NNEC-SNG",
+			// 			        	"text": "示范电站/石岛湾-中核二三"
+			// 			        }, {
+			// 			        	"organizeCode": "NZHD-SNG",
+			// 			        	"projectsByArea": "SNG",
+			// 			        	"value": "NZHD-SNG",
+			// 			        	"text": "示范电站/石岛湾-浙江火电"
+			// 			        },
 		],
 		nonconformityList: [
-// 								{
-// 			        	"hazardTypeSeriar": "1",
-// 			        	"hazardTypeDesc": "32",
-// 			        	"value": "1",
-// 			        	"text": "23"
-// 			        }, {
-// 			        	"hazardTypeSeriar": "2",
-// 			        	"hazardTypeDesc": "3232",
-// 			        	"value": "2",
-// 			        	"text": "13"
-// 			        }, {
-// 			        	"hazardTypeSeriar": "1",
-// 			        	"hazardTypeDesc": "32",
-// 			        	"value": "3",
-// 			        	"text": "15"
-// 			        },
+			// 								{
+			// 			        	"hazardTypeSeriar": "1",
+			// 			        	"hazardTypeDesc": "32",
+			// 			        	"value": "1",
+			// 			        	"text": "23"
+			// 			        }, {
+			// 			        	"hazardTypeSeriar": "2",
+			// 			        	"hazardTypeDesc": "3232",
+			// 			        	"value": "2",
+			// 			        	"text": "13"
+			// 			        }, {
+			// 			        	"hazardTypeSeriar": "1",
+			// 			        	"hazardTypeDesc": "32",
+			// 			        	"value": "3",
+			// 			        	"text": "15"
+			// 			        },
 		],
 		hiddenCategoryList: [{
 			value: "0",
@@ -137,29 +137,29 @@ new Vue({
 			_this.getArea();
 			_this.getInspectedUnit();
 			_this.getHazardTypeList();
-// 			_this.getCopyPerson();
+			// 			_this.getCopyPerson();
 
-            window.addEventListener('custom', function(e) {
-                if(_this.personType == 0) {
-                    _this.saveParam.responsiblePerson = e.detail.name;
-                    _this.saveParam.responsiblePersonId = e.detail.id;
-                } else {
-					if(_this.saveParam.copyPerson.length<1){
+			window.addEventListener('custom', function(e) {
+				if (_this.personType == 0) {
+					_this.saveParam.responsiblePerson = e.detail.name;
+					_this.saveParam.responsiblePersonId = e.detail.id;
+				} else if(_this.personType == 1) {
+					if (_this.saveParam.copyPerson.length < 1) {
 						var Operson = {
 							id: e.detail.id,
 							name: e.detail.name
 						}
 						_this.saveParam.copyPerson.push(Operson)
-					}else{
+					} else {
 						var flag = true;
-						for(var i=0;i<_this.saveParam.copyPerson.length;i++){
-							if(_this.saveParam.copyPerson[i].id == e.detail.id){
+						for (var i = 0; i < _this.saveParam.copyPerson.length; i++) {
+							if (_this.saveParam.copyPerson[i].id == e.detail.id) {
 								mui.alert("不能选择相同的抄送人");
 								flag = false;
 								return flag;
 							}
 						}
-						if(flag){
+						if (flag) {
 							var Operson = {
 								id: e.detail.id,
 								name: e.detail.name
@@ -167,9 +167,11 @@ new Vue({
 							_this.saveParam.copyPerson.push(Operson)
 						}
 					}
-                }
-                console.log(JSON.stringify(event.detail))
-            })
+				}else if(_this.personType == 2){
+					_this.saveParam.checkPerson = e.detail.id;
+				}
+				console.log(JSON.stringify(event.detail))
+			})
 		}
 		if (window.plus) {
 			plusReady()
@@ -224,18 +226,18 @@ new Vue({
 				data: param,
 				success: function(res) {
 					var List = res.beans.map((val, index) => {
-                    var childrenArr = []
-                        for(var i = 0; i<val.child[0].length; i++) {
-                            childrenArr.push({
-                                value: val.child[0][i].childZonoId,
-                                text: val.child[0][i].childZonoName
-                            })
-                        }
-                        var area = {
-                            value: val.zonoId,
-                            text: val.zonoName,
-                            children: childrenArr
-                        }
+						var childrenArr = []
+						for (var i = 0; i < val.child[0].length; i++) {
+							childrenArr.push({
+								value: val.child[0][i].childZonoId,
+								text: val.child[0][i].childZonoName
+							})
+						}
+						var area = {
+							value: val.zonoId,
+							text: val.zonoName,
+							children: childrenArr
+						}
 						return area;
 					})
 					_this.areaList = List;
@@ -278,28 +280,28 @@ new Vue({
 				}
 			})
 		},
-				//语音输入
-				openVoice:function(e){
-					var options = {};
-					options.engine = 'iFly';
-					// alert("开始语音识别：");
-					plus.speech.startRecognize(options, function(s) {
-						if(e == 0){
-							_this.saveParam.hiddenDescription += s.split("。")[0];
-						}else{
-							_this.saveParam.correctiveRequest += s.split("。")[0];
-						}
-					}, function(e) {
-						mui.toast("语音识别失败：" + e.message);
-					});
-				},
+		//语音输入
+		openVoice: function(e) {
+			var options = {};
+			options.engine = 'iFly';
+			// alert("开始语音识别：");
+			plus.speech.startRecognize(options, function(s) {
+				if (e == 0) {
+					_this.saveParam.hiddenDescription += s.split("。")[0];
+				} else {
+					_this.saveParam.correctiveRequest += s.split("。")[0];
+				}
+			}, function(e) {
+				mui.toast("语音识别失败：" + e.message);
+			});
+		},
 		// 日期选择
 		checkDate: function(e) {
 			var options = {
 				// "type": "datatime",
 				"beginYear": 2014,
 				"endYear": 2025,
-				"value":""
+				"value": ""
 			};
 			var picker = new mui.DtPicker(options);
 			picker.show(function(rs) {
@@ -308,10 +310,10 @@ new Vue({
 		},
 		// 选择器
 		showPicker: function(e) {
-            
+
 			var userPicker = new mui.PopPicker({
-                layer: e == 'area' ? 2 : 1
-            });
+				layer: e == 'area' ? 2 : 1
+			});
 			var list = e + "List";
 			userPicker.setData(_this[e + "List"]);
 			userPicker.show(function(items) {
@@ -320,10 +322,10 @@ new Vue({
 						id: items[0].value,
 						name: items[0].text
 					})
-				} else if(e == 'area') {
-                    _this.saveParam[e] = items[1].text;
+				} else if (e == 'area') {
+					_this.saveParam[e] = items[1].text;
 
-                } else {
+				} else {
 					_this.saveParam[e] = items[0].text;
 				}
 				if (e == "responsiblePerson") {
@@ -333,7 +335,7 @@ new Vue({
 		},
 		// 附件上传
 		fileUpLoad: function() {
-			if (_this.imgList.length>1) {
+			if (_this.imgList.length > 1) {
 				mui.toast("暂时只能上传一张")
 				return;
 			}
@@ -437,7 +439,7 @@ new Vue({
 			} else {
 				method = app.INTERFACE.insertCheck
 			};
-			if(_this.checkParam()){
+			if (_this.checkParam()) {
 				app.ajax({
 					url: method,
 					data: _this.saveParam,
@@ -446,61 +448,61 @@ new Vue({
 							mui.toast(e == 0 ? "保存成功" : "提交成功");
 							mui.back();
 							var webview = plus.webview.getWebviewById("5-0HSE.html");
-							var number=0
-							if(e == 0){
-								number =3;
+							var number = 0
+							if (e == 0) {
+								number = 3;
 							}
-							mui.fire(webview,'refresh',{
-								number:number
+							mui.fire(webview, 'refresh', {
+								number: number
 							});
 						}
 					}
 				})
 			}
 		},
-		closeImg:function(){
-			_this.imgList="";
+		closeImg: function() {
+			_this.imgList = "";
 			_this.showImg = false;
 		},
-		delCcPersion:function(e){
-			_this.saveParam.copyPerson.splice(e,1);
+		delCcPersion: function(e) {
+			_this.saveParam.copyPerson.splice(e, 1);
 		},
-		checkParam:function(){
-			if(!_this.saveParam.unit){
+		checkParam: function() {
+			if (!_this.saveParam.unit) {
 				mui.alert("请选择适用机组");
 				return false;
-			}else if(!_this.saveParam.area){
+			} else if (!_this.saveParam.area) {
 				mui.alert("请选择区域");
 				return false;
-			}else if(!_this.saveParam.unitID){
+			} else if (!_this.saveParam.unitID) {
 				mui.alert("请选择被检查单位");
 				return false;
-			}else if(!_this.saveParam.nonconformity){
+			} else if (!_this.saveParam.nonconformity) {
 				mui.alert("请选择隐患类型");
 				return false;
-			}else if(_this.saveParam.hiddenCategory ===""){
+			} else if (_this.saveParam.hiddenCategory === "") {
 				mui.alert("请选择隐患属性");
 				return false;
-			}else if(!_this.saveParam.reqCompleteDate){
+			} else if (!_this.saveParam.reqCompleteDate) {
 				mui.alert("要求完成时间不能为空");
 				return false;
-			}else if(!_this.saveParam.hiddenDescription){
+			} else if (!_this.saveParam.hiddenDescription) {
 				mui.alert("隐患描述不能为空");
 				return false;
-			}else if(!_this.saveParam.correctiveRequest){
+			} else if (!_this.saveParam.correctiveRequest) {
 				mui.alert("整改措施要求不能为空");
 				return false;
-			}else if(!_this.saveParam.responsiblePerson){
+			} else if (!_this.saveParam.responsiblePerson) {
 				mui.alert("责任整改人不能为空");
 				return false;
-			}else if(_this.saveParam.copyPerson.length<1){
+			} else if (_this.saveParam.copyPerson.length < 1) {
 				mui.alert("抄送人不能为空");
 				return false;
 			}
 			return true;
 		},
 		getDetail: function() {
-            console.log(_this.prevParam.checkDate)
+			console.log(_this.prevParam.checkDate)
 			_this.saveParam.checkDate = _this.prevParam.checkDate;
 			_this.saveParam.checkPerson = _this.prevParam.checkPerson;
 
@@ -523,24 +525,24 @@ new Vue({
 					_this.saveParam.responsiblePerson = dangerList.responsibleperson;
 					_this.saveParam.responsiblePersonId = dangerList.responsiblepersonid;
 					_this.saveParam.copyPerson = JSON.parse(dangerList.copyPerson);
-                    _this.showImg = true;
-                    _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g,"") || "";
-                  
+					_this.showImg = true;
+					_this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g, "") || "";
+
 				}
 			})
 		},
-        // 跳转抄送人员列表页面 
-         goCc: function(e) {
-             _this.personType = e;
-            sne.navigateTo({
-                url: "./chaoSong.html",
-                id: "chaoSong.html",
-                data: {
-                    params: {
-                        pageType: "new"
-                    }
-                }
-            })
-        }
+		// 跳转抄送人员列表页面 
+		goCc: function(e) {
+			_this.personType = e;
+			sne.navigateTo({
+				url: "./chaoSong.html",
+				id: "chaoSong.html",
+				data: {
+					params: {
+						pageType: "new"
+					}
+				}
+			})
+		}
 	}
 })

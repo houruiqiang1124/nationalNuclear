@@ -16,9 +16,9 @@
 		<div id="app">
 			<header class="mui-bar mui-bar-nav">
 				<h1 class="mui-title">通讯录</h1>
-				<span class="mui-pull-right mui-btn-link">
+				<!-- <span class="mui-pull-right mui-btn-link">
 					<img src="../../static/3-0-Framework@2x.png" />
-				</span>
+				</span> -->
 			</header>
 			<div class="mui-content">
 				<!--<div class="mui-input-row mui-search">
@@ -26,7 +26,7 @@
 		    </div>-->
 				<div id="list" class="mui-indexed-list">
 					<div class="mui-indexed-list-search mui-input-row mui-search">
-						<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="请输入姓名">
+						<input type="search" @keypress="searchName" v-model="searchVal" class="mui-input-clear mui-indexed-list-search-input" placeholder="请输入姓名">
 					</div>
 					<div class="mui-indexed-list-bar">
 						<a>A</a>
@@ -83,6 +83,7 @@
 			</div>
 		</div>
 		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery-3.1.1.js"></script>
 		<script src="../modulars/company/js/mui.indexedlist.js"></script>
         <script src="../../js/vue.js"></script>
         <script src="../../js/common/api.js"></script>
