@@ -285,9 +285,9 @@ new Vue({
 			// alert("开始语音识别：");
 			plus.speech.startRecognize(options, function(s) {
 				if(e == 0){
-					_this.submitParam.rectificationSituation += s.split("。")[0];
+					_this.submitParam.rectificationSituation += s;
 				}else{
-					_this.confirmation += s.split("。")[0];
+					_this.confirmation += s;
 				}
 			}, function(e) {
 				mui.toast("语音识别失败：" + e.message);

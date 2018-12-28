@@ -35,7 +35,7 @@ new Vue({
 			options.engine = 'iFly';
 			// alert("开始语音识别：");
 			plus.speech.startRecognize(options, function(s) {
-				_this.voiceVal += s.split("。")[0];
+				_this.voiceVal += s;
 			}, function(e) {
 				mui.toast("语音识别失败：" + e.message);
 			});

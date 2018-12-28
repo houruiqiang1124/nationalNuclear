@@ -40,7 +40,9 @@ new Vue({
 			"dangerId": "",
 			"checkId": "",
 			"imgName": "",
-			"imgAddress": ""
+			"imgAddress": "",
+            "keyHidden": "",
+            "ifModify": ""
 		},
 		// 		        unitList: [{
 		// 		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 1",
@@ -130,7 +132,17 @@ new Vue({
 		}, {
 			value: "3",
 			text: "环境的不安全因素"
-		}]
+		}],
+        keyHiddenList: [{
+        	value: "0",
+        	text: "管理性关键隐患"
+        }, {
+        	value: "1",
+        	text: "行为性关键隐患"
+        }, {
+        	value: "2",
+        	text: "装置性关键隐患"
+        }]
 	},
 	mounted: function() {
 		_this = this;
@@ -149,13 +161,33 @@ new Vue({
 				if (_this.personType == 0) {
 					_this.saveParam.responsiblePerson = e.detail.name;
 					_this.saveParam.responsiblePersonId = e.detail.id;
-				} else {
-					console.log(JSON.stringify(e.detail))
-					var Operson = {
-						id: e.detail.id,
-						name: e.detail.name
+				} else if(_this.personType == 1) {
+					if (_this.saveParam.copyPerson.length < 1) {
+						var Operson = {
+							id: e.detail.id,
+							name: e.detail.name
+						}
+						_this.saveParam.copyPerson.push(Operson)
+					} else {
+						var flag = true;
+						for (var i = 0; i < _this.saveParam.copyPerson.length; i++) {
+							if (_this.saveParam.copyPerson[i].id == e.detail.id) {
+								mui.alert("不能选择相同的抄送人");
+								flag = false;
+								return flag;
+							}
+						}
+						if (flag) {
+							var Operson = {
+								id: e.detail.id,
+								name: e.detail.name
+							}
+							_this.saveParam.copyPerson.push(Operson)
+						}
 					}
-					_this.saveParam.copyPerson.push(Operson)
+				}else if(_this.personType == 2){
+					_this.saveParam.checkPerson = e.detail.name;
+					_this.saveParam.checkPersonId = e.detail.id;
 				}
 				console.log(JSON.stringify(event.detail))
 			})
