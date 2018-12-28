@@ -107,7 +107,7 @@
                             </ul>
                             
                             <!-- 整改录入 -->
-                            <ul class="mui-table-view hse-sub1 write-list margin_botom" v-show="showLuRu">
+                            <ul class="mui-table-view hse-sub1 write-list" v-show="showLuRu">
                                 <li class="mui-table-view-cell mui-collapse">
                                     <a class="mui-navigate-right" href="#"><span>整改录入</span> </a>
                                     <div class="mui-collapse-content">
@@ -129,8 +129,9 @@
 
                                             </li>
                                             <li class="mui-table-view-cell">
-                                            	<font class="mui-icon mui-icon-paperclip"></font>附件上传:<label class="mui-pull-right addmore add-fj" @tap="fileUpLoad"><img src="images/5-3-add@2x.png"
-                                            		 class="add-more" /> 添加</label>
+                                            	<font class="mui-icon mui-icon-paperclip"></font>附件上传:
+												<label class="mui-pull-right addmore add-fj" @tap="fileUpLoad" v-show="showadd">
+												<img src="images/5-3-add@2x.png"class="add-more" /> 添加</label>
                                             	<div class="fj-content fj-content-choose">
                                             		<div class="fj-img">
                                             			<div v-show="fileImg">

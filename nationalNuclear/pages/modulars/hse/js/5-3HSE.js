@@ -3,22 +3,22 @@ new Vue({
 	el: "#app",
 	data: {
 		imgList: "", // 附件 base64
-		imageList:"",// 附件 文件
+		imageList: "", // 附件 文件
 		showImg: false,
- 		prevParam: {}, // 上个页面过来的参数
+		prevParam: {}, // 上个页面过来的参数
 		personType: 0, // 判断是责任还是抄送 0责任  1抄送
 		saveParam: { // 新建保存和提交传的参数
 			"projNo": "", // 项目
 			"checkDate": "", // 检查日期
 			"checkPerson": "", // 检查人
-			"checkPersonId":"",// 检查人id
+			"checkPersonId": "", // 检查人id
 			"checkForm": "0", // 检查形式
 			"draftUnit": "", // 编制单位
-			"draftUnitId":"",// 编制单位id
+			"draftUnitId": "", // 编制单位id
 			"draftDept": "", // 编制部门
-			"draftDeptId":"",// 编制部门id
+			"draftDeptId": "", // 编制部门id
 			"draftPerson": "", //编制人
-			"draftPersonId":"", //编制人Id
+			"draftPersonId": "", //编制人Id
 			"draftDate": "", //编制日期
 			"recordType": "0", // 业主联队检查单类型(后期更改)
 			"userId": "", //用户ID
@@ -37,11 +37,11 @@ new Vue({
 			"responsiblePersonId": "", // 责任整改人ID  
 			"copyPerson": [], // 抄送
 			"state": "", // 保存0或提交1
-			"hiddenDoc": "",
 			"imgName": "",
 			"imgAddress": "",
-			"keyHidden":"",
-			"ifModify":"",
+			"keyHidden": "",
+			"ifModify": "",
+			"hiddenDoc": "",
 		},
 		// 		        unitList: [{
 		// 		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 1",
@@ -160,7 +160,7 @@ new Vue({
 				if (_this.personType == 0) {
 					_this.saveParam.responsiblePerson = e.detail.name;
 					_this.saveParam.responsiblePersonId = e.detail.id;
-				} else if(_this.personType == 1) {
+				} else if (_this.personType == 1) {
 					if (_this.saveParam.copyPerson.length < 1) {
 						var Operson = {
 							id: e.detail.id,
@@ -184,7 +184,7 @@ new Vue({
 							_this.saveParam.copyPerson.push(Operson)
 						}
 					}
-				}else if(_this.personType == 2){
+				} else if (_this.personType == 2) {
 					_this.saveParam.checkPerson = e.detail.name;
 					_this.saveParam.checkPersonId = e.detail.id;
 				}
@@ -384,14 +384,14 @@ new Vue({
 		},
 		// 系统相册
 		galleryImg: function() {
-// 			plus.gallery.pick(function(path) {
-// 				_this.appendFile(path); //处理图片的地方
-// 			});
+			// 			plus.gallery.pick(function(path) {
+			// 				_this.appendFile(path); //处理图片的地方
+			// 			});
 			plus.gallery.pick(function(e) {
 				_this.imagesZip(e.files[0])
 				// $("#img").attr("src",e.target); 
-// 				console.log(e.files[0])
-// 				return;
+				// 				console.log(e.files[0])
+				// 				return;
 				_this.appendFile(e.files[0]); //处理图片的地方
 				// var files = document.getElementById('img');
 			}, function(e) {
@@ -407,16 +407,16 @@ new Vue({
 			});
 		},
 		//压缩图片
-		imagesZip:function (path){
-			plus.zip.compressImage({  
-				src: path,  
-				dst: "_doc/chat/gallery/" + path,  
-				quality: 20,  
-				overwrite: true  
+		imagesZip: function(path) {
+			plus.zip.compressImage({
+				src: path,
+				dst: "_doc/chat/gallery/" + path,
+				quality: 20,
+				overwrite: true
 			}, function(e) {
 				_this.imageList = e.target;
-			}, function(err) {  
-				console.error("压缩失败：" + err.message);  
+			}, function(err) {
+				console.error("压缩失败：" + err.message);
 			});
 		},
 		// 拍摄
@@ -457,85 +457,89 @@ new Vue({
 			}
 		},
 		// 上传服务器
-		upload: function(src) {
-			var task=plus.uploader.createUpload(app.INTERFACE.imgUplodNew,
-				{method:"POST",
-				blocksize: 204800,
-				priority: 100,
+		upload: function(src,fn) {
+			var task = plus.uploader.createUpload(app.INTERFACE.imgUplodNew, {
+					method: "POST",
+					blocksize: 204800,
+					priority: 100,
 				},
-				function(t,status){ //上传完成
-					if(status==200){
-						console.log("上传成功："+t.responseText);
+				function(t, status) { //上传完成
+					if (status == 200) {
+						console.log("上传成功：" + t.responseText);
 						var response = JSON.parse(t.responseText).object;
 						_this.saveParam.imgName = response.img;
-						_this.saveParam.imgAddress = "/"+response.url;
-					}else{
-						console.log("上传失败："+status);
+						_this.saveParam.imgAddress = "/" + response.url;
+						fn();
+					} else {
+						console.log("上传失败：" + status);
 					}
 				}
-			);  
+			);
 			//添加其他参数
-			task.addFile(src,{key:"file"});
+			task.addFile(src, {
+				key: "file"
+			});
 			task.start();
 		},
 		// 提交或保存
 		submit: function(e) { // 0保存 1提交
-			_this.upload(_this.imageList);
-			this.saveParam.state = e;
-			_this.saveParam.hiddenDoc = _this.imgList;
-			//隐患属性
-			if (_this.saveParam.hiddenCategory == "管理缺陷") {
-				_this.saveParam.hiddenCategory = 0
-			} else if (_this.saveParam.hiddenCategory == "人的不安全行为") {
-				_this.saveParam.hiddenCategory = 1
-			} else if (_this.saveParam.hiddenCategory == "物的不安全状态") {
-				_this.saveParam.hiddenCategory = 2
-			} else if (_this.saveParam.hiddenCategory == "环境的不安全因素") {
-				_this.saveParam.hiddenCategory = 3
-			}
-			//关键隐患
-			if (_this.saveParam.keyHidden == "管理性关键隐患") {
-				_this.saveParam.keyHidden = 0
-			} else if (_this.saveParam.keyHidden == "行为性关键隐患") {
-				_this.saveParam.keyHidden = 1
-			} else if (_this.saveParam.keyHidden == "装置性关键隐患") {
-				_this.saveParam.keyHidden = 2
-			}
-			_this.saveParam.ifModify = $("input[name='ifModify']:checked").val();
-			console.log($("input[name='ifModify']:checked").val())
-			var method = "";
-			if (this.prevParam.type == "list") { // 从草稿过来，调取不同接口；
-				this.saveParam.dangerId = this.prevParam.dangerId;
-				this.saveParam.checkId = this.prevParam.checkId;
-
-				if (e == 0) {
-					method = app.INTERFACE.draftsSave
-				} else {
-					method = app.INTERFACE.draftsSubmit
+			_this.upload(_this.imageList, function() {
+				_this.saveParam.state = e;
+				_this.saveParam.hiddenDoc = _this.imgList;
+				//隐患属性
+				if (_this.saveParam.hiddenCategory == "管理缺陷") {
+					_this.saveParam.hiddenCategory = 0
+				} else if (_this.saveParam.hiddenCategory == "人的不安全行为") {
+					_this.saveParam.hiddenCategory = 1
+				} else if (_this.saveParam.hiddenCategory == "物的不安全状态") {
+					_this.saveParam.hiddenCategory = 2
+				} else if (_this.saveParam.hiddenCategory == "环境的不安全因素") {
+					_this.saveParam.hiddenCategory = 3
 				}
-			} else {
-				method = app.INTERFACE.insertCheck
-			};
-			if (_this.checkParam()) {
-				app.ajax({
-					url: method,
-					data: _this.saveParam,
-					success: function(res) {
-						if (res.object.resultCode == 0) {
-							mui.toast(e == 0 ? "保存成功" : "提交成功");
-							mui.back();
-							var webview = plus.webview.getWebviewById("5-0HSE.html");
-							var number = 0
-							if (e == 0) {
-								number = 3;
-							}
-							mui.fire(webview, 'refresh', {
-								number: number
-							});
-						}
+				//关键隐患
+				if (_this.saveParam.keyHidden == "管理性关键隐患") {
+					_this.saveParam.keyHidden = 0
+				} else if (_this.saveParam.keyHidden == "行为性关键隐患") {
+					_this.saveParam.keyHidden = 1
+				} else if (_this.saveParam.keyHidden == "装置性关键隐患") {
+					_this.saveParam.keyHidden = 2
+				}
+				_this.saveParam.ifModify = $("input[name='ifModify']:checked").val();
+				console.log($("input[name='ifModify']:checked").val())
+				var method = "";
+				if (_this.prevParam.type == "list") { // 从草稿过来，调取不同接口；
+					_this.saveParam.dangerId = _this.prevParam.dangerId;
+					_this.saveParam.checkId = _this.prevParam.checkId;
+
+					if (e == 0) {
+						method = app.INTERFACE.draftsSave
+					} else {
+						method = app.INTERFACE.draftsSubmit
 					}
-				})
-			}
+				} else {
+					method = app.INTERFACE.insertCheck
+				};
+				if (_this.checkParam()) {
+					app.ajax({
+						url: method,
+						data: _this.saveParam,
+						success: function(res) {
+							if (res.object.resultCode == 0) {
+								mui.toast(e == 0 ? "保存成功" : "提交成功");
+								mui.back();
+								var webview = plus.webview.getWebviewById("5-0HSE.html");
+								var number = 0
+								if (e == 0) {
+									number = 3;
+								}
+								mui.fire(webview, 'refresh', {
+									number: number
+								});
+							}
+						}
+					})
+				}
+			});
 		},
 		closeImg: function() {
 			_this.imgList = "";
@@ -594,13 +598,13 @@ new Vue({
 					_this.saveParam.area = dangerList.area;
 					_this.saveParam.unitID = dangerList.unitid;
 					_this.saveParam.nonconformity = dangerList.nonconformity;
-					if(res.object.dangerList.hiddencategory == "0") {
+					if (res.object.dangerList.hiddencategory == "0") {
 						res.object.dangerList.hiddencategory = "管理缺陷";
-					} else if(res.object.dangerList.hiddencategory == "1") {
+					} else if (res.object.dangerList.hiddencategory == "1") {
 						res.object.dangerList.hiddencategory = "人的不安全行为";
-					} else if(res.object.dangerList.hiddencategory == "2") {
+					} else if (res.object.dangerList.hiddencategory == "2") {
 						res.object.dangerList.hiddencategory = "物的不安全状态";
-					} else if(res.object.dangerList.hiddencategory == "3") {
+					} else if (res.object.dangerList.hiddencategory == "3") {
 						res.object.dangerList.hiddencategory = "环境的不安全因素";
 					}
 					_this.saveParam.keyHidden = dangerList.keyHidden;

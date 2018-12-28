@@ -11,6 +11,7 @@ new Vue({
 		listParam:{},// 列表数据
 		dangerData:{},//隐患信息
 		tabCode:"0",
+		showadd:true,
 		showButton: true,    // 是否显示底部按钮
 		showVerify: false,   //是否显示整改验证
 		showBack: false, // 是否显示撤回按钮
@@ -114,6 +115,7 @@ new Vue({
             			_this.showVerify = true;
             			_this.showYanBtn = true;
             			_this.showButton =false;
+									_this.showadd = false;
             			// _this.disabled1 = true;
                         _this.closePerson = app.loginInfo.userName;
                         _this.closePersonName = app.loginInfo.name;
@@ -177,6 +179,7 @@ new Vue({
         },
         // 从已办，已阅，流转，待阅，初始化信息
         getInfo: function() {   //
+						_this.showadd = false;
             _this.disabled1 = true;
             _this.showVerify = true;
             _this.showButton = false;
@@ -213,6 +216,7 @@ new Vue({
                         }
                        res.object.dangerList.ifModify = res.object.dangerList.ifModify == 0 ? "是" : "否"
                         _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g,"")
+												_this.fileImg = JSON.stringify(res.object.dangerList.returndoc).replace(/"/g,"")
                         // res.object.dangerList.hiddenDoc = JSON.stringify(res.object.dangerList.hiddenDoc).replace(/"/g,"")
 						res.object.dangerList.reqcompletedate = sne.getNowFormatDate2(res.object.dangerList.reqcompletedate);
 						res.object.dangerList.distributdate = sne.getNowFormatDate2(res.object.dangerList.distributdate);
@@ -306,38 +310,39 @@ new Vue({
         },
         // 待办提交
         submit: function() {
-			_this.upload(_this.imageList);
-			console.log(_this.submitParam.checkForm)
-			if (_this.submitParam.checkForm == '日常检查') {
-				_this.submitParam.checkForm = '0'
-			} else if (_this.submitParam.checkForm == '专项检查') {
-				_this.submitParam.checkForm = '1'
-			} else if (_this.submitParam.checkForm == '综合检查') {
-				_this.submitParam.checkForm = '2'
-			}
-			_this.submitParam.correctiveRequest = _this.dangerData.correctiverequest;
-			// console.log($("input[name='ifModify']:checked").val())
-            if(_this.submitParam.responsiblePersonId == "" && _this.submitParam.responsiblePerson == "") {
-                mui.alert("请选取验证人");
-                return false;
-            }
-            if(_this.submitParam.rectificationSituation == "") {
-            	mui.alert("请填写验证情况");
-            	return false;
-            }
-            app.ajax({
-                url: app.INTERFACE.changeSubmit,
-                data: _this.submitParam,
-                success: function(res) {
-                    var webview = plus.webview.getWebviewById("5-0HSE.html");
-                    var number=0;
-                    mui.fire(webview,'refresh',{
-                    	number:number
-                    });
-                    mui.back();
-                    mui.toast("提交成功");
-                }
-            })
+					_this.upload(_this.imageList,function(){
+						console.log(_this.submitParam.checkForm)
+						if (_this.submitParam.checkForm == '日常检查') {
+							_this.submitParam.checkForm = '0'
+						} else if (_this.submitParam.checkForm == '专项检查') {
+							_this.submitParam.checkForm = '1'
+						} else if (_this.submitParam.checkForm == '综合检查') {
+							_this.submitParam.checkForm = '2'
+						}
+						_this.submitParam.correctiveRequest = _this.dangerData.correctiverequest;
+						// console.log($("input[name='ifModify']:checked").val())
+									if(_this.submitParam.responsiblePersonId == "" && _this.submitParam.responsiblePerson == "") {
+											mui.alert("请选取验证人");
+											return false;
+									}
+									if(_this.submitParam.rectificationSituation == "") {
+										mui.alert("请填写验证情况");
+										return false;
+									}
+									app.ajax({
+											url: app.INTERFACE.changeSubmit,
+											data: _this.submitParam,
+											success: function(res) {
+													var webview = plus.webview.getWebviewById("5-0HSE.html");
+													var number=0;
+													mui.fire(webview,'refresh',{
+														number:number
+													});
+													mui.back();
+													mui.toast("提交成功");
+											}
+									})
+					});
         },
         // 待办退回
         back: function() {
@@ -610,7 +615,7 @@ new Vue({
 			});
 		},
         // 上传用友服务器
-        upload: function(src) {
+        upload: function(src,fn) {
         	var task=plus.uploader.createUpload(app.INTERFACE.imgUplodChange,
         		{method:"POST",
         		blocksize: 204800,
@@ -622,6 +627,7 @@ new Vue({
         				var response = JSON.parse(t.responseText).object;
         				_this.submitParam.imgName = response.img;
         				_this.submitParam.imgAddress = "/"+response.url;
+								fn();
         			}else{
         				console.log("上传失败："+status);
         			}
