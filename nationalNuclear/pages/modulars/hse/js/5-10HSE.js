@@ -611,7 +611,7 @@ new Vue({
 		},
         // 上传用友服务器
         upload: function(src) {
-        	var task=plus.uploader.createUpload(app.INTERFACE.imgUplodNew,
+        	var task=plus.uploader.createUpload(app.INTERFACE.imgUplodChange,
         		{method:"POST",
         		blocksize: 204800,
         		priority: 100,
@@ -620,8 +620,8 @@ new Vue({
         			if(status==200){
         				console.log("上传成功："+t.responseText);
         				var response = JSON.parse(t.responseText).object;
-        				_this.saveParam.imgName = response.img;
-        				_this.saveParam.imgAddress = "/"+response.url;
+        				_this.submitParam.imgName = response.img;
+        				_this.submitParam.imgAddress = "/"+response.url;
         			}else{
         				console.log("上传失败："+status);
         			}
