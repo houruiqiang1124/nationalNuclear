@@ -30,7 +30,7 @@
             			<span class="module-title">{{item.title}}</span>
                         <span class="mui-badge mui-badge-danger module-badge" v-show="item.id == '5-0HSE.html'">{{daiBanNum}}</span>
             		</div>
-                    <div class="module-item" @tap="goModulars">
+                    <div class="module-item" @tap="goModulars" v-show="showUserType">
                     	<img src="../../static/addPng.png" class="module-img" />
                     	<span class="module-title">更多</span>
                     </div>
