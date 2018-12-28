@@ -18,7 +18,8 @@ new Vue({
         showDelayBtn: false,    //  是否显示底部延期申请通按钮
         showLuRu: true,
         confirmation: "",   // 确认情况
-        closePerson: "",//关闭人
+        closePerson: "",//关闭人id
+		closePersonName:"",
         closeDate: "",  //关闭日期
         disabled1: false,    // 是否可以输入
         disabled2: false,    // 是否可以输入
@@ -34,6 +35,8 @@ new Vue({
             "rectificationSituation": "",  // 整改情况
             "completeDate":"",    // 完成日期
             "returndoc":"",    // 附件base64
+			"imgName": "",
+			"imgAddress": "",
             "copyPerson": [],  // 抄送
             "projNo": '',   // 项目id
             "recordNo": "", // 检查编号
@@ -42,7 +45,8 @@ new Vue({
             "stepName": "",
             "stepCode": "",
 			"checkForm":"",
-			"correctiveRequest":""
+			"correctiveRequest":"",
+			"ifModify":"0"
             
         },
         responsiblePersonList: [],
@@ -105,6 +109,7 @@ new Vue({
             			_this.showButton =false;
             			// _this.disabled1 = true;
                         _this.closePerson = app.loginInfo.userName;
+                        _this.closePersonName = app.loginInfo.name;
                         _this.closeDate = sne.getNowFormatDate();
             			_this.submitParam.rectificationSituation = this.listParam.rectificationSituation;
             			_this.submitParam.responsiblePerson = this.listParam.responsiblePerson;
@@ -131,6 +136,7 @@ new Vue({
                     } else if(_this.listParam.stepId == "300") {
                         _this.showVerify = true;
                         _this.closePerson = app.loginInfo.userName;
+                        _this.closePersonName = app.loginInfo.name;
                         _this.closeDate = sne.getNowFormatDate().substr(0,10);
                     }
             		_this.showButton = false;    // 隐藏底部按钮，只读
@@ -293,7 +299,7 @@ new Vue({
 				_this.submitParam.checkForm = '2'
 			}
 			_this.submitParam.correctiveRequest = _this.dangerData.correctiverequest;
-			console.log($("input[name='ifModify']:checked").val())
+			// console.log($("input[name='ifModify']:checked").val())
             if(_this.submitParam.responsiblePersonId == "" && _this.submitParam.responsiblePerson == "") {
                 mui.alert("请选取验证人");
                 return false;
@@ -343,6 +349,13 @@ new Vue({
         },
         // 整改验证按钮
         isYanBtn(e) {
+			if (_this.submitParam.checkForm == '日常检查') {
+				_this.submitParam.checkForm = '0'
+			} else if (_this.submitParam.checkForm == '专项检查') {
+				_this.submitParam.checkForm = '1'
+			} else if (_this.submitParam.checkForm == '综合检查') {
+				_this.submitParam.checkForm = '2'
+			}
             let param = {
                 isPass: e,//0通过1不通过
                 comfirmContent: this.confirmation,//确认情况
@@ -362,7 +375,8 @@ new Vue({
                 stepId: this.listParam.stepId || "",
                 stepName: this.listParam.stepName || "",
                 stepCode: this.listParam.stepCode || "",
-                checkId: this.listParam.id
+                checkId: this.listParam.id,
+				checkForm:_this.submitParam.checkForm
             }
             if(param.comfirmContent == "") {
                 mui.alert("请填写确认情况");

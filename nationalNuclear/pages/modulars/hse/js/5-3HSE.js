@@ -10,10 +10,14 @@ new Vue({
 			"projNo": "", // 项目
 			"checkDate": "", // 检查日期
 			"checkPerson": "", // 检查人
+			"checkPersonId":"",// 检查人id
 			"checkForm": "0", // 检查形式
 			"draftUnit": "", // 编制单位
+			"draftUnitId":"",// 编制单位id
 			"draftDept": "", // 编制部门
+			"draftDeptId":"",// 编制部门id
 			"draftPerson": "", //编制人
+			"draftPersonId":"", //编制人Id
 			"draftDate": "", //编制日期
 			"recordType": "0", // 业主联队检查单类型(后期更改)
 			"userId": "", //用户ID
@@ -34,7 +38,9 @@ new Vue({
 			"state": "", // 保存0或提交1
 			"hiddenDoc": "",
 			"imgName": "",
-			"imgAddress": ""
+			"imgAddress": "",
+			"keyHidden":"",
+			"ifModify":"",
 		},
 		// 		        unitList: [{
 		// 		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 1",
@@ -124,6 +130,16 @@ new Vue({
 		}, {
 			value: "3",
 			text: "环境的不安全因素"
+		}],
+		keyHiddenList: [{
+			value: "0",
+			text: "管理性关键隐患"
+		}, {
+			value: "1",
+			text: "行为性关键隐患"
+		}, {
+			value: "2",
+			text: "装置性关键隐患"
 		}]
 	},
 	mounted: function() {
@@ -168,7 +184,8 @@ new Vue({
 						}
 					}
 				}else if(_this.personType == 2){
-					_this.saveParam.checkPerson = e.detail.id;
+					_this.saveParam.checkPerson = e.detail.name;
+					_this.saveParam.checkPersonId = e.detail.id;
 				}
 				console.log(JSON.stringify(event.detail))
 			})
@@ -185,14 +202,18 @@ new Vue({
 			_this.saveParam.userId = app.loginInfo.userId;
 			_this.saveParam.userName = app.loginInfo.userName;
 			_this.saveParam.projNo = app.loginInfo.projNo;
-			_this.saveParam.draftUnit = app.loginInfo.organizationId;
-			_this.saveParam.draftDept = app.loginInfo.departmentId;
-			_this.saveParam.draftPerson = app.loginInfo.userName;
+			_this.saveParam.draftUnit = app.loginInfo.draftUnit;
+			_this.saveParam.draftUnitId = app.loginInfo.organizationId;
+			_this.saveParam.draftDept = app.loginInfo.draftDept;
+			_this.saveParam.draftDeptId = app.loginInfo.departmentId;
+			_this.saveParam.draftPerson = app.loginInfo.name;
+			_this.saveParam.draftPersonId = app.loginInfo.userId;
 			_this.saveParam.draftDate = sne.getNowFormatDate();
 			if (_this.prevParam.type == "new") {
 				var date = sne.getNowFormatDate();
 				_this.saveParam.checkDate = date;
-				_this.saveParam.checkPerson = app.loginInfo.userName;
+				_this.saveParam.checkPerson = app.loginInfo.name;
+				_this.saveParam.checkPersonId = app.loginInfo.userId;
 				_this.saveParam.reqCompleteDate = date;
 			} else {
 				_this.getDetail();
@@ -388,7 +409,7 @@ new Vue({
 				var w = that.width,
 					h = that.height,
 					scale = w / h;
-				w = 480 || w; //480  你想压缩到多大，改这里
+				w = 240 || w; //480  你想压缩到多大，改这里
 				h = w / scale;
 				//生成canvas
 				var canvas = document.createElement('canvas');
@@ -412,20 +433,26 @@ new Vue({
 		submit: function(e) { // 0保存 1提交
 			this.saveParam.state = e;
 			_this.saveParam.hiddenDoc = _this.imgList;
-
-
+			//隐患属性
 			if (_this.saveParam.hiddenCategory == "管理缺陷") {
 				_this.saveParam.hiddenCategory = 0
 			} else if (_this.saveParam.hiddenCategory == "人的不安全行为") {
 				_this.saveParam.hiddenCategory = 1
-
 			} else if (_this.saveParam.hiddenCategory == "物的不安全状态") {
 				_this.saveParam.hiddenCategory = 2
-
 			} else if (_this.saveParam.hiddenCategory == "环境的不安全因素") {
 				_this.saveParam.hiddenCategory = 3
-
 			}
+			//关键隐患
+			if (_this.saveParam.keyHidden == "管理性关键隐患") {
+				_this.saveParam.keyHidden = 0
+			} else if (_this.saveParam.keyHidden == "行为性关键隐患") {
+				_this.saveParam.keyHidden = 1
+			} else if (_this.saveParam.keyHidden == "装置性关键隐患") {
+				_this.saveParam.keyHidden = 2
+			}
+			_this.saveParam.ifModify = $("input[name='ifModify']:checked").val();
+			console.log($("input[name='ifModify']:checked").val())
 			var method = "";
 			if (this.prevParam.type == "list") { // 从草稿过来，调取不同接口；
 				this.saveParam.dangerId = this.prevParam.dangerId;
