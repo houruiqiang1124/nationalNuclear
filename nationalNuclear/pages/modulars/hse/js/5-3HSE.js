@@ -505,6 +505,7 @@ new Vue({
 					_this.saveParam.keyHidden = 2
 				}
 				_this.saveParam.ifModify = $("input[name='ifModify']:checked").val();
+				_this.saveParam.hseHiddenLevel = $("input[name='choose']:checked").val();
 				console.log($("input[name='ifModify']:checked").val())
 				var method = "";
 				if (_this.prevParam.type == "list") { // 从草稿过来，调取不同接口；
