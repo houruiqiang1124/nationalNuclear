@@ -2,12 +2,13 @@ var _this = null;
 new Vue({
 	el: "#app",
 	data: {
-
+        version: ""
 	},
 	mounted: function() {
 		_this = this;
-
+        
 		function plusReady() {
+            _this.version = plus.runtime.version;
 			plus.navigator.setStatusBarBackground("#0062CC")
 		}
 		if (window.plus) {

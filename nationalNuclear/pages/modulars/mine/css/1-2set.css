@@ -25,7 +25,8 @@ body,html,.mui-content{
 				margin-bottom: 10px;
 			}
 			div.names p{
-				background: #03223E;
+				/* background: #03223E; */
+                color: #FFF;
 				border-radius: 15px;
 				padding: 0 10px;
 				font-size: 14px;
@@ -52,3 +53,8 @@ body,html,.mui-content{
 				font-size: 14px;
 				padding:10px 0;
 			}
+            
+            .version {
+                float: right;
+                margin-right: 1.2rem;
+            }
