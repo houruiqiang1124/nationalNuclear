@@ -380,6 +380,21 @@ new Vue({
 				}
 			});
 		},
+        //语音输入
+        openVoice: function(e) {
+        	var options = {};
+        	options.engine = 'iFly';
+        	// alert("开始语音识别：");
+        	plus.speech.startRecognize(options, function(s) {
+        		if (e == 0) {
+        			_this.saveParam.hiddenDescription += s;
+        		} else {
+        			_this.saveParam.correctiveRequest += s;
+        		}
+        	}, function(e) {
+        		mui.toast("语音识别失败：" + e.message);
+        	});
+        },
 		// 附件上传
 		fileUpLoad: function() {
 			if (_this.imgList.length > 1) {

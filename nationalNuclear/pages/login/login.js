@@ -43,8 +43,8 @@ var vm = new Vue({
 			} else {
 				plus.nativeUI.showWaiting();
                 // 临时跳过vpn登录
-				_this.sxfVpnInit();
-				// _this.tologin();
+				// _this.sxfVpnInit();
+				_this.tologin();
 //                 var loginInfo = {
 //                 	projNo: "SNG",  // 项目
 //                     userId: this.username,
@@ -173,7 +173,8 @@ var vm = new Vue({
                     console.log(JSON.stringify(res));
                     _this.remindAccount();
                     var loginInfo = {
-                    	projNo: "SNG", 
+                    	// projNo: res.object[0].projectId, 
+                        projNo: "SNG",
                     	userId: res.object[0].userId,
                     	userName: res.object[0].userName,    // 登录人
                     	// draftUnit: "编制单位",    // 编制单位
