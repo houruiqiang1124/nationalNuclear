@@ -9,6 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="../hse/css/app.css"/>
 		<link rel="stylesheet" type="text/css" href="../hse/css/5-2HSE.css"/>
 		<link rel="stylesheet" type="text/css" href="./css/1-2set.css"/>
+        <link rel="stylesheet" type="text/css" href="../../../css/common.css"/>
 	</head>
 
 	<body>
@@ -17,23 +18,29 @@
 		    	  <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		    	  <div class="names">
 		    	  	<img src="../../../static/loginImg/1-2-head.png"/>
-		    	  	<p><span>信息部-王小明</span> <img src="../../../static/1-2-edit@2x.png"/></p>
+		    	  	<p><span>信息部-王小明</span>
+                     <!-- <img src="../../../static/1-2-edit@2x.png"/> -->
+                     </p>
 		    	  </div>
 		    </div>
 		    <ul class="mui-table-view set2">
 		            <li class="mui-table-view-cell">
 		                <a class="mui-navigate-right">
-		                  <img src="../images/ico1@2x.png"/>  清除缓存
+		                  <img src="../../../static/loginImg/ico1.png"/>  清除缓存
 		                </a>
 		            </li>
 		           <li class="mui-table-view-cell">
 		                <a class="mui-navigate-right">
-		                  <img src="../images/ico2@2x.png"/>  版本信息
+                            <div class="mui-inline">
+                                <img src="../../../static/loginImg/ico2.png"/>
+                                <span>版本信息</span>
+                            </div>
+                            <span class="version">{{version}}</span>
 		                </a>
 		            </li>
 		           <li class="mui-table-view-cell">
 		                <a class="mui-navigate-right">
-		                  <img src="../images/ico3@2x.png"/>  意见反馈
+		                  <img src="../../../static/loginImg/ico3.png"/>  意见反馈
 		                </a>
 		            </li>
 		        </ul>

@@ -5,7 +5,7 @@ new Vue({
 		showDelImg: false,
 		modulars: [{
 				title: "用餐管理",
-				url: "departementSearch",
+				url: "",
 				icon: "../../static/Have_meals.png",
 				id: ""
 			},
@@ -47,7 +47,7 @@ new Vue({
 				id: "4-1staff.html"
 			},
 			{
-				title: "HES监督检查",
+				title: "HSE监督检查",
 				url: "../modulars/hse/5-0HSE.html",
 				icon: "../../static/hse.png",
 				id: "5-0HSE.html"
@@ -58,7 +58,12 @@ new Vue({
 		_this = this;
 
 		function plusReady() {
-
+            mui.init({
+                gestureConfig:{
+                    longtap: true, //默认为false
+              }
+            })
+            _this.init();
 		}
 		if (window.plus) {
 			plusReady()
@@ -67,9 +72,23 @@ new Vue({
 		}
 	},
 	methods: {
+        init: function() {
+            var myModulars = localStorage.getItem("myModulars");
+            var modulars = localStorage.getItem("modulars");
+            if(myModulars) {
+                _this.myModulars = JSON.parse(myModulars)
+            }
+            if(modulars) {
+            	_this.modulars = JSON.parse(modulars)
+            }
+        },
+        // 我的应用删除
 		del: function(e) {
-			console.log(e)
+            var arr = _this.myModulars.splice(e, 1);
+            _this.modulars.push(arr[0]);
+            _this.change();
 		},
+        // 跳转模块
 		goPgae: function(e) {
 			var userType = app.loginInfo.userType;
 			if (userType == 0) { //0 临时用户  1内部用户
@@ -83,15 +102,30 @@ new Vue({
 					return;
 				}
 			} else {
-				sne.navigateTo({
-					url: e.url,
-					id: e.id
-				})
+                if(e.url == "") {
+                    mui.toast("正在建设中");
+                    return;
+                } else {
+                    sne.navigateTo({
+                    	url: e.url,
+                    	id: e.id
+                    })
+                }
+				
 			}
 		},
-        // 长按
-        longtap: function(e) {
-            console.log(11)
+        clearLoop: function(e) {
+            console.log(e)
+            var arr = _this.modulars.splice(e, 1);
+            _this.myModulars.push(arr[0]);
+            _this.change();
+        },
+        // 更新首页
+        change: function() {
+            localStorage.setItem("myModulars",JSON.stringify(_this.myModulars));
+            localStorage.setItem("modulars", JSON.stringify(_this.modulars));
+            var webView = plus.webview.getWebviewById("home.html");
+            mui.fire(webView,"change",{})
         }
 	}
 })
