@@ -43,8 +43,8 @@ var vm = new Vue({
 			} else {
 				plus.nativeUI.showWaiting();
                 // 临时跳过vpn登录
-				// _this.sxfVpnInit();
-				_this.tologin();
+				_this.sxfVpnInit();
+				// _this.tologin();
 //                 var loginInfo = {
 //                 	projNo: "SNG",  // 项目
 //                     userId: this.username,

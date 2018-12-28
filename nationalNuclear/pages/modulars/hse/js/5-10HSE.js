@@ -76,7 +76,6 @@ new Vue({
     methods: {
         // 初始化信息
         init: function() {
-            
             _this.submitParam.userId = app.loginInfo.userId;
             _this.submitParam.userName = app.loginInfo.userName;
             _this.submitParam.traceId = _this.listParam.actionTraceId;
@@ -152,6 +151,7 @@ new Vue({
             		
             		break;
             	case '3':
+                    _this.getInfo();
             		break;
             	case '4':
                     _this.getInfo();
@@ -168,7 +168,7 @@ new Vue({
             _this.showButton = false;
             _this.submitParam.responsiblePerson = this.listParam.responsiblePerson;
             _this.submitParam.rectificationSituation = this.listParam.rectificationSituation;
-            _this.submitParam.completeDate = sne.getNowFormatDate(this.listParam.completeDate.time);
+            _this.submitParam.completeDate = _this.submitParam.completeDate ? sne.getNowFormatDate(this.listParam.completeDate.time):"";
             
         },
 		//详情
