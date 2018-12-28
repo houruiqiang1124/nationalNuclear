@@ -132,7 +132,7 @@ new Vue({
                 _this.tabCode = 0;
             } else if(param == 1) {
                 index = 3;
-                _this.tabCode = 3
+                _this.tabCode = 4
             }else if(param == 2) {
                 index = 2;
                 _this.tabCode = 2;
@@ -219,18 +219,18 @@ new Vue({
                     	id: "5-10HSE.html",
                     	data: {
                     		params:e,
-                    		tabCode:_this.tabCode
+                    		tabCode:_this.currentCode
                     	}
                     })
                 }
             } else if(_this.currentCode == 4) {
-                _this.isReaded(e.deliveryId);
+                // _this.isReaded(e.deliveryId);
                 sne.navigateTo({
                 	url: "5-10HSE.html",
                 	id: "5-10HSE.html",
                 	data: {
                 		params:e,
-                		tabCode:_this.tabCode
+                		tabCode:_this.currentCode
                 	}
                 })
             }  else {
@@ -239,7 +239,7 @@ new Vue({
                     id: "5-10HSE.html",
                     data: {
                         params:e,
-                        tabCode:_this.tabCode
+                        tabCode:_this.currentCode
                     }
                 })
             }

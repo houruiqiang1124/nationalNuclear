@@ -25,6 +25,7 @@
         	<script src="../../js/mui.min.js"></script>
         	<script type="text/javascript" src="../../js/jquery-3.2.1.min.js" ></script>
 			<script src="../../js/common/config.js"></script>
+            <script src="../../js/common/api.js"></script>
         	<script type="text/javascript" charset="utf-8">
         		mui.plusReady(function() {
         			var aniShow = {};
@@ -46,6 +47,11 @@
         			}
         			var activeTab = subpages[0];
         			mui('.mui-bar-tab').on('tap', 'a', function(e) {
+                        var tabIndex = $(this).index();
+                        console.log(app.loginInfo.userType)
+                        if(app.loginInfo.userType == 0 && tabIndex != 0) {
+                            return;
+                        }
         				var activeIndex = subpages.indexOf(activeTab);
         				var targetTab = this.getAttribute('href');
 						if(plus.webview.getWebviewById(targetTab)){

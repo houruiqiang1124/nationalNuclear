@@ -17,6 +17,7 @@ new Vue({
         showDelay: false,
         showDelayBtn: false,    //  是否显示底部延期申请通按钮
         showLuRu: true,
+        showRead: false,    // 是否显示已阅按钮
         confirmation: "",   // 确认情况
         closePerson: "",//关闭人
         closeDate: "",  //关闭日期
@@ -154,6 +155,7 @@ new Vue({
                     _this.getInfo();
             		break;
             	case '4':
+                    _this.showRead = true;
                     _this.getInfo();
             		break;
             	case '5':
@@ -458,6 +460,25 @@ new Vue({
             			pageType: "detail"
             		}
             	}
+            })
+        },
+        // 点击已阅
+        read: function() {
+            app.ajax({
+                url: app.INTERFACE.updateHaveRead,
+                data: {
+                    deliveryId: _this.listParam.deliveryId
+                },
+                success: function(res) {
+            		var webview = plus.webview.getWebviewById("5-0HSE.html");
+            		var number=4;
+            		mui.fire(webview,'refresh',{
+            			number:number
+            		});
+                    mui.back();
+                    mui.toast("已阅成功");
+                    console.log("已阅");
+                }
             })
         }
     }

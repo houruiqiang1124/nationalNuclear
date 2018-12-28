@@ -5,24 +5,20 @@ new Vue({
 		daiBanList: [],
 		noticeTitle: '',
         daiBanNum: "0",
-		modular: [{
-				title: "员工去向",
-				url: "../modulars/company/4-1staff.html",
-				icon: "../../static/yuangongquxiang.png",
-				id:"4-1staff.html"
-			},
+        showUserType: true,
+		modular: [
+//             {
+// 				title: "员工去向",
+// 				url: "../modulars/company/4-1staff.html",
+// 				icon: "../../static/yuangongquxiang.png",
+// 				id:"4-1staff.html"
+// 			},
 			{
 				title: "HSE监督检查",
 				url: "../modulars/hse/5-0HSE.html",
 				icon: "../../static/hse.png",
 				id:"5-0HSE.html"
 			}
-//             {
-//             	title: "更多",
-//             	url: "./modulars.html",
-//             	icon: "../../static/addPng.png",
-//             	id:"modulars.html"
-//             }
 		]
 	},
 	mounted: function() {
@@ -54,6 +50,9 @@ new Vue({
             console.log(JSON.parse(myModulars))
             if(myModulars) {
             	_this.modular = JSON.parse(myModulars)
+            }
+            if(app.loginInfo.userType == 0) {
+                _this.showUserType = false;
             }
         },
         // 获取待办列表

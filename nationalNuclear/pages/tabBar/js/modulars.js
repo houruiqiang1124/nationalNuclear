@@ -92,7 +92,7 @@ new Vue({
 		goPgae: function(e) {
 			var userType = app.loginInfo.userType;
 			if (userType == 0) { //0 临时用户  1内部用户
-				if (id == "5-0HSE.html") {
+				if (e.id == "5-0HSE.html") {
 					sne.navigateTo({
 						url: e.url,
 						id: e.id
