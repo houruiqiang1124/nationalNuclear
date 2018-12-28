@@ -200,7 +200,7 @@ new Vue({
 		// 初始化
 		init: function() {
 			_this.saveParam.userId = app.loginInfo.userId;
-			_this.saveParam.userName = app.loginInfo.userName;
+			_this.saveParam.userName = app.loginInfo.name;
 			_this.saveParam.projNo = app.loginInfo.projNo;
 			_this.saveParam.draftUnit = app.loginInfo.draftUnit;
 			_this.saveParam.draftUnitId = app.loginInfo.organizationId;
