@@ -1,8 +1,9 @@
 var _this = null;
-new Vue({
+var example1 = new Vue({
     el: "#app",
     data: {
         mailList: [],
+        allList: [],
 		searchVal:""
     },
     mounted: function() {
@@ -19,7 +20,7 @@ new Vue({
     },
     methods: {
         getMail: function() {
-            mui.ajax('./js/mailList.json',{
+            mui.ajax(app.mkeyUrl+'mailList.json',{
             	data:{
             		
             	},
@@ -29,6 +30,7 @@ new Vue({
             	success:function(data){ 
             		console.log(JSON.stringify(data));
                     _this.mailList = data.list;
+                    _this.allList = data.list;
             	},
             	error:function(xhr,type,errorThrown){
             		console.log(type)
@@ -45,25 +47,24 @@ new Vue({
             plus.messaging.sendMessage(msg);
         },
 		searchName:function(event){
-			if (event.keyCode == 13) { //如果按的是enter键 13是enter 
+			if (event.keyCode == 13) { //如果按的是enter键 13是enter
 				event.preventDefault(); //禁止默认事件（默认是换行） 
+				console.log("===搜索内容==="+_this.searchVal);
 				if(_this.searchVal == ""){
-					_this.getMail();
+					plus.webview.currentWebview().reload();
 				}else{
-					var mailList1 = _this.mailList.slice(0);
+					var mailList1 = _this.allList.slice(0);
 					var arr = [];
 					for(var i =0;i<mailList1.length;i++){
 						if(mailList1[i].EMPLOYEENAME.indexOf(_this.searchVal) != -1){
-						console.log(mailList1[i].EMPLOYEENAME)
 						arr.push(mailList1[i]);
 						}
 					}
-					console.log(JSON.stringify(arr));
-					_this.mailList= [];
+					_this.mailList= [null];
 					_this.mailList = arr;
-					console.log(JSON.stringify(_this.mailList));
+                    $("input[type=search]").blur();
 				}
 			}
 		}
     }
-})
+});
