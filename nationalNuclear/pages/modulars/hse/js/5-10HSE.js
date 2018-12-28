@@ -3,7 +3,8 @@ new Vue({
     el: "#app",
     data: {
         showTab: true,
-        imgList: "",
+        imgList: "", // 附件 base64
+        imageList:"",// 附件 文件
         fileImg: "",    // 整改录入上传图片
 		// recordNo:"",
 		data:[],//流转信息
@@ -305,6 +306,7 @@ new Vue({
         },
         // 待办提交
         submit: function() {
+			_this.upload(_this.imageList);
 			console.log(_this.submitParam.checkForm)
 			if (_this.submitParam.checkForm == '日常检查') {
 				_this.submitParam.checkForm = '0'
@@ -533,9 +535,27 @@ new Vue({
         },
         // 系统相册
         galleryImg: function() {
-        	plus.gallery.pick(function(path) {
-        		_this.appendFile(path); //处理图片的地方
-        	});
+//         	plus.gallery.pick(function(path) {
+//         		_this.appendFile(path); //处理图片的地方
+//         	});
+			plus.gallery.pick(function(e) {
+				_this.imagesZip(e.files[0])
+				// $("#img").attr("src",e.target); 
+// 				console.log(e.files[0])
+// 				return;
+				_this.appendFile(e.files[0]); //处理图片的地方
+				// var files = document.getElementById('img');
+			}, function(e) {
+				console.log("取消选择图片");
+			}, {
+				filter: "image",
+				multiple: true,
+				maximum: 1,
+				system: false,
+				onmaxed: function() {
+					plus.nativeUI.alert('最多只能选择1张图片');
+				}
+			});
         },
         // 拍摄
         getImage: function() {
@@ -576,9 +596,40 @@ new Vue({
         		// _this.upload(base64);
         	}
         },
+		//压缩图片
+		imagesZip:function (path){
+			plus.zip.compressImage({  
+				src: path,  
+				dst: "_doc/chat/gallery/" + path,  
+				quality: 20,  
+				overwrite: true  
+			}, function(e) {
+				_this.imageList = e.target;
+			}, function(err) {  
+				console.error("压缩失败：" + err.message);  
+			});
+		},
         // 上传用友服务器
-        upload: function() {
-        
+        upload: function(src) {
+        	var task=plus.uploader.createUpload(app.INTERFACE.imgUplodNew,
+        		{method:"POST",
+        		blocksize: 204800,
+        		priority: 100,
+        		},
+        		function(t,status){ //上传完成
+        			if(status==200){
+        				console.log("上传成功："+t.responseText);
+        				var response = JSON.parse(t.responseText).object;
+        				_this.saveParam.imgName = response.img;
+        				_this.saveParam.imgAddress = "/"+response.url;
+        			}else{
+        				console.log("上传失败："+status);
+        			}
+        		}
+        	);  
+        	//添加其他参数
+        	task.addFile(src,{key:"file"});
+        	task.start();
         },
         // 删除图片
         closeImg: function() {

@@ -52,6 +52,7 @@
         findDelayNum: "delayToApplyFor/findDelayNum",    // 延期申请次数
         getHesUserInif: "webService/getHesUserInif",
 		imgUplodNew: host+"uploadPhoto/uploadPicture",//新建上传服务器图片
+		imgUplodChange: host+"uploadPhoto/uploadRectifyFile",//整改上传服务器图片
     }
     
     /**
