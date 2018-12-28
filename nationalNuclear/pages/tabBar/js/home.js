@@ -12,27 +12,35 @@ new Vue({
 				id:"4-1staff.html"
 			},
 			{
-				title: "HES监督检查",
+				title: "HSE监督检查",
 				url: "../modulars/hse/5-0HSE.html",
 				icon: "../../static/hse.png",
 				id:"5-0HSE.html"
-			},
-            {
-            	title: "更多",
-            	url: "./modulars.html",
-            	icon: "../../static/addPng.png",
-            	id:"modulars.html"
-            }
+			}
+//             {
+//             	title: "更多",
+//             	url: "./modulars.html",
+//             	icon: "../../static/addPng.png",
+//             	id:"modulars.html"
+//             }
 		]
 	},
 	mounted: function() {
 		_this = this; 
 		function plusReady() {
 			mui.init();
+            _this.init();
 			// _this.companyNew();
 			// _this.notice();
             _this.toDoList();
             _this.getBadge();
+           
+            window.addEventListener("change", function(e) {
+                console.log(true)
+                var modular = localStorage.getItem("myModulars");
+                console.log(JSON.parse(modular))
+                _this.modular =JSON.parse(modular);
+            })
 		}
 		if (window.plus) { 
 			plusReady()
@@ -41,6 +49,13 @@ new Vue({
 		}
 	},
 	methods: {
+        init: function() {
+            var myModulars = localStorage.getItem("myModulars");
+            console.log(JSON.parse(myModulars))
+            if(myModulars) {
+            	_this.modular = JSON.parse(myModulars)
+            }
+        },
         // 获取待办列表
 		toDoList: function(){
 			var param = {
@@ -107,7 +122,7 @@ new Vue({
                	}
             })
         },
-        // 跳转更多
+        // 待办列表跳转更多
         openPage: function() {
             sne.navigateTo({
             	url: "../modulars/hse/5-0HSE.html",
@@ -184,26 +199,45 @@ new Vue({
 				}
 			})
 		},
-        // 跳转模块
+        // 跳转设置
         goPage(url,id) {
+            sne.navigateTo({
+            	url: url,
+            	id: id
+            })
+        },
+        
+        // 跳转模块
+        goModular: function(url, id) {
             var userType = app.loginInfo.userType;
             if(userType == 0) { //0 临时用户  1内部用户
-                if(id == "5-0HSE.html") {
-                    sne.navigateTo({
-                    	url: url,
-                    	id: id
-                    })
-                } else {
-                    mui.toast("您无此权限！");
-                    return;
-                }
+            	if(id == "5-0HSE.html") {
+            		sne.navigateTo({
+            			url: url,
+            			id: id
+            		})
+            	} else {
+            		mui.toast("您无此权限！");
+            		return;
+            	}
             } else {
-                sne.navigateTo({
-                	url: url,
-                	id: id
-                })
+                if(url == "") {
+                    mui.toast("正在建设中");
+                    return;
+                } else {
+                    sne.navigateTo({
+                        url: url,
+                        id: id
+                    })
+                }
             }
-            
+        },
+        // 跳转模块更多
+        goModulars: function() {
+            sne.navigateTo({
+            	url: "/pages/tabBar/modulars.html",
+            	id: "modulars.html"
+            })
         }
 	}
 })

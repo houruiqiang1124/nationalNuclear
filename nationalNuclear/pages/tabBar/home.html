@@ -20,16 +20,20 @@
 		<div class="home" id="app">
 			<div class="">
                 <img src="../../static/top-picture.png" class="banner" />
-				<img src="../modulars/hse/images/5-0-set%20up@2x.png" class="personSet" @click="goPage('../modulars/mine/1-2set.html','1-2set.html')"/>
+				<img src="../modulars/hse/images/5-0-set%20up@2x.png" class="personSet" @tap="goPage('../modulars/mine/1-2set.html','1-2set.html')"/>
             </div>
             <div class="content">
             	<!-- 我的模块 -->
             	<div class="mui-card module">
-            		<div class="module-item" v-for="(item, index) in modular" :key="index" @click="goPage(item.url,item.id)">
+            		<div class="module-item" v-for="(item, index) in modular" :key="index" @tap="goModular(item.url,item.id)">
             			<img :src="item.icon" class="module-img" />
             			<span class="module-title">{{item.title}}</span>
                         <span class="mui-badge mui-badge-danger module-badge" v-show="item.id == '5-0HSE.html'">{{daiBanNum}}</span>
             		</div>
+                    <div class="module-item" @tap="goModulars">
+                    	<img src="../../static/addPng.png" class="module-img" />
+                    	<span class="module-title">更多</span>
+                    </div>
             	</div>
                 
                 <!-- 公告 -->
