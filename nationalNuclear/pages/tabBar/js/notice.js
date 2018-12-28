@@ -137,6 +137,17 @@ new Vue({
 		pullupRefresh: function () {
 			_this.page++;
 			_this.searchData();
+		},
+        toDetail: function(data){
+			var detailUrl = data.detailUrl;
+			sne.navigateTo({
+                 url: "../modulars/news/3-2Detail.html",
+                 id: "3-2Detail.html",
+                 data: {                    
+                 	detailUrl: detailUrl,
+                 	userid: _this.userid
+               	}
+            })
 		}
 	}
 })

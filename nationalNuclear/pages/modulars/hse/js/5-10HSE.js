@@ -4,6 +4,7 @@ new Vue({
     data: {
         showTab: true,
         imgList: "",
+        fileImg: "",    // 整改录入上传图片
 		// recordNo:"",
 		data:[],//流转信息
 		listParam:{},// 列表数据
@@ -82,12 +83,14 @@ new Vue({
         // 初始化信息
         init: function() {
             _this.submitParam.userId = app.loginInfo.userId;
-            _this.submitParam.userName = app.loginInfo.userName;
+            _this.submitParam.userName = app.loginInfo.name;
             _this.submitParam.traceId = _this.listParam.actionTraceId;
             _this.submitParam.instanceId = _this.listParam.instanceId;
             _this.submitParam.checkId = _this.listParam.id;
             _this.submitParam.dangerId = _this.listParam.dangerId;
             _this.submitParam.checkForm = _this.listParam.checkForm;
+             _this.submitParam.responsiblePerson = this.listParam.draftPerson;
+             _this.submitParam.responsiblePersonId = this.listParam.draftPersonId;
             // _this.submitParam.copyPerson = _this.listParam.copyPerson;
             var date = sne.getNowFormatDate();
             switch(_this.tabCode) {
@@ -103,6 +106,7 @@ new Vue({
                         _this.showButton =false;
                     } else if(_this.listParam.stepId == "200") {
                         _this.showDelay = true;
+                       
             			_this.submitParam.completeDate =date;
             		} else if(this.listParam.stepId == "300") {   // 100发起   200整改回复  300整改验证  400延期申请  500延期申请审批
             			_this.showVerify = true;
@@ -198,6 +202,14 @@ new Vue({
                         } else if(res.object.dangerList.hiddencategory == "3") {
                             res.object.dangerList.hiddencategory = "环境的不安全因素";
                         }
+                        if(res.object.dangerList.keyHidden == "0") {
+                            res.object.dangerList.keyHidden = "管理性关键隐患";
+                        } else if(res.object.dangerList.keyHidden == "1") {
+                            res.object.dangerList.keyHidden = "行为性关键隐患";
+                        } else if(res.object.dangerList.keyHidden == "2") {
+                            res.object.dangerList.keyHidden = "装置性关键隐患";
+                        }
+                       res.object.dangerList.ifModify = res.object.dangerList.ifModify == 0 ? "是" : "否"
                         _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g,"")
                         // res.object.dangerList.hiddenDoc = JSON.stringify(res.object.dangerList.hiddenDoc).replace(/"/g,"")
 						res.object.dangerList.reqcompletedate = sne.getNowFormatDate2(res.object.dangerList.reqcompletedate);
@@ -328,7 +340,7 @@ new Vue({
         back: function() {
             var param = {
                 "userId": app.loginInfo.userId,
-                "userName": app.loginInfo.userName,
+                "userName": app.loginInfo.name,
                 "actionTraceId": _this.listParam.actionTraceId,
                 "instanceId": _this.listParam.instanceId,
                 "projNo": this.listParam.projNo || "",
@@ -370,7 +382,7 @@ new Vue({
                 dangerId: this.listParam.dangerId,
                 instanceId: this.listParam.instanceId,
                 userId: app.loginInfo.userId,
-                userName: app.loginInfo.userName,
+                userName: app.loginInfo.name,
                 projNo: this.listParam.projNo || "",
                 recordNo: this.listParam.recordNo || "",
                 lineNo: this.listParam.lineNo || "",
@@ -447,7 +459,7 @@ new Vue({
                     dangerId: this.listParam.dangerId, //隐患id
                     traceId: this.listParam.actionTraceId, //流转id
                     userId: app.loginInfo.userId, //用户id
-                    userName: app.loginInfo.userName, //用户名称
+                    userName: app.loginInfo.name, //用户名称
                     delayToApplyId: this.listParam.delayToApplyId
                 }
                 app.ajax({
@@ -494,6 +506,77 @@ new Vue({
                     console.log("已阅");
                 }
             })
-        }
+        },
+        // 附件上传
+        fileUpLoad: function() {
+            var btns = [{
+            	title: "拍摄"
+            }, {
+            	title: "系统相册"
+            }];
+            plus.nativeUI.actionSheet({
+            	cancel: "取消",
+            	buttons: btns
+            }, function(e) {
+            	var i = e.index;
+            	//拍照
+            	switch (i) {
+            		case 1:
+            			_this.getImage();
+            			break;
+            		case 2:
+            			_this.galleryImg();
+            			break;
+            	}
+            });
+        },
+        // 系统相册
+        galleryImg: function() {
+        	plus.gallery.pick(function(path) {
+        		_this.appendFile(path); //处理图片的地方
+        	});
+        },
+        // 拍摄
+        getImage: function() {
+        	var cmr = plus.camera.getCamera();
+        	cmr.captureImage(function(p) {
+        		plus.io.resolveLocalFileSystemURL(p, function(entry) {
+        			var localurl = entry.toLocalURL(); //把拍照的目录路径，变成本地url路径，例如file:///........之类的。
+        			// _this.appendFile(localurl);
+        		});
+        	}, function(error) {
+        		console.log("Capture image failed: " + error.message);
+        	});
+        },
+        // 转换base64
+        appendFile: function(path) {
+        	var img = new Image();
+        	img.src = path; // 传过来的图片路径在这里用。
+        	img.onload = function() {
+        		var that = this;
+        		//生成比例
+        		var w = that.width,
+        			h = that.height,
+        			scale = w / h;
+        		w = 240 || w; //480  你想压缩到多大，改这里
+        		h = w / scale;
+        		//生成canvas
+        		var canvas = document.createElement('canvas');
+        		var ctx = canvas.getContext('2d');
+        		$(canvas).attr({
+        			width: w,
+        			height: h
+        		});
+        		ctx.drawImage(that, 0, 0, w, h);
+        		var base64 = canvas.toDataURL('image/jpeg', 1 || 0.8); //1最清晰，越低越模糊。
+        		_this.showImg = true;
+        		_this.fileImg = base64;
+        		// _this.upload(base64);
+        	}
+        },
+        // 上传用友服务器
+        upload: function() {
+        
+        },
     }
 })

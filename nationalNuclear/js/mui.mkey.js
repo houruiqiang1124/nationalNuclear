@@ -271,19 +271,22 @@
 				var images = response.getElementsByTagName("image");
 				//var imageContexts = document.getElementById("imageContext");
 				
-				for(var i = 0; i < images.length; i++) {
-					//console.log(i+"========"+images[i].getAttribute("src"))
-					imageurls[imageurls.length] = mui.mkey.config.url + images[i].getAttribute("src") + "&_MSC_CMD_=QRY";
-					imageHtml += '<img width="100%" src="" id="viewimg' + i + '" data-preview-src="'+ imageurls[imageurls.length - 1] +'" data-preview-group="1" />';
-				}
-				//imageContexts.innerHTML = imageHtml;
-				//console.log("========"+imageHtml)
 				if(!document.getElementById('__container')) {
+					for(var i = 0; i < images.length; i++) {
+						//console.log(i+"========"+images[i].getAttribute("src"))
+						imageurls[imageurls.length] = mui.mkey.config.url + images[i].getAttribute("src") + "&_MSC_CMD_=QRY";
+						imageHtml += '<img width="100%" src="" id="viewimg' + i + '" data-preview-src="'+ imageurls[imageurls.length - 1] +'" data-preview-group="1" />';
+					}
 					var newNode = document.createElement("div");
 					newNode.id = "__viewFileDiv";
 					newNode.innerHTML = "<div id='__container' style='width:100%;height:100%;position:absolute;top:0;left:0;background:#ffffff;display:none;'>" + imageHtml + "</div>";
 					document.body.appendChild(newNode.firstChild);
 				} else {
+					for(var i = 0; i < images.length; i++) {
+						//console.log(i+"========"+images[i].getAttribute("src"))
+						imageurls[imageurls.length] = mui.mkey.config.url + images[i].getAttribute("src") + "&_MSC_CMD_=QRY";
+						imageHtml += '<img width="100%" src="'+ imageurls[imageurls.length - 1] +'" id="viewimg' + i + '" />';
+					}
 					document.getElementById("__container").innerHTML = imageHtml;
 				}
 				var previewImage = $.previewImage();

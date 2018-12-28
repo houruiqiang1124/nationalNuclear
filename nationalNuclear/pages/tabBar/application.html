@@ -28,7 +28,7 @@
                     <div class="mui-scroll">
                         <!--数据列表-->
                         <ul class="mui-table-view company-sub">
-                            <li class="mui-table-view-cell" v-for="(itme,index) in data" :key="index">
+                            <li class="mui-table-view-cell" v-for="(itme,index) in data" :key="index" @tap="toDetail(itme)">
                                 <span class="title">{{itme.title}}</span>
                                 <p><span class="mui-pull-left">{{itme.date}}</span></p>
                             </li>

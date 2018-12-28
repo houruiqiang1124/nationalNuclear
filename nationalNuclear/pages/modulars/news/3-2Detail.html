@@ -8,6 +8,14 @@
 		<link href="../../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../hse/css/app.css"/>
 		<link rel="stylesheet" type="text/css" href="./css/3-2Detail.css"/>
+		<link rel="stylesheet" href="./css/preview-image.css" />
+		<style type="text/css">
+			.biaos {
+				width: 100%;
+				margin-top: 1.5rem;
+				position: relative;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -16,36 +24,76 @@
 		    <h1 class="mui-title">公告详情</h1>
 		</header>
 		<div class="mui-content">
-		    <h4>关于2018年度员工医疗费报销有关事项 的通知 </h4>
+		    <h4></h4>
 		    <p class="label">
-		    	<span><img src="../images/3-2-see@2x.png"/> 582</span>
-		    	<span>部门公告    </span>
-		    	<span> 作者：王小明 </span>
-		    	<span class="mui-pull-right">2018-09-10</span>
+		    	<span id="count"><!--<img src="../../../static/2-1-browse.png"/>--></span>
+		    	<span>  </span>
+		    	<span> </span>
+		    	<span class="mui-pull-right" id="sendDate">发布日期：</span>
 		    </p>
 		    <div class="content">
-		    		Apple 将一次支持事件定义为一个具体且独立的问题，可通过将问题起因归结为单一要素来加以解决。Apple 可以自行决定支持事件的构成要素。当客户收到以下信息之一时，即表明支持事件已解决：
-	a	可解决问题的信息
-	b	有关如何获得可解决问题的软件解决方案的信息
-	c	关于问题是由已知的未解决问题或受支持产品的不兼容问题所致的通知
-	d	将问题确认为可通过将受支持产品升级到较新版本而加以解决的信息
-	e	关于问题已确认为硬件设备问题的通知
-	f	将问题确认为第三方产品（Apple 不提供支持）问题的
-	多数 Apple 软件和硬件产品均包括在获得产品后 90 天内的无限次免费提供的支持事件。Apple Watch Edition 随附提供 2 年的免费支持。请参阅 Apple 产品随附的支持相关材料以了解更多信息。
-	Apple 一年有限保修和 AppleCare Protection Plan 全方位服务计划为您提供消费者权益法赋予的权利之外的附加权益有关详细信息，请点按此处。
+		    	<div id="__container">
+		    		<div style="width: 100%;margin-top: 5rem;text-align: center;">正在加载正文...</div>
+		    	</div>
 		    </div>
 		</div>
 		<script src="../../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../../js/jquery-3.1.1.js" ></script>
+		<script type="text/javascript" src="../../../js/mui.mkey.js" ></script>
+		<script type="text/javascript" src="../../../js/mui.zoom.js" ></script>
+		<script type="text/javascript" src="../../../js/mui.previewimage.js" ></script>
+		<script type="text/javascript" src="../../../js/common/api.js"></script>
 		<script type="text/javascript">
 			mui.init();
 			if(window.plus) {
-						plusReady();
-					} else {
-						document.addEventListener("plusready", plusReady, false);
+				plusReady();
+			} else {
+				document.addEventListener("plusready", plusReady, false);
+			}
+			function plusReady(){
+				plus.navigator.setStatusBarBackground("#1D6BCA");
+				console.log("===="+plus.webview.currentWebview().detailUrl);
+				console.log("userid===="+plus.webview.currentWebview().userid)
+				var params = {};
+				params.url = plus.webview.currentWebview().detailUrl+"?userid="+plus.webview.currentWebview().userid;
+				mui.mkey.get(params, function(data) {
+					var jsonStr = data.getElementsByTagName("span")[0].textContent;
+					console.log("jsonStr===="+jsonStr);
+					var json = JSON.parse(jsonStr);
+					$("h4").html(json.object.title);//标题
+					$("#sendDate").append(json.object.releaseDate);//发布日期
+					if(json.object.detailtype == 'gonggao'){
+						mui.mkey.viewfile({
+							url: app.protal+json.object.pdfUrl,
+							do: 'viewfile',
+							filename: "test",
+						}, function(data) {
+							console.log(data);
+							if (data.indexOf("table") > -1) {
+								openurl("viewExcel.html", "viewExcel.html", data);
+							}
+						});
+					}else if(json.object.detailtype == 'yaowen'){
+						var contentArr = json.object.contents.split("|");
+						var contentStr = "";
+						for(var i = 0; i < contentArr.length; i++) {
+							if(contentArr[i].trim() != ""){
+								if(contentArr[i].indexOf(".jpg") > -1 || contentArr[i].indexOf(".png") > -1) {
+									var imgurl = "?action=bs-transfer@mdp&url=" + app.protal+contentArr[i];
+									var imageurl = mui.mkey.config.url + imgurl + "&_MSC_CMD_=QRY" ;
+									var imageHtml = '<img class="biaos" src="' + imageurl + '" alt="图片正在加载..." />';
+									contentStr += imageHtml;
+								} else {
+									contentStr += '<p> ' + contentArr[i].replace(/ /g,'') + '</p>';
+								}
+							}
+						}
+						$("#__container").html(contentStr);
 					}
-					function plusReady(){
-						plus.navigator.setStatusBarBackground("#1D6BCA")
-					}
+					
+				});
+			}
+			
 		</script>
 	</body>
 

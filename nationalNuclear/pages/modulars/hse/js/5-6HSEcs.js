@@ -27,7 +27,7 @@ new Vue({
         // 确定
         ok: function() {
             this.forwardParam.userId = app.loginInfo.userId;
-            this.forwardParam.userName = app.loginInfo.userName;
+            this.forwardParam.userName = app.loginInfo.name;
             this.forwardParam.ownerUserId = this.checkedUser.memberId;
             this.forwardParam.ownerUserName = this.checkedUser.memberName;
             console
