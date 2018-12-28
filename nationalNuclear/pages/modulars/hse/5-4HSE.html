@@ -11,11 +11,18 @@
         <link rel="stylesheet" type="text/css" href="../../../css/mui.picker.min.css" />
         <link rel="stylesheet" type="text/css" href="../../../css/mui.poppicker.css" />
 		<link rel="stylesheet" type="text/css" href="css/5-11HSE.css" />
+         <link rel="stylesheet" type="text/css" href="css/imageviewer.css" />
 		<link rel="stylesheet" type="text/css" href="css/5-11HSE-sub1.css" />
 		<style type="text/css">
 			.mui-pull-top-pocket {
 				top: 90px !important;
 			}
+            
+            .mui-collapse-content input {
+            	margin-bottom: 0;
+            	font-size: 12px;
+            
+            }
             
             .size {
                 margin: 15px 2px 0 5px !important;
@@ -43,7 +50,7 @@
                                     <div class="mui-collapse-content">
                                         <p><span>项目：</span><span>{{saveParam.projNo}}</span></p>
                                         <p><span>检查日期：</span><span @click="checkDate('checkDate')"> <input type="text"  name="" id="" :value="saveParam.checkDate" readonly="readonly" class="pickDateBtn" /></span></p>
-                                        <p><span>检查人：</span><span><input type="text" name="" id="" :value="saveParam.checkPerson" /></span></p>
+                                        <p><span>检查人：</span><span><input type="text" name="" id="" :value="saveParam.checkPerson" readonly="readonly" @tap="goCc(2)" /></span></p>
                                         <p><span>编制单位：</span><span>{{saveParam.draftUnit}}</span></p>
                                         <p><span>编制部门：</span><span>{{saveParam.draftDept}}</span></p>
                                         <p><span>编制人：</span><span>{{saveParam.draftPerson}}</span></p>
@@ -77,6 +84,11 @@
                                                 </label>
                                             </li>
                                             <li class="mui-table-view-cell">
+                                            	<i>*</i>关键隐患：<label class="mui-pull-right chooseinfo">
+                                            		<font class="choose" @tap="showPicker('keyHidden')">{{saveParam.keyHidden || '请选择'}}</font>
+                                            	</label>
+                                            </li>
+                                            <li class="mui-table-view-cell">
                                                 <i>*</i>隐患属性：<label class="mui-pull-right chooseinfo">
                                                     <font class="choose" @click="showPicker('hiddenCategory')">{{saveParam.hiddenCategory || '请选择'}}</font>
                                                 </label>
@@ -103,14 +115,14 @@
                                                 <i>*</i>隐患描述 :
                                                 <textarea v-model="saveParam.hiddenDescription" name="" rows="" cols="" placeholder="请输入"></textarea>
                                                 <div class="voice">
-                                                    <img src="images/5-3-Voice@2x.png" />
+                                                    <img src="images/5-3-Voice@2x.png" @tap="openVoice(0)" />
                                                 </div>
                                             </li>
                                             <li class="mui-table-view-cell text">
                                                 <i>*</i>整改措施要求 :
                                                 <textarea v-model="saveParam.correctiveRequest" name="" rows="" cols="" placeholder="请输入"></textarea>
                                                 <div class="voice">
-                                                    <img src="images/5-3-Voice@2x.png" />
+                                                    <img src="images/5-3-Voice@2x.png" @tap="openVoice(1)" />
                                                 </div>
                                             </li>
                                             <li class="mui-table-view-cell">
@@ -130,9 +142,9 @@
                                                      class="add-more" /> 添加</label>
                                                 <div class="fj-content fj-content-choose">
                                                     <div class="fj-img">
-                                                        <div v-show="showImg">
-                                                            <img :src="imgList" />
-                                                            <b class="mui-icon mui-icon-closeempty"></b>
+                                                        <div v-show="imgList">
+                                                            <img :src="imgList" data-preview-src="" data-preview-group="1" />
+                                                            <b class="mui-icon mui-icon-closeempty" @tap="closeImg"></b>
                                                         </div>
                                                         <!-- <div>
                                                             <img src="images/5-3-picture@2x.png" />
@@ -191,6 +203,8 @@
         <script src="../../../js/mui.picker.js"></script>
         <script src="../../../js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>
         <script src="../../../js/common/config.js"></script>
+        <script src="../../../js/mui.previewimage.js"></script>
+        <script src="../../../js/mui.zoom.js"></script>
         <script src="../../../js/vue.js"></script>
         <script src="js/5-4HSE.js"></script>
 	</body>

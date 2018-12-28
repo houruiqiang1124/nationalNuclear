@@ -9,6 +9,7 @@
 	app.vpnPassword="1!qQ1111";
 	app.vpnRsa="";
 	app.mkeyUrl = "http://10.4.210.112:8080/snpec/";
+    app.protal = "http://10.4.200.59";//门户地址
     
     // 登录信息
     var loginInfo = localStorage.getItem("loginInfo");

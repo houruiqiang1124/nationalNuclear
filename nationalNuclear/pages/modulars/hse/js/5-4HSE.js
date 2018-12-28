@@ -40,7 +40,9 @@ new Vue({
 			"dangerId": "",
 			"checkId": "",
 			"imgName": "",
-			"imgAddress": ""
+			"imgAddress": "",
+            "keyHidden": "",
+            "ifModify": ""
 		},
 		// 		        unitList: [{
 		// 		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 1",
@@ -130,13 +132,24 @@ new Vue({
 		}, {
 			value: "3",
 			text: "环境的不安全因素"
-		}]
+		}],
+        keyHiddenList: [{
+        	value: "0",
+        	text: "管理性关键隐患"
+        }, {
+        	value: "1",
+        	text: "行为性关键隐患"
+        }, {
+        	value: "2",
+        	text: "装置性关键隐患"
+        }]
 	},
 	mounted: function() {
 		_this = this;
 		console.log("进入待办退回")
 
 		function plusReady() {
+            mui.previewImage();
 			_this.prevParam = plus.webview.currentWebview().params;
 			_this.init();
 			_this.getUnit();
@@ -148,13 +161,33 @@ new Vue({
 				if (_this.personType == 0) {
 					_this.saveParam.responsiblePerson = e.detail.name;
 					_this.saveParam.responsiblePersonId = e.detail.id;
-				} else {
-					console.log(JSON.stringify(e.detail))
-					var Operson = {
-						id: e.detail.id,
-						name: e.detail.name
+				} else if(_this.personType == 1) {
+					if (_this.saveParam.copyPerson.length < 1) {
+						var Operson = {
+							id: e.detail.id,
+							name: e.detail.name
+						}
+						_this.saveParam.copyPerson.push(Operson)
+					} else {
+						var flag = true;
+						for (var i = 0; i < _this.saveParam.copyPerson.length; i++) {
+							if (_this.saveParam.copyPerson[i].id == e.detail.id) {
+								mui.alert("不能选择相同的抄送人");
+								flag = false;
+								return flag;
+							}
+						}
+						if (flag) {
+							var Operson = {
+								id: e.detail.id,
+								name: e.detail.name
+							}
+							_this.saveParam.copyPerson.push(Operson)
+						}
 					}
-					_this.saveParam.copyPerson.push(Operson)
+				}else if(_this.personType == 2){
+					_this.saveParam.checkPerson = e.detail.name;
+					_this.saveParam.checkPersonId = e.detail.id;
 				}
 				console.log(JSON.stringify(event.detail))
 			})
@@ -170,14 +203,14 @@ new Vue({
 		init: function() {
 			var date = sne.getNowFormatDate();
 			_this.saveParam.userId = app.loginInfo.userId;
-			_this.saveParam.userName = app.loginInfo.userName;
+			_this.saveParam.userName = app.loginInfo.name;
 			_this.saveParam.projNo = app.loginInfo.projNo;
 			_this.saveParam.draftUnit = app.loginInfo.organizationId;
 			_this.saveParam.draftDept = app.loginInfo.departmentId;
 			_this.saveParam.draftPerson = app.loginInfo.userName;
 			_this.saveParam.draftDate = sne.getNowFormatDate();
 			_this.saveParam.checkDate = date;
-			_this.saveParam.checkPerson = app.loginInfo.userName;
+			_this.saveParam.checkPerson = app.loginInfo.name;
 			// _this.saveParam.reqCompleteDate = date;
 			_this.saveParam.traceId = _this.prevParam.traceId
 			_this.saveParam.instanceId = _this.prevParam.instanceId
@@ -347,6 +380,21 @@ new Vue({
 				}
 			});
 		},
+        //语音输入
+        openVoice: function(e) {
+        	var options = {};
+        	options.engine = 'iFly';
+        	// alert("开始语音识别：");
+        	plus.speech.startRecognize(options, function(s) {
+        		if (e == 0) {
+        			_this.saveParam.hiddenDescription += s;
+        		} else {
+        			_this.saveParam.correctiveRequest += s;
+        		}
+        	}, function(e) {
+        		mui.toast("语音识别失败：" + e.message);
+        	});
+        },
 		// 附件上传
 		fileUpLoad: function() {
 			if (_this.imgList.length > 1) {
@@ -528,6 +576,10 @@ new Vue({
 				return false;
 			}
 			return true;
-		}
+		},
+         // 删除图片
+        closeImg: function() {
+        	_this.imgList = "";
+        }
 	}
 })

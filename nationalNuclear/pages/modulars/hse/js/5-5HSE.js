@@ -24,7 +24,7 @@ new Vue({
     methods: {
 		// 日期选择
 		checkDate: function() {
-				var options = {"beginYear":2014,"endYear":2025};
+				var options = {"beginYear":2014,"endYear":2025,"value": ""};
 				var picker = new mui.DtPicker(options);
 				picker.show(function(rs) {
 					_this.delayDate = rs.text;
@@ -35,7 +35,7 @@ new Vue({
 			options.engine = 'iFly';
 			// alert("开始语音识别：");
 			plus.speech.startRecognize(options, function(s) {
-				_this.voiceVal += s.split("。")[0];
+				_this.voiceVal += s;
 			}, function(e) {
 				mui.toast("语音识别失败：" + e.message);
 			});
@@ -48,7 +48,7 @@ new Vue({
             }
 			var param = {
 				"userId" : app.loginInfo.userId,
-				"userName": app.loginInfo.userName,
+				"userName": app.loginInfo.name,
 				"actionTraceId": _this.delayParam.actionTraceId,
 				"instanceId": _this.delayParam.instanceId,
 				"dangerId": _this.delayParam.dangerId,
