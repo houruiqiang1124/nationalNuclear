@@ -36,6 +36,12 @@ new Vue({
                 var modular = localStorage.getItem("myModulars");
                 console.log(JSON.parse(modular))
                 _this.modular =JSON.parse(modular);
+            });
+            // 刷新首页待办与角标
+            window.addEventListener("refreshHome", function() {
+                console.log("刷新首页...")
+                _this.toDoList();
+                _this.getBadge();
             })
 		}
 		if (window.plus) { 

@@ -572,6 +572,10 @@ new Vue({
 					data: _this.saveParam,
 					success: function(res) {
 						if (res.object.resultCode == 0) {
+                            if(_this.imageList != ""){
+                                localStorage.removeItem("imgName")
+                                localStorage.removeItem("imgAddress")
+                            }
 							mui.toast("提交成功");
 							var webview = plus.webview.getWebviewById("5-0HSE.html");
 							var number = 0;

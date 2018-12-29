@@ -173,7 +173,7 @@ var vm = new Vue({
                     console.log(JSON.stringify(res));
                     _this.remindAccount();
                     var loginInfo = {
-                    	projNo: "SNG", 
+                    	// projNo: "SNG", 
                     	userId: res.object[0].userId,
                     	userName: res.object[0].userName,    // 登录人
                     	// draftUnit: "编制单位",    // 编制单位
@@ -185,7 +185,7 @@ var vm = new Vue({
                         draftDept: res.object[0].departmentName,   // 编制部门
                         departmentId: res.object[0].departmentId,  //编制部门id
                         projectName: res.object[0].projectName,    // 项目名称
-                        // projNo: res.object[0].projectId,    // 项目id
+                        projNo: res.object[0].projectId,    // 项目id
                         name: res.object[0].name  // 真实姓名
                         
                     }

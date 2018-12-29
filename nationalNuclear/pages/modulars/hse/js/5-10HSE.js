@@ -20,6 +20,8 @@ new Vue({
 		showDelay: false,
 		showDelayBtn: false, //  是否显示底部延期申请通按钮
 		showLuRu: true,
+        showFileImg: false, // 是否显示整改图片
+        showImg: true,
 		showRead: false, // 是否显示已阅按钮
 		confirmation: "", // 确认情况
 		closePerson: "", //关闭人id
@@ -199,6 +201,7 @@ new Vue({
 				data: param,
 				success: function(res) {
 					if (res.object.resultCode == "0") {
+                        _this.showImg = true;
 						if (res.object.dangerList.hiddencategory == "0") {
 							res.object.dangerList.hiddencategory = "管理缺陷";
 						} else if (res.object.dangerList.hiddencategory == "1") {
@@ -306,45 +309,62 @@ new Vue({
 			userPicker.setData(_this.responsiblePersonList);
 			userPicker.show(function(items) {
 				console.log(JSON.stringify(items))
-				_this.submitParam.responsiblePerson = items[0].text;
-				_this.submitParam.responsiblePersonId = items[0].value;
+// 				_this.submitParam.responsiblePerson = items[0].text;
+// 				_this.submitParam.responsiblePersonId = items[0].value;
+                localStorage.setItem("imgName",response.img);
+                localStorage.setItem("imgAddress","/" + response.url);
 			});
 		},
+        // 提交或保存
+        submit: function() {
+            if(_this.imageList == ""){
+                _this.sureSubmit();
+            }else{
+                _this.upload(_this.imageList, function() {
+                    _this.sureSubmit();
+                });
+            } 
+        },
 		// 待办提交
-		submit: function() {
-			_this.upload(_this.imageList, function() {
-				console.log(_this.submitParam.checkForm)
-				if (_this.submitParam.checkForm == '日常检查') {
-					_this.submitParam.checkForm = '0'
-				} else if (_this.submitParam.checkForm == '专项检查') {
-					_this.submitParam.checkForm = '1'
-				} else if (_this.submitParam.checkForm == '综合检查') {
-					_this.submitParam.checkForm = '2'
-				}
-				_this.submitParam.correctiveRequest = _this.dangerData.correctiverequest;
-				// console.log($("input[name='ifModify']:checked").val())
-				if (_this.submitParam.responsiblePersonId == "" && _this.submitParam.responsiblePerson == "") {
-					mui.alert("请选取验证人");
-					return false;
-				}
-				if (_this.submitParam.rectificationSituation == "") {
-					mui.alert("请填写验证情况");
-					return false;
-				}
-				app.ajax({
-					url: app.INTERFACE.changeSubmit,
-					data: _this.submitParam,
-					success: function(res) {
-						var webview = plus.webview.getWebviewById("5-0HSE.html");
-						var number = 0;
-						mui.fire(webview, 'refresh', {
-							number: number
-						});
-						mui.back();
-						mui.toast("提交成功");
-					}
-				})
-			});
+		sureSubmit: function() {
+            _this.submitParam.imgName = localStorage.getItem("imgName") || "";
+            _this.submitParam.imgAddress = localStorage.getItem("imgAddress") || "";
+            console.log(_this.submitParam.checkForm)
+            if (_this.submitParam.checkForm == '日常检查') {
+                _this.submitParam.checkForm = '0'
+            } else if (_this.submitParam.checkForm == '专项检查') {
+                _this.submitParam.checkForm = '1'
+            } else if (_this.submitParam.checkForm == '综合检查') {
+                _this.submitParam.checkForm = '2'
+            }
+            _this.submitParam.correctiveRequest = _this.dangerData.correctiverequest;
+            // console.log($("input[name='ifModify']:checked").val())
+            if (_this.submitParam.responsiblePersonId == "" && _this.submitParam.responsiblePerson == "") {
+                mui.alert("请选取验证人");
+                return false;
+            }
+            if (_this.submitParam.rectificationSituation == "") {
+                mui.alert("请填写验证情况");
+                return false;
+            }
+            app.ajax({
+                url: app.INTERFACE.changeSubmit,
+                data: _this.submitParam,
+                success: function(res) {
+                    if(_this.imageList != ""){
+                        localStorage.removeItem("imgName")
+                        localStorage.removeItem("imgAddress")
+                    }
+                    var webview = plus.webview.getWebviewById("5-0HSE.html");
+                    var number = 0;
+                    mui.fire(webview, 'refresh', {
+                        number: number
+                    });
+                    sne.refreshHome();
+                    mui.back();
+                    mui.toast("提交成功");
+                },
+                })
 		},
 		// 待办退回
 		back: function() {
@@ -366,6 +386,7 @@ new Vue({
 					mui.fire(webview, 'refresh', {
 						number: number
 					});
+                    sne.refreshHome();
 					mui.back();
 					mui.toast("退回成功");
 				}
@@ -415,6 +436,7 @@ new Vue({
 					mui.fire(webview, 'refresh', {
 						number: number
 					});
+                    sne.refreshHome();
 					mui.back();
 					mui.toast("提交成功");
 				}
@@ -481,6 +503,7 @@ new Vue({
 					mui.fire(webview, 'refresh', {
 						number: number
 					});
+                    sne.refreshHome();
 					mui.back();
 					mui.toast("提交成功");
 				}
@@ -570,7 +593,7 @@ new Vue({
 			cmr.captureImage(function(p) {
 				plus.io.resolveLocalFileSystemURL(p, function(entry) {
 					var localurl = entry.toLocalURL(); //把拍照的目录路径，变成本地url路径，例如file:///........之类的。
-					// _this.appendFile(localurl);
+					_this.appendFile(localurl);
 				});
 			}, function(error) {
 				console.log("Capture image failed: " + error.message);
@@ -599,6 +622,7 @@ new Vue({
 				var base64 = canvas.toDataURL('image/jpeg', 1 || 0.8); //1最清晰，越低越模糊。
 				_this.showImg = true;
 				_this.fileImg = base64;
+                _this.showFileImg = true;
 				_this.submitParam.returndoc = base64;
 				// _this.upload(base64);
 			}
@@ -644,6 +668,7 @@ new Vue({
 		// 删除图片
 		closeImg: function() {
 			_this.fileImg = "";
+            _this.showFileImg = false;
 		}
 	}
 })

@@ -345,8 +345,11 @@ new Vue({
 						name: items[0].text
 					})
 				} else if (e == 'area') {
-					_this.saveParam[e] = items[1].text;
-
+                    if(items[1].text) {
+                        _this.saveParam[e] = items[1].text ;
+                    } else {
+                        _this.saveParam[e] = items[0].text ;
+                    }
 				} else {
 					_this.saveParam[e] = items[0].text;
 				}
@@ -494,14 +497,18 @@ new Vue({
 // 			if(e == 1){
 // 				_this.sureSubmit(e);
 // 			}else{
+            if(_this.imageList == ""){
+                _this.sureSubmit();
+            }else{
 				_this.upload(_this.imageList, function() {
 					_this.sureSubmit(e);
 				});
+            } 
 			// }
 		},
 		sureSubmit:function(e){
-			_this.saveParam.imgName = localStorage.getItem("imgName");
-			_this.saveParam.imgAddress = localStorage.getItem("imgAddress");
+			_this.saveParam.imgName = localStorage.getItem("imgName") || "";
+			_this.saveParam.imgAddress = localStorage.getItem("imgAddress") || "";
 			_this.saveParam.hiddenDoc = _this.imgList;
 			//隐患属性
 			if (_this.saveParam.hiddenCategory == "管理缺陷") {
@@ -550,8 +557,10 @@ new Vue({
 							if (e == 0) {
 								number = 3;
 							}else{
-								localStorage.removeItem("imgName")
-								localStorage.removeItem("imgAddress")
+								if(_this.imageList != ""){
+								    localStorage.removeItem("imgName")
+								    localStorage.removeItem("imgAddress")
+								}
 							}
 							mui.fire(webview, 'refresh', {
 								number: number

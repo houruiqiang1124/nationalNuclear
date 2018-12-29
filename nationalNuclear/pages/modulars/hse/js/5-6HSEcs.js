@@ -46,6 +46,7 @@ new Vue({
                     mui.fire(webview,'refresh',{
                     	number:number
                     });
+                    sne.refreshHome();
                     mui.back();
                     
                     mui.toast("转发成功");

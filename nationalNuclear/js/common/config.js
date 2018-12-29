@@ -70,4 +70,9 @@
 			}  
 		};
 	}
+    // 刷新首页
+    f.refreshHome = function() {
+        var webView = plus.webview.getWebviewById("home.html");
+        mui.fire(webView, "refreshHome",{})
+    }
 }(mui,window.sne={}))
