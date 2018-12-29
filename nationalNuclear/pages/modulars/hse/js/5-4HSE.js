@@ -34,7 +34,6 @@ new Vue({
 			"responsiblePersonId": "", // 责任整改人ID  
 			"copyPerson": [], // 抄送
 			"state": "1", // 保存0或提交1
-			"hiddenDoc": "",
 			"traceId": "", // 流转表ID
 			"instanceId": "", // 实例id
 			"dangerId": "",
@@ -42,7 +41,8 @@ new Vue({
 			"imgName": "",
 			"imgAddress": "",
             "keyHidden": "",
-            "ifModify": ""
+            "ifModify": "",
+			"hiddenDoc": "",
 		},
 		// 		        unitList: [{
 		// 		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 1",

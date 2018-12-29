@@ -458,6 +458,7 @@ new Vue({
 		},
 		// 上传服务器
 		upload: function(src,fn) {
+			plus.nativeUI.showWaiting();
 			var task = plus.uploader.createUpload(app.INTERFACE.imgUplodNew, {
 					method: "POST",
 					blocksize: 204800,
@@ -465,12 +466,14 @@ new Vue({
 				},
 				function(t, status) { //上传完成
 					if (status == 200) {
+						plus.nativeUI.closeWaiting();
 						console.log("上传成功：" + t.responseText);
 						var response = JSON.parse(t.responseText).object;
 						_this.saveParam.imgName = response.img;
 						_this.saveParam.imgAddress = "/" + response.url;
 						fn();
 					} else {
+						plus.nativeUI.closeWaiting();
 						console.log("上传失败：" + status);
 					}
 				}
@@ -483,64 +486,71 @@ new Vue({
 		},
 		// 提交或保存
 		submit: function(e) { // 0保存 1提交
-			_this.upload(_this.imageList, function() {
-				_this.saveParam.state = e;
-				_this.saveParam.hiddenDoc = _this.imgList;
-				//隐患属性
-				if (_this.saveParam.hiddenCategory == "管理缺陷") {
-					_this.saveParam.hiddenCategory = 0
-				} else if (_this.saveParam.hiddenCategory == "人的不安全行为") {
-					_this.saveParam.hiddenCategory = 1
-				} else if (_this.saveParam.hiddenCategory == "物的不安全状态") {
-					_this.saveParam.hiddenCategory = 2
-				} else if (_this.saveParam.hiddenCategory == "环境的不安全因素") {
-					_this.saveParam.hiddenCategory = 3
-				}
-				//关键隐患
-				if (_this.saveParam.keyHidden == "管理性关键隐患") {
-					_this.saveParam.keyHidden = 0
-				} else if (_this.saveParam.keyHidden == "行为性关键隐患") {
-					_this.saveParam.keyHidden = 1
-				} else if (_this.saveParam.keyHidden == "装置性关键隐患") {
-					_this.saveParam.keyHidden = 2
-				}
-				_this.saveParam.ifModify = $("input[name='ifModify']:checked").val();
-				_this.saveParam.hseHiddenLevel = $("input[name='choose']:checked").val();
-				console.log($("input[name='ifModify']:checked").val())
-				var method = "";
-				if (_this.prevParam.type == "list") { // 从草稿过来，调取不同接口；
-					_this.saveParam.dangerId = _this.prevParam.dangerId;
-					_this.saveParam.checkId = _this.prevParam.checkId;
-
-					if (e == 0) {
-						method = app.INTERFACE.draftsSave
-					} else {
-						method = app.INTERFACE.draftsSubmit
-					}
+			_this.saveParam.state = e;
+			if(e == 0){
+				_this.sureSubmit(e);
+			}else{
+				_this.upload(_this.imageList, function() {
+					_this.sureSubmit(e);
+				});
+			}
+		},
+		sureSubmit:function(e){
+			_this.saveParam.hiddenDoc = _this.imgList;
+			//隐患属性
+			if (_this.saveParam.hiddenCategory == "管理缺陷") {
+				_this.saveParam.hiddenCategory = 0
+			} else if (_this.saveParam.hiddenCategory == "人的不安全行为") {
+				_this.saveParam.hiddenCategory = 1
+			} else if (_this.saveParam.hiddenCategory == "物的不安全状态") {
+				_this.saveParam.hiddenCategory = 2
+			} else if (_this.saveParam.hiddenCategory == "环境的不安全因素") {
+				_this.saveParam.hiddenCategory = 3
+			}
+			//关键隐患
+			if (_this.saveParam.keyHidden == "管理性关键隐患") {
+				_this.saveParam.keyHidden = 0
+			} else if (_this.saveParam.keyHidden == "行为性关键隐患") {
+				_this.saveParam.keyHidden = 1
+			} else if (_this.saveParam.keyHidden == "装置性关键隐患") {
+				_this.saveParam.keyHidden = 2
+			}
+			_this.saveParam.ifModify = $("input[name='ifModify']:checked").val();
+			_this.saveParam.hseHiddenLevel = $("input[name='choose']:checked").val();
+			console.log($("input[name='ifModify']:checked").val())
+			var method = "";
+			if (_this.prevParam.type == "list") { // 从草稿过来，调取不同接口；
+				_this.saveParam.dangerId = _this.prevParam.dangerId;
+				_this.saveParam.checkId = _this.prevParam.checkId;
+			
+				if (e == 0) {
+					method = app.INTERFACE.draftsSave
 				} else {
-					method = app.INTERFACE.insertCheck
-				};
-				if (_this.checkParam()) {
-					app.ajax({
-						url: method,
-						data: _this.saveParam,
-						success: function(res) {
-							if (res.object.resultCode == 0) {
-								mui.toast(e == 0 ? "保存成功" : "提交成功");
-								mui.back();
-								var webview = plus.webview.getWebviewById("5-0HSE.html");
-								var number = 0
-								if (e == 0) {
-									number = 3;
-								}
-								mui.fire(webview, 'refresh', {
-									number: number
-								});
-							}
-						}
-					})
+					method = app.INTERFACE.draftsSubmit
 				}
-			});
+			} else {
+				method = app.INTERFACE.insertCheck
+			};
+			if (_this.checkParam()) {
+				app.ajax({
+					url: method,
+					data: _this.saveParam,
+					success: function(res) {
+						if (res.object.resultCode == 0) {
+							mui.toast(e == 0 ? "保存成功" : "提交成功");
+							mui.back();
+							var webview = plus.webview.getWebviewById("5-0HSE.html");
+							var number = 0
+							if (e == 0) {
+								number = 3;
+							}
+							mui.fire(webview, 'refresh', {
+								number: number
+							});
+						}
+					}
+				})
+			}
 		},
 		closeImg: function() {
 			_this.imgList = "";
