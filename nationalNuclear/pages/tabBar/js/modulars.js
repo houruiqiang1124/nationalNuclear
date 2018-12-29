@@ -40,12 +40,13 @@ new Vue({
 				id: ""
 			}
 		],
-		myModulars: [{
-				title: "员工去向",
-				url: "../modulars/company/4-1staff.html",
-				icon: "../../static/yuangongquxiang.png",
-				id: "4-1staff.html"
-			},
+		myModulars: [
+//             {
+// 				title: "员工去向",
+// 				url: "../modulars/company/4-1staff.html",
+// 				icon: "../../static/yuangongquxiang.png",
+// 				id: "4-1staff.html"
+// 			},
 			{
 				title: "HSE监督检查",
 				url: "../modulars/hse/5-0HSE.html",

@@ -65,3 +65,7 @@ body {
 			p.title .mui-pull-right.tipcs {
 				color: #D9D9D9;
 			}
+            
+            .module-title {
+                font-size: 0.8rem;
+            }
