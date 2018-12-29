@@ -469,8 +469,10 @@ new Vue({
 						plus.nativeUI.closeWaiting();
 						console.log("上传成功：" + t.responseText);
 						var response = JSON.parse(t.responseText).object;
-						_this.saveParam.imgName = response.img;
-						_this.saveParam.imgAddress = "/" + response.url;
+// 						_this.saveParam.imgName = response.img;
+// 						_this.saveParam.imgAddress = "/" + response.url;
+						localStorage.setItem("imgName",response.img);
+						localStorage.setItem("imgAddress","/" + response.url);
 						fn();
 					} else {
 						plus.nativeUI.closeWaiting();
@@ -485,17 +487,20 @@ new Vue({
 			task.start();
 		},
 		// 提交或保存
-		submit: function(e) { // 0保存 1提交
+		submit: function(e) { // 0保存 1提交、
+		
 			_this.saveParam.state = e;
-			if(e == 0){
-				_this.sureSubmit(e);
-			}else{
+// 			if(e == 1){
+// 				_this.sureSubmit(e);
+// 			}else{
 				_this.upload(_this.imageList, function() {
 					_this.sureSubmit(e);
 				});
-			}
+			// }
 		},
 		sureSubmit:function(e){
+			_this.saveParam.imgName = localStorage.getItem("imgName");
+			_this.saveParam.imgAddress = localStorage.getItem("imgAddress");
 			_this.saveParam.hiddenDoc = _this.imgList;
 			//隐患属性
 			if (_this.saveParam.hiddenCategory == "管理缺陷") {
@@ -543,6 +548,9 @@ new Vue({
 							var number = 0
 							if (e == 0) {
 								number = 3;
+							}else{
+								localStorage.removeItem("imgName")
+								localStorage.removeItem("imgAddress")
 							}
 							mui.fire(webview, 'refresh', {
 								number: number
