@@ -426,6 +426,7 @@ new Vue({
 				plus.io.resolveLocalFileSystemURL(p, function(entry) {
 					var localurl = entry.toLocalURL(); //把拍照的目录路径，变成本地url路径，例如file:///........之类的。
 					_this.appendFile(localurl);
+					_this.imagesZip(localurl)
 				});
 			}, function(error) {
 				console.log("Capture image failed: " + error.message);
@@ -562,6 +563,7 @@ new Vue({
 		},
 		closeImg: function() {
 			_this.imgList = "";
+			_this.imageList = "";
 			_this.showImg = false;
 		},
 		delCcPersion: function(e) {

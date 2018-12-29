@@ -99,7 +99,7 @@
                                                 </span>
             
                                             </li>
-                                            <li class="mui-table-view-cell radio-choose">
+                                            <li class="mui-table-view-cell radio-choose" id="hsehiddenlevel">
                                                 <i>*</i>隐患级别:
                                                 <span class="mui-pull-right">
                                                     <input type="radio" name="choose" id="" value="0" />
@@ -109,8 +109,18 @@
                                                     <input type="radio" name="choose" id="" value="1" checked="checked" />
                                                     <label for="">一般</label>
                                                 </span>
-            
                                             </li>
+											<li class="mui-table-view-cell radio-choose" id="ifModify">
+												<i>*</i>是否当场已改:
+												<span class="mui-pull-right" style="margin-right: 11px;">
+													<input type="radio" name="ifModify" id="" value="1" checked="checked" />
+													<label for="">否</label>
+												</span>
+												<span class="mui-pull-right" style="margin-right: 11px;">
+													<input type="radio" name="ifModify" id="" value="0" />
+													<label for="">是</label>
+												</span>
+											</li>
                                             <li class="mui-table-view-cell text">
                                                 <i>*</i>隐患描述 :
                                                 <textarea v-model="saveParam.hiddenDescription" name="" rows="" cols="" placeholder="请输入"></textarea>

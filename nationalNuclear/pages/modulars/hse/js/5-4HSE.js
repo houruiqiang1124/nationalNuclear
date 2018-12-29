@@ -4,6 +4,7 @@ new Vue({
 	data: {
 		showTab: true,
 		imgList: "", // 附件
+		imageList: "",
 		showImg: false,
 		prevParam: {}, // 上个页面过来的参数
 		data: [], //流转信息
@@ -40,8 +41,8 @@ new Vue({
 			"checkId": "",
 			"imgName": "",
 			"imgAddress": "",
-            "keyHidden": "",
-            "ifModify": "",
+			"keyHidden": "",
+			"ifModify": "",
 			"hiddenDoc": "",
 		},
 		// 		        unitList: [{
@@ -133,23 +134,23 @@ new Vue({
 			value: "3",
 			text: "环境的不安全因素"
 		}],
-        keyHiddenList: [{
-        	value: "0",
-        	text: "管理性关键隐患"
-        }, {
-        	value: "1",
-        	text: "行为性关键隐患"
-        }, {
-        	value: "2",
-        	text: "装置性关键隐患"
-        }]
+		keyHiddenList: [{
+			value: "0",
+			text: "管理性关键隐患"
+		}, {
+			value: "1",
+			text: "行为性关键隐患"
+		}, {
+			value: "2",
+			text: "装置性关键隐患"
+		}]
 	},
 	mounted: function() {
 		_this = this;
 		console.log("进入待办退回")
 
 		function plusReady() {
-            mui.previewImage();
+			mui.previewImage();
 			_this.prevParam = plus.webview.currentWebview().params;
 			_this.init();
 			_this.getUnit();
@@ -161,7 +162,7 @@ new Vue({
 				if (_this.personType == 0) {
 					_this.saveParam.responsiblePerson = e.detail.name;
 					_this.saveParam.responsiblePersonId = e.detail.id;
-				} else if(_this.personType == 1) {
+				} else if (_this.personType == 1) {
 					if (_this.saveParam.copyPerson.length < 1) {
 						var Operson = {
 							id: e.detail.id,
@@ -185,7 +186,7 @@ new Vue({
 							_this.saveParam.copyPerson.push(Operson)
 						}
 					}
-				}else if(_this.personType == 2){
+				} else if (_this.personType == 2) {
 					_this.saveParam.checkPerson = e.detail.name;
 					_this.saveParam.checkPersonId = e.detail.id;
 				}
@@ -227,13 +228,13 @@ new Vue({
 				data: param,
 				success: function(res) {
 					if (res.object.resultCode == "0") {
-						if(res.object.dangerList.hiddencategory == "0") {
+						if (res.object.dangerList.hiddencategory == "0") {
 							res.object.dangerList.hiddencategory = "管理缺陷";
-						} else if(res.object.dangerList.hiddencategory == "1") {
+						} else if (res.object.dangerList.hiddencategory == "1") {
 							res.object.dangerList.hiddencategory = "人的不安全行为";
-						} else if(res.object.dangerList.hiddencategory == "2") {
+						} else if (res.object.dangerList.hiddencategory == "2") {
 							res.object.dangerList.hiddencategory = "物的不安全状态";
-						} else if(res.object.dangerList.hiddencategory == "3") {
+						} else if (res.object.dangerList.hiddencategory == "3") {
 							res.object.dangerList.hiddencategory = "环境的不安全因素";
 						}
 						res.object.dangerList.reqcompletedate = sne.getNowFormatDate2(res.object.dangerList.reqcompletedate);
@@ -246,16 +247,17 @@ new Vue({
 						_this.saveParam.nonconformity = _this.dangerData.nonconformity;
 						_this.saveParam.hiddenCategory = _this.dangerData.hiddencategory;
 						_this.saveParam.reqCompleteDate = sne.getNowFormatDate2(_this.dangerData.reqcompletedate);
-						$(".radio-choose").find("input[value='" + _this.dangerData.hsehiddenlevel + "']").attr("checked", "checked");
+						$("#hsehiddenlevel").find("input[value='" + _this.dangerData.hsehiddenlevel + "']").attr("checked",
+							"checked");
+						$("#ifModify").find("input[value='" + _this.dangerData.ifModify + "']").attr("checked", "checked");
 						_this.saveParam.hiddenDescription = _this.dangerData.hiddendescription;
 						_this.saveParam.correctiveRequest = _this.dangerData.correctiverequest;
 						_this.saveParam.responsiblePerson = _this.dangerData.responsibleperson;
 						_this.saveParam.responsiblePersonId = _this.dangerData.responsiblepersonid;
-// 						_this.confirmation = res.object.dangerList.comfirmcontent;
-// 						_this.closePerson = res.object.dangerList.closeperson;
-// 						_this.closeDate = res.object.dangerList.closedate;
-					} else {
-					}
+						// 						_this.confirmation = res.object.dangerList.comfirmcontent;
+						// 						_this.closePerson = res.object.dangerList.closeperson;
+						// 						_this.closeDate = res.object.dangerList.closedate;
+					} else {}
 				}
 			})
 		},
@@ -294,8 +296,8 @@ new Vue({
 				data: param,
 				success: function(res) {
 					var List = res.beans.map((val, index) => {
-					var childrenArr = []
-						for(var i = 0; i<val.child[0].length; i++) {
+						var childrenArr = []
+						for (var i = 0; i < val.child[0].length; i++) {
 							childrenArr.push({
 								value: val.child[0][i].childZonoId,
 								text: val.child[0][i].childZonoName
@@ -380,21 +382,21 @@ new Vue({
 				}
 			});
 		},
-        //语音输入
-        openVoice: function(e) {
-        	var options = {};
-        	options.engine = 'iFly';
-        	// alert("开始语音识别：");
-        	plus.speech.startRecognize(options, function(s) {
-        		if (e == 0) {
-        			_this.saveParam.hiddenDescription += s;
-        		} else {
-        			_this.saveParam.correctiveRequest += s;
-        		}
-        	}, function(e) {
-        		mui.toast("语音识别失败：" + e.message);
-        	});
-        },
+		//语音输入
+		openVoice: function(e) {
+			var options = {};
+			options.engine = 'iFly';
+			// alert("开始语音识别：");
+			plus.speech.startRecognize(options, function(s) {
+				if (e == 0) {
+					_this.saveParam.hiddenDescription += s;
+				} else {
+					_this.saveParam.correctiveRequest += s;
+				}
+			}, function(e) {
+				mui.toast("语音识别失败：" + e.message);
+			});
+		},
 		// 附件上传
 		fileUpLoad: function() {
 			if (_this.imgList.length > 1) {
@@ -424,8 +426,26 @@ new Vue({
 		},
 		// 系统相册
 		galleryImg: function() {
-			plus.gallery.pick(function(path) {
-				_this.appendFile(path); //处理图片的地方
+			// 			plus.gallery.pick(function(path) {
+			// 				_this.appendFile(path); //处理图片的地方
+			// 			});
+			plus.gallery.pick(function(e) {
+				_this.imagesZip(e.files[0])
+				// $("#img").attr("src",e.target); 
+				// 				console.log(e.files[0])
+				// 				return;
+				_this.appendFile(e.files[0]); //处理图片的地方
+				// var files = document.getElementById('img');
+			}, function(e) {
+				console.log("取消选择图片");
+			}, {
+				filter: "image",
+				multiple: true,
+				maximum: 1,
+				system: false,
+				onmaxed: function() {
+					plus.nativeUI.alert('最多只能选择1张图片');
+				}
 			});
 		},
 		// 拍摄
@@ -435,9 +455,23 @@ new Vue({
 				plus.io.resolveLocalFileSystemURL(p, function(entry) {
 					var localurl = entry.toLocalURL(); //把拍照的目录路径，变成本地url路径，例如file:///........之类的。
 					_this.appendFile(localurl);
+					_this.imagesZip(localurl)
 				});
 			}, function(error) {
 				console.log("Capture image failed: " + error.message);
+			});
+		},
+		//压缩图片
+		imagesZip: function(path) {
+			plus.zip.compressImage({
+				src: path,
+				dst: "_doc/chat/gallery/" + path,
+				quality: 20,
+				overwrite: true
+			}, function(e) {
+				_this.imageList = e.target;
+			}, function(err) {
+				console.error("压缩失败：" + err.message);
 			});
 		},
 		// 转换base64
@@ -467,12 +501,51 @@ new Vue({
 			}
 		},
 		// 上传服务器
-		upload: function(base64) {
-
+		upload: function(src, fn) {
+			plus.nativeUI.showWaiting();
+			var task = plus.uploader.createUpload(app.INTERFACE.imgUplodNew, {
+					method: "POST",
+					blocksize: 204800,
+					priority: 100,
+				},
+				function(t, status) { //上传完成
+					if (status == 200) {
+						plus.nativeUI.closeWaiting();
+						console.log("上传成功：" + t.responseText);
+						var response = JSON.parse(t.responseText).object;
+						// 						_this.saveParam.imgName = response.img;
+						// 						_this.saveParam.imgAddress = "/" + response.url;
+						localStorage.setItem("imgName", response.img);
+						localStorage.setItem("imgAddress", "/" + response.url);
+						fn();
+					} else {
+						plus.nativeUI.closeWaiting();
+						console.log("上传失败：" + status);
+					}
+				}
+			);
+			//添加其他参数
+			task.addFile(src, {
+				key: "file"
+			});
+			task.start();
 		},
 		// 提交或保存
 		submit: function() {
-
+			if(_this.imageList == ""){
+				_this.sureSubmit();
+			}else{
+				_this.upload(_this.imageList, function() {
+					_this.sureSubmit();
+				});
+			}
+		},
+		// 提交或保存
+		sureSubmit: function() {
+			_this.saveParam.imgName = localStorage.getItem("imgName") || "";
+			_this.saveParam.imgAddress = localStorage.getItem("imgAddress") || "";
+			_this.saveParam.ifModify = $("input[name='ifModify']:checked").val();
+			_this.saveParam.hseHiddenLevel = $("input[name='choose']:checked").val();
 			_this.saveParam.hiddenDoc = _this.imgList;
 			if (_this.saveParam.hiddenCategory == "管理缺陷") {
 				_this.saveParam.hiddenCategory = 0
@@ -577,9 +650,10 @@ new Vue({
 			}
 			return true;
 		},
-         // 删除图片
-        closeImg: function() {
-        	_this.imgList = "";
-        }
+		// 删除图片
+		closeImg: function() {
+			_this.imgList = "";
+			_this.imageList = "";
+		}
 	}
 })
