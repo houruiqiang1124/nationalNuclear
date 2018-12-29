@@ -639,7 +639,10 @@ new Vue({
 					}
 					_this.saveParam.hiddenCategory = res.object.dangerList.hiddencategory;
 					_this.saveParam.reqCompleteDate = sne.getNowFormatDate2(dangerList.reqcompletedate);
-					_this.saveParam.hseHiddenLevel = dangerList.hsehiddenlevel;
+					// _this.saveParam.hseHiddenLevel = dangerList.hsehiddenlevel;
+					$("#hsehiddenlevel").find("input[value='" + _this.dangerData.hsehiddenlevel + "']").attr("checked",
+						"checked");
+					$("#ifModify").find("input[value='" + _this.dangerData.ifModify + "']").attr("checked", "checked");
 					_this.saveParam.hiddenDescription = dangerList.hiddendescription;
 					_this.saveParam.correctiveRequest = dangerList.correctiverequest;
 					_this.saveParam.responsiblePerson = dangerList.responsibleperson;
