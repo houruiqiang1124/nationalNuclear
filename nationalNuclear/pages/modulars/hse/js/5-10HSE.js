@@ -22,6 +22,7 @@ new Vue({
 		showLuRu: true,
         showFileImg: false, // 是否显示整改图片
         showImg: true,
+        showDel: true,  // 显示图片删除
 		showRead: false, // 是否显示已阅按钮
 		confirmation: "", // 确认情况
 		closePerson: "", //关闭人id
@@ -115,6 +116,7 @@ new Vue({
 						_this.submitParam.completeDate = date;
 					} else if (this.listParam.stepId == "300") { // 100发起   200整改回复  300整改验证  400延期申请  500延期申请审批
 						_this.showVerify = true;
+                        _this.showDel = false;
 						_this.showYanBtn = true;
 						_this.showButton = false;
 						_this.showadd = false;
@@ -134,7 +136,9 @@ new Vue({
 					}
 					break;
 				case '1':
-					_this.disabled1 = true
+                    _this.showDel = false;
+					_this.disabled1 = true;
+                    _this.showadd = false;
 					_this.submitParam.rectificationSituation = this.listParam.rectificationSituation;
 					_this.submitParam.responsiblePerson = this.listParam.responsiblePerson;
 					if (this.listParam.completeDate) {
@@ -152,6 +156,7 @@ new Vue({
 					}
 					_this.showButton = false; // 隐藏底部按钮，只读
 					_this.disabled = true;
+                    _this.disabled2 = true;
 					break;
 				case '2':
 					_this.getInfo();
@@ -181,10 +186,12 @@ new Vue({
 		},
 		// 从已办，已阅，流转，待阅，初始化信息
 		getInfo: function() { //
+            _this.showDel = false;
 			_this.showadd = false;
 			_this.disabled1 = true;
 			_this.showVerify = true;
 			_this.showButton = false;
+            _this.disabled2 = true;
 			_this.submitParam.responsiblePerson = this.listParam.responsiblePerson;
 			_this.submitParam.rectificationSituation = this.listParam.rectificationSituation;
 			_this.submitParam.completeDate = _this.submitParam.completeDate ? sne.getNowFormatDate(this.listParam.completeDate
@@ -201,7 +208,7 @@ new Vue({
 				data: param,
 				success: function(res) {
 					if (res.object.resultCode == "0") {
-                        _this.showImg = true;
+                        
 						if (res.object.dangerList.hiddencategory == "0") {
 							res.object.dangerList.hiddencategory = "管理缺陷";
 						} else if (res.object.dangerList.hiddencategory == "1") {
@@ -229,7 +236,16 @@ new Vue({
 						_this.confirmation = res.object.dangerList.comfirmcontent;
 						//                         _this.closePerson = res.object.dangerList.closeperson;
 						//                         _this.closeDate = res.object.dangerList.closedate;
-
+                        if(_this.fileImg == "null") {
+                            _this.showFileImg = false;
+                        } else {
+                            _this.showFileImg = true;
+                        }
+                        if(_this.imgList == "null") {
+                            _this.showImg = false;
+                        } else {
+                            _this.showImg = true;
+                        }
 					} else {}
 				}
 			})

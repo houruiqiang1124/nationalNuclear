@@ -262,6 +262,7 @@ new Vue({
 						_this.saveParam.correctiveRequest = _this.dangerData.correctiverequest;
 						_this.saveParam.responsiblePerson = _this.dangerData.responsibleperson;
 						_this.saveParam.responsiblePersonId = _this.dangerData.responsiblepersonid;
+                        _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g, "")
 						// 						_this.confirmation = res.object.dangerList.comfirmcontent;
 						// 						_this.closePerson = res.object.dangerList.closeperson;
 						// 						_this.closeDate = res.object.dangerList.closedate;

@@ -23,7 +23,7 @@
 				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 				<h1 class="mui-title">流程办理</h1>
 				<span class="mui-pull-right mui-btn-link">
-					<img src="images/5-0-set up@2x.png" @click="hseSet" />
+					<!-- <img src="images/5-0-set up@2x.png" @click="hseSet" /> -->
 					<img src="images/5-0-add@2x.png" @click="newCheck" />
 				</span>
 			</header>
@@ -86,6 +86,14 @@
                 			</div>
                 			
                 		</li>
+                        
+                        <li class="nav-item"  @tap="changeList(5)">
+                        	<div class="nav-content">
+                        		<span class="">已阅</span>
+                        		<!-- <span class="mui-badge mui-badge-danger" id="haveRead">0</span> -->
+                        	</div>
+                        	
+                        </li>
                 		
                 		<li class="nav-item"  @tap="changeList(3)">
                 			<div class="nav-content">
@@ -94,13 +102,7 @@
                 			</div>
                 			
                 		</li>
-                		<li class="nav-item"  @tap="changeList(5)">
-                			<div class="nav-content">
-                				<span class="">已阅</span>
-                				<!-- <span class="mui-badge mui-badge-danger" id="haveRead">0</span> -->
-                			</div>
-                			
-                		</li>
+                		
                 	</ul>
                 </div>
                 </div>

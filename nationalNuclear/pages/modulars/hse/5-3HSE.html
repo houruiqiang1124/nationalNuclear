@@ -147,15 +147,15 @@
 										<img src="images/5-3-Voice@2x.png" />
 									</div>
 								</li>
-								<li class="mui-table-view-cell">
+								<li class="mui-table-view-cell" @tap="goCc(0)">
 									<i>*</i>责任整改人:<label class="mui-pull-right addmore">
-										<font @tap="goCc(0)">{{saveParam.responsiblePerson || '请选择'}}</font><img src="images/5-3-add@2x.png" class="add-more" />
+										<font>{{saveParam.responsiblePerson || '请选择'}}</font><img src="images/5-3-add@2x.png" class="add-more" />
 									</label>
 								</li>
-								<li class="mui-table-view-cell">
+								<li class="mui-table-view-cell" @tap="goCc(1)">
 									<i>*</i>抄送:<label class="mui-pull-right addmore">
 										<font v-for="(item, index) in saveParam.copyPerson" :key="index" @tap="delCcPersion(index)">{{item.name}}&nbsp;</font>
-                                        <img @tap="goCc(1)" src="images/5-3-add@2x.png" class="add-more" />
+                                        <img src="images/5-3-add@2x.png" class="add-more" />
 									</label>
 									<p class="tips">隐患级别为“重大”时：请抄送联队项目部负责人、安全总监、HSE部负责人、公司总经理、分管安全副总经理及安全质量部主任。</p>
 								</li>

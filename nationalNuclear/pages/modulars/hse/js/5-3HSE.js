@@ -360,7 +360,7 @@ new Vue({
 		},
 		// 附件上传
 		fileUpLoad: function() {
-			if (_this.imgList.length > 1) {
+			if (_this.imgList.length > 1 || _this.imgList == "null") {
 				mui.toast("暂时只能上传一张")
 				return;
 			}
@@ -649,16 +649,23 @@ new Vue({
 					_this.saveParam.hiddenCategory = res.object.dangerList.hiddencategory;
 					_this.saveParam.reqCompleteDate = sne.getNowFormatDate2(dangerList.reqcompletedate);
 					// _this.saveParam.hseHiddenLevel = dangerList.hsehiddenlevel;
-					$("#hsehiddenlevel").find("input[value='" + _this.dangerData.hsehiddenlevel + "']").attr("checked",
+					$("#hsehiddenlevel").find("input[value='" + dangerList.hsehiddenlevel + "']").attr("checked",
 						"checked");
-					$("#ifModify").find("input[value='" + _this.dangerData.ifModify + "']").attr("checked", "checked");
+					$("#ifModify").find("input[value='" + dangerList.ifModify + "']").attr("checked", "checked");
 					_this.saveParam.hiddenDescription = dangerList.hiddendescription;
 					_this.saveParam.correctiveRequest = dangerList.correctiverequest;
 					_this.saveParam.responsiblePerson = dangerList.responsibleperson;
 					_this.saveParam.responsiblePersonId = dangerList.responsiblepersonid;
 					_this.saveParam.copyPerson = JSON.parse(dangerList.copyPerson);
-					_this.showImg = true;
-					_this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g, "") || "";
+					
+                    if(res.object.dangerList.hiddendoc == null || res.object.dangerList.hiddendoc == "null") {
+                        _this.showImg = false;
+                        _this.imgList = "";
+                    } else {
+                        _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g, "") || "";
+                         _this.showImg = true;
+                    }
+					
 
 				}
 			})

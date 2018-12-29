@@ -58,7 +58,7 @@ new Vue({
 				"delayToApplyForDate": _this.delayDate,
                 "delayNum": _this.delayNum
 			}
-            if(param.reqCompleteDate == "") {
+            if(param.delayToApplyForDec == "") {
                 mui.alert("请填写延期原因");
                 return;
             }

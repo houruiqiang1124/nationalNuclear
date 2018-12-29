@@ -102,6 +102,9 @@ new Vue({
         		url: app.INTERFACE.getCopyPerson,
         		data: param,
         		success: function(res) {
+                    for(var i = 0; i < res.beans.length; i++) {
+                        res.beans[i].checked = false;
+                    }
         			_this.users = res.beans; //抄送人
         		}
         	})
@@ -117,6 +120,9 @@ new Vue({
         		url: app.INTERFACE.getCopyPerson,
         		data: param,
         		success: function(res) {
+                    for(var i = 0; i < res.beans.length; i++) {
+                        res.beans[i].checked = false;
+                    }
         			_this.users = res.beans;
         		}
         	})

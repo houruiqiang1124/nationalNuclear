@@ -6,8 +6,7 @@ new Vue({
 		data: [],
 		pageNo: 0,
 		limit: "10",
-		currentCode: "0",
-        tabCode: 0
+		currentCode: "0"
 	},
 	mounted: function() {
 		_this = this;
@@ -126,25 +125,20 @@ new Vue({
 		},
 		//切换导航栏
 		changeList: function(param) {
+            
             var index = 0;
             if(param == 0) {
                 index = 0;
-                _this.tabCode = 0;
             } else if(param == 1) {
                 index = 3;
-                _this.tabCode = 4
             }else if(param == 2) {
                 index = 2;
-                _this.tabCode = 2;
             } else if(param == 3) {
-                index = 4;
-                _this.tabCode = 4;
+                index = 5;
             } else if(param == 4) {
                 index = 1;
-                _this.tabCode = 1;
             } else if(param == 5) {
-                index = 5;
-                _this.tabCode = 5;
+                index = 4;
 
             } 
 			_this.data=[];
@@ -156,6 +150,7 @@ new Vue({
             }
             $(".nav-content").eq(index).addClass("actives")
             mui('#refreshContainer').pullRefresh().refresh(true);
+            _this.getNumber();
 		},
 		// hse设置跳转
 		hseSet: function() {
