@@ -127,7 +127,8 @@ var vm = new Vue({
 										app.ajax({
 												url: app.INTERFACE.webServiceLogin,
 												data: param,
-												success: function(res) {													
+												success: function(res) {
+													localStorage.setItem("loginUserInfo",JSON.stringify(res));
 				                                    _this.getUserInfo(res.userId, res.userType)													
 												}
 										})
