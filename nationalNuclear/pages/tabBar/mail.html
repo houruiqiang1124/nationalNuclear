@@ -10,6 +10,12 @@
 		<link rel="stylesheet" type="text/css" href="../modulars/hse/css/5-0HSE.css" />
 		<link rel="stylesheet" type="text/css" href="../modulars/company/css/mui.indexedlist.css" />
 		<link rel="stylesheet" type="text/css" href="../modulars/company/css/3-0AddressBook.css" />
+        <style type="text/css">
+        	.mui-indexed-list-bar a {
+                height: 18px !important;
+                line-height: 18px !important;
+            }
+        </style>
 	</head>
 
 	<body>
@@ -59,7 +65,7 @@
 					<div class="mui-indexed-list-alert"></div>
 					<div class="mui-indexed-list-inner">
 						<!-- <div class="mui-indexed-list-empty-alert">没有数据</div> -->
-						<ul class="mui-table-view">
+						<ul class="mui-table-view" style="padding-bottom: 8.5rem;">
 							<div v-for="item in list">
 								<li :data-group="item.index" class="mui-table-view-divider mui-indexed-list-group">{{item.index}}</li>
 								<li data-value="AKU" data-tags="item.index" class="mui-table-view-cell mui-indexed-list-item" v-for="(item, index) in item.mail" :key="index">

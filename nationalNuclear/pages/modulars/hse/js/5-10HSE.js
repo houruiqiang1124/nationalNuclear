@@ -2,6 +2,7 @@ var _this = null;
 new Vue({
 	el: "#app",
 	data: {
+        title: "",
 		showTab: true,
 		imgList: "", // 附件 base64
 		imageList: "", // 附件 文件
@@ -88,6 +89,24 @@ new Vue({
 	methods: {
 		// 初始化信息
 		init: function() {
+            switch(_this.listParam.stepId) {
+                case '100':
+                    _this.title = "检查发起";
+                    break;
+                case '200':
+                    _this.title = "整改回复";
+                    break;
+                case '300':
+                    _this.title = "整改验证";
+                    break;
+                case '400':
+                case '500':
+                    _this.title = "延期申请";
+                    break;
+            }
+            if(_this.listParam.stepId == 500 || _this.listParam.stepId == 400) {
+                _this.title = "延期申请"
+            }
 			_this.submitParam.userId = app.loginInfo.userId;
 			_this.submitParam.userName = app.loginInfo.name;
 			_this.submitParam.traceId = _this.listParam.actionTraceId;
@@ -194,9 +213,9 @@ new Vue({
             _this.disabled2 = true;
 			_this.submitParam.responsiblePerson = this.listParam.responsiblePerson;
 			_this.submitParam.rectificationSituation = this.listParam.rectificationSituation;
-			_this.submitParam.completeDate = _this.submitParam.completeDate ? sne.getNowFormatDate(this.listParam.completeDate
-				.time) : "";
-
+			_this.submitParam.completeDate = _this.listParam.completeDate ? sne.getNowFormatDate(this.listParam.completeDate.time) : "";
+            _this.closePersonName = _this.listParam.closePerson;
+            _this.closeDate = _this.listParam.closeDate ? sne.getNowFormatDate(this.listParam.closeDate.time) : "";
 		},
 		//详情
 		requestData: function() {
@@ -247,6 +266,9 @@ new Vue({
                         } else {
                             _this.showImg = true;
                         }
+//                         if(_this.tabCode != 0) {
+//                             _this.submitParam.completeDate = res.object.dangerList.completeDate
+//                         }
 					} else {}
 				}
 			})

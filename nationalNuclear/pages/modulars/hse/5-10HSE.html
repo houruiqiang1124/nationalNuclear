@@ -31,6 +31,7 @@
 		<div id="app">
 			<header class="mui-bar mui-bar-nav">
 				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+                <h1 class="mui-title">{{title}}</h1>
 			</header>
 			<div class="mui-content">
 				<div class="mui-segmented-control">
@@ -48,14 +49,16 @@
                                         <p><span>项目名称：</span><span>{{listParam.projNo}}</span></p>
                                         <p><span>检查日期：</span><span>{{listParam.checkDate}}</span></p>
                                         <p><span>检查形式：</span><span>{{listParam.checkForm}}</span></p>
-                                        <p><span>检查名称：</span><span>{{listParam.checkContent}}</span></p>
+                                        <!-- <p><span>检查名称：</span><span>{{listParam.checkContent}}</span></p> -->
+                                        <p><span>检查名称：</span><span>日常检查</span></p>
+
                                         <p><span>检查人：</span><span>{{listParam.checkPerson}}</span></p>
                                         <p><span>编制单位：</span><span>{{listParam.draftUnit}}</span></p>
                                         <p><span>编制部门：</span><span>{{listParam.draftDept}}</span></p>
                                         <p><span>编制人：</span><span>{{listParam.draftPerson}}</span></p>
                                         <p><span>编制日期：</span><span>{{listParam.draftDate}}</span></p>
-                                        <p><span>批准人：</span><span>{{listParam.approvePerson}}</span></p>
-                                        <p><span>批准日期：</span><span>{{listParam.approveDate}}</span></p>
+                                        <!-- <p><span>批准人：</span><span>{{listParam.approvePerson}}</span></p>
+                                        <p><span>批准日期：</span><span>{{listParam.approveDate}}</span></p> -->
                                         <!-- <div class="fj-content">
                                             <span>
                                                 <font class="mui-icon mui-icon-paperclip"></font>附件:
@@ -92,6 +95,7 @@
                                         <p><span>是否当场整改：</span><span>{{dangerData.ifModify}}</span></p>
                                         <p><span>纠正措施要求：</span><span>{{dangerData.correctiverequest}}</span></p>
                                         <p><span>抄送：</span><span v-for="(item,index) in submitParam.copyPerson">{{item.name}}&nbsp;</span></p>
+                                        <p><span>整改责任人：</span><span>{{dangerData.responsibleperson}}&nbsp;</span></p>
                                         <div class="fj-content">
                                             <span>
                                                 <font class="mui-icon mui-icon-paperclip"></font>附件:

@@ -105,7 +105,6 @@ var example1 = new Vue({
 					}
 					_this.list = arr;
 					$("input[type=search]").blur();
-					// console.log(JSON.stringify(arr)) 
 // 					var mailList1 = _this.allList.slice(0);
 // 					var arr = [];
 // 					for(var i =0;i<mailList1.length;i++){
