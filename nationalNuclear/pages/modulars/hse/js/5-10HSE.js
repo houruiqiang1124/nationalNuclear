@@ -226,7 +226,8 @@ new Vue({
 							res.object.dangerList.keyHidden = "装置性关键隐患";
 						}
 						res.object.dangerList.ifModify = res.object.dangerList.ifModify == 0 ? "是" : "否"
-						_this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g, "")
+						console.log(res.object.dangerList.ifModify)
+                        _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g, "")
 						_this.fileImg = JSON.stringify(res.object.dangerList.returndoc).replace(/"/g, "")
 						// res.object.dangerList.hiddenDoc = JSON.stringify(res.object.dangerList.hiddenDoc).replace(/"/g,"")
 						res.object.dangerList.reqcompletedate = sne.getNowFormatDate2(res.object.dangerList.reqcompletedate);

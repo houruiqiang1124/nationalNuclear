@@ -130,7 +130,10 @@ var vm = new Vue({
 												success: function(res) {
 													localStorage.setItem("loginUserInfo",JSON.stringify(res));
 				                                    _this.getUserInfo(res.userId, res.userType)													
-												}
+												},
+                                                error: function() {
+                                                    // 、mui.toast("账号或密码错误");
+                                                }
 										})
 									}
 			            	});
@@ -149,8 +152,9 @@ var vm = new Vue({
 			            	}
 			            });
 					} else {
+                        // console.log("11111")
 						plus.nativeUI.closeWaiting();
-						mui.toast("用户名或密码错误！");
+						// mui.toast("用户名或密码错误！");
 					}
 				}, false);
 			})

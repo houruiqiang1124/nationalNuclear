@@ -561,61 +561,10 @@
 			} else if(dataStr.indexOf('绑定错误') > -1) {
 				$.toast("当前账号绑定数量已到上线！");
 			} else if(msgshow == 'true' && msgcontent != "") {
-				//限制密码登录次数，超过上限，登录将被禁止5分钟
-				if(msgcontent.indexOf("错误的用户名密码")>-1){
-					if(errorLoginTime == 0){//第一次错误，初始化登录时间，错误次数+1
-                        plus.nativeUI.closeWaiting()
-						errorLoginTime = getTime();//获取登录时间
-						errorNumLogin ++;
-						localStorage.setItem("errorLoginTime",errorLoginTime);//获取登录时间
-						localStorage.setItem("errorNumLogin",errorNumLogin);
-					}else{
-						//不是第一次登录，如果当前错误时间减去上一次错误时间，大于1分钟，从0开始计数
-						if(parseInt(getTime())-parseInt(localStorage.getItem("errorLoginTime"))>1*60*1000){
-							errorLoginTime = getTime();//错误时间
-							errorNumLogin = 1;//间隔时间超过1分钟，此处错误次数从1计算
-							localStorage.setItem("errorLoginTime",errorLoginTime);//获取登录时间
-							localStorage.setItem("errorNumLogin",errorNumLogin);
-						}else{
-							errorLoginTime = getTime();//错误时间
-							errorNumLogin ++;
-							localStorage.setItem("errorLoginTime",getTime());//获取登录时间
-							localStorage.setItem("errorNumLogin",errorNumLogin);
-							if(errorNumLogin == 10){
-								errorNumLogin = 0;
-								errorLoginTime = 0;	
-								localStorage.setItem("errorLoginTime",0);//获取登录时间
-								localStorage.setItem("errorNumLogin",0);
-								localStorage.setItem("isLock","1");
-								mui.alert(errorLoginToast1);
-							}else{
-								if(errorNumLogin == 9){//等于2次时给予提示，是否继续登录
-									mui.alert(errorLoginToast2);
-								}
-							}
-						}
-					}
-					//第一版本，控制登录错误次数超过3次，禁止登录5分钟的
-					/*errorNumLogin ++;
-					if(errorNumLogin == 3){//错误次数上限了，禁止登录
-						mui.alert(errorLoginToast1);
-						localStorage.setItem("disabledTime",getTime());
-						disableLogin();
-						countTime(5*60*1000);//倒计时5分钟
-					}else{
-						if(errorNumLogin == 2){//等于2次时给予提示，是否继续登录
-							mui.alert(errorLoginToast2);
-						}
-					}*/
-				}else{//除了密码错误情况，其他情况，计数归0
-					errorNumLogin = 0;
-					errorLoginTime = 0;	
-					localStorage.setItem("errorLoginTime",0);//获取登录时间
-					localStorage.setItem("errorNumLogin",0);
-					//localStorage.removeItem("disabledTime");
-				}
+				//				console.log(this.xmlToString(data));
 				$.toast(msgcontent);
-				plus.nativeUI.closeWaiting();
+                plus.nativeUI.closeWaiting();
+//				alert("!!"+msgcontent);
 				return;
 			}
 		}
