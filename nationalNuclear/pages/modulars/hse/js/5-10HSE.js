@@ -319,7 +319,8 @@ new Vue({
 		showDate: function(e) {
 			var options = {
 				"beginYear": 2014,
-				"endYear": 2025
+				"endYear": 2025,
+                "value": ""
 			};
 			var picker = new mui.DtPicker(options);
 			picker.show(function(rs) {
