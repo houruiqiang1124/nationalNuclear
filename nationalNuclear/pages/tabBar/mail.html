@@ -60,8 +60,23 @@
 					<div class="mui-indexed-list-inner">
 						<!-- <div class="mui-indexed-list-empty-alert">没有数据</div> -->
 						<ul class="mui-table-view">
+							<div v-for="item in list">
+								<li :data-group="item.index" class="mui-table-view-divider mui-indexed-list-group">{{item.index}}</li>
+								<li data-value="AKU" data-tags="item.index" class="mui-table-view-cell mui-indexed-list-item" v-for="(item, index) in item.mail" :key="index">
+									<img src="../../static/me-3@2x.png" />
+									<div class="info-book">
+										<p>{{item.EMPLOYEENAME}}</p>
+										<p>{{item.CELL}}</p>
+										<p>{{item.DEPARTMENT}}</p>
+									</div>
+									<span class="mui-pull-right">
+										<img src="../../static/3-0-Phone@2x.png" class="phone" data-phone="18699876656" @tap="phone(item.CELL)"/>
+										<img src="../../static/3-0-message@2x.png" class="message" data-phone="18699876656" @tap="msg(item.CELL)"/>
+									</span>
+								</li>
+							</div>
 							<!--<li data-group="A" class="mui-table-view-divider mui-indexed-list-group">A</li>-->
-							<li data-value="AKU" data-tags="A" class="mui-table-view-cell mui-indexed-list-item" data-group="A" v-for="(item, index) in mailList" :key="index">
+							<!-- <li data-value="AKU" data-tags="A" class="mui-table-view-cell mui-indexed-list-item" data-group="A" v-for="(item, index) in mailList" :key="index">
 								<img src="../../static/me-3@2x.png" />
 								<div class="info-book">
 									<p>{{item.EMPLOYEENAME}}</p>
@@ -73,7 +88,7 @@
 									<img src="../../static/3-0-message@2x.png" class="message" data-phone="18699876656" @tap="msg(item.CELL)"/>
 								</span>
 
-							</li>
+							</li> -->
 							<!--<li data-group="B" class="mui-table-view-divider mui-indexed-list-group">B</li>-->
 
 							<!--<li data-group="C" class="mui-table-view-divider mui-indexed-list-group">C</li>-->
@@ -86,6 +101,7 @@
 		<script src="../../js/jquery-3.1.1.js"></script>
 		<script src="../modulars/company/js/mui.indexedlist.js"></script>
         <script src="../../js/vue.js"></script>
+		<script src="js/ChinesePY.js"></script>
         <script src="../../js/common/api.js"></script>
 		<script src="../../js/common/config.js"></script>
         <script src="js/mail.js"></script>

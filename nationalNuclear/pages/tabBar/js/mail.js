@@ -4,6 +4,7 @@ var example1 = new Vue({
     data: {
         mailList: [],
         allList: [],
+		list:[],
 		searchVal:""
     },
     mounted: function() {
@@ -20,6 +21,8 @@ var example1 = new Vue({
     },
     methods: {
         getMail: function() {
+			var indexs = new Array();
+			var arr = new Array(); //[{index:"a",citys:[{Nmae:"广州市"}]}];
             mui.ajax(app.mkeyUrl+'mailList.json',{
             	data:{
             		
@@ -28,9 +31,32 @@ var example1 = new Vue({
             	type:'get',//HTTP请求类型
             	timeout:10000,//超时时间设置为10秒；
             	success:function(data){ 
-            		console.log(JSON.stringify(data));
-                    _this.mailList = data.list;
-                    _this.allList = data.list;
+            		// console.log(JSON.stringify(data));
+					var data = data.list;
+					for(var i = 0; i < data.length; i++) {
+						var shouZM = Pinyin.GetQP(data[i].EMPLOYEENAME).substr(0, 1).toUpperCase();//获取首字母
+						if(indexs.indexOf(shouZM) < 0) {
+							indexs.push(shouZM);
+						}
+					}
+					indexs.sort();//索引排序
+					for(var i = 0; i < indexs.length; i++) {
+						var index = indexs[i];
+						var mail = new Array();
+						for(var j = 0; j < data.length; j++) {
+							var shouZM = Pinyin.GetQP(data[j].EMPLOYEENAME).substr(0, 1).toUpperCase();
+							if(index == shouZM) {
+								mail.push(data[j]);
+							}
+						}
+						arr.push({
+							"index": index,
+							"mail": mail
+						});
+					}
+					_this.list = arr;
+                    _this.mailList = data;
+                    _this.allList = data;
             	},
             	error:function(xhr,type,errorThrown){
             		console.log(type)
@@ -53,16 +79,43 @@ var example1 = new Vue({
 				if(_this.searchVal == ""){
 					plus.webview.currentWebview().reload();
 				}else{
-					var mailList1 = _this.allList.slice(0);
-					var arr = [];
-					for(var i =0;i<mailList1.length;i++){
-						if(mailList1[i].EMPLOYEENAME.indexOf(_this.searchVal) != -1){
-						arr.push(mailList1[i]);
+					var indexs = new Array();
+					var arr = new Array(); //[{index:"a",citys:[{Nmae:"广州市"}]}];
+					var data = _this.allList;
+					for(var i = 0; i < data.length; i++) {
+						var shouZM = Pinyin.GetQP(data[i].EMPLOYEENAME).substr(0, 1).toUpperCase();//获取首字母
+						if(indexs.indexOf(shouZM) < 0 && data[i].EMPLOYEENAME.indexOf(_this.searchVal) != -1) {
+							indexs.push(shouZM);
 						}
 					}
-					_this.mailList= [null];
-					_this.mailList = arr;
-                    $("input[type=search]").blur();
+					indexs.sort();//索引排序
+					for(var i = 0; i < indexs.length; i++) {
+						var index = indexs[i];
+						var mail = new Array();
+						for(var j = 0; j < data.length; j++) {
+							var shouZM = Pinyin.GetQP(data[j].EMPLOYEENAME).substr(0, 1).toUpperCase();
+							if(index == shouZM && data[j].EMPLOYEENAME.indexOf(_this.searchVal) != -1) {
+								mail.push(data[j]);
+							}
+						}
+							arr.push({
+								"index": index,
+								"mail": mail
+							});
+					}
+					_this.list = arr;
+					$("input[type=search]").blur();
+					// console.log(JSON.stringify(arr)) 
+// 					var mailList1 = _this.allList.slice(0);
+// 					var arr = [];
+// 					for(var i =0;i<mailList1.length;i++){
+// 						if(mailList1[i].EMPLOYEENAME.indexOf(_this.searchVal) != -1){
+// 						arr.push(mailList1[i]);
+// 						}
+// 					}
+// 					_this.mailList= [null];
+// 					_this.mailList = arr;
+//                     $("input[type=search]").blur();
 				}
 			}
 		}
