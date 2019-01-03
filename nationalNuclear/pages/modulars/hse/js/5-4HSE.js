@@ -191,7 +191,17 @@ new Vue({
 					_this.saveParam.checkPersonId = e.detail.id;
 				}
 				console.log(JSON.stringify(event.detail))
-			})
+			});
+            window.addEventListener("CC", function(e) {
+                var detail = JSON.parse(e.detail.param);
+                var newArr = _this.getArrDifference(_this.saveParam.copyPerson, detail)
+                 _this.saveParam.copyPerson = newArr;
+            })
+            if (window.plus) {
+            	plusReady()
+            } else {
+            	document.addEventListener('plusready', plusReady, false);
+            }
 		}
 		if (window.plus) {
 			plusReady()
@@ -218,6 +228,28 @@ new Vue({
 			_this.saveParam.dangerId = _this.prevParam.dangerId
 			_this.saveParam.checkId = _this.prevParam.checkId
 		},
+        // 去重
+        getArrDifference: function(array1, array2) {
+            console.log(JSON.stringify(array1))
+             var result = _this.saveParam.copyPerson;
+            for(var i = 0; i < array2.length; i++){
+                var obj = array2[i];
+                var num = obj.id;
+                var isExist = false;
+                for(var j = 0; j < array1.length; j++){
+                    var aj = array1[j];
+                    var n = aj.id;
+                    if(n == num){
+                        isExist = true;
+                        break;
+                    }
+                }
+                if(!isExist){
+                    result.push(obj);
+                }
+            }
+            return result;
+        },
 		//详情
 		requestData: function() {
 			var param = {
