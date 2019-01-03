@@ -279,7 +279,7 @@ new Vue({
 						_this.saveParam.unitID = _this.dangerData.unitid;
 						_this.saveParam.nonconformity = _this.dangerData.nonconformity;
 						_this.saveParam.hiddenCategory = _this.dangerData.hiddencategory;
-						_this.saveParam.reqCompleteDate = sne.getNowFormatDate(_this.dangerData.reqcompletedate);
+						_this.saveParam.reqCompleteDate = sne.getNowFormatDate(_this.dangerData.reqcompletedate).substr(0,10);
 						$("#hsehiddenlevel").find("input[value='" + _this.dangerData.hsehiddenlevel + "']").attr("checked",
 							"checked");
 						$("#ifModify").find("input[value='" + _this.dangerData.ifModify + "']").attr("checked", "checked");

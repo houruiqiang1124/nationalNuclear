@@ -220,7 +220,7 @@ new Vue({
 				_this.saveParam.checkDate = date;
 				_this.saveParam.checkPerson = app.loginInfo.name;
 				_this.saveParam.checkPersonId = app.loginInfo.userId;
-				_this.saveParam.reqCompleteDate = date;
+				_this.saveParam.reqCompleteDate = date.substr(0,10);
 			} else {
 				_this.getDetail();
 			}
@@ -346,12 +346,22 @@ new Vue({
 		},
 		// 日期选择
 		checkDate: function(e) {
-			var options = {
-				// "type": "datatime",
-				"beginYear": 2014,
-				"endYear": 2025,
-				"value": ""
-			};
+            if(e=="reqCompleteDate"){
+                var options = {
+                	"type": "date",
+                	"beginYear": 2014,
+                	"endYear": 2025,
+                	"value": ""
+                };
+            }else{
+              var options = {
+              	// "type": "datatime",
+              	"beginYear": 2014,
+              	"endYear": 2025,
+              	"value": ""
+              };  
+            }
+			
 			var picker = new mui.DtPicker(options);
 			picker.show(function(rs) {
 				_this.saveParam[e] = rs.text;
@@ -534,6 +544,7 @@ new Vue({
 			// }
 		},
 		sureSubmit:function(e){
+			_this.saveParam.reqCompleteDate = _this.saveParam.reqCompleteDate+" 00:00:00";
 			_this.saveParam.imgName = localStorage.getItem("imgName") || "";
 			_this.saveParam.imgAddress = localStorage.getItem("imgAddress") || "";
 			_this.saveParam.hiddenDoc = _this.imgList;
@@ -674,7 +685,7 @@ new Vue({
 						_this.saveParam.keyHidden = "装置性关键隐患";
 					}
 					_this.saveParam.hiddenCategory = res.object.dangerList.hiddencategory;
-					_this.saveParam.reqCompleteDate = sne.getNowFormatDate(dangerList.reqcompletedate);
+					_this.saveParam.reqCompleteDate = sne.getNowFormatDate(dangerList.reqcompletedate).substr(0,10);
 					// _this.saveParam.hseHiddenLevel = dangerList.hsehiddenlevel;
 					$("#hsehiddenlevel").find("input[value='" + dangerList.hsehiddenlevel + "']").attr("checked",
 						"checked");

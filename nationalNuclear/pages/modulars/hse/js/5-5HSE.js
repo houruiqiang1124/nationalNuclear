@@ -53,10 +53,11 @@ new Vue({
 				"instanceId": _this.delayParam.instanceId,
 				"dangerId": _this.delayParam.dangerId,
 				"checkId": _this.delayParam.checkId,
-				"reqCompleteDate": _this.delayParam.reqCompleteDate,
+				"reqCompleteDate": _this.delayParam.reqCompleteDate+" 00:00:00",
 				"delayToApplyForDec": _this.voiceVal,
 				"delayToApplyForDate": _this.delayDate,
-                "delayNum": _this.delayNum
+                "delayNum": _this.delayNum,
+                "recordNo": _this.delayParam.recordNo
 			}
             if(param.delayToApplyForDec == "") {
                 mui.alert("请填写延期原因");

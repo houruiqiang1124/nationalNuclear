@@ -249,7 +249,7 @@ new Vue({
                         _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g, "")
 						_this.fileImg = JSON.stringify(res.object.dangerList.returndoc).replace(/"/g, "")
 						// res.object.dangerList.hiddenDoc = JSON.stringify(res.object.dangerList.hiddenDoc).replace(/"/g,"")
-						res.object.dangerList.reqcompletedate = sne.getNowFormatDate(res.object.dangerList.reqcompletedate);
+						res.object.dangerList.reqcompletedate = sne.getNowFormatDate(res.object.dangerList.reqcompletedate).substr(0,10);
 						res.object.dangerList.distributdate = sne.getNowFormatDate(res.object.dangerList.distributdate);
 						_this.dangerData = res.object.dangerList;
 						_this.submitParam.copyPerson = JSON.parse(res.object.dangerList.copyPerson);
@@ -463,7 +463,7 @@ new Vue({
 				checkId: this.listParam.id,
 				checkForm: _this.submitParam.checkForm
 			}
-			if (param.comfirmContent == "") {
+			if (param.comfirmContent == "" || param.comfirmContent==null || param.comfirmContent=="null") {
 				mui.alert("请填写确认情况");
 				return;
 			}
