@@ -66,12 +66,10 @@ new Vue({
                 mui.fire(webview,'CC', {
                     param: JSON.stringify(_this.checkedUser)
                 });
-                console.log(JSON.stringify(_this.checkedUser))
             } else if(_this.preaParam.pageType == "back") { // 从待办退回进来
                 var webview = plus.webview.getWebviewById("5-4HSE.html");
                 mui.fire(webview,'CC', {
-                	id: _this.checkedUser.memberId,
-                	name: _this.checkedUser.memberName
+                	param: JSON.stringify(_this.checkedUser)
                 });
             }
             mui.back();

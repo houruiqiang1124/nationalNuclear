@@ -674,7 +674,7 @@ new Vue({
 						_this.saveParam.keyHidden = "装置性关键隐患";
 					}
 					_this.saveParam.hiddenCategory = res.object.dangerList.hiddencategory;
-					_this.saveParam.reqCompleteDate = sne.getNowFormatDate2(dangerList.reqcompletedate);
+					_this.saveParam.reqCompleteDate = sne.getNowFormatDate(dangerList.reqcompletedate);
 					// _this.saveParam.hseHiddenLevel = dangerList.hsehiddenlevel;
 					$("#hsehiddenlevel").find("input[value='" + dangerList.hsehiddenlevel + "']").attr("checked",
 						"checked");

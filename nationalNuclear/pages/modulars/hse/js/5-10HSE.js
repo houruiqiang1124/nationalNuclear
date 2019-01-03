@@ -65,9 +65,9 @@ new Vue({
 			mui.previewImage();
 			_this.listParam = plus.webview.currentWebview().params;
 			console.log(_this.listParam.checkDate.time);
-			_this.listParam.approveDate = _this.listParam.approveDate.time.replace(/\-/g, "/");
-			_this.listParam.checkDate = _this.listParam.checkDate.time.replace(/\-/g, "/");
-			_this.listParam.draftDate = _this.listParam.draftDate.time.replace(/\-/g, "/");
+			_this.listParam.approveDate = _this.listParam.approveDate.time;
+			_this.listParam.checkDate = _this.listParam.checkDate.time;
+			_this.listParam.draftDate = _this.listParam.draftDate.time;
 			_this.tabCode = plus.webview.currentWebview().tabCode.toString();
 			_this.requestData();
 			_this.init();
@@ -249,8 +249,8 @@ new Vue({
                         _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g, "")
 						_this.fileImg = JSON.stringify(res.object.dangerList.returndoc).replace(/"/g, "")
 						// res.object.dangerList.hiddenDoc = JSON.stringify(res.object.dangerList.hiddenDoc).replace(/"/g,"")
-						res.object.dangerList.reqcompletedate = sne.getNowFormatDate2(res.object.dangerList.reqcompletedate);
-						res.object.dangerList.distributdate = sne.getNowFormatDate2(res.object.dangerList.distributdate);
+						res.object.dangerList.reqcompletedate = sne.getNowFormatDate(res.object.dangerList.reqcompletedate);
+						res.object.dangerList.distributdate = sne.getNowFormatDate(res.object.dangerList.distributdate);
 						_this.dangerData = res.object.dangerList;
 						_this.submitParam.copyPerson = JSON.parse(res.object.dangerList.copyPerson);
 						_this.confirmation = res.object.dangerList.comfirmcontent;

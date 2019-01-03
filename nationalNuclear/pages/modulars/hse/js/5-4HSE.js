@@ -190,18 +190,12 @@ new Vue({
 					_this.saveParam.checkPerson = e.detail.name;
 					_this.saveParam.checkPersonId = e.detail.id;
 				}
-				console.log(JSON.stringify(event.detail))
 			});
             window.addEventListener("CC", function(e) {
                 var detail = JSON.parse(e.detail.param);
                 var newArr = _this.getArrDifference(_this.saveParam.copyPerson, detail)
                  _this.saveParam.copyPerson = newArr;
             })
-            if (window.plus) {
-            	plusReady()
-            } else {
-            	document.addEventListener('plusready', plusReady, false);
-            }
 		}
 		if (window.plus) {
 			plusReady()
@@ -230,7 +224,6 @@ new Vue({
 		},
         // 去重
         getArrDifference: function(array1, array2) {
-            console.log(JSON.stringify(array1))
              var result = _this.saveParam.copyPerson;
             for(var i = 0; i < array2.length; i++){
                 var obj = array2[i];
@@ -277,8 +270,8 @@ new Vue({
 						} else if (_this.saveParam.keyHidden == "2") {
 							_this.saveParam.keyHidden = "装置性关键隐患";
 						}
-						res.object.dangerList.reqcompletedate = sne.getNowFormatDate2(res.object.dangerList.reqcompletedate);
-						res.object.dangerList.distributdate = sne.getNowFormatDate2(res.object.dangerList.distributdate);
+						// res.object.dangerList.reqcompletedate = sne.getNowFormatDate(res.object.dangerList.reqcompletedate).replace(/\-/g, "/");
+						// res.object.dangerList.distributdate = sne.getNowFormatDate(res.object.dangerList.distributdate).replace(/\-/g, "/");
 						_this.dangerData = res.object.dangerList;
 						_this.saveParam.copyPerson = JSON.parse(res.object.dangerList.copyPerson);
 						_this.saveParam.unit = _this.dangerData.unit;
@@ -286,7 +279,7 @@ new Vue({
 						_this.saveParam.unitID = _this.dangerData.unitid;
 						_this.saveParam.nonconformity = _this.dangerData.nonconformity;
 						_this.saveParam.hiddenCategory = _this.dangerData.hiddencategory;
-						_this.saveParam.reqCompleteDate = sne.getNowFormatDate2(_this.dangerData.reqcompletedate);
+						_this.saveParam.reqCompleteDate = sne.getNowFormatDate(_this.dangerData.reqcompletedate);
 						$("#hsehiddenlevel").find("input[value='" + _this.dangerData.hsehiddenlevel + "']").attr("checked",
 							"checked");
 						$("#ifModify").find("input[value='" + _this.dangerData.ifModify + "']").attr("checked", "checked");
@@ -699,6 +692,17 @@ new Vue({
 		closeImg: function() {
 			_this.imgList = "";
 			_this.imageList = "";
-		}
+		},
+        goCs: function() {
+            sne.navigateTo({
+            	url: "./chaoSong_1.html",
+            	id: "chaoSong_1.html",
+            	data: {
+            		params: {
+            			pageType: "back"
+            		}
+            	}
+            })
+        }
 	}
 })
