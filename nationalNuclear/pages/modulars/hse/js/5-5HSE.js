@@ -46,6 +46,11 @@ new Vue({
                 mui.alert("上次延期还未处理");
                 return;
             }
+            if(_this.delayNum < 10) {
+                var recordNo = "0"+(parseInt(_this.delayNum)+1);
+            } else {
+                var recordNo = parseInt(_this.delayNum)+1;
+            }
 			var param = {
 				"userId" : app.loginInfo.userId,
 				"userName": app.loginInfo.name,
@@ -57,7 +62,8 @@ new Vue({
 				"delayToApplyForDec": _this.voiceVal,
 				"delayToApplyForDate": _this.delayDate,
                 "delayNum": _this.delayNum,
-                "recordNo": _this.delayParam.recordNo
+                "recordNo":_this.delayParam.recordNo+'-'+recordNo
+                // "recordNo":_this.delayParam.recordNo
 			}
             if(param.delayToApplyForDec == "") {
                 mui.alert("请填写延期原因");

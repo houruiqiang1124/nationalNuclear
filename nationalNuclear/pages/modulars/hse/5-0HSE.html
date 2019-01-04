@@ -117,7 +117,7 @@
 									<a class="mui-btn mui-btn-red">删除</a>
 								</div>
 								<div class="mui-slider-handle" @tap="goDetail(item)">
-									<p class="title">项目:{{item.projNo}};检查单编号:{{item.recordNo}}</p>
+									<p class="title">项目:{{item.projNo}};&nbsp;{{item.stepId ==500 ? '延期申请编号':'检查单编号'}}:{{item.recordNo}}</p>
 									<p>业务名称：{{item.checkForm}}</p>
 									<p>当前流程节点：{{item.stepName}}</p>
 									<p>发起人：{{item.draftPerson}}&emsp;{{item.draftDate.time}}</p>
