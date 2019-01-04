@@ -8,19 +8,25 @@ var example1 = new Vue({
 		searchVal:""
     },
     mounted: function() {
-		mui.ready(function() {
-				var header = document.querySelector('header.mui-bar');
-				var list = document.getElementById('list');
-				list.style.height = (window.screen.height - header.offsetHeight) + 'px';
-				//create
-				window.indexedList = new mui.IndexedList(list);
-			});
-        _this = this;
-        _this.getMail();
-		sne.quit();
+		_this = this;
+		function plusReady() {
+			var header = document.querySelector('header.mui-bar');
+			var list = document.getElementById('list');
+			list.style.height = (window.screen.height - header.offsetHeight) + 'px';
+			//create
+			window.indexedList = new mui.IndexedList(list);
+			 _this.getMail();
+			 sne.quit();
+		}
+		if (window.plus) {
+			plusReady()
+		} else {
+			document.addEventListener('plusready', plusReady, false);
+		}
     },
     methods: {
         getMail: function() {
+			plus.nativeUI.showWaiting();
 			var indexs = new Array();
 			var arr = new Array(); //[{index:"a",citys:[{Nmae:"广州市"}]}];
             mui.ajax(app.mkeyUrl+'mailList.json',{
@@ -29,8 +35,8 @@ var example1 = new Vue({
             	},
             	dataType:'json',//服务器返回json格式数据
             	type:'get',//HTTP请求类型
-            	timeout:10000,//超时时间设置为10秒；
-            	success:function(data){ 
+            	timeout:50000,//超时时间设置为10秒；
+            	success:function(data){
             		// console.log(JSON.stringify(data));
 					var data = data.list;
 					for(var i = 0; i < data.length; i++) {
@@ -55,10 +61,12 @@ var example1 = new Vue({
 						});
 					}
 					_this.list = arr;
+					plus.nativeUI.closeWaiting();
                     _this.mailList = data;
                     _this.allList = data;
             	},
             	error:function(xhr,type,errorThrown){
+					plus.nativeUI.closeWaiting();
             		console.log(type)
             	}
             });
@@ -73,12 +81,14 @@ var example1 = new Vue({
             plus.messaging.sendMessage(msg);
         },
 		searchName:function(event){
+			_this.searchVal = $("#searchVal").val();
 			if (event.keyCode == 13) { //如果按的是enter键 13是enter
 				event.preventDefault(); //禁止默认事件（默认是换行） 
 				console.log("===搜索内容==="+_this.searchVal);
 				if(_this.searchVal == ""){
 					plus.webview.currentWebview().reload();
 				}else{
+					plus.nativeUI.showWaiting();
 					var indexs = new Array();
 					var arr = new Array(); //[{index:"a",citys:[{Nmae:"广州市"}]}];
 					var data = _this.allList;
@@ -105,6 +115,7 @@ var example1 = new Vue({
 					}
 					_this.list = arr;
 					$("input[type=search]").blur();
+					plus.nativeUI.closeWaiting();
 // 					var mailList1 = _this.allList.slice(0);
 // 					var arr = [];
 // 					for(var i =0;i<mailList1.length;i++){
