@@ -114,7 +114,7 @@ new Vue({
         	var param = {
         		"projNo": app.loginInfo.projNo,
         		// "userName": app.loginInfo.userName
-        		"userName": _this.serchVal
+        		"userName": _this.serchVal.toUpperCase()
         	}
         	app.ajax({
         		url: app.INTERFACE.getCopyPerson,

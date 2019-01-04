@@ -96,6 +96,7 @@
                                         <p><span>纠正措施要求：</span><span>{{dangerData.correctiverequest}}</span></p>
                                         <p><span>抄送：</span><span v-for="(item,index) in submitParam.copyPerson">{{item.name}}&nbsp;</span></p>
                                         <p><span>整改责任人：</span><span>{{dangerData.responsibleperson}}&nbsp;</span></p>
+                                        <p><span>延期次数：</span><span>{{delayNum}}&nbsp;</span></p>
                                         <div class="fj-content">
                                             <span>
                                                 <font class="mui-icon mui-icon-paperclip"></font>附件:
@@ -227,6 +228,20 @@
                                     </div>
                                 </li>
                             </ul>
+                            
+                            <!-- 延期申请 -->
+                            <ul class="mui-table-view hse-sub1" v-show="showMdelay">
+                                <li class="mui-table-view-cell mui-collapse">
+                                    <a class="mui-navigate-right" href="#"><span>延期申请</span></a>
+                                    <div class="mui-collapse-content">
+                                        <p><span>原日期：</span><span>{{dangerData.reqcompletedate}}</span></p>
+                                        <p><span>延期后日期：</span><span>{{listParam.delayToApplyForDate}}</span></p>
+                                        <p><span>延期原因：</span><span>{{listParam.delayToApplyForDec}}</span></p>
+                                    </div>
+                                </li>
+                            
+                            </ul>
+                            
                             <nav class="mui-bar mui-bar-tab list-btns" v-show="showButton">
                                 <button type="button" class="mui-btn mui-btn-blue size" @tap="submit">提交</button>
                                 <button type="button" class="mui-btn mui-btn-blue size" @tap="findForwarding">转发</button>

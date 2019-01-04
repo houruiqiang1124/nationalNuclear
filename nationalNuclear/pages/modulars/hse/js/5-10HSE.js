@@ -20,6 +20,7 @@ new Vue({
 		showYanBtn: false, // 是否显示整改验证按钮
 		showDelay: false,
 		showDelayBtn: false, //  是否显示底部延期申请通按钮
+        showMdelay: false,  // 是否显示延期申请模块
 		showLuRu: true,
         showFileImg: false, // 是否显示整改图片
         showImg: true,
@@ -31,6 +32,7 @@ new Vue({
 		closeDate: "", //关闭日期
 		disabled1: false, // 是否可以输入
 		disabled2: false, // 是否可以输入
+        delayNum: 0,    //延期申请次数
 		submitParam: { // 录入提交
 			"traceId": "", // 流转表单id
 			"instanceId": "", // 实例id
@@ -72,7 +74,7 @@ new Vue({
 			_this.requestData();
 			_this.init();
 			_this.flowData();
-
+            _this.findDelayNum();
 			// _this.getCopyPerson();
 			window.addEventListener('custom', function(e) {
 				_this.submitParam.responsiblePerson = e.detail.name;
@@ -152,12 +154,14 @@ new Vue({
 						_this.showButton = false;
 						_this.showDelayBtn = true;
 						_this.showLuRu = false;
+                        _this.showMdelay = true;
 					}
 					break;
 				case '1':
                     _this.showDel = false;
 					_this.disabled1 = true;
                     _this.showadd = false;
+                    _this.showMdelay = true;
 					_this.submitParam.rectificationSituation = this.listParam.rectificationSituation;
 					_this.submitParam.responsiblePerson = this.listParam.responsiblePerson;
 					if (this.listParam.completeDate) {
@@ -211,6 +215,7 @@ new Vue({
 			_this.showVerify = true;
 			_this.showButton = false;
             _this.disabled2 = true;
+            _this.showMdelay = true;
 			_this.submitParam.responsiblePerson = this.listParam.responsiblePerson;
 			_this.submitParam.rectificationSituation = this.listParam.rectificationSituation;
 			_this.submitParam.completeDate = _this.listParam.completeDate ? sne.getNowFormatDate(this.listParam.completeDate.time) : "";
@@ -709,6 +714,21 @@ new Vue({
 		closeImg: function() {
 			_this.fileImg = "";
             _this.showFileImg = false;
-		}
+		},
+        // 获取延期申请次数
+        findDelayNum: function() {
+            app.ajax({
+                url: app.INTERFACE.findDelayNum,
+                data: {
+                   "dangerId" : _this.listParam.dangerId,
+                   "checkId" :_this.listParam.id,
+                },
+                success: function(res) {
+                    if(res.object.resultCode == 0) {
+                        _this.delayNum = res.object.num
+                    }
+                }
+            })
+        }
 	}
 })
