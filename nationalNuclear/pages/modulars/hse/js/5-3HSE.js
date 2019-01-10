@@ -2,8 +2,11 @@ var _this = this;
 new Vue({
 	el: "#app",
 	data: {
-		imgList: "", // 附件 base64
-		imageList: "", // 附件 文件
+		imgList: [], // 附件 base64
+		imageList: [], // 附件 文件
+		imageFlag: true,
+		imgName: [],
+		imgAddress: [],
 		showImg: false,
 		prevParam: {}, // 上个页面过来的参数
 		personType: 0, // 判断是责任还是抄送 0责任  1抄送
@@ -155,7 +158,10 @@ new Vue({
 			_this.getInspectedUnit();
 			_this.getHazardTypeList();
 			// 			_this.getCopyPerson();
-
+			console.log("_this.imageList：======="+_this.imageList)
+// 			localStorage.removeItem("imgName")
+// 			localStorage.removeItem("imgAddress")
+// 			localStorage.removeItem("imageList")
 			window.addEventListener('custom', function(e) {
 				if (_this.personType == 0) {
 					_this.saveParam.responsiblePerson = e.detail.name;
@@ -191,11 +197,11 @@ new Vue({
 				console.log(JSON.stringify(event.detail))
 			})
 		}
-        window.addEventListener("CC", function(e) {
-            var detail = JSON.parse(e.detail.param);
-            var newArr = _this.getArrDifference(_this.saveParam.copyPerson, detail)
-             _this.saveParam.copyPerson = newArr;
-        })
+		window.addEventListener("CC", function(e) {
+			var detail = JSON.parse(e.detail.param);
+			var newArr = _this.getArrDifference(_this.saveParam.copyPerson, detail)
+			_this.saveParam.copyPerson = newArr;
+		})
 		if (window.plus) {
 			plusReady()
 		} else {
@@ -220,33 +226,33 @@ new Vue({
 				_this.saveParam.checkDate = date;
 				_this.saveParam.checkPerson = app.loginInfo.name;
 				_this.saveParam.checkPersonId = app.loginInfo.userId;
-				_this.saveParam.reqCompleteDate = date.substr(0,10);
+				_this.saveParam.reqCompleteDate = date.substr(0, 10);
 			} else {
 				_this.getDetail();
 			}
 		},
-        
-        getArrDifference: function(array1, array2) {
-            console.log(JSON.stringify(array1))
-             var result = _this.saveParam.copyPerson;
-            for(var i = 0; i < array2.length; i++){
-                var obj = array2[i];
-                var num = obj.id;
-                var isExist = false;
-                for(var j = 0; j < array1.length; j++){
-                    var aj = array1[j];
-                    var n = aj.id;
-                    if(n == num){
-                        isExist = true;
-                        break;
-                    }
-                }
-                if(!isExist){
-                    result.push(obj);
-                }
-            }
-            return result;
-        },
+
+		getArrDifference: function(array1, array2) {
+			console.log(JSON.stringify(array1))
+			var result = _this.saveParam.copyPerson;
+			for (var i = 0; i < array2.length; i++) {
+				var obj = array2[i];
+				var num = obj.id;
+				var isExist = false;
+				for (var j = 0; j < array1.length; j++) {
+					var aj = array1[j];
+					var n = aj.id;
+					if (n == num) {
+						isExist = true;
+						break;
+					}
+				}
+				if (!isExist) {
+					result.push(obj);
+				}
+			}
+			return result;
+		},
 		//获取机组
 		getUnit: function() {
 			var param = {
@@ -346,22 +352,22 @@ new Vue({
 		},
 		// 日期选择
 		checkDate: function(e) {
-            if(e=="reqCompleteDate"){
-                var options = {
-                	"type": "date",
-                	"beginYear": 2014,
-                	"endYear": 2025,
-                	"value": ""
-                };
-            }else{
-              var options = {
-              	// "type": "datatime",
-              	"beginYear": 2014,
-              	"endYear": 2025,
-              	"value": ""
-              };  
-            }
-			
+			if (e == "reqCompleteDate") {
+				var options = {
+					"type": "date",
+					"beginYear": 2014,
+					"endYear": 2025,
+					"value": ""
+				};
+			} else {
+				var options = {
+					// "type": "datatime",
+					"beginYear": 2014,
+					"endYear": 2025,
+					"value": ""
+				};
+			}
+
 			var picker = new mui.DtPicker(options);
 			picker.show(function(rs) {
 				_this.saveParam[e] = rs.text;
@@ -382,11 +388,11 @@ new Vue({
 						name: items[0].text
 					})
 				} else if (e == 'area') {
-                    if(items[1].text) {
-                        _this.saveParam[e] = items[1].text ;
-                    } else {
-                        _this.saveParam[e] = items[0].text ;
-                    }
+					if (items[1].text) {
+						_this.saveParam[e] = items[1].text;
+					} else {
+						_this.saveParam[e] = items[0].text;
+					}
 				} else {
 					_this.saveParam[e] = items[0].text;
 				}
@@ -397,8 +403,9 @@ new Vue({
 		},
 		// 附件上传
 		fileUpLoad: function() {
-			if (_this.imgList.length > 1 || _this.imgList == "null") {
-				mui.toast("暂时只能上传一张")
+			console.log(_this.imgList.length)
+			if (_this.imgList.length >2 || _this.imgList == "null") {
+				mui.toast("只能上传三张")
 				return;
 			}
 			var btns = [{
@@ -454,7 +461,7 @@ new Vue({
 				quality: 20,
 				overwrite: true
 			}, function(e) {
-				_this.imageList = e.target;
+				_this.imageList.push(e.target);
 			}, function(err) {
 				console.error("压缩失败：" + err.message);
 			});
@@ -494,7 +501,7 @@ new Vue({
 				ctx.drawImage(that, 0, 0, w, h);
 				var base64 = canvas.toDataURL('image/jpeg', 1 || 0.8); //1最清晰，越低越模糊。
 				_this.showImg = true;
-				_this.imgList = base64;
+				_this.imgList.push(base64);
 			}
 		},
 		// 上传服务器
@@ -510,12 +517,16 @@ new Vue({
 						plus.nativeUI.closeWaiting();
 						console.log("上传成功：" + t.responseText);
 						var response = JSON.parse(t.responseText).object;
-// 						_this.saveParam.imgName = response.img;
-// 						_this.saveParam.imgAddress = "/" + response.url;
-						localStorage.setItem("imgName",response.img);
-						localStorage.setItem("imgAddress","/" + response.url);
+						// 						_this.saveParam.imgName = response.img;
+						// 						_this.saveParam.imgAddress = "/" + response.url;
+						_this.imgName.push(response.img);
+						_this.imgAddress.push("/" + response.url);
 						fn();
+						// 						localStorage.setItem("imgName",response.img);
+						// 						localStorage.setItem("imgAddress","/" + response.url);
 					} else {
+						fn();
+						_this.imageFlag = false;
 						plus.nativeUI.closeWaiting();
 						console.log("上传失败：" + status);
 					}
@@ -529,25 +540,41 @@ new Vue({
 		},
 		// 提交或保存
 		submit: function(e) { // 0保存 1提交、
-		
+
 			_this.saveParam.state = e;
-// 			if(e == 1){
-// 				_this.sureSubmit(e);
-// 			}else{
-            if(_this.imageList == ""){
-                _this.sureSubmit();
-            }else{
-				_this.upload(_this.imageList, function() {
-					_this.sureSubmit(e);
-				});
-            } 
+			// 			if(e == 1){
+			// 				_this.sureSubmit(e);
+			// 			}else{
+			if (_this.imageList.length == 0) {
+				_this.sureSubmit(e);
+			} else {
+				for (var i = 0; i < _this.imageList.length; i++) {
+					_this.upload(_this.imageList[i],function(){
+						if (_this.imageFlag) {
+							if(_this.imgName.length==_this.imgList.length){
+// 								localStorage.setItem("imgName", _this.imgName.join(','));
+// 								localStorage.setItem("imgAddress", _this.imgAddress.join(','));
+								_this.sureSubmit(e);
+							}
+						} else {
+							i = _this.imageList.length
+							mui.alert("图片上传失败,请重新上传");
+							_this.imageFlag = true;
+							_this.imgName = [];
+							_this.imgAddress = [];
+							return;
+						}
+					});
+				}
+			}
 			// }
 		},
-		sureSubmit:function(e){
-			_this.saveParam.reqCompleteDate = _this.saveParam.reqCompleteDate+" 00:00:00";
-			_this.saveParam.imgName = localStorage.getItem("imgName") || "";
-			_this.saveParam.imgAddress = localStorage.getItem("imgAddress") || "";
-			_this.saveParam.hiddenDoc = _this.imgList;
+		sureSubmit: function(e) {
+			_this.saveParam.reqCompleteDate = _this.saveParam.reqCompleteDate + " 00:00:00";
+			_this.saveParam.imgName = _this.imgName.join(',') || "";
+			_this.saveParam.imgAddress = _this.imgAddress.join(',') || "";
+			console.log(_this.imgList.length)
+			_this.saveParam.hiddenDoc = _this.imgList.join('-');
 			//隐患属性
 			if (_this.saveParam.hiddenCategory == "管理缺陷") {
 				_this.saveParam.hiddenCategory = 0
@@ -573,7 +600,7 @@ new Vue({
 			if (_this.prevParam.type == "list") { // 从草稿过来，调取不同接口；
 				_this.saveParam.dangerId = _this.prevParam.dangerId;
 				_this.saveParam.checkId = _this.prevParam.checkId;
-			
+
 				if (e == 0) {
 					method = app.INTERFACE.draftsSave
 				} else {
@@ -588,30 +615,46 @@ new Vue({
 					data: _this.saveParam,
 					success: function(res) {
 						if (res.object.resultCode == 0) {
+// 							localStorage.removeItem("imgName")
+// 							localStorage.removeItem("imgAddress")
 							mui.toast(e == 0 ? "保存成功" : "提交成功");
 							mui.back();
 							var webview = plus.webview.getWebviewById("5-0HSE.html");
 							var number = 0
 							if (e == 0) {
 								number = 3;
-							}else{
-								if(_this.imageList != ""){
-								    localStorage.removeItem("imgName")
-								    localStorage.removeItem("imgAddress")
-								}
+							} else {
+// 								if (_this.imageList != "") {
+// 									localStorage.removeItem("imgName")
+// 									localStorage.removeItem("imgAddress")
+// 								}
 							}
 							mui.fire(webview, 'refresh', {
 								number: number
 							});
 						}
+					},error:function(xhr,type,errorThrown){
+						_this.imgName = [];
+						_this.imgAddress = [];
+// 						localStorage.removeItem("imgName")
+// 						localStorage.removeItem("imgAddress")
 					}
 				})
 			}
 		},
-		closeImg: function() {
-			_this.imgList = "";
-			_this.imageList = "";
-			_this.showImg = false;
+		closeImg: function(index) {
+			console.log(index)
+			_this.imgList.splice(index, 1);
+            _this.imageList.splice(index, 1);
+// 			_this.imgList = "";
+// 			_this.imageList = "";
+			_this.imgName = [];
+			_this.imgAddress = [];
+			if(_this.imgList.length<=0){
+				_this.showImg = false;
+			}else{
+				_this.showImg = true;
+			}
 		},
 		delCcPersion: function(e) {
 			_this.saveParam.copyPerson.splice(e, 1);
@@ -685,7 +728,7 @@ new Vue({
 						_this.saveParam.keyHidden = "装置性关键隐患";
 					}
 					_this.saveParam.hiddenCategory = res.object.dangerList.hiddencategory;
-					_this.saveParam.reqCompleteDate = sne.getNowFormatDate(dangerList.reqcompletedate).substr(0,10);
+					_this.saveParam.reqCompleteDate = sne.getNowFormatDate(dangerList.reqcompletedate).substr(0, 10);
 					// _this.saveParam.hseHiddenLevel = dangerList.hsehiddenlevel;
 					$("#hsehiddenlevel").find("input[value='" + dangerList.hsehiddenlevel + "']").attr("checked",
 						"checked");
@@ -695,15 +738,16 @@ new Vue({
 					_this.saveParam.responsiblePerson = dangerList.responsibleperson;
 					_this.saveParam.responsiblePersonId = dangerList.responsiblepersonid;
 					_this.saveParam.copyPerson = JSON.parse(dangerList.copyPerson);
-					
-                    if(res.object.dangerList.hiddendoc == null || res.object.dangerList.hiddendoc == "null") {
-                        _this.showImg = false;
-                        _this.imgList = "";
-                    } else {
-                        _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g, "") || "";
-                         _this.showImg = true;
-                    }
-					
+
+					if (res.object.dangerList.hiddendoc == null || res.object.dangerList.hiddendoc == "null") {
+						_this.showImg = false;
+						_this.imgList = "";
+					} else {
+						// _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g, "") || "";
+						_this.imgList = res.object.dangerList.hiddendoc.split('-');
+						_this.showImg = true;
+					}
+
 
 				}
 			})
@@ -721,16 +765,16 @@ new Vue({
 				}
 			})
 		},
-        goCs: function() {
-            sne.navigateTo({
-            	url: "./chaoSong_1.html",
-            	id: "chaoSong_1.html",
-            	data: {
-            		params: {
-            			pageType: "new"
-            		}
-            	}
-            })
-        }
+		goCs: function() {
+			sne.navigateTo({
+				url: "./chaoSong_1.html",
+				id: "chaoSong_1.html",
+				data: {
+					params: {
+						pageType: "new"
+					}
+				}
+			})
+		}
 	}
 })

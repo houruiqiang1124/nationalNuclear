@@ -164,10 +164,10 @@
 										 class="add-more" /> 添加</label>
 									<div class="fj-content fj-content-choose">
 										<div class="fj-img">
-											<div v-show="showImg">
-												<img :src="imgList" data-preview-src="" data-preview-group="1" />
+											<div v-show="showImg" v-for="(item,index) in imgList" :key="index">
+												<img :src="item" data-preview-src="" data-preview-group="1" />
 												<!-- <img id="img" :src="imgList" data-preview-src="" data-preview-group="1" /> -->
-												<b class="mui-icon mui-icon-closeempty" @tap="closeImg"></b>
+												<b class="mui-icon mui-icon-closeempty" @tap="closeImg(index)"></b>
 											</div>
 											<!-- <div>
 												<img src="images/5-3-picture@2x.png" />
