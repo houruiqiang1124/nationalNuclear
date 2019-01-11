@@ -8,8 +8,10 @@ new Vue({
 		imgName: [],
 		imgAddress: [],
 		showImg: false,
+        isNetwork: null,    // 是否有网
 		prevParam: {}, // 上个页面过来的参数
 		personType: 0, // 判断是责任还是抄送 0责任  1抄送
+        saveImg: [],    // 保存离线图片地址
 		saveParam: { // 新建保存和提交传的参数
 			"projNo": "", // 项目
 			"checkDate": "", // 检查日期
@@ -151,6 +153,7 @@ new Vue({
 
 		function plusReady() {
 			mui.previewImage();
+            _this.getNetwork();
 			_this.prevParam = plus.webview.currentWebview().params;
 			_this.init();
 			_this.getUnit();
@@ -211,9 +214,10 @@ new Vue({
 	methods: {
 		// 初始化
 		init: function() {
+            
 			_this.saveParam.userId = app.loginInfo.userId;
 			_this.saveParam.userName = app.loginInfo.name;
-			_this.saveParam.projNo = app.loginInfo.projNo;
+			// _this.saveParam.projNo = app.loginInfo.projNo;
 			_this.saveParam.draftUnit = app.loginInfo.draftUnit;
 			_this.saveParam.draftUnitId = app.loginInfo.organizationId;
 			_this.saveParam.draftDept = app.loginInfo.draftDept;
@@ -222,15 +226,33 @@ new Vue({
 			_this.saveParam.draftPersonId = app.loginInfo.userId;
 			_this.saveParam.draftDate = sne.getNowFormatDate();
 			if (_this.prevParam.type == "new") {
+                _this.getStorage();
 				var date = sne.getNowFormatDate();
 				_this.saveParam.checkDate = date;
 				_this.saveParam.checkPerson = app.loginInfo.name;
 				_this.saveParam.checkPersonId = app.loginInfo.userId;
 				_this.saveParam.reqCompleteDate = date.substr(0, 10);
-			} else {
+			} else if(_this.prevParam.type == "storage") {
+                
+                _this.getStorageList();
+            } else {
 				_this.getDetail();
 			}
+            
 		},
+        // 获取当前设备网络
+        getNetwork: function() {
+            var types = {}; 
+            types[plus.networkinfo.CONNECTION_UNKNOW] = false; 
+            types[plus.networkinfo.CONNECTION_NONE] = false; 
+            types[plus.networkinfo.CONNECTION_ETHERNET] = true; 
+            types[plus.networkinfo.CONNECTION_WIFI] = true; 
+            types[plus.networkinfo.CONNECTION_CELL2G] = true; 
+            types[plus.networkinfo.CONNECTION_CELL3G] = true; 
+            types[plus.networkinfo.CONNECTION_CELL4G] = true;
+            _this.isNetwork = types[plus.networkinfo.getCurrentType()]
+            // alert( "Network: " + types[plus.networkinfo.getCurrentType()] );
+        },
 
 		getArrDifference: function(array1, array2) {
 			console.log(JSON.stringify(array1))
@@ -435,6 +457,9 @@ new Vue({
 			// 				_this.appendFile(path); //处理图片的地方
 			// 			});
 			plus.gallery.pick(function(e) {
+                if(_this.isNetwork == false) {
+                    _this.saveImg.push(e.files[0]);
+                }
 				_this.imagesZip(e.files[0])
 				// $("#img").attr("src",e.target); 
 				// 				console.log(e.files[0])
@@ -461,6 +486,7 @@ new Vue({
 				quality: 20,
 				overwrite: true
 			}, function(e) {
+                console.log("压缩图片"+e.target)
 				_this.imageList.push(e.target);
 			}, function(err) {
 				console.error("压缩失败：" + err.message);
@@ -472,8 +498,12 @@ new Vue({
 			cmr.captureImage(function(p) {
 				plus.io.resolveLocalFileSystemURL(p, function(entry) {
 					var localurl = entry.toLocalURL(); //把拍照的目录路径，变成本地url路径，例如file:///........之类的。
+                    console.log("拍摄图片"+localurl)
 					_this.appendFile(localurl);
 					_this.imagesZip(localurl)
+                    if(_this.isNetwork == false) {
+                        _this.saveImg.push(localurl);
+                    }
 				});
 			}, function(error) {
 				console.log("Capture image failed: " + error.message);
@@ -646,6 +676,9 @@ new Vue({
 			console.log(index)
 			_this.imgList.splice(index, 1);
             _this.imageList.splice(index, 1);
+            if(_this.isNetwork == false) {
+                _this.saveImg.splice(index, 1);
+            }
 // 			_this.imgList = "";
 // 			_this.imageList = "";
 			_this.imgName = [];
@@ -775,6 +808,51 @@ new Vue({
 					}
 				}
 			})
-		}
+		},
+        // 获取缓存默认信息
+        getStorage: function() {
+            var defaultProjNo = JSON.parse(localStorage.getItem("defaultProjNo"));
+            var defaultArea = JSON.parse(localStorage.getItem("defaultArea"))
+            var defaultCrew = JSON.parse(localStorage.getItem("defaultCrew"))
+            var defaultUser = JSON.parse(localStorage.getItem("defaultUser"))
+            var defaultDanger = JSON.parse(localStorage.getItem("defaultDanger"))
+            var defaultUnit = JSON.parse(localStorage.getItem("defaultUnit"))
+            var defaultResponsible = JSON.parse(localStorage.getItem("defaultResponsible"))
+            if(defaultProjNo) {
+                _this.saveParam.projNo = defaultProjNo.projectId;
+            } else {
+                _this.saveParam.projNo = app.loginInfo.projNo;
+            }
+            _this.saveParam.unit = defaultCrew.unitName;
+            _this.saveParam.area = defaultArea.zonoName;
+            _this.saveParam.unitID = defaultUnit.organizeName;
+            _this.saveParam.nonconformity = defaultDanger.hazardTypeName;
+            _this.saveParam.responsiblePerson = defaultResponsible.memberName;
+            _this.saveParam.responsiblePersonId = defaultResponsible.memberId;
+            _this.saveParam.copyPerson = defaultUser;
+        },
+        // 离线缓存
+        offline_save: function() {
+            localStorage.setItem("inspectParam", JSON.stringify(_this.saveParam));
+            localStorage.setItem("inspectImg", JSON.stringify(_this.saveImg));
+        },
+        // 获取离线缓存数据
+        getStorageList: function() {
+            var inspectParam = JSON.parse(localStorage.getItem("inspectParam"));
+            var inspectImg = JSON.parse(localStorage.getItem("inspectImg"));
+            if(inspectImg) {
+                for(var i = 0; i < inspectImg.length; i++) {
+                    _this.appendFile(inspectImg[i]);
+                    _this.imagesZip(inspectImg[i])
+                }
+            }
+            console.log(JSON.stringify(inspectParam))
+            _this.saveParam = inspectParam;
+//             _this.saveParam.projNo = inspectParam.projNo;
+//             _this.saveParam.checkDate = inspectParam.checkDate;
+//             _this.saveParam.checkPerson = inspectParam.checkPerson;
+//             _this.saveParam.projNo = inspectParam.projNo;
+//             _this.saveParam.projNo = inspectParam.projNo;
+        }
 	}
 })

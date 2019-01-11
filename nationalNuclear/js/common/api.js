@@ -1,5 +1,5 @@
 (function(m, app) {
-    const host = "http://10.4.210.110:8081/";  // 测试服务器
+    const host = "http://10.4.210.110:8888/";  // 测试服务器
     // var host = "http://192.168.199.4:8888/";
     // const host = "http://39.105.204.84:8888/";  // 正式
 
@@ -46,6 +46,7 @@
         getHazardTypeList: "webService/getHazardTypeList",    // 获取隐患类型
         getCopyPerson: "webService/getCopyPerson",    // 获取抄送人列表
         getDraftUnitList: "webService/getDraftUnitList",    // 获取责任单位列表
+        getProjectList: "webService/getProjectList",    // 获取项目
         updateHaveRead: "processStatus/updateHaveRead", // 点击已阅
 		webServiceLogin:"webService/getUserMsg",
         retResubmit: "sumbit/retResubmit",   // 代办退回后的提交
@@ -53,6 +54,8 @@
         getHesUserInif: "webService/getHesUserInif",
 		imgUplodNew: host+"uploadPhoto/uploadPicture",//新建上传服务器图片
 		imgUplodChange: host+"uploadPhoto/uploadRectifyFile",//整改上传服务器图片
+        imgUplodNews: host+"uploadPhotos/uploadPictureFiles",//新建上传服务器图片
+		imgUplodChanges: host+"uploadPhotos/uploadRectifyFiles",//整改上传服务器图片
     }
     
     /**
@@ -69,7 +72,7 @@
         	data:  option.data || {},
         	dataType:'json',//服务器返回json格式数据
         	type:option.method || 'POST',//HTTP请求类型
-        	timeout:10000,//超时时间设置为10秒；
+        	timeout:50000,//超时时间设置为10秒；
             headers: {
             	'Content-Type': 'application/json'
             },

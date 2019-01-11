@@ -6,7 +6,8 @@ new Vue({
 		data: [],
 		pageNo: 0,
 		limit: "10",
-		currentCode: "0"
+		currentCode: "0",
+        inspectParam: {}
 	},
 	mounted: function() {
 		_this = this;
@@ -125,7 +126,7 @@ new Vue({
 		},
 		//切换导航栏
 		changeList: function(param) {
-            
+            _this.storageList();
             var index = 0;
             if(param == 0) {
                 index = 0;
@@ -175,6 +176,19 @@ new Vue({
 		},
 		// 去详情
 		goDetail: function(e) {
+            if(e == "storage") {
+                var  param = {
+                    type: "storage",
+                }
+                sne.navigateTo({
+                	url: "5-3HSE.html",
+                	id: "5-3HSE.html",
+                	data:{
+                        params: param
+                    }
+                })
+                return;
+            };
             if(_this.currentCode == 3) {
                 var  param = {
                     type: "list",
@@ -280,6 +294,14 @@ new Vue({
                     _this.pulldownRefresh();
                 }
             })
+        },
+        // 离线缓存拼接
+        storageList: function() {
+            var inspectParam = JSON.parse(localStorage.getItem("inspectParam"));
+            console.log(JSON.stringify(inspectParam))
+            if(inspectParam) {
+                _this.inspectParam = inspectParam;
+            }
         }
 	}
 })

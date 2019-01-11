@@ -23,7 +23,7 @@
 				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 				<h1 class="mui-title">流程办理</h1>
 				<span class="mui-pull-right mui-btn-link">
-					<!-- <img src="images/5-0-set up@2x.png" @click="hseSet" /> -->
+					<img src="images/5-0-set up@2x.png" @click="hseSet" />
 					<img src="images/5-0-add@2x.png" @click="newCheck" />
 				</span>
 			</header>
@@ -157,6 +157,19 @@
 								</div>
 							</li> -->
 						</ul>
+                        <ul class="mui-table-view" v-show="currentCode == 3">
+                        	<li class="mui-table-view-cell" >
+                        		<div class="mui-slider-right mui-disabled" v-show="currentCode == 3">
+                        			<a class="mui-btn mui-btn-red">删除</a>
+                        		</div>
+                        		<div class="mui-slider-handle" @tap="goDetail('storage')">
+                        			<p class="title">项目:{{inspectParam.projNo}}</p>
+                        			<p>业务名称：日常检查</p>
+                        			<p>当前流程节点：</p>
+                        			<p>发起人：{{inspectParam.draftPerson}}&emsp;{{inspectParam.draftDate}}</p>
+                        		</div>
+                        	</li>
+                        </ul>
 					</div>
 				</div>
 			</div>
