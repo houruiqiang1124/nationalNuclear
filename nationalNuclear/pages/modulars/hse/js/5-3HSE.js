@@ -158,7 +158,7 @@ new Vue({
 			_this.getInspectedUnit();
 			_this.getHazardTypeList();
 			// 			_this.getCopyPerson();
-			console.log("_this.imageList：======="+_this.imageList)
+			// console.log("_this.imageList：======="+_this.imageList)
 // 			localStorage.removeItem("imgName")
 // 			localStorage.removeItem("imgAddress")
 // 			localStorage.removeItem("imageList")
@@ -403,7 +403,7 @@ new Vue({
 		},
 		// 附件上传
 		fileUpLoad: function() {
-			console.log(_this.imgList.length)
+			// console.log(_this.imgList.length)
 			if (_this.imgList.length >2 || _this.imgList == "null") {
 				mui.toast("只能上传三张")
 				return;
@@ -514,7 +514,6 @@ new Vue({
 				},
 				function(t, status) { //上传完成
 					if (status == 200) {
-						plus.nativeUI.closeWaiting();
 						console.log("上传成功：" + t.responseText);
 						var response = JSON.parse(t.responseText).object;
 						// 						_this.saveParam.imgName = response.img;
@@ -551,7 +550,7 @@ new Vue({
 				for (var i = 0; i < _this.imageList.length; i++) {
 					_this.upload(_this.imageList[i],function(){
 						if (_this.imageFlag) {
-							if(_this.imgName.length==_this.imgList.length){
+							if(_this.imgName.length==_this.imageList.length){
 // 								localStorage.setItem("imgName", _this.imgName.join(','));
 // 								localStorage.setItem("imgAddress", _this.imgAddress.join(','));
 								_this.sureSubmit(e);
@@ -570,10 +569,11 @@ new Vue({
 			// }
 		},
 		sureSubmit: function(e) {
+			plus.nativeUI.closeWaiting();
 			_this.saveParam.reqCompleteDate = _this.saveParam.reqCompleteDate + " 00:00:00";
 			_this.saveParam.imgName = _this.imgName.join(',') || "";
 			_this.saveParam.imgAddress = _this.imgAddress.join(',') || "";
-			console.log(_this.imgList.length)
+			// console.log(_this.imgList.length)
 			_this.saveParam.hiddenDoc = _this.imgList.join('-');
 			//隐患属性
 			if (_this.saveParam.hiddenCategory == "管理缺陷") {
@@ -595,7 +595,7 @@ new Vue({
 			}
 			_this.saveParam.ifModify = $("input[name='ifModify']:checked").val();
 			_this.saveParam.hseHiddenLevel = $("input[name='choose']:checked").val();
-			console.log($("input[name='ifModify']:checked").val())
+			// console.log($("input[name='ifModify']:checked").val())
 			var method = "";
 			if (_this.prevParam.type == "list") { // 从草稿过来，调取不同接口；
 				_this.saveParam.dangerId = _this.prevParam.dangerId;
@@ -643,7 +643,6 @@ new Vue({
 			}
 		},
 		closeImg: function(index) {
-			console.log(index)
 			_this.imgList.splice(index, 1);
             _this.imageList.splice(index, 1);
 // 			_this.imgList = "";

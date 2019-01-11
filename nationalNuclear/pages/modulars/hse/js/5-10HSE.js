@@ -4,9 +4,12 @@ new Vue({
 	data: {
         title: "",
 		showTab: true,
-		imgList: "", // 附件 base64
-		imageList: "", // 附件 文件
-		fileImg: "", // 整改录入上传图片
+		imgList: [], // 附件 base64
+		imageList: [], // 附件 文件
+		fileImg: [], // 整改录入上传图片
+		imageFlag: true,
+		imgName: [],
+		imgAddress: [],
 		// recordNo:"",
 		data: [], //流转信息
 		listParam: {}, // 列表数据
@@ -250,9 +253,18 @@ new Vue({
 							res.object.dangerList.keyHidden = "装置性关键隐患";
 						}
 						res.object.dangerList.ifModify = res.object.dangerList.ifModify == 0 ? "是" : "否"
-						console.log(res.object.dangerList.ifModify)
-                        _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g, "")
-						_this.fileImg = JSON.stringify(res.object.dangerList.returndoc).replace(/"/g, "")
+						if(res.object.dangerList.hiddendoc == null){
+							res.object.dangerList.hiddendoc = "";
+						}
+						if(res.object.dangerList.returndoc == null){
+							res.object.dangerList.returndoc = "";
+						}
+						_this.imgList = res.object.dangerList.hiddendoc.split('-');
+						if(_this.listParam.stepId == "300"){
+							_this.fileImg = res.object.dangerList.returndoc.split('-');
+						}
+                        // _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g, "")
+						// _this.fileImg = JSON.stringify(res.object.dangerList.returndoc).replace(/"/g, "")
 						// res.object.dangerList.hiddenDoc = JSON.stringify(res.object.dangerList.hiddenDoc).replace(/"/g,"")
 						res.object.dangerList.reqcompletedate = sne.getNowFormatDate(res.object.dangerList.reqcompletedate).substr(0,10);
 						res.object.dangerList.distributdate = sne.getNowFormatDate(res.object.dangerList.distributdate);
@@ -261,12 +273,12 @@ new Vue({
 						_this.confirmation = res.object.dangerList.comfirmcontent;
 						//                         _this.closePerson = res.object.dangerList.closeperson;
 						//                         _this.closeDate = res.object.dangerList.closedate;
-                        if(_this.fileImg == "null") {
+                        if(_this.fileImg == "null" || _this.fileImg == "") {
                             _this.showFileImg = false;
                         } else {
                             _this.showFileImg = true;
                         }
-                        if(_this.imgList == "null") {
+                        if(_this.imgList == "null" || _this.imgList == "") {
                             _this.showImg = false;
                         } else {
                             _this.showImg = true;
@@ -362,18 +374,35 @@ new Vue({
 		},
         // 提交或保存
         submit: function() {
-            if(_this.imageList == ""){
+            if(_this.imageList.length == 0){
                 _this.sureSubmit();
             }else{
-                _this.upload(_this.imageList, function() {
-                    _this.sureSubmit();
-                });
+				for (var i = 0; i < _this.imageList.length; i++) {
+					_this.upload(_this.imageList[i],function(){
+						if (_this.imageFlag) {
+							if(_this.imgName.length==_this.fileImg.length){
+								_this.sureSubmit();
+							}
+						} else {
+							i = _this.imageList.length
+							mui.alert("图片上传失败,请重新上传");
+							_this.imageFlag = true;
+							_this.imgName = [];
+							_this.imgAddress = [];
+							return;
+						}
+					});
+				}
             } 
         },
 		// 待办提交
 		sureSubmit: function() {
-            _this.submitParam.imgName = localStorage.getItem("imgName") || "";
-            _this.submitParam.imgAddress = localStorage.getItem("imgAddress") || "";
+			plus.nativeUI.closeWaiting();
+			_this.submitParam.imgName = _this.imgName.join(',') || "";
+			_this.submitParam.imgAddress = _this.imgAddress.join(',') || "";
+			_this.submitParam.returndoc = _this.fileImg.join('-');
+//             _this.submitParam.imgName = localStorage.getItem("imgName") || "";
+//             _this.submitParam.imgAddress = localStorage.getItem("imgAddress") || "";
             console.log(_this.submitParam.checkForm)
             if (_this.submitParam.checkForm == '日常检查') {
                 _this.submitParam.checkForm = '0'
@@ -408,7 +437,10 @@ new Vue({
                     sne.refreshHome();
                     mui.back();
                     mui.toast("提交成功");
-                },
+                },error:function(xhr,type,errorThrown){
+						_this.imgName = [];
+						_this.imgAddress = [];
+					}
                 })
 		},
 		// 待办退回
@@ -587,6 +619,11 @@ new Vue({
 		},
 		// 附件上传
 		fileUpLoad: function() {
+			console.log(_this.fileImg.length)
+			if (_this.fileImg.length >2 || _this.fileImg == "null") {
+				mui.toast("只能上传三张")
+				return;
+			}
 			var btns = [{
 				title: "拍摄"
 			}, {
@@ -639,6 +676,7 @@ new Vue({
 				plus.io.resolveLocalFileSystemURL(p, function(entry) {
 					var localurl = entry.toLocalURL(); //把拍照的目录路径，变成本地url路径，例如file:///........之类的。
 					_this.appendFile(localurl);
+					_this.imagesZip(localurl)
 				});
 			}, function(error) {
 				console.log("Capture image failed: " + error.message);
@@ -666,9 +704,9 @@ new Vue({
 				ctx.drawImage(that, 0, 0, w, h);
 				var base64 = canvas.toDataURL('image/jpeg', 1 || 0.8); //1最清晰，越低越模糊。
 				_this.showImg = true;
-				_this.fileImg = base64;
+				_this.fileImg.push(base64);
                 _this.showFileImg = true;
-				_this.submitParam.returndoc = base64;
+				// _this.submitParam.returndoc.push(base64);
 				// _this.upload(base64);
 			}
 		},
@@ -680,13 +718,14 @@ new Vue({
 				quality: 20,
 				overwrite: true
 			}, function(e) {
-				_this.imageList = e.target;
+				_this.imageList.push(e.target);
 			}, function(err) {
 				console.error("压缩失败：" + err.message);
 			});
 		},
 		// 上传用友服务器
 		upload: function(src, fn) {
+			plus.nativeUI.showWaiting();
 			var task = plus.uploader.createUpload(app.INTERFACE.imgUplodChange, {
 					method: "POST",
 					blocksize: 204800,
@@ -696,10 +735,15 @@ new Vue({
 					if (status == 200) {
 						console.log("上传成功：" + t.responseText);
 						var response = JSON.parse(t.responseText).object;
-						_this.submitParam.imgName = response.img;
-						_this.submitParam.imgAddress = "/" + response.url;
+// 						_this.submitParam.imgName = response.img;
+// 						_this.submitParam.imgAddress = "/" + response.url;
+						_this.imgName.push(response.img);
+						_this.imgAddress.push("/" + response.url);
 						fn();
 					} else {
+						fn();
+						_this.imageFlag = false;
+						plus.nativeUI.closeWaiting();
 						console.log("上传失败：" + status);
 					}
 				}
@@ -711,9 +755,18 @@ new Vue({
 			task.start();
 		},
 		// 删除图片
-		closeImg: function() {
-			_this.fileImg = "";
-            _this.showFileImg = false;
+		closeImg: function(index) {
+			_this.fileImg.splice(index, 1);
+			_this.imageList.splice(index, 1);
+			_this.imgName = [];
+			_this.imgAddress = [];
+			if(_this.fileImg.length<=0){
+				_this.showFileImg = false;
+			}else{
+				_this.showFileImg = true;
+			}
+// 			_this.fileImg = "";
+//             _this.showFileImg = false;
 		},
         // 获取延期申请次数
         findDelayNum: function() {

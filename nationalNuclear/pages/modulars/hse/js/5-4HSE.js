@@ -3,8 +3,11 @@ new Vue({
 	el: "#app",
 	data: {
 		showTab: true,
-		imgList: "", // 附件
-		imageList: "",
+		imgList: [], // 附件
+		imageList: [],
+		imageFlag: true,
+		imgName: [],
+		imgAddress: [],
 		showImg: false,
 		prevParam: {}, // 上个页面过来的参数
 		data: [], //流转信息
@@ -287,7 +290,15 @@ new Vue({
 						_this.saveParam.correctiveRequest = _this.dangerData.correctiverequest;
 						_this.saveParam.responsiblePerson = _this.dangerData.responsibleperson;
 						_this.saveParam.responsiblePersonId = _this.dangerData.responsiblepersonid;
-                        _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g, "")
+                        // _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g, "")
+						if (res.object.dangerList.hiddendoc == null || res.object.dangerList.hiddendoc == "null") {
+							_this.showImg = false;
+							_this.imgList = "";
+						} else {
+							// _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g, "") || "";
+							_this.imgList = res.object.dangerList.hiddendoc.split('-');
+							_this.showImg = true;
+						}
 						// 						_this.confirmation = res.object.dangerList.comfirmcontent;
 						// 						_this.closePerson = res.object.dangerList.closeperson;
 						// 						_this.closeDate = res.object.dangerList.closedate;
@@ -433,8 +444,9 @@ new Vue({
 		},
 		// 附件上传
 		fileUpLoad: function() {
-			if (_this.imgList.length > 1) {
-				mui.toast("暂时只能上传一张")
+			// console.log(_this.imgList.length)
+			if (_this.imgList.length >2 || _this.imgList == "null") {
+				mui.toast("只能上传三张")
 				return;
 			}
 			var btns = [{
@@ -503,7 +515,7 @@ new Vue({
 				quality: 20,
 				overwrite: true
 			}, function(e) {
-				_this.imageList = e.target;
+				_this.imageList.push(e.target);
 			}, function(err) {
 				console.error("压缩失败：" + err.message);
 			});
@@ -530,8 +542,8 @@ new Vue({
 				ctx.drawImage(that, 0, 0, w, h);
 				var base64 = canvas.toDataURL('image/jpeg', 1 || 0.8); //1最清晰，越低越模糊。
 				_this.showImg = true;
-				_this.imgList = base64;
-				_this.upload(base64);
+				_this.imgList.push(base64);
+				// _this.upload(base64);
 			}
 		},
 		// 上传服务器
@@ -544,15 +556,16 @@ new Vue({
 				},
 				function(t, status) { //上传完成
 					if (status == 200) {
-						plus.nativeUI.closeWaiting();
 						console.log("上传成功：" + t.responseText);
 						var response = JSON.parse(t.responseText).object;
 						// 						_this.saveParam.imgName = response.img;
 						// 						_this.saveParam.imgAddress = "/" + response.url;
-						localStorage.setItem("imgName", response.img);
-						localStorage.setItem("imgAddress", "/" + response.url);
+						_this.imgName.push(response.img);
+						_this.imgAddress.push("/" + response.url);
 						fn();
 					} else {
+						fn();
+						_this.imageFlag = false;
 						plus.nativeUI.closeWaiting();
 						console.log("上传失败：" + status);
 					}
@@ -566,21 +579,40 @@ new Vue({
 		},
 		// 提交或保存
 		submit: function() {
-			if(_this.imageList == ""){
+			if(_this.imageList.length == 0){
 				_this.sureSubmit();
 			}else{
-				_this.upload(_this.imageList, function() {
-					_this.sureSubmit();
-				});
+				for (var i = 0; i < _this.imageList.length; i++) {
+					_this.upload(_this.imageList[i],function(){
+						if (_this.imageFlag) {
+							if(_this.imgName.length==_this.imageList.length){
+// 								localStorage.setItem("imgName", _this.imgName.join(','));
+// 								localStorage.setItem("imgAddress", _this.imgAddress.join(','));
+								_this.sureSubmit();
+							}
+						} else {
+							i = _this.imageList.length
+							mui.alert("图片上传失败,请重新上传");
+							_this.imageFlag = true;
+							_this.imgName = [];
+							_this.imgAddress = [];
+							return;
+						}
+					});
+				}
 			}
 		},
 		// 提交或保存
 		sureSubmit: function() {
-			_this.saveParam.imgName = localStorage.getItem("imgName") || "";
-			_this.saveParam.imgAddress = localStorage.getItem("imgAddress") || "";
+			plus.nativeUI.closeWaiting();
+			_this.saveParam.imgName = _this.imgName.join(',') || "";
+			_this.saveParam.imgAddress = _this.imgAddress.join(',') || "";
+			_this.saveParam.hiddenDoc = _this.imgList.join('-');
+// 			_this.saveParam.imgName = localStorage.getItem("imgName") || "";
+// 			_this.saveParam.imgAddress = localStorage.getItem("imgAddress") || "";
+// 			_this.saveParam.hiddenDoc = _this.imgList;
 			_this.saveParam.ifModify = $("input[name='ifModify']:checked").val();
 			_this.saveParam.hseHiddenLevel = $("input[name='choose']:checked").val();
-			_this.saveParam.hiddenDoc = _this.imgList;
 			if (_this.saveParam.hiddenCategory == "管理缺陷") {
 				_this.saveParam.hiddenCategory = 0
 			} else if (_this.saveParam.hiddenCategory == "人的不安全行为") {
@@ -598,10 +630,6 @@ new Vue({
 					data: _this.saveParam,
 					success: function(res) {
 						if (res.object.resultCode == 0) {
-                            if(_this.imageList != ""){
-                                localStorage.removeItem("imgName")
-                                localStorage.removeItem("imgAddress")
-                            }
 							mui.toast("提交成功");
 							var webview = plus.webview.getWebviewById("5-0HSE.html");
 							var number = 0;
@@ -610,6 +638,9 @@ new Vue({
 							});
 							mui.back();
 						}
+					},error:function(xhr,type,errorThrown){
+						_this.imgName = [];
+						_this.imgAddress = [];
 					}
 				})
 			}
@@ -689,9 +720,18 @@ new Vue({
 			return true;
 		},
 		// 删除图片
-		closeImg: function() {
-			_this.imgList = "";
-			_this.imageList = "";
+		closeImg: function(index) {
+			_this.imgList.splice(index, 1);
+			if(_this.imageList.length>0){
+				_this.imageList.splice(index, 1);
+			}
+			_this.imgName = [];
+			_this.imgAddress = [];
+			if(_this.imgList.length<=0){
+				_this.showImg = false;
+			}else{
+				_this.showImg = true;
+			}
 		},
         goCs: function() {
             sne.navigateTo({
