@@ -666,6 +666,7 @@ new Vue({
 					},error:function(xhr,type,errorThrown){
 						_this.imgName = [];
 						_this.imgAddress = [];
+                        _this.imgList.split('-');
 // 						localStorage.removeItem("imgName")
 // 						localStorage.removeItem("imgAddress")
 					}
@@ -822,18 +823,22 @@ new Vue({
             } else {
                 _this.saveParam.projNo = app.loginInfo.projNo;
             }
-            _this.saveParam.unit = defaultCrew.unitName;
-            _this.saveParam.area = defaultArea.zonoName;
-            _this.saveParam.unitID = defaultUnit.organizeName;
-            _this.saveParam.nonconformity = defaultDanger.hazardTypeName;
-            _this.saveParam.responsiblePerson = defaultResponsible.memberName;
-            _this.saveParam.responsiblePersonId = defaultResponsible.memberId;
-            _this.saveParam.copyPerson = defaultUser;
+            if(defaultCrew) {
+                _this.saveParam.unit = defaultCrew.unitName;
+            }
+            
+            _this.saveParam.area =defaultArea && defaultArea.zonoName;
+            _this.saveParam.unitID =defaultUnit && defaultUnit.organizeName;
+            _this.saveParam.nonconformity =defaultDanger && defaultDanger.hazardTypeName;
+            _this.saveParam.responsiblePerson = defaultResponsible && defaultResponsible.memberName;
+            _this.saveParam.responsiblePersonId = defaultResponsible && defaultResponsible.memberId;
+            _this.saveParam.copyPerson =defaultUser ? defaultUser : [];
         },
         // 离线缓存
         offline_save: function() {
             localStorage.setItem("inspectParam", JSON.stringify(_this.saveParam));
             localStorage.setItem("inspectImg", JSON.stringify(_this.saveImg));
+            mui.back();
         },
         // 获取离线缓存数据
         getStorageList: function() {

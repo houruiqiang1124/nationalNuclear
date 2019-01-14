@@ -38,7 +38,7 @@ new Vue({
         getCopyPerson: function() {
             var project = JSON.parse(localStorage.getItem("defaultProjNo"));
             var param = {
-            	"projNo": project.projectId,
+            	"projNo": project && project.projectId || app.loginInfo.projNo,
             	// "userName": app.loginInfo.userName
             	"userName": ""
             }
