@@ -273,6 +273,7 @@ new Vue({
 						} else if (_this.saveParam.keyHidden == "2") {
 							_this.saveParam.keyHidden = "装置性关键隐患";
 						}
+                        
 						// res.object.dangerList.reqcompletedate = sne.getNowFormatDate(res.object.dangerList.reqcompletedate).replace(/\-/g, "/");
 						// res.object.dangerList.distributdate = sne.getNowFormatDate(res.object.dangerList.distributdate).replace(/\-/g, "/");
 						_this.dangerData = res.object.dangerList;
@@ -293,7 +294,7 @@ new Vue({
                         // _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g, "")
 						if (res.object.dangerList.hiddendoc == null || res.object.dangerList.hiddendoc == "null") {
 							_this.showImg = false;
-							_this.imgList = "";
+							_this.imgList = [];
 						} else {
 							// _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g, "") || "";
 							_this.imgList = res.object.dangerList.hiddendoc.split('-');
@@ -624,6 +625,14 @@ new Vue({
 			} else if (_this.saveParam.hiddenCategory == "环境的不安全因素") {
 				_this.saveParam.hiddenCategory = 3
 			}
+            //关键隐患
+            if (_this.saveParam.keyHidden == "管理性关键隐患") {
+            	_this.saveParam.keyHidden = 0
+            } else if (_this.saveParam.keyHidden == "行为性关键隐患") {
+            	_this.saveParam.keyHidden = 1
+            } else if (_this.saveParam.keyHidden == "装置性关键隐患") {
+            	_this.saveParam.keyHidden = 2
+            }
 			if (_this.checkParam()) {
 				app.ajax({
 					url: app.INTERFACE.retResubmit,

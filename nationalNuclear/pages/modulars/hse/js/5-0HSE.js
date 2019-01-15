@@ -213,7 +213,8 @@ new Vue({
                 		traceId: e.actionTraceId,
                 		instanceId: e.instanceId,
                 		dangerId: e.dangerId,
-                		checkId: e.id
+                		checkId: e.id,
+                        data: e.data
                 	};
                 	sne.navigateTo({
                 		url: "5-4HSE.html",

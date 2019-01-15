@@ -30,28 +30,35 @@ new Vue({
             this.forwardParam.userName = app.loginInfo.name;
             this.forwardParam.ownerUserId = this.checkedUser.memberId;
             this.forwardParam.ownerUserName = this.checkedUser.memberName;
-            console
             if(_this.checkedUser.memberId == "" && _this.checkedUser.memberName =="") {
             	mui.alert("请选取人员");
             	return;
             }
-            app.ajax({
-                url: app.INTERFACE.findForwarding,
-                data: this.forwardParam,
-                success: function(res) {
-                    plus.webview.getWebviewById("5-10HSE.html").hide();
-                    plus.webview.getWebviewById("5-10HSE.html").close();
-                    var webview = plus.webview.getWebviewById("5-0HSE.html");
-                    var number=0;
-                    mui.fire(webview,'refresh',{
-                    	number:number
-                    });
-                    sne.refreshHome();
-                    mui.back();
-                    
-                    mui.toast("转发成功");
+            mui.prompt('转发描述','请输入','',['确定','取消'],function(e) {
+                if(e.index == 1) {
+                    return;
                 }
-            })
+                _this.forwardParam.data = e.value;
+                console.log(JSON.stringify(_this.forwardParam))
+                app.ajax({
+                    url: app.INTERFACE.findForwarding,
+                    data: _this.forwardParam,
+                    success: function(res) {
+                        plus.webview.getWebviewById("5-10HSE.html").hide();
+                        plus.webview.getWebviewById("5-10HSE.html").close();
+                        var webview = plus.webview.getWebviewById("5-0HSE.html");
+                        var number=0;
+                        mui.fire(webview,'refresh',{
+                        	number:number
+                        });
+                        sne.refreshHome();
+                        mui.back();
+                        
+                        mui.toast("转发成功");
+                    }
+                })
+            },'div')
+            
         },
         // 取消
         cancel: function() {

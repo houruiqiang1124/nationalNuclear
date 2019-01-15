@@ -445,29 +445,38 @@ new Vue({
 		},
 		// 待办退回
 		back: function() {
-			var param = {
-				"userId": app.loginInfo.userId,
-				"userName": app.loginInfo.name,
-				"actionTraceId": _this.listParam.actionTraceId,
-				"instanceId": _this.listParam.instanceId,
-				"projNo": this.listParam.projNo || "",
-				"recordNo": this.listParam.recordNo || "",
-				"lineNo": this.listParam.lineNo || ""
-			}
-			app.ajax({
-				url: app.INTERFACE.findFefund,
-				data: param,
-				success: function(res) {
-					var webview = plus.webview.getWebviewById("5-0HSE.html");
-					var number = 0;
-					mui.fire(webview, 'refresh', {
-						number: number
-					});
-                    sne.refreshHome();
-					mui.back();
-					mui.toast("退回成功");
-				}
-			})
+            var data = "";
+            mui.prompt('退回描述','请输入','',['确定','取消'],function(e) {
+                console.log(JSON.stringify(e))
+                if(e.index ==1) {
+                    return;
+                }
+                var param = {
+                	"userId": app.loginInfo.userId,
+                	"userName": app.loginInfo.name,
+                	"actionTraceId": _this.listParam.actionTraceId,
+                	"instanceId": _this.listParam.instanceId,
+                	"projNo": _this.listParam.projNo || "",
+                	"recordNo": _this.listParam.recordNo || "",
+                	"lineNo": _this.listParam.lineNo || "",
+                    "data": e.value
+                }
+                console.log(JSON.stringify(param))
+                app.ajax({
+                	url: app.INTERFACE.findFefund,
+                	data: param,
+                	success: function(res) {
+                		var webview = plus.webview.getWebviewById("5-0HSE.html");
+                		var number = 0;
+                		mui.fire(webview, 'refresh', {
+                			number: number
+                		});
+                        sne.refreshHome();
+                		mui.back();
+                		mui.toast("退回成功");
+                	}
+                })
+            },'div')	
 		},
 		// 整改验证按钮
 		isYanBtn(e) {
@@ -498,7 +507,8 @@ new Vue({
 				stepName: this.listParam.stepName || "",
 				stepCode: this.listParam.stepCode || "",
 				checkId: this.listParam.id,
-				checkForm: _this.submitParam.checkForm
+				checkForm: _this.submitParam.checkForm,
+                data: this.confirmation
 			}
 			if (param.comfirmContent == "" || param.comfirmContent==null || param.comfirmContent=="null") {
 				mui.alert("请填写确认情况");
@@ -548,7 +558,8 @@ new Vue({
 				url: app.INTERFACE.findWithdrawTerminate,
 				data: {
 					"userId": app.loginInfo.userId,
-					"checkId": this.listParam.id
+					"checkId": this.listParam.id,
+                    "instanceId": this.listParam.instanceId
 				},
 				success: function(res) {
 					if (res.object.resultCode == 0) {

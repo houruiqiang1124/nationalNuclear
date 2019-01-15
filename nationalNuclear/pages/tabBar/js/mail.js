@@ -8,6 +8,7 @@ var example1 = new Vue({
 		searchVal:""
     },
     mounted: function() {
+        console.log("通讯录")
 		_this = this;
 		function plusReady() {
 			var header = document.querySelector('header.mui-bar');

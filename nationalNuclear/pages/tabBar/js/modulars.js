@@ -3,40 +3,11 @@ new Vue({
 	el: "#app",
 	data: {
 		showDelImg: false,
-		modulars: [{
-				title: "用餐管理",
-				url: "",
-				icon: "../../static/Have_meals.png",
-				id: ""
-			},
+		modulars: [
 			{
-				title: "绩效管理",
+				title: "绩效查询",
 				url: "",
 				icon: "../../static/jixiao.png",
-				id: ""
-			},
-			// 			{
-			// 				title: "公司要闻",
-			// 				url: "../modulars/news/3-1.html",
-			// 				icon: "../../static/news.png",
-			// 				id:"3-1.html"
-			// 			},
-			{
-				title: "车输管理",
-				url: "",
-				icon: "../../static/car.png",
-				id: ""
-			},
-			// 			{
-			// 				title: "公司公告",
-			// 				url: "../modulars/company/2-1.html",
-			// 				icon: "../../static/Notice.png",
-			// 				id:"2-1.html"
-			// 			},
-			{
-				title: "考勤管理",
-				url: "",
-				icon: "../../static/kaoqin.png",
 				id: ""
 			},
             {
