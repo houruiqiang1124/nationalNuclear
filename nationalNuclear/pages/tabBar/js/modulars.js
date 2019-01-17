@@ -6,9 +6,9 @@ new Vue({
 		modulars: [
 			{
 				title: "绩效查询",
-				url: "",
+				url: "../modulars/achievements/achievementsList.html",
 				icon: "../../static/jixiao.png",
-				id: ""
+				id: "achievementsList.html"
 			},
             {
             	title: "员工去向",

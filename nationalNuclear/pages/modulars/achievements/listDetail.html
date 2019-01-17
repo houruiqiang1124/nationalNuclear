@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<link rel="stylesheet" type="text/css" href="../hse/css/5-11HSE-sub1.css" />
+        <style type="text/css">
+        	.noBorder {
+                border: none !important;
+            }
+            
+            .color_black {
+                color: #000000;
+            }
+            
+            .border_bottom {
+                border-bottom: 1px solid #F5F5F5 ;
+            }
+            
+            .bottom_content {
+                margin-top: 0.5rem;
+            }
+            
+            .bottom_top {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 0.8rem;
+            }
+            
+            .bottom_top:last-child {
+                 margin-top: 1rem;
+            }
+            
+            .bottom_top .num_right {
+                padding: 0 0.2rem 0 1rem;
+                background: #C6E0FF;
+                color: #317DD6;
+            }
+            .evaluateText {
+                font-size: 0.8rem;
+            }
+        </style>
+	</head>
+
+	<body>
+		<div id="app">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+                <h1 class="mui-title">绩效详情</h1>
+			</header>
+			<div class="mui-content">
+				<div class="detail">
+					<div class="mui-content">
+                        <div class="form" v-if="showTab">
+                            <!--数据列表-->
+                            <ul class="mui-table-view hse-sub1">
+                                <li class="mui-table-view-cell mui-collapse">
+                                    <a class="mui-navigate-right" href="#"><span>绩效信息-18-02876</span></a>
+                                    <div class="mui-collapse-content">
+                                        <p><span>申请人：</span><span>胡菁云</span></p>
+                                        <p><span>所在部门：</span><span>海洋spmo</span></p>
+                                        <p><span>联系电话：</span><span>0535-3874381</span></p>
+                                        <p><span>申请时间：</span><span>2018-12-25 16:18</span></p>
+
+                                        <p><span>流程状态：</span><span>测试</span></p>
+                                        <p><span>当前步骤：</span><span>测试</span></p>
+                                        <p><span>当前处理人：</span><span>王小明</span></p>
+                                    </div>
+                                </li>
+
+                            </ul>
+
+                            <ul class="mui-table-view hse-sub1">
+                                <li class="mui-table-view-cell mui-collapse">
+                                    <a class="mui-navigate-right" href="#"><span class="noBorder">年度重点任务</span></a>
+                                    <div class="mui-collapse-content">
+                                        <p class="color_black">配合公司完成责任范围内信息系统的上线</p>
+                                        <p>完成时间：2017年12月</p>
+                                        <p>状态：OT</p>
+                                        <p>改进行动：继续跟踪配合公司信息中心的各项活动</p>
+                                        <p>评价：完成的很好</p>
+                                        <p>状态：OT</p>
+                                        
+                                        <p class="border_bottom"></p>
+                                        <p class="color_black">海洋项目信息系统应用自查和内、外部接洽</p>
+                                        <p>完成时间：2017年12月</p>
+                                        <p>状态：OT</p>
+                                        <p>改进行动：继续跟踪配合公司信息中心的各项活动</p>
+                                        <p>评价：完成的很好</p>
+                                        
+                                        <p class="border_bottom"></p>
+                                        <p class="color_black">组织实施海洋项目IT四级以上应急演练</p>
+                                        <p>完成时间：2017年12月</p>
+                                        <p>状态：OT</p>
+                                        <p>改进行动：继续跟踪配合公司信息中心的各项活动</p>
+                                        <p>评价：完成的很好</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            
+                            <ul class="mui-table-view hse-sub1">
+                                <li class="mui-table-view-cell mui-collapse">
+                                    <a class="mui-navigate-right" href="#"><span class="noBorder">员工管理目标</span></a>
+                                    
+                                </li>
+                            </ul>
+                            
+                            <ul class="mui-table-view hse-sub1">
+                                <li class="mui-table-view-cell mui-collapse">
+                                    <a class="mui-navigate-right" href="#"><span class="noBorder">个人发展计划（IDP）</span></a>
+                                    
+                                </li>
+                            </ul>
+                            
+                            <ul class="mui-table-view hse-sub1">
+                                <li class="mui-table-view-cell">
+                                    <a href="#"><span>年度重点任务完成情况总体评价</span></a>
+                                    <div class="bottom_content">
+                                        <p></p>
+                                        <p class="color_black evaluateText">全年任务总体完成不错，有个别部分需要改进，具体需要改进的部门为项目1</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            
+                            <ul class="mui-table-view hse-sub1">
+                                <li class="mui-table-view-cell">
+                                    <a href="#"><span>需改进/可进一步提升方面建议</span></a>
+                                    <div class="bottom_content">
+                                        <p></p>
+                                        <p class="color_black evaluateText">全年任务总体完成不错，有个别部分需要改进，具体需要改进的部门为项目1</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            
+                            <ul class="mui-table-view hse-sub1">
+                                <li class="mui-table-view-cell">
+                                    <div class="bottom_top">
+                                        <span>单项得分</span>
+                                        <span class="num_right">98</span>
+                                    </div>
+                                    <div class="bottom_top">
+                                        <span>年度重点任务完成情况评价（百分制）</span>
+                                        <span class="num_right">98</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+        <script src="../../../js/common/api.js"></script>
+        <script src="../../../js/common/config.js"></script>
+        <script src="../../../js/vue.js"></script>
+	</body>
+
+</html>

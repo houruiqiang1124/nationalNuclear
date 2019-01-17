@@ -1,0 +1,28 @@
+.item_top, .item_bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item_top .badge {
+    padding: 0 0.6rem;
+    background: #007AFF;
+    color: #FFF;
+    font-size: 0.8rem;
+    border-radius: 9px;
+}
+
+.item_top .title {
+    color: #007AFF;
+}
+
+.item_bottom {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+}
+
+.mui-table-view-cell:after {
+    left: 0;
+    height: 8px;
+    background-color: #F4F4F4;
+}

@@ -39,7 +39,6 @@ new Vue({
                     return;
                 }
                 _this.forwardParam.data = e.value;
-                console.log(JSON.stringify(_this.forwardParam))
                 app.ajax({
                     url: app.INTERFACE.findForwarding,
                     data: _this.forwardParam,
@@ -65,8 +64,10 @@ new Vue({
             mui.back();
         },
         radioChange: function(e) {
-            $('input[type=radio]').attr("checked", false);
-            $('input[type=radio][name='+e.value+']').attr("checked", true);
+            for(var i = 0; i < _this.users.length; i++) {
+                _this.users[i].checked = false;
+            }
+            e.checked = true;
             _this.checkedUser = e;
         },
         //获取抄送人列表
@@ -80,6 +81,9 @@ new Vue({
         			url: app.INTERFACE.getCopyPerson,
         			data: param,
         			success: function(res) {
+                        for(var i = 0; i < res.beans.length; i++) {
+                            res.beans[i].checked = false;
+                        }
         				_this.users = res.beans;
         			}
         	})
@@ -89,12 +93,15 @@ new Vue({
         	var param = {
         		"projNo": app.loginInfo.projNo,
         		// "userName": app.loginInfo.userName
-        		"userName": _this.serchVal
+        		"userName": _this.serchVal.toUpperCase()
         	}
         	app.ajax({
         		url: app.INTERFACE.getCopyPerson,
         		data: param,
         		success: function(res) {
+                    for(var i = 0; i < res.beans.length; i++) {
+                        res.beans[i].checked = false;
+                    }
         			_this.users = res.beans;
         		}
         	})

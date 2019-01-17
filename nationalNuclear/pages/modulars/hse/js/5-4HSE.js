@@ -44,7 +44,7 @@ new Vue({
 			"checkId": "",
 			"imgName": "",
 			"imgAddress": "",
-			"keyHidden": "",
+			"keyHidden": "",    // 关键隐患
 			"ifModify": "",
 			"hiddenDoc": "",
 		},
@@ -266,11 +266,11 @@ new Vue({
 							res.object.dangerList.hiddencategory = "环境的不安全因素";
 						}
 						//关键隐患
-						if (_this.saveParam.keyHidden == "0") {
+						if (res.object.dangerList.keyHidden == "0") {
 							_this.saveParam.keyHidden = "管理性关键隐患";
-						} else if (_this.saveParam.keyHidden == "1") {
+						} else if (res.object.dangerList.keyHidden == "1") {
 							_this.saveParam.keyHidden = "行为性关键隐患";
-						} else if (_this.saveParam.keyHidden == "2") {
+						} else if (res.object.dangerList.keyHidden == "2") {
 							_this.saveParam.keyHidden = "装置性关键隐患";
 						}
                         
@@ -606,6 +606,7 @@ new Vue({
 		// 提交或保存
 		sureSubmit: function() {
 			plus.nativeUI.closeWaiting();
+            _this.saveParam.reqCompleteDate = _this.saveParam.reqCompleteDate + " 00:00:00";
 			_this.saveParam.imgName = _this.imgName.join(',') || "";
 			_this.saveParam.imgAddress = _this.imgAddress.join(',') || "";
 			_this.saveParam.hiddenDoc = _this.imgList.join('-');
@@ -645,6 +646,7 @@ new Vue({
 							mui.fire(webview, 'refresh', {
 								number: number
 							});
+                            sne.refreshHome();
 							mui.back();
 						}
 					},error:function(xhr,type,errorThrown){
