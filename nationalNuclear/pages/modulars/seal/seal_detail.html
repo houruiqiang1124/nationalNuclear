@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="../../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="css/seal_detail.css" />
+        
+	</head>
+
+	<body>
+		<div id="app">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+                <h1 class="mui-title">印章使用申请</h1>
+			</header>
+			<div class="mui-content">
+                <div class="search">
+                	<input type="text" name="" id="" value="" v-model="searchValue" placeholder="加签人" />
+                	<div class="mui-pull-right">
+                		<button type="button" class="mui-btn mui-btn-blue mui-btn-outlined" @tap="searchBtn">搜索</button>
+                		<button type="button" class="mui-btn  mui-btn-outlined reast" @tap="retBtn">重置</button>
+                	</div>
+                </div>
+				<div class="detail">
+					<div class="mui-content">
+                        <div class="form">
+                            <!--数据列表-->
+                            <ul class="mui-table-view hse-sub1 write-list">
+                            	<li class="mui-table-view-cell mui-collapse">
+                            		<a class="mui-navigate-right" href="#"><span>机要秘书审批意见</span> </a>
+                            		<div class="mui-collapse-content">
+                                        <div class="opinion_texrarea">
+                                            <i>*</i>填写意见 :
+                                            <textarea name="" rows="" cols="" placeholder="请输入"></textarea>
+                                            <div class="voice" @tap="openVoice(1)">
+                                                <img src="../hse/images/5-3-Voice@2x.png" />
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <br>
+                            		</div>
+                            	</li>
+                            </ul>
+                            
+                            <ul class="mui-table-view hse-sub1">
+                                <li class="mui-table-view-cell mui-collapse">
+                                    <a class="mui-navigate-right" href="#"><span>申请人基本信息</span></a>
+                                    <div class="mui-collapse-content">
+                                        <p><i>*</i><span>申请人：</span><span>胡菁云</span></p>
+                                        <p><i>*</i><span>所在组织：</span><span>海洋spmo</span></p>
+                                        <p><i>*</i><span>所在部门：</span><span>0535-3874381</span></p>
+                                        <p><i>*</i><span>申请时间：</span><span>2018-12-25 16:18</span></p>
+                                        <p><i>*</i><span>联系电话：</span><span>测试</span></p>
+                                    </div>
+                                </li>
+                            </ul>
+                            
+                            <ul class="mui-table-view hse-sub1">
+                                <li class="mui-table-view-cell mui-collapse">
+                                    <a class="mui-navigate-right" href="#"><span>印章申请信息</span></a>
+                                    <div class="mui-collapse-content">
+                                        <p><i>*</i><span>申请类别：</span><span class="mui-pull-right">公司本部</span></p>
+                                        
+                                        <p class="border_bottom"></p>
+                                        <br>
+                                        <div>
+                                            <div class="seal_num">
+                                                <span>国家工程有限公司印章</span>
+                                                <div class="mui-text-right">
+                                                    <input type="" name="" id="" value="" />次
+                                                </div>
+                                            </div>
+                                            <div class="seal_num">
+                                                <span>中共国核工程有限公司委员会印章</span>
+                                                <div class="mui-text-right">
+                                                    <input type="" name="" id="" value="" />次
+                                                </div>
+                                            </div>
+                                            <div class="seal_num">
+                                                <span>中共国核工程有限公司委员会印章</span>
+                                                <div class="mui-text-right">
+                                                    <input type="" name="" id="" value="" />次
+                                                </div>
+                                            </div>
+                                            <div class="seal_num">
+                                                <span>中共国核工程有限公司委员会印章</span>
+                                                <div class="mui-text-right">
+                                                    <input type="" name="" id="" value="" />次
+                                                </div>
+                                            </div>
+                                            <div class="seal_num">
+                                                <span>中共国核工程有限公司委员会印章</span>
+                                                <div class="mui-text-right">
+                                                    <input type="" name="" id="" value="" />次
+                                                </div>
+                                            </div>
+                                            <div class="seal_num">
+                                                <span>中共国核工程有限公司委员会印章</span>
+                                                <div class="mui-text-right">
+                                                    <input type="" name="" id="" value="" />次
+                                                </div>
+                                            </div>
+                                            <div class="seal_num">
+                                                <p class="no_bottom"><i>*</i><span>申请事由：</span></p>
+                                                
+                                            </div>
+                                            <div class="seal_num">
+                                                <p class="no_bottom"><span>外汇支付用章：</span></p>
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            
+                            <ul class="mui-table-view hse-sub1">
+                                <li class="mui-table-view-cell mui-collapse">
+                                    <a class="mui-navigate-right" href="#"><span>附件</span></a>
+                                    <div class="mui-collapse-content">
+                                        <p><a href="#"><font class="mui-icon mui-icon-paperclip"></font>2018-01.pdf</a></p>
+                                        <p><a href="#"><font class="mui-icon mui-icon-paperclip"></font>2018-01.pdf</a></p>
+                                        <p><a href="#"><font class="mui-icon mui-icon-paperclip"></font>2018-01.pdf</a></p>
+                                        <p><a href="#"><font class="mui-icon mui-icon-paperclip"></font>2018-01.pdf</a></p>
+                                    </div>
+                                </li>
+                            </ul>
+                            
+                            <nav class="mui-bar mui-bar-tab list-btns">
+                                <button type="button" class="mui-btn mui-btn-blue">提交</button>
+                                <button type="button" class="mui-btn color_blue">转发</button>
+                                <button type="button" class="mui-btn mui-btn-danger ">退回</button>
+                            </nav>
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+        <script src="../../../js/common/api.js"></script>
+        <script src="../../../js/common/config.js"></script>
+        <script src="../../../js/vue.js"></script>
+	</body>
+
+</html>

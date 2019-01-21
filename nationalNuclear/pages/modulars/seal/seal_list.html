@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="../../../css/common.css"/>
+        <link rel="stylesheet" type="text/css" href="css/seal_list.css"/>
+	</head>
+
+	<body>
+		<div id="app">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">印章审批意见</h1>
+			</header>
+			<div class="mui-content">
+				<!--下拉刷新容器-->
+				<div id="refreshContainer" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<!--数据列表-->
+						<ul class="mui-table-view">
+							<li class="mui-table-view-cell" v-for="(item,index) in list" :key="index">
+									<p class="title">{{item.title}}</p>
+									<p>部门名称：{{item.departmentName}}</p>
+									<p>审批人：{{item.approvalPeople}}</p>
+									<p>审批日期：{{item.approvalDate}}}</p>
+                                    <p class="flex flex_jus_between flex-ali_i_center">
+                                        <span>审批意见：{{item.approvalOpinion}}</span>
+                                        <span class="type">{{item.type}}</span>
+                                    </p>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+		<script src="../../../js/common/api.js"></script>
+		<script src="../../../js/common/config.js"></script>
+        <script src="../../../js/vue.js"></script>
+		<script src="js/seal_list.js"></script>
+	</body>
+</html>

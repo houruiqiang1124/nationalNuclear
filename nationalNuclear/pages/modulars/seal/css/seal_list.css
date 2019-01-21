@@ -1,0 +1,21 @@
+.mui-scroll-wrapper {
+    top: 44px;
+}
+
+.mui-table-view-cell p {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.mui-table-view-cell p.title {
+    font-size: 0.9rem;
+    color: #000000;
+}
+
+.type {
+    padding: 0 0.5rem;
+    font-size: 0.7rem;
+    color: #FFF;
+    background: #007AFF;
+    border-radius: 5px;
+}
