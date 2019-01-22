@@ -51,6 +51,9 @@ new Vue({
             mui('#refreshContainer').pullRefresh().refresh(true);
         },
 		requestData:function (){
+            if(!sne.leaveLogin()) {
+                return;
+            }
 			var params = {};
             if(_this.tabCode == 0) {
                 params.url = app.INTERFACE.noticeUrl
@@ -83,6 +86,9 @@ new Vue({
 			});
 		},
 		searchData: function(){
+            if(!sne.leaveLogin()) {
+                return;
+            }
 			var params = {};
 			params.url = app.INTERFACE.noticeSearchUrl+'?type=1&value=' + encodeURI(encodeURI(_this.searchValue)) + '&systype=5&page=' + _this.page + '&search=' + _this.searchType + '&_dc=' + new Date().getTime();
 					console.log(JSON.stringify(params))

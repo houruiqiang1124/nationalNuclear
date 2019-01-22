@@ -57,14 +57,22 @@
                 	</div>
                     
                     <ul class="mui-table-view">
-                    		<li class="mui-table-view-cell" v-for="(item,index) in daiBanList" :key="index" @tap="goDetail(item)">
+                    		<!-- <li class="mui-table-view-cell" v-for="(item,index) in daiBanList" :key="index" @tap="goDetail(item)">
                     			<div class="mui-slider-handle">
-                    				<p class="title">项目:{{item.projNo}};检查单编号:{{item.recordNo}}</p>
+                    				<p class="title">项目:{{item.title}};检查单编号:{{item.recordNo}}</p>
                     				<p>业务名称：{{item.checkForm}}</p>
                     				<p>当前流程节点：{{item.stepName}}</p>
                     				<p>发起人：{{item.draftPerson}}&emsp;{{item.draftDate.time}}</p>
                     			</div>
-                    		</li>
+                    		</li> -->
+                            <li class="mui-table-view-cell" v-for="(item, index) in daiBanList" :key="index">
+                                <span class="title">{{item.title}}</span>
+                                <p>
+                                    <span><label>{{item.type}}</label></span> 
+                                    <span class="author mui-ellipsis">作者：{{item.initator}}</span>
+                                    <span class="mui-pull-right">{{item.date}}</span>
+                                </p>
+                            </li>
                             <!-- <li class="mui-table-view-cell">
                             	<div class="mui-slider-handle">
                             		<p class="title">项目:sng;检查单编号: swgdsafsda</p>

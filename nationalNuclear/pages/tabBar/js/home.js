@@ -29,7 +29,7 @@ new Vue({
 			// _this.companyNew();
 			// _this.notice();
             _this.toDoList();
-            _this.getBadge();
+            // _this.getBadge();
            
             window.addEventListener("change", function(e) {
                 console.log(true)
@@ -41,7 +41,7 @@ new Vue({
             window.addEventListener("refreshHome", function() {
                 console.log("刷新首页...")
                 _this.toDoList();
-                _this.getBadge();
+                // _this.getBadge();
             })
 		}
 		if (window.plus) { 
@@ -63,55 +63,67 @@ new Vue({
         },
         // 获取待办列表
 		toDoList: function(){
-			var param = {
-				"id": app.loginInfo.userId,
-				"logo": 0, //0-5
-				"start": 0,
-				"limit": "3"
-			}
-			app.ajax({
-				url: app.INTERFACE.findToDo,
-				data: param,
-				success: function(res) {
-					if (res.object.resultCode == "0") {
-						plus.nativeUI.closeWaiting();
-						_this.pageNo+=10;
-						if (!res.beans) {
-							return;
-						}
-						if (res.beans.length >= 1) {
-							var list = res.beans.map((item, index) => {
-								if (item.checkForm == '0') {
-									item.checkForm = '日常检查'
-								} else if (item.checkForm == '1') {
-									item.checkForm = '专项检查'
-								} else if (item.checkForm == '2') {
-									item.checkForm = '综合检查'
-								}
-								if (item.stepId == "500" || item.stepId == "400") {
-									item.recordNo = item.delayToApplyForNo;
-								}
-								item.draftDate.time = sne.getNowFormatDate(item.draftDate.time);
-								item.checkDate.time = sne.getNowFormatDate(item.checkDate.time);
-								if (item.approveDate) {
-									item.approveDate.time = sne.getNowFormatDate(item.approveDate.time);
-								} else {
-									item.approveDate = {
-										time: ""
-									};
-								}
-								return item
-							})
-							if(list.length>3){
-								_this.daiBanList = list.slice(0, 3);
-							}else{
-								_this.daiBanList = list;
-							}
-						}
-					} else {
-					}
-				}
-			})
+            if(!sne.leaveLogin()) {
+                return;
+            }
+            var params = {};
+            params.url =app.INTERFACE.daiBan;
+            mui.mkey.get(params, function(data) {
+            	var jsonStr = data.getElementsByTagName("span")[0].textContent;
+            	var json = JSON.parse(jsonStr);
+            	console.log(jsonStr);
+                _this.daiBanList = json.object.data.slice(0,3);
+                _this.daiBanNum = json.object.pageTotal;
+            });
+// 			var param = {
+// 				"id": app.loginInfo.userId,
+// 				"logo": 0, //0-5
+// 				"start": 0,
+// 				"limit": "3"
+// 			}
+// 			app.ajax({
+// 				url: app.INTERFACE.findToDo,
+// 				data: param,
+// 				success: function(res) {
+// 					if (res.object.resultCode == "0") {
+// 						plus.nativeUI.closeWaiting();
+// 						_this.pageNo+=10;
+// 						if (!res.beans) {
+// 							return;
+// 						}
+// 						if (res.beans.length >= 1) {
+// 							var list = res.beans.map((item, index) => {
+// 								if (item.checkForm == '0') {
+// 									item.checkForm = '日常检查'
+// 								} else if (item.checkForm == '1') {
+// 									item.checkForm = '专项检查'
+// 								} else if (item.checkForm == '2') {
+// 									item.checkForm = '综合检查'
+// 								}
+// 								if (item.stepId == "500" || item.stepId == "400") {
+// 									item.recordNo = item.delayToApplyForNo;
+// 								}
+// 								item.draftDate.time = sne.getNowFormatDate(item.draftDate.time);
+// 								item.checkDate.time = sne.getNowFormatDate(item.checkDate.time);
+// 								if (item.approveDate) {
+// 									item.approveDate.time = sne.getNowFormatDate(item.approveDate.time);
+// 								} else {
+// 									item.approveDate = {
+// 										time: ""
+// 									};
+// 								}
+// 								return item
+// 							})
+// 							if(list.length>3){
+// 								_this.daiBanList = list.slice(0, 3);
+// 							}else{
+// 								_this.daiBanList = list;
+// 							}
+// 						}
+// 					} else {
+// 					}
+// 				}
+// 			})
 		},
         // 获取待办角标
         getBadge: function() {
@@ -130,8 +142,8 @@ new Vue({
         // 待办列表跳转更多
         openPage: function() {
             sne.navigateTo({
-            	url: "../modulars/hse/5-0HSE.html",
-            	id: "5-0HSE.html"
+            	url: "./allDaiBan.html",
+            	id: "allDaiBan.html"
             })
         },
         // 待办跳转详情
@@ -162,48 +174,6 @@ new Vue({
             	})
             }
         },
-        // 公司要闻
-	 	companyNew: function() {
-			var params = {};
-			params.url = app.portalUrl + app.INTERFACE.companyNewUrl;
-			mui.mkey.get(params, function(data) {
-				var jsonStr = data.getElementsByTagName("span")[0].textContent;
-				var json = JSON.parse(jsonStr);
-				_this.daiBanList = json.object.data.slice(0, 3);
-				detail = json.object.data[0].detailUrl;
-				userid = json.object.userid;
-			});
-		},
-        // 公告
-		notice: function() {
-			var params = {};
-			params.url = app.INTERFACE.noticeUrl
-			mui.mkey.get(params, function(data) {
-				var jsonStr = data.getElementsByTagName("span")[0].textContent;
-				var json = JSON.parse(jsonStr);
-				if (json.object.resultCode == 0) {
-					_this.noticeTitle = json.object.data[0].title
-				}
-				detail = json.object.data[0].detailUrl;
-				userid = json.object.userid;
-			});
-		},
-		search: function() {
-			var param = {
-				"id": "PJX",
-				"logo": "5",
-				"start": "0",
-				"limit": "10"
-
-			}
-			app.ajax({
-				url: app.INTERFACE.findToDo,
-				data: param,
-				success: function(res) {
-					console.log(JSON.stringify(res))
-				}
-			})
-		},
         // 跳转设置
         goPage(url,id) {
             sne.navigateTo({

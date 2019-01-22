@@ -2,7 +2,11 @@ var _this = null;
 
 new Vue({
     el: "#app",
-    data: {},
+    data: {
+        list: [],
+        page: 1,
+        searchType:"0",//0:没有搜索 1 搜索过
+    },
     mounted: function() {
         _this = this;
         mui.init({
@@ -24,6 +28,7 @@ new Vue({
         })
         function plusReady(){
             console.log('init');
+            _this.getList();
         }
         if (window.plus) {
             plusReady()
@@ -34,11 +39,59 @@ new Vue({
     methods: {
         // 上拉
         pullupRefresh: function() {
-            
+            _this.page++;
+            _this.getData();
         },
         // 下拉
         pulldownRefresh: function() {
-            console.log('down')
+           _this.list = [];
+           _this.page=1;
+           _this.getData();
+           mui('#refreshContainer').pullRefresh().refresh(true);
+        },
+        getList: function() {
+            if(!sne.leaveLogin()) {
+                return;
+            }
+            var params = {};
+            params.url =app.INTERFACE.daiBan;
+            mui.mkey.get(params, function(data) {
+            	var jsonStr = data.getElementsByTagName("span")[0].textContent;
+            	var json = JSON.parse(jsonStr);
+            	console.log(jsonStr);
+                _this.list = json.object.data;
+            });
+        },
+        
+        // 上拉数据，下拉数据
+        getData: function() {
+            var params = {};
+            var pullParam = '?page=' + _this.page + '&type=&value=&systype=daiban&search=' + _this.searchType + '&targeter=&_dc=' + new Date().getTime();
+            params.url = app.INTERFACE.daiBanPull + pullParam
+            		console.log(JSON.stringify(params))
+            		mui.mkey.get(params, function(data) {
+            			var jsonStr = data.getElementsByTagName("span")[0].textContent;
+            			console.log(jsonStr);
+            			var json = JSON.parse(jsonStr);
+            			if (json.object.resultCode == 0) {
+            				if (!json.object.data) {
+            					return;
+            				}
+            				if (json.object.data.length >= 1) {
+            					_this.list = _this.list.concat(json.object.data);
+            				}
+            				if (json.object.data.length < 10) {
+            					mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+            					mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
+            				} else {
+            					mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+            					mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
+            				}
+            			}else{
+            				mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+            				mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
+            			}
+            		});
         }
     }
 })

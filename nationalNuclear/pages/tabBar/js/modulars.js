@@ -8,14 +8,44 @@ new Vue({
 				title: "绩效查询",
 				url: "../modulars/achievements/achievementsList.html",
 				icon: "../../static/jixiao.png",
-				id: "achievementsList.html"
+				id: "achievementsList.html",
+                type: "enterprise"  // 企业应用
 			},
             {
             	title: "员工去向",
             	url: "../modulars/company/4-1staff.html",
             	icon: "../../static/yuangongquxiang.png",
-            	id: "4-1staff.html"
+            	id: "4-1staff.html",
+                type: "enterprise"
             },
+            {
+            	title: "印章审批",
+            	url: "",
+            	icon: "../../static/yingZang.png",
+            	id: "4-1staff.html",
+                type: "enterprise"
+            },
+//             {
+//             	title: "收发文审批",
+//             	url: "",
+//             	icon: "../../static/yuangongquxiang.png",
+//             	id: "4-1staff.html",
+//                 type: "enterprise"
+//             },
+            {
+            	title: "文件编&文件分发审批",
+            	url: "",
+            	icon: "../../static/fenFa.png",
+            	id: "4-1staff.html",
+                type: "enterprise"
+            },
+            {
+            	title: "HSE监督检查",
+            	url: "../modulars/hse/5-0HSE.html",
+            	icon: "../../static/hse.png",
+            	id: "5-0HSE.html",
+                type: "engineering" // 工程应用
+            }
 		],
 		myModulars: [
             

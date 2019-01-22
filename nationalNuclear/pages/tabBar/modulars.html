@@ -58,30 +58,38 @@
 			<div class="line"></div>
 			<div class="shoose-label">
 				<p class="title">
-					协同应用
+					企业应用
 					<span class="mui-pull-right tipcs">长按图标即可添加到我的应用</span>
 				</p>
 				<ul class="mui-table-view mui-grid-view mui-grid-9 allApp">
-                    <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" v-for="(item, index) in modulars" :key="index" @tap="goPgae(item)"  @longtap="clearLoop(index)">
+                    <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" 
+                        v-for="(item, index) in modulars" :key="index" 
+                        @tap="goPgae(item)"  
+                        @longtap="clearLoop(index)"
+                        v-if="item.type == 'enterprise'">
                     	<span class="mui-icon"><img :src="item.icon"/></span>
                     	<div class="module-title">{{item.title}}</div>
                     </li>
-					<!-- <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" data-img="../images/5-2-icon1@2x.png" data-info="车辆管理">
-						<span class="mui-icon"><img src="../../static/car.png"/></span>
-						<div class="mui-media-body">车辆管理</div>
-					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" data-img="../images/5-2-icon1@2x.png" data-info="通知公告">
-						<span class="mui-icon"><img src="../../static/Notice.png"/></span>
-						<div class="mui-media-body">通知公告</div>
-					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" data-img="../images/5-2-icon1@2x.png" data-info="考勤管理">
-						<span class="mui-icon"><img src="../../static/kaoqin.png"/></span>
-						<div class="mui-media-body">考勤管理</div>
-					</li> -->
-
 				</ul>
 			</div>
-
+            <div class="line"></div>
+			<div class="shoose-label">
+				<p class="title">
+					工程应用
+					<span class="mui-pull-right tipcs">长按图标即可添加到我的应用</span>
+				</p>
+				<ul class="mui-table-view mui-grid-view mui-grid-9 allApp">
+                    <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" 
+                        v-for="(item, index) in modulars" :key="index" 
+                        @tap="goPgae(item)" 
+                        @longtap="clearLoop(index)"
+                        v-if="item.type == 'engineering'">
+                        
+                    	<span class="mui-icon"><img :src="item.icon"/></span>
+                    	<div class="module-title">{{item.title}}</div>
+                    </li>
+				</ul>
+			</div>
 		</div>
 		<script src="../../js/mui.min.js"></script>
 		<!-- <script src="../../js/jquery-3.1.1.js" type="text/javascript" charset="utf-8"></script> -->

@@ -8,6 +8,9 @@
 
 .mui-table-view-cell p {
     margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .mui-table-view-cell p span {
@@ -15,13 +18,9 @@
     font-size: 12px;
 }
 
-.mui-table-view-cell {
-    padding: 15px 20px;
-}
-
 .mui-table-view-cell p span:first-child {
     display: inline-block;
-    width: 32%;
+    width: 30%;
 }
 
 .mui-table-view-cell p span:first-child label {
@@ -42,4 +41,9 @@
 
 .mui-scroll-wrapper {
     top: 44px;
+}
+
+.author {
+    width: 45%;
+    display: inline-block
 }
