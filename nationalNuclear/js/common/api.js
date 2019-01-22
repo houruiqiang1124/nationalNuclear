@@ -1,5 +1,5 @@
 (function(m, app) {
-    const host = "http://10.4.210.110:8888/";  // 测试服务器
+    const host = "http://10.4.210.110:8081/";  // 测试服务器
     // var host = "http://192.168.199.4:8888/";
     // const host = "http://39.105.204.84:8888/";  // 正式
 
@@ -24,6 +24,8 @@
         companyNewUrlSearch:app.portalUrl+ "/snpec_portal/command/dispatcher/com.snpit.top.portal.snpecportal.cmd.HomePageQueryCommand/queryGroupForMore",  // 要闻搜索
 		noticeSearchUrl: app.portalUrl+'/snpec_portal/command/dispatcher/com.snpit.top.portal.snpecportal.cmd.HomePageQueryCommand/queryGroupForMore',//公告搜索和上下拉
 		employeesGoSearchUrl: app.portalUrl+'/snpec_portal/command/dispatcher/com.snpit.top.portal.snpecportal.cmd.HomePageQueryCommand/queryYgGOForMore',//员工去向搜索和上下拉
+        daiBan: app.portalUrl+'/snpec_portal/jsp/com/snpit/top/portal/snpecportal/gerenMore.jsp?systype=daiban',    // 统一待办
+        daiBanPull: app.portalUrl+'/snpec_portal/command/dispatcher/com.snpit.top.portal.snpecportal.cmd.HomePageQueryCommand/queryDaiBan', // 待办事项上下拉  
 		//hse接口
         findToDo: 'processStatus/findToDo',  // hse列表
         hseBadge: 'processStatus/findProcessStatusCount', // 角标
@@ -56,6 +58,7 @@
 		imgUplodChange: host+"uploadPhoto/uploadRectifyFile",//整改上传服务器图片
         imgUplodNews: host+"uploadPhotos/uploadPictureFiles",//新建上传服务器图片
 		imgUplodChanges: host+"uploadPhotos/uploadRectifyFiles",//整改上传服务器图片
+        
     }
     
     /**
@@ -92,6 +95,9 @@
         	},
         	error:function(xhr,type,errorThrown){
                 plus.nativeUI.closeWaiting();
+                if(typeof option.error == "function") {
+                    option.error(xhr,type,errorThrown)
+                }
                 console.error('【请求错误地址】'+ host + option.url)
         		console.error('【请求错误】' + JSON.stringify(type))
         	}

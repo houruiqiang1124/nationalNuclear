@@ -53,6 +53,8 @@
 			var date = new Date(+new Date(dateee)+8*3600*1000).toISOString().replace(/T/g,' ').replace(/\.[\d]{3}Z/,'')  
          return date;
 	}
+    
+    
 	f.quit = function (){
 		//监听返回键，退出APP
 		var first = null;  
@@ -69,7 +71,20 @@
 				}  
 			}  
 		};
-	}
+	};
+    
+    f.leaveLogin = function() {
+        var types = {}; 
+        types[plus.networkinfo.CONNECTION_UNKNOW] = false; 
+        types[plus.networkinfo.CONNECTION_NONE] = false; 
+        types[plus.networkinfo.CONNECTION_ETHERNET] = true; 
+        types[plus.networkinfo.CONNECTION_WIFI] = true; 
+        types[plus.networkinfo.CONNECTION_CELL2G] = true; 
+        types[plus.networkinfo.CONNECTION_CELL3G] = true; 
+        types[plus.networkinfo.CONNECTION_CELL4G] = true;
+        var isNetwork = types[plus.networkinfo.getCurrentType()];
+        return isNetwork;
+    };
     // 刷新首页
     f.refreshHome = function() {
         var webView = plus.webview.getWebviewById("home.html");
