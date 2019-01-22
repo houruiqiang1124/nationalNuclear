@@ -15,6 +15,7 @@ var vm = new Vue({
         // _this.password = loginInfo.userName || "";
 		function plusReady() {
 			mui.init();
+            _this.leaveLogin()
 			console.log("初始化plusReady"); 
 			_this.username = localStorage.getItem("username") || "";
 		}
@@ -200,6 +201,15 @@ var vm = new Vue({
                     sne.navigateTo({url:"../tabBar/index.html",id:"index.html"})
                 }
             })
+        },
+        leaveLogin: function() {
+            if(!sne.leaveLogin()) {
+                mui.confirm("是否离线登录","",["取消","确定"],function(e) {
+                    if(e.index == 1) {
+                        sne.navigateTo({url:"../tabBar/index.html",id:"index.html"})
+                    }
+                })
+            }
         }
 	}
 })
