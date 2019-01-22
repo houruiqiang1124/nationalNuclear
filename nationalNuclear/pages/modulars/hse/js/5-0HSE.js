@@ -7,7 +7,8 @@ new Vue({
 		pageNo: 0,
 		limit: "10",
 		currentCode: "0",
-        inspectParam: {}
+        inspectParam: {},
+        showUl: false
 	},
 	mounted: function() {
 		_this = this;
@@ -20,6 +21,9 @@ new Vue({
 				_this.changeList(num);
 				_this.getNumber();
 			})
+            window.addEventListener('refresStorageList', function(e) {
+            	_this.storageList();
+            })
 		}
 		if (window.plus) {
 			plusReady()
@@ -126,7 +130,7 @@ new Vue({
 		},
 		//切换导航栏
 		changeList: function(param) {
-            _this.storageList();
+            
             var index = 0;
             if(param == 0) {
                 index = 0;
@@ -152,6 +156,7 @@ new Vue({
             $(".nav-content").eq(index).addClass("actives")
             mui('#refreshContainer').pullRefresh().refresh(true);
             _this.getNumber();
+            _this.storageList();
 		},
 		// hse设置跳转
 		hseSet: function() {
@@ -300,9 +305,20 @@ new Vue({
         storageList: function() {
             var inspectParam = JSON.parse(localStorage.getItem("inspectParam"));
             console.log(JSON.stringify(inspectParam))
-            if(inspectParam) {
+            
+            if(inspectParam && _this.currentCode == 3) {
+                _this.showUl = true;
                 _this.inspectParam = inspectParam;
+            } else {
+                _this.showUl = false;
             }
+        },
+        
+        // 离线数据删除
+        delStorage: function() {
+            localStorage.removeItem("inspectParam");
+            localStorage.removeItem("inspectImg");
+            _this.storageList();
         }
 	}
 })

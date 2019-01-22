@@ -58,3 +58,7 @@
         
         /* box-sizing: border-box; */
     }
+    
+    .nav-content>span:first-child {
+        font-size: 1rem;
+    }

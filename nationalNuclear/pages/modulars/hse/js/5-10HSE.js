@@ -559,7 +559,7 @@ new Vue({
 				data: {
 					"userId": app.loginInfo.userId,
 					"checkId": this.listParam.id,
-                    "instanceId": this.listParam.instanceId
+                    "instanceId": this.listParam.flowInstanceId
 				},
 				success: function(res) {
 					if (res.object.resultCode == 0) {

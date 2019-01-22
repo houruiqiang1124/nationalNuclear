@@ -19,6 +19,9 @@ new Vue({
     },
     methods: {
         getList: function() {
+            if(!sne.leaveLogin()) {
+                return;
+            }
             var params = {};
             params.url = app.portalUrl + app.INTERFACE.companyNewUrl;
             mui.mkey.get(params, function(data) {

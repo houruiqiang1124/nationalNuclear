@@ -38,6 +38,9 @@ new Vue({
 	},
 	methods: {
 		requestData:function (){
+            if(!sne.leaveLogin()) {
+                return;
+            }
 			var params = {};
 			params.url = app.INTERFACE.noticeUrl
 			mui.mkey.get(params, function(data) {
@@ -65,6 +68,9 @@ new Vue({
 			});
 		},
 		searchData: function(){
+            if(!sne.leaveLogin()) {
+                return;
+            }
 			var params = {};
 			params.url = app.INTERFACE.noticeSearchUrl+'?type=1&value=' + encodeURI(encodeURI(_this.searchValue)) + '&systype=5&page=' + _this.page + '&search=' + _this.searchType + '&_dc=' + new Date().getTime();
 					console.log(JSON.stringify(params))

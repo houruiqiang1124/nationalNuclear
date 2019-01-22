@@ -169,30 +169,6 @@ new Vue({
 				if (_this.personType == 0) {
 					_this.saveParam.responsiblePerson = e.detail.name;
 					_this.saveParam.responsiblePersonId = e.detail.id;
-				} else if (_this.personType == 1) {
-					if (_this.saveParam.copyPerson.length < 1) {
-						var Operson = {
-							id: e.detail.id,
-							name: e.detail.name
-						}
-						_this.saveParam.copyPerson.push(Operson)
-					} else {
-						var flag = true;
-						for (var i = 0; i < _this.saveParam.copyPerson.length; i++) {
-							if (_this.saveParam.copyPerson[i].id == e.detail.id) {
-								mui.alert("不能选择相同的抄送人");
-								flag = false;
-								return flag;
-							}
-						}
-						if (flag) {
-							var Operson = {
-								id: e.detail.id,
-								name: e.detail.name
-							}
-							_this.saveParam.copyPerson.push(Operson)
-						}
-					}
 				} else if (_this.personType == 2) {
 					_this.saveParam.checkPerson = e.detail.name;
 					_this.saveParam.checkPersonId = e.detail.id;
@@ -645,6 +621,10 @@ new Vue({
 					data: _this.saveParam,
 					success: function(res) {
 						if (res.object.resultCode == 0) {
+                            if(_this.prevParam.type == "storage") {
+                                localStorage.removeItem("inspectParam");
+                                localStorage.removeItem("inspectImg");
+                            }
 // 							localStorage.removeItem("imgName")
 // 							localStorage.removeItem("imgAddress")
 							mui.toast(e == 0 ? "保存成功" : "提交成功");
@@ -662,11 +642,16 @@ new Vue({
 							mui.fire(webview, 'refresh', {
 								number: number
 							});
+                            
 						}
 					},error:function(xhr,type,errorThrown){
 						_this.imgName = [];
 						_this.imgAddress = [];
-                        _this.imgList.split('-');
+                        if(_this.imgList != "") {
+                            _this.imgList.split('-');
+                        }
+                        
+                        _this.saveParam.reqCompleteDate = _this.saveParam.reqCompleteDate.substr(0,10);
 // 						localStorage.removeItem("imgName")
 // 						localStorage.removeItem("imgAddress")
 					}
@@ -720,10 +705,11 @@ new Vue({
 			} else if (!_this.saveParam.responsiblePerson) {
 				mui.alert("责任整改人不能为空");
 				return false;
-			} else if (_this.saveParam.copyPerson.length < 1) {
-				mui.alert("抄送人不能为空");
-				return false;
-			}
+			} 
+//             else if (_this.saveParam.copyPerson.length < 1) {
+// 				mui.alert("抄送人不能为空");
+// 				return false;
+// 			}
 			return true;
 		},
 		getDetail: function() {
@@ -838,6 +824,8 @@ new Vue({
         offline_save: function() {
             localStorage.setItem("inspectParam", JSON.stringify(_this.saveParam));
             localStorage.setItem("inspectImg", JSON.stringify(_this.saveImg));
+            var view = plus.webview.getWebviewById("5-0HSE.html");
+             mui.fire(view, "refresStorageList",{})
             mui.back();
         },
         // 获取离线缓存数据

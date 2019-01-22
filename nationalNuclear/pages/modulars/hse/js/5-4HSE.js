@@ -724,10 +724,11 @@ new Vue({
 			} else if (!_this.saveParam.responsiblePerson) {
 				mui.alert("责任整改人不能为空");
 				return false;
-			} else if (_this.saveParam.copyPerson.length < 1) {
-				mui.alert("抄送人不能为空");
-				return false;
 			}
+//              else if (_this.saveParam.copyPerson.length < 1) {
+// 				mui.alert("抄送人不能为空");
+// 				return false;
+// 			}
 			return true;
 		},
 		// 删除图片

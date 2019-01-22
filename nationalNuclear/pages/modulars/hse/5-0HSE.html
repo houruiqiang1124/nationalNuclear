@@ -157,9 +157,9 @@
 								</div>
 							</li> -->
 						</ul>
-                        <ul class="mui-table-view" v-show="currentCode == 3">
+                        <ul class="mui-table-view" v-show="showUl">
                         	<li class="mui-table-view-cell" >
-                        		<div class="mui-slider-right mui-disabled" v-show="currentCode == 3">
+                        		<div class="mui-slider-right mui-disabled" @tap="delStorage">
                         			<a class="mui-btn mui-btn-red">删除</a>
                         		</div>
                         		<div class="mui-slider-handle" @tap="goDetail('storage')">

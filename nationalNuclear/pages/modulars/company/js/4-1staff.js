@@ -37,6 +37,9 @@ new Vue({
 	},
 	methods: {
 		requestData:function (){
+            if(!sne.leaveLogin()) {
+                return;
+            }
 			var params = {};
 			params.url = app.INTERFACE.employeesGoUrl
 			mui.mkey.get(params, function(data) {
@@ -64,6 +67,9 @@ new Vue({
 			});
 		},
 		searchData: function(){
+            if(!sne.leaveLogin()) {
+                return;
+            }
 			var params = {};
 			params.url = app.INTERFACE.employeesGoSearchUrl+'?type=' + encodeURI(encodeURI(_this.searchValue)) + '&value=&systype=5&page=' + _this.page + '&search=' + _this.searchType + '&_dc=' + new Date().getTime();
 					console.log(JSON.stringify(params))
