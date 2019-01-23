@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="../../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="css/distribution_detail.css" />
+        
+	</head>
+
+	<body>
+		<div id="app">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+                <h1 class="mui-title">印章使用申请</h1>
+			</header>
+			<div class="mui-content">
+				<div class="detail">
+					<div class="mui-content">
+                        <div class="div_theme">
+                            <p>
+                                <span class="p_title">主题：</span><span>会议纪要</span>
+                            </p>
+                            <p>
+                                <span class="p_title">任务名称：</span><span>批准</span>
+                            </p>
+                            <p>
+                                <span class="p_title">任务说明：</span><span>请提出意见</span>
+                            </p>
+                        </div>
+                        <div class="form">
+                            <!--数据列表-->
+                            <ul class="mui-table-view hse-sub1">
+                                <li class="mui-table-view-cell mui-collapse">
+                                    <a class="mui-navigate-right" href="#"><span>全文件</span></a>
+                                    <div class="mui-collapse-content">
+                                        <p><span>名称：</span><span>胡菁云</span></p>
+                                        <p class="read_flex">
+                                            <span>修改日期：<span>海洋spmo</span></span>
+                                            <span class="read_btn">查看</span>
+                                        </p>
+                                        
+                                        <p class="border_bottom"></p>
+                                        <p><span>名称：</span><span>胡菁云</span></p>
+                                        <p class="read_flex">
+                                            <span>修改日期：<span>海洋spmo</span></span>
+                                            <span class="read_btn">查看</span>
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                            
+                            <ul class="mui-table-view hse-sub1">
+                                <li class="mui-table-view-cell mui-collapse">
+                                    <a class="mui-navigate-right" href="#"><span>关联文件</span></a>
+                                    <div class="mui-collapse-content">
+                                        <p><span>关联文件名称：</span><span>胡菁云</span></p>
+                                        <p><span>流程状态：</span><span>海洋spmo</span></p>
+                                        <p class="read_flex">
+                                            <span>修改日期：<span>海洋spmo</span></span>
+                                            <span class="read_btn">查看</span>
+                                        </p>
+                                        
+                                        <p class="border_bottom"></p>
+                                        <p><span>关联文件名称：</span><span>胡菁云</span></p>
+                                        <p><span>流程状态：</span><span>海洋spmo</span></p>
+                                        <p class="read_flex">
+                                            <span>修改日期：<span>海洋spmo</span></span>
+                                            <span class="read_btn">查看</span>
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                            
+                            <ul class="mui-table-view hse-sub1">
+                                <li class="mui-table-view-cell mui-collapse">
+                                    <a class="mui-navigate-right" href="#"><span>流程日志</span></a>
+                                    <div class="mui-collapse-content">
+                                        <p><span>任务名称：</span><span>关联文件</span></p>
+                                        <p><span>状态：</span><span>MS word Document 8.0-2003</span></p>
+                                        <p><span>动作：</span><span>已关联</span></p>
+                                        <p><span>执行者：</span><span>1.0</span></p>
+                                        <p><span>选人状况：</span><span>关联文件</span></p>
+                                        <p><span>意见：</span><span>MS word Document 8.0-2003</span></p>
+                                        <p><span>接收日期：</span><span>2019-01-22 09:34</span></p>
+                                        <p><span>获取日期：</span><span>2019-01-22 09:34</span></p>
+                                        <p><span>完成日期：</span><span>2019-01-22 09:34</span></p>
+                                    </div>
+                                </li>
+                            </ul>
+                            
+                            <ul class="mui-table-view hse-sub1 write-list" style="margin-bottom: 100px;">
+                            	<li class="mui-table-view-cell">
+                            		<a class="" href="#"><span>办理意见</span> </a>
+                            		<div class="mui-collapse-content">
+                                        <div class="opinion_texrarea">
+                                            <textarea name="" rows="5" cols="" placeholder="请完善申请材料的提交"></textarea>
+                                            <div class="voice" @tap="openVoice(1)">
+                                                <img src="../hse/images/5-3-Voice@2x.png" />
+                                            </div>
+                                        </div>
+                                        <br>
+                            		</div>
+                            	</li>
+                            </ul>
+                            
+                            <nav class="mui-bar mui-bar-tab list-btns">
+                                <button type="button" class="mui-btn mui-btn-blue">提交</button>
+                                <button type="button" class="mui-btn color_blue">委派</button>
+                                <button type="button" class="mui-btn mui-btn-danger ">回退</button>
+                            </nav>
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+        <script src="../../../js/common/api.js"></script>
+        <script src="../../../js/common/config.js"></script>
+        <script src="../../../js/vue.js"></script>
+        <script src="js/distribution_detail.js"></script>
+	</body>
+
+</html>
