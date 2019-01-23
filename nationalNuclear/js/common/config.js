@@ -90,4 +90,47 @@
         var webView = plus.webview.getWebviewById("home.html");
         mui.fire(webView, "refreshHome",{})
     }
+	f.xml2json = function(xml){
+		//将xml字符串转为json  
+		var xotree = new XML.ObjTree();  
+		var json = xotree.parseXML(xml);  
+		//将json对象转为格式化的字符串  
+		var dumper = new JKL.Dumper();  
+		var jsonText = dumper.dump(json);
+		return jsonText;
+	}
+	f.json2xml = function(json){
+		var xotree = new XML.ObjTree();  
+		//将json字符串转为json对象后转为xml字符串  
+		var json = eval("(" + json + ")");  
+		var xml = xotree.writeXML(json);  
+		//使用jkl-dumper.js中的formatXml方法将xml字符串格式化  
+		var xmlText = formatXml(xml); 
+		 return xmlText;
+	}
+	f.xmlAjax = function(param,success,error){
+		plus.nativeUI.showWaiting();
+		console.log('【参数】' + JSON.stringify(param));
+		var url = "http://10.246.4.105:8080/MobileService/ActionServlet";
+		mui.ajax(url,{
+			data: {
+				xml:param
+			},
+			// dataType:'json',//服务器返回json格式数据
+			type:'POST',//HTTP请求类型
+			timeout:50000,//超时时间设置为10秒；
+			success:function(res){
+		        console.log('【请求地址】'+ url)
+		        console.log("【请求成功】" + res)
+		        plus.nativeUI.closeWaiting();
+				success(res);
+			},
+			error:function(xhr,type,errorThrown){
+		        plus.nativeUI.closeWaiting();
+		        console.error('【请求错误地址】'+url)
+				console.error('【请求错误】' + type)
+				error(xhr,type,errorThrown)
+			}
+		});
+	}
 }(mui,window.sne={}))
