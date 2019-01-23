@@ -101,8 +101,9 @@
 	}
 	f.json2xml = function(json){
 		var xotree = new XML.ObjTree();  
-		//将json字符串转为json对象后转为xml字符串  
-		var json = eval("(" + json + ")");  
+		//将json字符串转为json对象后转为xml字符串
+		var jsonText = JSON.stringify(json)
+		var json = eval("(" + jsonText + ")");  
 		var xml = xotree.writeXML(json);  
 		//使用jkl-dumper.js中的formatXml方法将xml字符串格式化  
 		var xmlText = formatXml(xml); 
@@ -111,8 +112,7 @@
 	f.xmlAjax = function(param,success,error){
 		plus.nativeUI.showWaiting();
 		console.log('【参数】' + JSON.stringify(param));
-		var url = "http://10.246.4.105:8080/MobileService/ActionServlet";
-		mui.ajax(url,{
+		mui.ajax(app.edrmsUrl,{
 			data: {
 				xml:param
 			},

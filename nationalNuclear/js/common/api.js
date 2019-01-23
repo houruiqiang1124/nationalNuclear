@@ -10,6 +10,7 @@
 	app.vpnRsa="";
 	app.mkeyUrl = "http://10.4.210.112:8080/snpec/";
     app.protal = "http://10.4.200.59";//门户地址
+	app.edrmsUrl = "http://10.246.4.105:8080/MobileService/ActionServlet";
     
     // 登录信息
     var loginInfo = localStorage.getItem("loginInfo");
