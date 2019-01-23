@@ -90,4 +90,20 @@
         var webView = plus.webview.getWebviewById("home.html");
         mui.fire(webView, "refreshHome",{})
     }
+    
+    // 获取人员信息
+    f.getPhone = function(str, fn) {
+        app.ajax({
+        		url: app.INTERFACE.webServiceLogin,
+        		data: {
+                    "userId": str
+                },
+        		success: function(res) {
+                   fn(res)
+        		},
+                error: function() {
+                    // 、mui.toast("账号或密码错误");
+                }
+        })
+    }
 }(mui,window.sne={}))

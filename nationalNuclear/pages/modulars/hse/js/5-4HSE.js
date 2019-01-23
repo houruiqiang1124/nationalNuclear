@@ -47,6 +47,8 @@ new Vue({
 			"keyHidden": "",    // 关键隐患
 			"ifModify": "",
 			"hiddenDoc": "",
+            "phone": "",    // 整改人手机号
+            "recordNo": ""
 		},
 		// 		        unitList: [{
 		// 		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 1",
@@ -165,30 +167,9 @@ new Vue({
 				if (_this.personType == 0) {
 					_this.saveParam.responsiblePerson = e.detail.name;
 					_this.saveParam.responsiblePersonId = e.detail.id;
-				} else if (_this.personType == 1) {
-					if (_this.saveParam.copyPerson.length < 1) {
-						var Operson = {
-							id: e.detail.id,
-							name: e.detail.name
-						}
-						_this.saveParam.copyPerson.push(Operson)
-					} else {
-						var flag = true;
-						for (var i = 0; i < _this.saveParam.copyPerson.length; i++) {
-							if (_this.saveParam.copyPerson[i].id == e.detail.id) {
-								mui.alert("不能选择相同的抄送人");
-								flag = false;
-								return flag;
-							}
-						}
-						if (flag) {
-							var Operson = {
-								id: e.detail.id,
-								name: e.detail.name
-							}
-							_this.saveParam.copyPerson.push(Operson)
-						}
-					}
+                    sne.getPhone(e.detail.id, function(e) {
+                        _this.saveParam.phone = e.mobile
+                    });
 				} else if (_this.personType == 2) {
 					_this.saveParam.checkPerson = e.detail.name;
 					_this.saveParam.checkPersonId = e.detail.id;
@@ -224,6 +205,7 @@ new Vue({
 			_this.saveParam.instanceId = _this.prevParam.instanceId
 			_this.saveParam.dangerId = _this.prevParam.dangerId
 			_this.saveParam.checkId = _this.prevParam.checkId
+            _this.saveParam.recordNo = _this.prevParam.recordNo
 		},
         // 去重
         getArrDifference: function(array1, array2) {
@@ -291,6 +273,9 @@ new Vue({
 						_this.saveParam.correctiveRequest = _this.dangerData.correctiverequest;
 						_this.saveParam.responsiblePerson = _this.dangerData.responsibleperson;
 						_this.saveParam.responsiblePersonId = _this.dangerData.responsiblepersonid;
+                        sne.getPhone(_this.saveParam.responsiblePersonId, function(e) {
+                            _this.saveParam.phone = e.mobile;
+                        });
                         // _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g, "")
 						if (res.object.dangerList.hiddendoc == null || res.object.dangerList.hiddendoc == "null") {
 							_this.showImg = false;

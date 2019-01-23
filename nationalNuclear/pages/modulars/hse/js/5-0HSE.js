@@ -304,8 +304,6 @@ new Vue({
         // 离线缓存拼接
         storageList: function() {
             var inspectParam = JSON.parse(localStorage.getItem("inspectParam"));
-            console.log(JSON.stringify(inspectParam))
-            
             if(inspectParam && _this.currentCode == 3) {
                 _this.showUl = true;
                 _this.inspectParam = inspectParam;

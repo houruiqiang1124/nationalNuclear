@@ -23,6 +23,9 @@ new Vue({
         // 确定
         ok: function() {
             localStorage.setItem("defaultResponsible",JSON.stringify(_this.checkedUser))
+            sne.getPhone(_this.checkedUser.memberId, function(e) {
+                localStorage.setItem("defaultPhone", e.mobile);
+            });
             mui.back();
         },
         // 选中人员
