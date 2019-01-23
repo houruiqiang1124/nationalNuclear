@@ -334,7 +334,7 @@ button {
 }
 
 .border_bottom {
-    border-bottom: 2px solid #F5F5F5 ;
+    border-bottom: 2px solid #F5F5F5;
 }
 
 .read_flex {
@@ -351,13 +351,13 @@ button {
 .div_theme {
     padding: 15px;
     background: #FFF;
-    
+
 }
 
 .p_title {
     color: #000000;
 }
 
-.mui-table-view:last-child:after {
+.mui-table-view:after {
     height: 0 !important;
 }
