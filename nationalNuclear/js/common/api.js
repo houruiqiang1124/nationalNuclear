@@ -69,6 +69,10 @@
      * option.success成功回调函数 
      */
     app.ajax = function(option) {
+        if(!sne.leaveLogin()) {
+            plus.nativeUI.closeWaiting();
+            return;
+        }
         plus.nativeUI.showWaiting();
         console.log('【参数】' + JSON.stringify(option));
         mui.ajax(host + option.url,{
@@ -84,6 +88,7 @@
                 console.log("【请求成功】" + JSON.stringify(res))
 				if(!res.object && option.url == "webService/getUserMsg"){
 					option.success(res);
+                    plus.nativeUI.closeWaiting();
 					return;
 				}
         		if(res.object.resultCode == 0 || res.object.rtnCode == 0 ) {

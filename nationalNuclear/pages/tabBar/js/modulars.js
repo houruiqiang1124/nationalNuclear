@@ -20,9 +20,9 @@ new Vue({
             },
             {
             	title: "印章审批",
-            	url: "",
+            	url: "../modulars/seal/seal_list.html",
             	icon: "../../static/yingZang.png",
-            	id: "4-1staff.html",
+            	id: "seal_list.html",
                 type: "enterprise"
             },
 //             {
@@ -34,7 +34,7 @@ new Vue({
 //             },
             {
             	title: "文件编&文件分发审批",
-            	url: "",
+            	url: "../modulars/distribution/distribution_list.html",
             	icon: "../../static/fenFa.png",
             	id: "4-1staff.html",
                 type: "enterprise"

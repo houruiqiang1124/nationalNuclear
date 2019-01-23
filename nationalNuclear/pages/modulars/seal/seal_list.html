@@ -22,7 +22,9 @@
 					<div class="mui-scroll">
 						<!--数据列表-->
 						<ul class="mui-table-view">
-							<li class="mui-table-view-cell" v-for="(item,index) in list" :key="index">
+							<li class="mui-table-view-cell" 
+                                v-for="(item,index) in list" :key="index"
+                                @tap="goDetail(item)">
 									<p class="title">{{item.title}}</p>
 									<p>部门名称：{{item.departmentName}}</p>
 									<p>审批人：{{item.approvalPeople}}</p>

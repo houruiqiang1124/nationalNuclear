@@ -47,6 +47,7 @@ new Vue({
 			"keyHidden": "",
 			"ifModify": "",
 			"hiddenDoc": "",
+            "phone": "" // 整改人手机号
 		},
 		// 		        unitList: [{
 		// 		        	"uniteEnglishDesc": "State Nuclear Power PWR Demonstration Project Unit 1",
@@ -169,6 +170,9 @@ new Vue({
 				if (_this.personType == 0) {
 					_this.saveParam.responsiblePerson = e.detail.name;
 					_this.saveParam.responsiblePersonId = e.detail.id;
+                    sne.getPhone(e.detail.id, function(e) {
+                        _this.saveParam.phone = e.mobile
+                    });
 				} else if (_this.personType == 2) {
 					_this.saveParam.checkPerson = e.detail.name;
 					_this.saveParam.checkPersonId = e.detail.id;
@@ -394,9 +398,6 @@ new Vue({
 				} else {
 					_this.saveParam[e] = items[0].text;
 				}
-				if (e == "responsiblePerson") {
-					_this.saveParam.responsiblePersonId = items[0].value;
-				}
 			});
 		},
 		// 附件上传
@@ -580,7 +581,11 @@ new Vue({
 			_this.saveParam.imgName = _this.imgName.join(',') || "";
 			_this.saveParam.imgAddress = _this.imgAddress.join(',') || "";
 			// console.log(_this.imgList.length)
-			_this.saveParam.hiddenDoc = _this.imgList.join('-');
+            if(_this.imgList != "") {
+                // _this.imgList.split('-');
+                _this.saveParam.hiddenDoc = _this.imgList.join('-');
+            }
+			
 			//隐患属性
 			if (_this.saveParam.hiddenCategory == "管理缺陷") {
 				_this.saveParam.hiddenCategory = 0
@@ -610,6 +615,7 @@ new Vue({
 				if (e == 0) {
 					method = app.INTERFACE.draftsSave
 				} else {
+                    _this.saveParam.recordNo = _this.prevParam.recordNo;
 					method = app.INTERFACE.draftsSubmit
 				}
 			} else {
@@ -757,7 +763,9 @@ new Vue({
 					_this.saveParam.responsiblePerson = dangerList.responsibleperson;
 					_this.saveParam.responsiblePersonId = dangerList.responsiblepersonid;
 					_this.saveParam.copyPerson = JSON.parse(dangerList.copyPerson);
-
+                    sne.getPhone(_this.saveParam.responsiblePersonId, function(e) {
+                        _this.saveParam.phone = e.mobile
+                    });
 					if (res.object.dangerList.hiddendoc == null || res.object.dangerList.hiddendoc == "null") {
 						_this.showImg = false;
 						_this.imgList = "";
@@ -804,6 +812,7 @@ new Vue({
             var defaultDanger = JSON.parse(localStorage.getItem("defaultDanger"))
             var defaultUnit = JSON.parse(localStorage.getItem("defaultUnit"))
             var defaultResponsible = JSON.parse(localStorage.getItem("defaultResponsible"))
+            var defaultPhone = localStorage.getItem("defaultPhone");
             if(defaultProjNo) {
                 _this.saveParam.projNo = defaultProjNo.projectId;
             } else {
@@ -819,6 +828,7 @@ new Vue({
             _this.saveParam.responsiblePerson = defaultResponsible && defaultResponsible.memberName;
             _this.saveParam.responsiblePersonId = defaultResponsible && defaultResponsible.memberId;
             _this.saveParam.copyPerson =defaultUser ? defaultUser : [];
+            _this.saveParam.phone = defaultPhone && defaultPhone;
         },
         // 离线缓存
         offline_save: function() {

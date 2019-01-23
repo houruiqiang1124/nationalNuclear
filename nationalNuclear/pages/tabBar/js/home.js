@@ -5,6 +5,7 @@ new Vue({
 		daiBanList: [],
 		noticeTitle: '',
         daiBanNum: "0",
+        hseDaiBan: "0",
         showUserType: true,
 		modular: [
 //             {
@@ -29,7 +30,7 @@ new Vue({
 			// _this.companyNew();
 			// _this.notice();
             _this.toDoList();
-            // _this.getBadge();
+            _this.getBadge();
            
             window.addEventListener("change", function(e) {
                 console.log(true)
@@ -41,7 +42,7 @@ new Vue({
             window.addEventListener("refreshHome", function() {
                 console.log("刷新首页...")
                 _this.toDoList();
-                // _this.getBadge();
+                _this.getBadge();
             })
 		}
 		if (window.plus) { 
@@ -134,7 +135,7 @@ new Vue({
                 },
                	success: function(res) {
                		if (res.rtnCode == 0) {
-               			_this.daiBanNum = res.object.toDoNum;
+               			_this.hseDaiBan = res.object.toDoNum;
                		} else {}
                	}
             })
