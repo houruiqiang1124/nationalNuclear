@@ -22,55 +22,46 @@
 					<div class="mui-content">
                         <div class="div_theme">
                             <p>
-                                <span class="p_title">主题：</span><span>会议纪要</span>
+                                <span class="p_title">主题：</span><span>{{baseInfo.procName}}</span>
                             </p>
                             <p>
-                                <span class="p_title">任务名称：</span><span>批准</span>
+                                <span class="p_title">任务名称：</span><span>{{baseInfo.taskName}}</span>
                             </p>
                             <p>
-                                <span class="p_title">任务说明：</span><span>请提出意见</span>
+                                <span class="p_title">任务说明：</span><span>{{baseInfo.taskSubject}}</span>
                             </p>
                         </div>
                         <div class="form">
                             <!--数据列表-->
-                            <ul class="mui-table-view hse-sub1">
+                            <ul class="mui-table-view hse-sub1" v-show="mainFlag">
                                 <li class="mui-table-view-cell mui-collapse">
                                     <a class="mui-navigate-right" href="#"><span>全文件</span></a>
                                     <div class="mui-collapse-content">
-                                        <p><span>名称：</span><span>胡菁云</span></p>
-                                        <p class="read_flex">
-                                            <span>修改日期：<span>海洋spmo</span></span>
-                                            <span class="read_btn">查看</span>
-                                        </p>
-                                        
-                                        <p class="border_bottom"></p>
-                                        <p><span>名称：</span><span>胡菁云</span></p>
-                                        <p class="read_flex">
-                                            <span>修改日期：<span>海洋spmo</span></span>
-                                            <span class="read_btn">查看</span>
-                                        </p>
+										<div v-for="(item,index) in mainFiles" :key="index">
+											 <p><span>名称：</span><span>{{item.filename}}</span></p>
+											<p class="read_flex">
+											    <span>修改日期：<span>{{item.lastModifiedDate}}</span></span>
+											    <span class="read_btn">查看</span>
+											</p>
+											<p class="border_bottom"></p>
+										</div>
                                     </div>
                                 </li>
                             </ul>
                             
-                            <ul class="mui-table-view hse-sub1">
+                            <ul class="mui-table-view hse-sub1" v-show="relateFlag">
                                 <li class="mui-table-view-cell mui-collapse">
                                     <a class="mui-navigate-right" href="#"><span>关联文件</span></a>
                                     <div class="mui-collapse-content">
-                                        <p><span>关联文件名称：</span><span>胡菁云</span></p>
-                                        <p><span>流程状态：</span><span>海洋spmo</span></p>
-                                        <p class="read_flex">
-                                            <span>修改日期：<span>海洋spmo</span></span>
-                                            <span class="read_btn">查看</span>
-                                        </p>
-                                        
-                                        <p class="border_bottom"></p>
-                                        <p><span>关联文件名称：</span><span>胡菁云</span></p>
-                                        <p><span>流程状态：</span><span>海洋spmo</span></p>
-                                        <p class="read_flex">
-                                            <span>修改日期：<span>海洋spmo</span></span>
-                                            <span class="read_btn">查看</span>
-                                        </p>
+										<div v-for="(item,index) in relateFiles" :key="index">
+											<p><span>关联文件名称：</span><span>{{item.filename}}</span></p>
+											<!-- <p><span>流程状态：</span><span>海洋spmo</span></p> -->
+											<p class="read_flex">
+											    <span>修改日期：<span>{{item.lastModifiedDate}}</span></span>
+											    <span class="read_btn">查看</span>
+											</p>
+											<p class="border_bottom"></p>
+										</div>
                                     </div>
                                 </li>
                             </ul>
@@ -78,16 +69,16 @@
                             <ul class="mui-table-view hse-sub1">
                                 <li class="mui-table-view-cell mui-collapse">
                                     <a class="mui-navigate-right" href="#"><span>流程日志</span></a>
-                                    <div class="mui-collapse-content">
-                                        <p><span>任务名称：</span><span>关联文件</span></p>
-                                        <p><span>状态：</span><span>MS word Document 8.0-2003</span></p>
-                                        <p><span>动作：</span><span>已关联</span></p>
-                                        <p><span>执行者：</span><span>1.0</span></p>
-                                        <p><span>选人状况：</span><span>关联文件</span></p>
-                                        <p><span>意见：</span><span>MS word Document 8.0-2003</span></p>
-                                        <p><span>接收日期：</span><span>2019-01-22 09:34</span></p>
-                                        <p><span>获取日期：</span><span>2019-01-22 09:34</span></p>
-                                        <p><span>完成日期：</span><span>2019-01-22 09:34</span></p>
+                                    <div class="mui-collapse-content" v-for="(item,index) in processInfo" :key="index">
+                                        <p><span>任务名称：</span><span>{{item.taskName}}</span></p>
+                                        <p><span>状态：</span><span>{{item.taskStatus}}</span></p>
+                                        <p><span>动作：</span><span>{{item.taskAction}}</span></p>
+                                        <p><span>执行者：</span><span>{{item.performer}}</span></p>
+                                        <p><span>选人状况：</span><span>{{item.selectedUser || ""}}</span></p>
+                                        <p><span>意见：</span><span>{{item.comment  || ""}}</span></p>
+                                        <p><span>接收日期：</span><span>{{item.receiveDate}}</span></p>
+                                        <!-- <p><span>获取日期：</span><span>2019-01-22 09:34</span></p> -->
+                                        <p><span>完成日期：</span><span>{{item.completeDate  || ""}}</span></p>
                                     </div>
                                 </li>
                             </ul>
@@ -97,8 +88,8 @@
                             		<a class="" href="#"><span>办理意见</span> </a>
                             		<div class="mui-collapse-content">
                                         <div class="opinion_texrarea">
-                                            <textarea name="" rows="5" cols="" placeholder="请完善申请材料的提交"></textarea>
-                                            <div class="voice" @tap="openVoice(1)">
+                                            <textarea name="" rows="5" cols="" v-model="suggesting" placeholder="请完善申请材料的提交"></textarea>
+                                            <div class="voice" @tap="openVoice()">
                                                 <img src="../hse/images/5-3-Voice@2x.png" />
                                             </div>
                                         </div>
@@ -108,9 +99,11 @@
                             </ul>
                             
                             <nav class="mui-bar mui-bar-tab list-btns">
-                                <button type="button" class="mui-btn mui-btn-blue">提交</button>
-                                <button type="button" class="mui-btn color_blue">委派</button>
-                                <button type="button" class="mui-btn mui-btn-danger ">回退</button>
+                                <button type="button" class="mui-btn mui-btn-blue" v-show="submitFlag">提交</button>
+								<!-- <button type="button" class="mui-btn mui-btn-purple" v-show="acceptFlag">接受</button> -->
+                                <button type="button" class="mui-btn color_blue" v-show="delegateFlag">委派</button>
+								<!-- <button type="button" class="mui-btn mui-btn-" v-show="repeatFlag">重复</button> -->
+                                <button type="button" class="mui-btn mui-btn-danger" v-show="rejectFlag" @tap="reject">回退</button>
                             </nav>
                         </div>
 					</div>
@@ -118,6 +111,9 @@
 			</div>
 		</div>
 		<script src="../../../js/mui.min.js"></script>
+		<script src="../../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../../js/ObjTree.js"></script>
+		<script src="../../../js/jkl-dumper.js"></script>
         <script src="../../../js/common/api.js"></script>
         <script src="../../../js/common/config.js"></script>
         <script src="../../../js/vue.js"></script>

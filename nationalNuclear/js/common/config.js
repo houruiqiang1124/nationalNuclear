@@ -90,6 +90,7 @@
         var webView = plus.webview.getWebviewById("home.html");
         mui.fire(webView, "refreshHome",{})
     }
+	//xml字符串转成json字符串
 	f.xml2json = function(xml){
 		//将xml字符串转为json  
 		var xotree = new XML.ObjTree();  
@@ -99,6 +100,7 @@
 		var jsonText = dumper.dump(json);
 		return jsonText;
 	}
+	//json字符串转成xml字符串
 	f.json2xml = function(json){
 		var xotree = new XML.ObjTree();  
 		//将json字符串转为json对象后转为xml字符串
@@ -109,25 +111,40 @@
 		var xmlText = formatXml(xml); 
 		 return xmlText;
 	}
+	//xml对象转换为String类型
+	f.xmlToString = function(data){
+		if(!data) {
+			return null;
+		}
+		var result;
+		try {
+			result = (new XMLSerializer()).serializeToString(data);
+		} catch(e) {
+			console.log("xml转换string异常!");
+			result = null;
+		}
+		return result;
+	}
 	f.xmlAjax = function(param,success,error){
 		plus.nativeUI.showWaiting();
-		console.log('【参数】' + JSON.stringify(param));
+		console.log('【参数】' + param);
 		mui.ajax(app.edrmsUrl,{
 			data: {
 				xml:param
 			},
-			// dataType:'json',//服务器返回json格式数据
+			// dataType:'xml',//服务器返回json格式数据
 			type:'POST',//HTTP请求类型
 			timeout:50000,//超时时间设置为10秒；
 			success:function(res){
-		        console.log('【请求地址】'+ url)
+		        console.log('【请求地址】'+ app.edrmsUrl)
 		        console.log("【请求成功】" + res)
 		        plus.nativeUI.closeWaiting();
 				success(res);
 			},
 			error:function(xhr,type,errorThrown){
 		        plus.nativeUI.closeWaiting();
-		        console.error('【请求错误地址】'+url)
+				mui.toast("网络异常,请联系管理员");
+		        console.error('【请求错误地址】'+app.edrmsUrl)
 				console.error('【请求错误】' + type)
 				error(xhr,type,errorThrown)
 			}
