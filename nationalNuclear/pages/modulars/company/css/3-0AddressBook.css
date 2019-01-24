@@ -46,9 +46,9 @@ html,
 			}
 			.mui-table-view-cell span.mui-pull-right{
 				position: relative;
-				top:20px
+				/* top:20px */
 			}
 			.mui-table-view-cell span.mui-pull-right img{
-				height: 21px;
+				/* height: 21px; */
 				margin-left: 28px;
 			}

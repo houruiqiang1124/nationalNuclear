@@ -1,0 +1,51 @@
+.circular {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #007AFF;
+    display: inline-block;
+}
+
+.title_center {
+    display: inline-flex;
+    align-items: center;
+}
+
+.flex {
+    display: flex !important;
+    font-size: 1rem;
+}
+
+.item_title {
+    margin-left: 2rem;
+    color: #007AFF;
+}
+
+.child_div {
+    padding: 1rem;
+}
+
+.child_div>p{
+    margin-top: 0.5rem;
+}
+
+.mui-scroll-wrapper {
+    height: 5rem;
+}
+
+.list_content {
+    position: relative;
+}
+
+.mui-table-view-cell:after {
+   height: 4px;
+   left: 0;
+}
+
+.mui-table-view:before {
+    height: 4px;
+}
+
+.mui-navigate-right:after {
+   color: #007AFF;
+}

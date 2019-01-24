@@ -5,8 +5,7 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link href="css/demo.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../modulars/hse/css/app.css" />
 		<link rel="stylesheet" type="text/css" href="../modulars/hse/css/5-0HSE.css" />
 		<link rel="stylesheet" type="text/css" href="../modulars/company/css/mui.indexedlist.css" />
@@ -73,7 +72,7 @@
 						<ul class="mui-table-view" style="padding-bottom: 8.5rem;">
 							<div v-for="item in list">
 								<li :data-group="item.index" class="mui-table-view-divider mui-indexed-list-group">{{item.index}}</li>
-								<li data-value="AKU" data-tags="item.index" class="mui-table-view-cell mui-indexed-list-item flex flex-ali_i_center" v-for="(item, index) in item.mail" :key="index">
+								<li data-value="AKU" data-tags="item.index" class="mui-table-view-cell mui-indexed-list-item" v-for="(item, index) in item.mail" :key="index">
 									<img src="../../static/me-3@2x.png" />
 									<div class="info-book">
 										<p>{{item.EMPLOYEENAME}}</p>
@@ -86,35 +85,6 @@
 									</span>
 								</li>
 							</div>
-                            <!-- <div>
-                            	<li data-group="item.index" class="mui-table-view-divider mui-indexed-list-group">A</li>
-                            	<li data-value="AKU" data-tags="item.index" class="mui-table-view-cell mui-indexed-list-item" 
-                                >
-                            		<img src="../../static/me-3@2x.png" />
-                            		<div class="info-book">
-                            			<p>你看见你看见</p>
-                            			<p>10086</p>
-                            			<p>ddffs</p>
-                            		</div>
-                            		<span class="mui-pull-right">
-                            			<img src="../../static/3-0-Phone@2x.png" class="phone" data-phone="18699876656" />
-                            			<img src="../../static/3-0-message@2x.png" class="message" data-phone="18699876656"/>
-                            		</span>
-                            	</li>
-                                <li data-value="AKU" data-tags="item.index" class="mui-table-view-cell mui-indexed-list-item" 
-                                >
-                                	<img src="../../static/me-3@2x.png" />
-                                	<div class="info-book">
-                                		<p>你看见你看见</p>
-                                		<p>10086</p>
-                                		<p>ddffs</p>
-                                	</div>
-                                	<span class="mui-pull-right">
-                                		<img src="../../static/3-0-Phone@2x.png" class="phone" data-phone="18699876656" />
-                                		<img src="../../static/3-0-message@2x.png" class="message" data-phone="18699876656"/>
-                                	</span>
-                                </li>
-                            </div> -->
 							<!--<li data-group="A" class="mui-table-view-divider mui-indexed-list-group">A</li>-->
 							<!-- <li data-value="AKU" data-tags="A" class="mui-table-view-cell mui-indexed-list-item" data-group="A" v-for="(item, index) in mailList" :key="index">
 								<img src="../../static/me-3@2x.png" />

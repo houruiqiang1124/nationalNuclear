@@ -7,10 +7,14 @@ new Vue({
 		page:"1",
 		searchType:"0",//0:没有搜索 1 搜索过
 		searchValue:"",
-        tabCode: ""
+        tabCode: "",
+        showIframe: false
 	},
 	mounted: function() {
 		_this = this;
+        var ifm= document.getElementById("myiframe");
+        console.log(ifm)
+        ifm.height=document.documentElement.clientHeight;
 		mui.init({
 			pullRefresh: {
 				container: '#refreshContainer',
@@ -43,10 +47,15 @@ new Vue({
             console.log(e);
             _this.data=[];
             _this.page = 1;
-            if(e == _this.tabCode) {
-                return;
-            }
             _this.tabCode = e;
+            if(e == 2) {
+                _this.showIframe = true;
+                mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+                return;
+            } else {
+                _this.showIframe = false;
+                mui('#refreshContainer').pullRefresh().enablePullupToRefresh();
+            }
             _this.requestData();
             mui('#refreshContainer').pullRefresh().refresh(true);
         },
@@ -87,6 +96,10 @@ new Vue({
 		},
 		searchData: function(){
             if(!sne.leaveLogin()) {
+                return;
+            }
+            if(_this.tabCode == 2) {
+                mui('#refreshContainer').pullRefresh().endPulldown();
                 return;
             }
 			var params = {};
