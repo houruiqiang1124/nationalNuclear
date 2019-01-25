@@ -47,6 +47,9 @@
         			}
         			var activeTab = subpages[0];
         			mui('.mui-bar-tab').on('tap', 'a', function(e) {
+                        if(!sne.leaveLogin()) {
+                            return;
+                        }
                         var tabIndex = $(this).index();
                         console.log(app.loginInfo.userType)
                         if(app.loginInfo.userType == 0 && tabIndex != 0) {

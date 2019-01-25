@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../hse/css/app.css" />
+		<link rel="stylesheet" type="text/css" href="css/person.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-pull-left text ">取消</a>
+			<span class="mui-pull-right mui-btn-link">确定</span>
+		</header>
+		<div class="mui-content" id="app">
+
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell titles">
+					国核工程
+
+				</li>
+				<li class="mui-table-view-cell mui-collapse keep-unfold" v-for="(obj, index) in personList" :key="index">
+					<a class="mui-navigate-right" href="#"><img src="../hse/images/5-0-people@2x.png"/>{{obj.department}}</a>
+					<div class="mui-collapse-content">
+						<ul class="mui-table-view">
+							<li class="mui-table-view-cell" 
+                                v-for="(item, index1) in obj.person" :key="index1"
+                                @tap="check(item)">
+								<input type="radio" name="bgs" id="" value="" :checked="item.check" />
+								<label for="#bgs">{{item.name}}</label>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<!-- <li class="mui-table-view-cell mui-collapse keep-unfold">
+					<a class="mui-navigate-right" href="#"><img src="../hse/images/5-0-people@2x.png"/>公司领导</a>
+					<div class="mui-collapse-content">
+						<ul class="mui-table-view">
+							<li class="mui-table-view-cell">
+								<input type="radio" name="bgs" id="" value="" />
+								<label for="#bgs">办公事务-白雪</label>
+							</li>
+							<li class="mui-table-view-cell">
+								<input type="radio" name="bgs" id="" value="" />
+								<label for="#bgs">办公事务-白雪</label>
+							</li>
+							<li class="mui-table-view-cell">
+								<input type="radio" name="bgs" id="" value="" />
+								<label for="#bgs">办公事务-白雪</label>
+							</li>
+						</ul>
+					</div>
+				</li> -->
+			</ul>
+		</div>
+		<script src="../../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../js/ObjTree.js"></script>
+        <script src="../../../js/jkl-dumper.js"></script>
+        <script src="../../../js/common/api.js"></script>
+        <script src="../../../js/common/config.js"></script>
+        <script src="../../../js/vue.js"></script>
+        <script src="js/person.js"></script>
+	</body>
+
+</html>

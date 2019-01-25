@@ -41,8 +41,12 @@ new Vue({
             plus.runtime.restart();
 		},
 		clearSession:function(){
-			localStorage.clear();
-			mui.toast("清除成功~");
+            mui.confirm("清除缓存需要重新登录，是否继续？","",["取消","确定"],function(e) {
+                if(e.index == 1) {
+                    localStorage.clear();
+                    plus.runtime.restart();
+                }
+            })
 		}
 	}
 })

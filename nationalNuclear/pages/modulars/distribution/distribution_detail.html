@@ -101,7 +101,7 @@
                             <nav class="mui-bar mui-bar-tab list-btns">
                                 <button type="button" class="mui-btn mui-btn-blue" v-show="submitFlag">提交</button>
 								<!-- <button type="button" class="mui-btn mui-btn-purple" v-show="acceptFlag">接受</button> -->
-                                <button type="button" class="mui-btn color_blue" v-show="delegateFlag">委派</button>
+                                <button type="button" class="mui-btn color_blue" v-show="delegateFlag" @tap="delegate">委派</button>
 								<!-- <button type="button" class="mui-btn mui-btn-" v-show="repeatFlag">重复</button> -->
                                 <button type="button" class="mui-btn mui-btn-danger" v-show="rejectFlag" @tap="reject">回退</button>
                             </nav>

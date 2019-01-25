@@ -51,7 +51,7 @@
                 	<div class="daiBan-header">
                 		<div class="flex flex-ali_i_center">
                 			<span class="theme_color">待办事项&nbsp;</span>
-                            <span class="mui-badge mui-badge-danger">{{daiBanNum}}</span>
+                            <span class="mui-badge mui-badge-danger">{{hseDaiBan}}</span>
                 		</div>
                         <span class="sub_color daiBan_size" @tap="openPage">更多&gt;</span>
                 	</div>
@@ -65,12 +65,12 @@
                     				<p>发起人：{{item.draftPerson}}&emsp;{{item.draftDate.time}}</p>
                     			</div>
                     		</li> -->
-                            <li class="mui-table-view-cell" v-for="(item, index) in daiBanList" :key="index">
-                                <span class="title">{{item.title}}</span>
+                            <li class="mui-table-view-cell" v-for="(item, index) in daiBanList" :key="index" @tap="goDetail(item)">
+                                <span class="title">项目:{{item.projNo}};检查单编号:{{item.recordNo}}</span>
                                 <p>
-                                    <span><label>{{item.type}}</label></span> 
-                                    <span class="author mui-ellipsis">作者：{{item.initator}}</span>
-                                    <span class="mui-pull-right">{{item.date}}</span>
+                                    <span class="mui-ellipsis"><label>项目综合管理</label></span> 
+                                    <span class="author mui-ellipsis">发起人：{{item.draftPerson}}</span>
+                                    <span class="mui-pull-right mui-ellipsis">{{item.draftDate.time.substr(0,11)}}</span>
                                 </p>
                             </li>
                             <!-- <li class="mui-table-view-cell">

@@ -12,9 +12,6 @@ new Vue({
 	},
 	mounted: function() {
 		_this = this;
-        var ifm= document.getElementById("myiframe");
-        console.log(ifm)
-        ifm.height=document.documentElement.clientHeight;
 		mui.init({
 			pullRefresh: {
 				container: '#refreshContainer',
@@ -32,6 +29,8 @@ new Vue({
 				}
 			}
 		});
+        
+        // 
 		function plusReady() {
 			_this.requestData();
 		}
@@ -49,11 +48,22 @@ new Vue({
             _this.page = 1;
             _this.tabCode = e;
             if(e == 2) {
-                _this.showIframe = true;
+                var subpage_style = {
+                	top: '108px',
+                	bottom: '50px'
+                };
+                if(plus.webview.getWebviewById("meeting.html")) {
+                    plus.webview.getWebviewById("meeting.html").show();
+                } else {
+                    var sub = plus.webview.create("./meeting.html", "meeting.html", subpage_style);
+                     sub.show();
+                }
                 mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
                 return;
             } else {
-                _this.showIframe = false;
+                if(plus.webview.getWebviewById("meeting.html")) {
+                    plus.webview.getWebviewById("meeting.html").hide();
+                }
                 mui('#refreshContainer').pullRefresh().enablePullupToRefresh();
             }
             _this.requestData();

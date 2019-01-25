@@ -4,7 +4,7 @@ new Vue({
     el: "#app",
     data: {
         list: [],
-        page: 1,
+        page: 0,
         searchType:"0",//0:没有搜索 1 搜索过
     },
     mounted: function() {
@@ -40,27 +40,83 @@ new Vue({
         // 上拉
         pullupRefresh: function() {
             _this.page++;
-            _this.getData();
+            _this.getList();
+            // _this.getData();
         },
         // 下拉
         pulldownRefresh: function() {
            _this.list = [];
-           _this.page=1;
-           _this.getData();
+           _this.page=0;
+            _this.getList();
+           // _this.getData();
            mui('#refreshContainer').pullRefresh().refresh(true);
         },
         getList: function() {
             if(!sne.leaveLogin()) {
                 return;
             }
-            var params = {};
-            params.url =app.INTERFACE.daiBan;
-            mui.mkey.get(params, function(data) {
-            	var jsonStr = data.getElementsByTagName("span")[0].textContent;
-            	var json = JSON.parse(jsonStr);
-            	console.log(jsonStr);
-                _this.list = json.object.data;
-            });
+//             var params = {};
+//             params.url =app.INTERFACE.daiBan;
+//             mui.mkey.get(params, function(data) {
+//             	var jsonStr = data.getElementsByTagName("span")[0].textContent;
+//             	var json = JSON.parse(jsonStr);
+//             	console.log(jsonStr);
+//                 _this.list = json.object.data;
+//             });
+            var param = {
+            	"id": app.loginInfo.userId,
+            	"logo": 0, //0-5
+            	"start": _this.page,
+            	"limit": 10
+            }
+            app.ajax({
+            	url: app.INTERFACE.findToDo,
+            	data: param,
+            	success: function(res) {
+            		if (res.object.resultCode == "0") {
+            			plus.nativeUI.closeWaiting();
+            			_this.page+=10;
+            			if (!res.beans) {
+            				return;
+            			}
+            			if (res.beans.length >= 1) {
+            				var list = res.beans.map((item, index) => {
+            					if (item.checkForm == '0') {
+            						item.checkForm = '日常检查'
+            					} else if (item.checkForm == '1') {
+            						item.checkForm = '专项检查'
+            					} else if (item.checkForm == '2') {
+            						item.checkForm = '综合检查'
+            					}
+            					if (item.stepId == "500" || item.stepId == "400") {
+            						item.recordNo = item.delayToApplyForNo;
+            					}
+            					item.draftDate.time = sne.getNowFormatDate(item.draftDate.time).substr(0,11);
+            					item.checkDate.time = sne.getNowFormatDate(item.checkDate.time);
+            					if (item.approveDate) {
+            						item.approveDate.time = sne.getNowFormatDate(item.approveDate.time);
+            					} else {
+            						item.approveDate = {
+            							time: ""
+            						};
+            					}
+            					return item
+            				})
+            				_this.list = _this.list.concat(list);
+            			}
+            			if (res.beans.length < 10) {
+            				mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+            				mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
+            			} else {
+            				mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+                            mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
+            			}
+            		} else {
+            			mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+            			mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
+            		}
+            	}
+            })
         },
         
         // 上拉数据，下拉数据
@@ -92,6 +148,36 @@ new Vue({
             				mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
             			}
             		});
+        },
+        
+        // 待办跳转详情
+        goDetail: function(e) {
+            if(e.stepId == "100") { // 代表待办退回
+            	var param = {
+            		recordNo: e.recordNo,
+            		traceId: e.actionTraceId,
+            		instanceId: e.instanceId,
+            		dangerId: e.dangerId,
+            		checkId: e.id,
+                    data: e.data
+            	};
+            	sne.navigateTo({
+            		url: "../modulars/hse/5-4HSE.html",
+            		id: "5-4HSE.html",
+            		data: {
+            			params: param
+            		}
+            	})
+            } else {
+                sne.navigateTo({
+                	url: "../modulars/hse/5-10HSE.html",
+                	id: "5-10HSE.html",
+                	data: {
+                		params:e,
+                		tabCode:0
+                	}
+                })
+            }
         }
     }
 })

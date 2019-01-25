@@ -69,7 +69,7 @@ new Vue({
 		function plusReady() {
 			mui.previewImage();
 			_this.listParam = plus.webview.currentWebview().params;
-			console.log(_this.listParam.checkDate.time);
+			console.log(JSON.stringify(_this.listParam) );
 			_this.listParam.approveDate = _this.listParam.approveDate.time;
 			_this.listParam.checkDate = _this.listParam.checkDate.time;
 			_this.listParam.draftDate = _this.listParam.draftDate.time;
@@ -180,6 +180,7 @@ new Vue({
 						_this.closePersonName = app.loginInfo.name;
 						_this.closeDate = sne.getNowFormatDate().substr(0, 10);
 					}
+                    
 					_this.showButton = false; // 隐藏底部按钮，只读
 					_this.disabled = true;
                     _this.disabled2 = true;
@@ -263,6 +264,9 @@ new Vue({
 						if(_this.listParam.stepId == "300"){
 							_this.fileImg = res.object.dangerList.returndoc.split('-');
 						}
+                        if(_this.tabCode !=0) {
+                            _this.fileImg = res.object.dangerList.returndoc.split('-');
+                        }
                         // _this.imgList = JSON.stringify(res.object.dangerList.hiddendoc).replace(/"/g, "")
 						// _this.fileImg = JSON.stringify(res.object.dangerList.returndoc).replace(/"/g, "")
 						// res.object.dangerList.hiddenDoc = JSON.stringify(res.object.dangerList.hiddenDoc).replace(/"/g,"")

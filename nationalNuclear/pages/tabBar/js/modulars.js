@@ -6,7 +6,8 @@ new Vue({
 		modulars: [
 			{
 				title: "绩效查询",
-				url: "../modulars/achievements/achievementsList.html",
+				// url: "../modulars/achievements/achievementsList.html",
+                url:"",
 				icon: "../../static/jixiao.png",
 				id: "achievementsList.html",
                 type: "enterprise"  // 企业应用
@@ -18,13 +19,13 @@ new Vue({
             	id: "4-1staff.html",
                 type: "enterprise"
             },
-            {
-            	title: "印章审批",
-            	url: "../modulars/seal/seal_list.html",
-            	icon: "../../static/yingZang.png",
-            	id: "seal_list.html",
-                type: "enterprise"
-            },
+//             {
+//             	title: "印章审批",
+//             	url: "../modulars/seal/seal_list.html",
+//             	icon: "../../static/yingZang.png",
+//             	id: "seal_list.html",
+//                 type: "enterprise"
+//             },
 //             {
 //             	title: "收发文审批",
 //             	url: "",
@@ -32,13 +33,13 @@ new Vue({
 //             	id: "4-1staff.html",
 //                 type: "enterprise"
 //             },
-            {
-            	title: "文件编&文件分发审批",
-            	url: "../modulars/distribution/distribution_list.html",
-            	icon: "../../static/fenFa.png",
-            	id: "4-1staff.html",
-                type: "enterprise"
-            },
+//             {
+//             	title: "文件编&文件分发审批",
+//             	url: "../modulars/distribution/distribution_list.html",
+//             	icon: "../../static/fenFa.png",
+//             	id: "4-1staff.html",
+//                 type: "enterprise"
+//             },
             {
             	title: "HSE监督检查",
             	url: "../modulars/hse/5-0HSE.html",
@@ -88,7 +89,7 @@ new Vue({
         // 我的应用删除
 		del: function(e) {
             var arr = _this.myModulars.splice(e, 1);
-            _this.modulars.push(arr[0]);
+            // _this.modulars.push(arr[0]);
             _this.change();
 		},
         // 跳转模块
@@ -118,10 +119,15 @@ new Vue({
 			}
 		},
         clearLoop: function(e) {
-            console.log(e)
-            var arr = _this.modulars.splice(e, 1);
-            _this.myModulars.push(arr[0]);
+            for(var i = 0; i < _this.myModulars.length; i++) {
+                if(e.id == _this.myModulars[i].id) {
+                    mui.toast("不能重复添加");
+                    return;
+                }
+            }
+            _this.myModulars.push(e);
             _this.change();
+            // var arr = _this.modulars.splice(e, 1);
         },
         // 更新首页
         change: function() {

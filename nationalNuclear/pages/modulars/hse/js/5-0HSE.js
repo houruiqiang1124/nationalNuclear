@@ -13,6 +13,10 @@ new Vue({
 	mounted: function() {
 		_this = this;
 		function plusReady() {
+            var inspectParam = JSON.parse(localStorage.getItem("inspectParam"));
+            if(inspectParam) {
+                $("#draftNum").html(1)
+            }
 			_this.getNumber();
 			_this.requestData();
 			window.addEventListener('refresh', function(e) {
@@ -23,6 +27,7 @@ new Vue({
 			})
             window.addEventListener('refresStorageList', function(e) {
             	_this.storageList();
+                _this.getNumber();
             })
 		}
 		if (window.plus) {
@@ -63,7 +68,12 @@ new Vue({
 						$("#toDoNum").html(res.object.toDoNum);
 						$("#haveToDoNum").html(res.object.haveToDoNum);
 						$("#circulationNum").html(res.object.circulationNum);
-						$("#draftNum").html(res.object.draftNum);
+                        if(localStorage.getItem("inspectParam")) {
+                            $("#draftNum").html(res.object.draftNum+1);
+                        } else {
+                            $("#draftNum").html(res.object.draftNum);
+                        }
+						
 						$("#waitingReadNum").html(res.object.waitingReadNum);
 						$("#haveRead").html(res.object.haveRead);
 					} else {}
@@ -307,6 +317,7 @@ new Vue({
             if(inspectParam && _this.currentCode == 3) {
                 _this.showUl = true;
                 _this.inspectParam = inspectParam;
+                $("#draftNum").html(1)
             } else {
                 _this.showUl = false;
             }
@@ -316,6 +327,8 @@ new Vue({
         delStorage: function() {
             localStorage.removeItem("inspectParam");
             localStorage.removeItem("inspectImg");
+            var draftNum = parseInt($("#draftNum").html()); 
+            $("#draftNum").html(draftNum-1)
             _this.storageList();
         }
 	}

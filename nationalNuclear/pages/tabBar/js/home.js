@@ -67,64 +67,64 @@ new Vue({
             if(!sne.leaveLogin()) {
                 return;
             }
-            var params = {};
-            params.url =app.INTERFACE.daiBan;
-            mui.mkey.get(params, function(data) {
-            	var jsonStr = data.getElementsByTagName("span")[0].textContent;
-            	var json = JSON.parse(jsonStr);
-            	console.log(jsonStr);
-                _this.daiBanList = json.object.data.slice(0,3);
-                _this.daiBanNum = json.object.pageTotal;
-            });
-// 			var param = {
-// 				"id": app.loginInfo.userId,
-// 				"logo": 0, //0-5
-// 				"start": 0,
-// 				"limit": "3"
-// 			}
-// 			app.ajax({
-// 				url: app.INTERFACE.findToDo,
-// 				data: param,
-// 				success: function(res) {
-// 					if (res.object.resultCode == "0") {
-// 						plus.nativeUI.closeWaiting();
-// 						_this.pageNo+=10;
-// 						if (!res.beans) {
-// 							return;
-// 						}
-// 						if (res.beans.length >= 1) {
-// 							var list = res.beans.map((item, index) => {
-// 								if (item.checkForm == '0') {
-// 									item.checkForm = '日常检查'
-// 								} else if (item.checkForm == '1') {
-// 									item.checkForm = '专项检查'
-// 								} else if (item.checkForm == '2') {
-// 									item.checkForm = '综合检查'
-// 								}
-// 								if (item.stepId == "500" || item.stepId == "400") {
-// 									item.recordNo = item.delayToApplyForNo;
-// 								}
-// 								item.draftDate.time = sne.getNowFormatDate(item.draftDate.time);
-// 								item.checkDate.time = sne.getNowFormatDate(item.checkDate.time);
-// 								if (item.approveDate) {
-// 									item.approveDate.time = sne.getNowFormatDate(item.approveDate.time);
-// 								} else {
-// 									item.approveDate = {
-// 										time: ""
-// 									};
-// 								}
-// 								return item
-// 							})
-// 							if(list.length>3){
-// 								_this.daiBanList = list.slice(0, 3);
-// 							}else{
-// 								_this.daiBanList = list;
-// 							}
-// 						}
-// 					} else {
-// 					}
-// 				}
-// 			})
+//             var params = {};
+//             params.url =app.INTERFACE.daiBan;
+//             mui.mkey.get(params, function(data) {
+//             	var jsonStr = data.getElementsByTagName("span")[0].textContent;
+//             	var json = JSON.parse(jsonStr);
+//             	console.log(jsonStr);
+//                 _this.daiBanList = json.object.data.slice(0,3);
+//                 _this.daiBanNum = json.object.pageTotal;
+//             });
+			var param = {
+				"id": app.loginInfo.userId,
+				"logo": 0, //0-5
+				"start": 0,
+				"limit": "3"
+			}
+			app.ajax({
+				url: app.INTERFACE.findToDo,
+				data: param,
+				success: function(res) {
+					if (res.object.resultCode == "0") {
+						plus.nativeUI.closeWaiting();
+						_this.pageNo+=10;
+						if (!res.beans) {
+							return;
+						}
+						if (res.beans.length >= 1) {
+							var list = res.beans.map((item, index) => {
+								if (item.checkForm == '0') {
+									item.checkForm = '日常检查'
+								} else if (item.checkForm == '1') {
+									item.checkForm = '专项检查'
+								} else if (item.checkForm == '2') {
+									item.checkForm = '综合检查'
+								}
+								if (item.stepId == "500" || item.stepId == "400") {
+									item.recordNo = item.delayToApplyForNo;
+								}
+								item.draftDate.time = sne.getNowFormatDate(item.draftDate.time);
+								item.checkDate.time = sne.getNowFormatDate(item.checkDate.time);
+								if (item.approveDate) {
+									item.approveDate.time = sne.getNowFormatDate(item.approveDate.time);
+								} else {
+									item.approveDate = {
+										time: ""
+									};
+								}
+								return item
+							})
+							if(list.length>3){
+								_this.daiBanList = list.slice(0, 3);
+							}else{
+								_this.daiBanList = list;
+							}
+						}
+					} else {
+					}
+				}
+			})
 		},
         // 获取待办角标
         getBadge: function() {
@@ -146,6 +146,7 @@ new Vue({
             	url: "./allDaiBan.html",
             	id: "allDaiBan.html"
             })
+
         },
         // 待办跳转详情
         goDetail: function(e) {
@@ -158,7 +159,7 @@ new Vue({
             		checkId: e.id
             	};
             	sne.navigateTo({
-            		url: "../modulars/hse/5-10HSE.html",
+            		url: "../modulars/hse/5-4HSE.html",
             		id: "5-10HSE.html",
             		data: {
             			params: param

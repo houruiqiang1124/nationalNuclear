@@ -38,14 +38,24 @@
 }
 
 .mui-table-view-cell:after {
-   height: 4px;
+   height: 5px;
    left: 0;
+   background: #F5F5F5;
 }
 
 .mui-table-view:before {
-    height: 4px;
+    height: 5px;
+    background: #F5F5F5;
 }
 
 .mui-navigate-right:after {
    color: #007AFF;
+}
+
+.mui-table-view-cell {
+    padding: 13px 15px;
+}
+
+.mui-table-view:after {
+    height: 0;
 }

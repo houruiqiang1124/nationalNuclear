@@ -147,6 +147,14 @@ new Vue({
 			}, function(xhr, type, errorThrown) {
 			
 			});
-		}
+		},
+        
+        // 委派
+        delegate: function() {
+            sne.navigateTo({
+                url: "./person.html",
+                id: "person.html"
+            })
+        }
 	}
 })

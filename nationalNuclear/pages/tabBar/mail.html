@@ -20,6 +20,19 @@
             .mui-table-view-cell>a:not(.mui-btn).mui-active {
                 background: none !important;
             }
+            
+             .search_input {
+                background: #fafafa;
+                padding: 0.5rem;
+            }
+            
+            .search_input>input {
+                background: #FFF !important;
+            }
+            
+            .none {
+                display: none !important;
+            }
         </style>
 	</head>
 
@@ -36,8 +49,11 @@
 		        <input type="search" class="mui-input-clear" placeholder="请输入姓名">
 		    </div>-->
 				<div id="list" class="mui-indexed-list">
-					<div class="mui-indexed-list-search mui-input-row mui-search">
-						<input type="search" @keypress="searchName" id="searchVal" class="mui-input-clear mui-indexed-list-search-input" placeholder="请输入姓名">
+                    <div class="mui-indexed-list-search mui-input-row mui-search none">
+                    	<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="请输入姓名">
+                    </div>
+					<div class="search_input">
+						<input type="search" @keypress="searchName" id="searchVal" placeholder="请输入姓名">
 					</div>
 					<div class="mui-indexed-list-bar">
 						<a>A</a>

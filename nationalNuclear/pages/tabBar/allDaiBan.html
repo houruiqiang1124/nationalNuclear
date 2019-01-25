@@ -37,12 +37,20 @@
                     <div class="mui-scroll">
                         <!--数据列表-->
                         <ul class="mui-table-view">
-                            <li class="mui-table-view-cell" v-for="(item, index) in list" :key="index">
+                            <!-- <li class="mui-table-view-cell" v-for="(item, index) in list" :key="index">
                                 <span class="title">{{item.title}}</span>
                                 <p>
                                     <span><label>{{item.type}}</label></span> 
                                     <span class="author mui-ellipsis">作者：{{item.initator}}</span>
                                     <span class="mui-pull-right">{{item.date}}</span>
+                                </p>
+                            </li> -->
+                            <li class="mui-table-view-cell" v-for="(item, index) in list" :key="index" @tap="goDetail(item)">
+                                <span class="title">项目:{{item.projNo}};检查单编号:{{item.recordNo}}</span>
+                                <p>
+                                    <span class="mui-ellipsis"><label>项目综合管理</label></span> 
+                                    <span class="author mui-ellipsis">发起人：{{item.draftPerson}}</span>
+                                    <span class="mui-pull-right mui-ellipsis">{{item.draftDate.time}}</span>
                                 </p>
                             </li>
                             <!-- <li class="mui-table-view-cell">
