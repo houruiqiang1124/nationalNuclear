@@ -27,7 +27,7 @@ var example1 = new Vue({
     },
     methods: {
         getMail: function() {
-			plus.nativeUI.showWaiting();
+			plus.nativeUI.showWaiting("正在加载中，请稍等");
 			var indexs = new Array();
 			var arr = new Array(); //[{index:"a",citys:[{Nmae:"广州市"}]}];
             mui.ajax(app.mkeyUrl+'mailList.json',{

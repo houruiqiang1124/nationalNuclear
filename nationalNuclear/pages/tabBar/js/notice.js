@@ -43,7 +43,7 @@ new Vue({
 	methods: {
         // 切换导航
         navChange: function(e) {    // 0 公司公告  1公司要闻
-            console.log(e);
+            localStorage.setItem("noticeTab", e);
             _this.data=[];
             _this.page = 1;
             _this.tabCode = e;
@@ -104,6 +104,7 @@ new Vue({
 				}
 			});
 		},
+        
 		searchData: function(){
             if(!sne.leaveLogin()) {
                 return;
