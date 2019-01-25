@@ -50,8 +50,13 @@
                         if(!sne.leaveLogin()) {
                             return;
                         }
+                        
+                        // 隐藏公告里面的会议安排页面
+                        if(plus.webview.getWebviewById("meeting.html")) {
+                            plus.webview.getWebviewById("meeting.html").hide();
+                        }
+                        
                         var tabIndex = $(this).index();
-                        console.log(app.loginInfo.userType)
                         if(app.loginInfo.userType == 0 && tabIndex != 0) {
                             return;
                         }
@@ -75,6 +80,12 @@
         				//隐藏当前;
                         console.log(activeTab) 
         				plus.webview.hide(activeTab);
+                        if(targetTab == "application.html") {
+                            var noticeTab = localStorage.getItem("noticeTab");
+                            if(noticeTab == 2) {
+                                plus.webview.getWebviewById("meeting.html").show();
+                            } 
+                        }
         				//更改当前活跃的选项卡
         				activeTab = targetTab;
         			});
