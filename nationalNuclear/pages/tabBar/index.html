@@ -47,7 +47,16 @@
         			}
         			var activeTab = subpages[0];
         			mui('.mui-bar-tab').on('tap', 'a', function(e) {
-                        if(!sne.leaveLogin()) {
+                        var types = {}; 
+                        types[plus.networkinfo.CONNECTION_UNKNOW] = false; 
+                        types[plus.networkinfo.CONNECTION_NONE] = false; 
+                        types[plus.networkinfo.CONNECTION_ETHERNET] = true; 
+                        types[plus.networkinfo.CONNECTION_WIFI] = true; 
+                        types[plus.networkinfo.CONNECTION_CELL2G] = true; 
+                        types[plus.networkinfo.CONNECTION_CELL3G] = true; 
+                        types[plus.networkinfo.CONNECTION_CELL4G] = true;
+                        var isNetwork = types[plus.networkinfo.getCurrentType()];
+                        if(!isNetwork) {
                             return;
                         }
                         
@@ -83,7 +92,7 @@
                         if(targetTab == "application.html") {
                             var noticeTab = localStorage.getItem("noticeTab");
                             if(noticeTab == 2) {
-                                plus.webview.getWebviewById("meeting.html").show();
+                                // plus.webview.getWebviewById("meeting.html").show();
                             } 
                         }
         				//更改当前活跃的选项卡

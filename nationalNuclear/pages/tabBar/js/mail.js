@@ -62,7 +62,10 @@ var example1 = new Vue({
 						});
 					}
 					_this.list = arr;
-					plus.nativeUI.closeWaiting();
+                    setTimeout(function() {
+                        plus.nativeUI.closeWaiting();
+                    }, 2000)
+					
                     _this.mailList = data;
                     _this.allList = data;
             	},
@@ -116,7 +119,10 @@ var example1 = new Vue({
 					}
 					_this.list = arr;
 					$("input[type=search]").blur();
-					plus.nativeUI.closeWaiting();
+                    setTimeout(function() {
+                        plus.nativeUI.closeWaiting();
+                    }, 2000)
+					
 // 					var mailList1 = _this.allList.slice(0);
 // 					var arr = [];
 // 					for(var i =0;i<mailList1.length;i++){

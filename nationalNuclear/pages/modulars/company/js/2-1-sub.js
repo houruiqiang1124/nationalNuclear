@@ -38,7 +38,16 @@ new Vue({
 	},
 	methods: {
 		requestData:function (){
-            if(!sne.leaveLogin()) {
+            var types = {}; 
+            types[plus.networkinfo.CONNECTION_UNKNOW] = false; 
+            types[plus.networkinfo.CONNECTION_NONE] = false; 
+            types[plus.networkinfo.CONNECTION_ETHERNET] = true; 
+            types[plus.networkinfo.CONNECTION_WIFI] = true; 
+            types[plus.networkinfo.CONNECTION_CELL2G] = true; 
+            types[plus.networkinfo.CONNECTION_CELL3G] = true; 
+            types[plus.networkinfo.CONNECTION_CELL4G] = true;
+            var isNetwork = types[plus.networkinfo.getCurrentType()];
+            if(!isNetwork) {
                 return;
             }
 			var params = {};
@@ -68,7 +77,16 @@ new Vue({
 			});
 		},
 		searchData: function(){
-            if(!sne.leaveLogin()) {
+            var types = {}; 
+            types[plus.networkinfo.CONNECTION_UNKNOW] = false; 
+            types[plus.networkinfo.CONNECTION_NONE] = false; 
+            types[plus.networkinfo.CONNECTION_ETHERNET] = true; 
+            types[plus.networkinfo.CONNECTION_WIFI] = true; 
+            types[plus.networkinfo.CONNECTION_CELL2G] = true; 
+            types[plus.networkinfo.CONNECTION_CELL3G] = true; 
+            types[plus.networkinfo.CONNECTION_CELL4G] = true;
+            var isNetwork = types[plus.networkinfo.getCurrentType()];
+            if(!isNetwork) {
                 return;
             }
 			var params = {};

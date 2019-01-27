@@ -44,10 +44,13 @@ new Vue({
         // 切换导航
         navChange: function(e) {    // 0 公司公告  1公司要闻
             localStorage.setItem("noticeTab", e);
+          
             _this.data=[];
             _this.page = 1;
             _this.tabCode = e;
             if(e == 2) {
+                mui.toast("正在建设中");
+                return;
                 var subpage_style = {
                 	top: '108px',
                 	bottom: '50px'
@@ -70,7 +73,16 @@ new Vue({
             mui('#refreshContainer').pullRefresh().refresh(true);
         },
 		requestData:function (){
-            if(!sne.leaveLogin()) {
+            var types = {}; 
+            types[plus.networkinfo.CONNECTION_UNKNOW] = false; 
+            types[plus.networkinfo.CONNECTION_NONE] = false; 
+            types[plus.networkinfo.CONNECTION_ETHERNET] = true; 
+            types[plus.networkinfo.CONNECTION_WIFI] = true; 
+            types[plus.networkinfo.CONNECTION_CELL2G] = true; 
+            types[plus.networkinfo.CONNECTION_CELL3G] = true; 
+            types[plus.networkinfo.CONNECTION_CELL4G] = true;
+            var isNetwork = types[plus.networkinfo.getCurrentType()];
+            if(!isNetwork) {
                 return;
             }
 			var params = {};
@@ -106,7 +118,16 @@ new Vue({
 		},
         
 		searchData: function(){
-            if(!sne.leaveLogin()) {
+            var types = {}; 
+            types[plus.networkinfo.CONNECTION_UNKNOW] = false; 
+            types[plus.networkinfo.CONNECTION_NONE] = false; 
+            types[plus.networkinfo.CONNECTION_ETHERNET] = true; 
+            types[plus.networkinfo.CONNECTION_WIFI] = true; 
+            types[plus.networkinfo.CONNECTION_CELL2G] = true; 
+            types[plus.networkinfo.CONNECTION_CELL3G] = true; 
+            types[plus.networkinfo.CONNECTION_CELL4G] = true;
+            var isNetwork = types[plus.networkinfo.getCurrentType()];
+            if(!isNetwork) {
                 return;
             }
             if(_this.tabCode == 2) {
