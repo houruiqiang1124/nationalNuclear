@@ -92,7 +92,11 @@
                         if(targetTab == "application.html") {
                             var noticeTab = localStorage.getItem("noticeTab");
                             if(noticeTab == 2) {
-                                // plus.webview.getWebviewById("meeting.html").show();
+                                var view = plus.webview.getWebviewById("meeting.html");
+                                if(view) {
+                                    view.show();
+                                }
+                                
                             } 
                         }
         				//更改当前活跃的选项卡

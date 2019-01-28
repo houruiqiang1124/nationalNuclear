@@ -1,5 +1,7 @@
 (function(m, app) {
-    const host = "http://10.4.210.110:8081/";  // 测试服务器
+    // const host = "http://10.4.210.110:8888/";  // 测试服务器
+    const host = "http://app.snpec.com.cn:8084/";    // 生产服务器
+    // const host = "http://10.4.210.124:8888/";     // 生产服务器
     // var host = "http://192.168.199.4:8888/";
     // const host = "http://39.105.204.84:8888/";  // 正式
 
@@ -70,7 +72,16 @@
      * option.success成功回调函数 
      */
     app.ajax = function(option) {
-        if(!sne.leaveLogin()) {
+        var types = {}; 
+        types[plus.networkinfo.CONNECTION_UNKNOW] = false; 
+        types[plus.networkinfo.CONNECTION_NONE] = false; 
+        types[plus.networkinfo.CONNECTION_ETHERNET] = true; 
+        types[plus.networkinfo.CONNECTION_WIFI] = true; 
+        types[plus.networkinfo.CONNECTION_CELL2G] = true; 
+        types[plus.networkinfo.CONNECTION_CELL3G] = true; 
+        types[plus.networkinfo.CONNECTION_CELL4G] = true;
+        var isNetwork = types[plus.networkinfo.getCurrentType()];
+        if(!isNetwork) {
             plus.nativeUI.closeWaiting();
             return;
         }

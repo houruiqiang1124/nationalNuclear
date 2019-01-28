@@ -577,7 +577,6 @@ new Vue({
 		},
 		sureSubmit: function(e) {
 			plus.nativeUI.closeWaiting();
-			_this.saveParam.reqCompleteDate = _this.saveParam.reqCompleteDate + " 00:00:00";
 			_this.saveParam.imgName = _this.imgName.join(',') || "";
 			_this.saveParam.imgAddress = _this.imgAddress.join(',') || "";
 			// console.log(_this.imgList.length)
@@ -622,6 +621,8 @@ new Vue({
 				method = app.INTERFACE.insertCheck
 			};
 			if (_this.checkParam()) {
+                _this.saveParam.reqCompleteDate = _this.saveParam.reqCompleteDate + " 00:00:00";
+
 				app.ajax({
 					url: method,
 					data: _this.saveParam,
@@ -828,7 +829,7 @@ new Vue({
             _this.saveParam.responsiblePerson = defaultResponsible && defaultResponsible.memberName;
             _this.saveParam.responsiblePersonId = defaultResponsible && defaultResponsible.memberId;
             _this.saveParam.copyPerson =defaultUser ? defaultUser : [];
-            _this.saveParam.phone = defaultPhone && defaultPhone;
+            _this.saveParam.phone = defaultPhone && defaultPhone || "";
         },
         // 离线缓存
         offline_save: function() {

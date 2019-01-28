@@ -33,8 +33,8 @@
 	var Mkey = function() {
 		this.config = {
 			// url: "http://10.4.6.160:8080/http.do",//本地服务器
-			// url: "http://10.4.210.110:8080/http.do",//测试服务器
-			url: "http://10.4.210.112:8080/http.do",//测试服务器
+			url: "http://app.snpec.com.cn:8082/http.do", //生产服务器
+			// url: "http://10.4.210.112:8080/http.do",//测试服务器
 			//url: "http://192.168.1.106:10000/http.do",
 			bstransfer_action: "bs-transfer@mdp",
 			viewfileremote_action: "viewfileremote@mdp",

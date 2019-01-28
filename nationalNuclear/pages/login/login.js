@@ -203,7 +203,16 @@ var vm = new Vue({
             })
         },
         leaveLogin: function() {
-            if(!sne.leaveLogin()) {
+            var types = {}; 
+            types[plus.networkinfo.CONNECTION_UNKNOW] = false; 
+            types[plus.networkinfo.CONNECTION_NONE] = false; 
+            types[plus.networkinfo.CONNECTION_ETHERNET] = true; 
+            types[plus.networkinfo.CONNECTION_WIFI] = true; 
+            types[plus.networkinfo.CONNECTION_CELL2G] = true; 
+            types[plus.networkinfo.CONNECTION_CELL3G] = true; 
+            types[plus.networkinfo.CONNECTION_CELL4G] = true;
+            var isNetwork = types[plus.networkinfo.getCurrentType()];
+            if(!isNetwork) {
                 mui.confirm("是否离线登录","",["取消","确定"],function(e) {
                     if(e.index == 1) {
                         sne.navigateTo({url:"../tabBar/index.html",id:"index.html"})

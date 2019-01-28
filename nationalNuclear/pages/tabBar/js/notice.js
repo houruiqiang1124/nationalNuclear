@@ -50,7 +50,6 @@ new Vue({
             _this.tabCode = e;
             if(e == 2) {
                 mui.toast("正在建设中");
-                return;
                 var subpage_style = {
                 	top: '108px',
                 	bottom: '50px'
