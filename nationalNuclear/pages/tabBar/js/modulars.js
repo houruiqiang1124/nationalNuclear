@@ -50,12 +50,12 @@ new Vue({
 		],
 		myModulars: [
             
-			{
-				title: "HSE监督检查",
-				url: "../modulars/hse/5-0HSE.html",
-				icon: "../../static/hse.png",
-				id: "5-0HSE.html"
-			}
+// 			{
+// 				title: "HSE监督检查",
+// 				url: "../modulars/hse/5-0HSE.html",
+// 				icon: "../../static/hse.png",
+// 				id: "5-0HSE.html"
+// 			}
 		]
 	},
 	mounted: function() {

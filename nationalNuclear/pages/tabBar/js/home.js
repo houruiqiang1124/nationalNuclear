@@ -14,12 +14,12 @@ new Vue({
 // 				icon: "../../static/yuangongquxiang.png",
 // 				id:"4-1staff.html"
 // 			},
-			{
-				title: "HSE监督检查",
-				url: "../modulars/hse/5-0HSE.html",
-				icon: "../../static/hse.png",
-				id:"5-0HSE.html"
-			}
+// 			{
+// 				title: "HSE监督检查",
+// 				url: "../modulars/hse/5-0HSE.html",
+// 				icon: "../../static/hse.png",
+// 				id:"5-0HSE.html"
+// 			}
 		]
 	},
 	mounted: function() {
@@ -58,9 +58,9 @@ new Vue({
             if(myModulars) {
             	_this.modular = JSON.parse(myModulars)
             }
-            if(app.loginInfo.userType == 0) {
-                _this.showUserType = false;
-            }
+//             if(app.loginInfo.userType == 0) {
+//                 _this.showUserType = false;
+//             }
         },
         // 获取待办列表
 		toDoList: function(){

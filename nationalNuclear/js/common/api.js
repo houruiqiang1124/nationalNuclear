@@ -10,7 +10,7 @@
 	app.vpnUsername="appuser";
 	app.vpnPassword="1!qQ1111";
 	app.vpnRsa="";
-	app.mkeyUrl = "http://10.4.210.112:8080/snpec/";
+	app.mkeyUrl = "http://app.snpec.com.cn:8082/snpec/";
     app.protal = "http://10.4.200.59";//门户地址
 	app.edrmsUrl = "http://10.246.4.105:8080/MobileService/ActionServlet";
     
